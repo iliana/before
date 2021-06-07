@@ -62,6 +62,11 @@ async fn index(time: OffsetTime) -> Result<Option<Proxy>> {
 // the correct thing when the page loads.
 #[catch(404)]
 async fn index_default(req: &Request<'_>) -> Result<Either<Proxy, NotFound<()>>> {
+    let path = req.uri().path();
+    if path.starts_with("/api") || path.starts_with("/database") || path.starts_with("/events") {
+        return Ok(Either::Right(NotFound(())));
+    }
+
     let time = OffsetTime::from_request(req).await.unwrap();
     // Normally we'd want to return a `Result<Option<_>>` here, but the Responder implementation
     // for Option "fails" with the NotFound Responder. Any failing Responder on a _catcher_ results
