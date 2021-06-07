@@ -70,6 +70,7 @@ fn rocket() -> _ {
                 api::get_user,
                 api::get_user_rewards,
                 events::stream_data,
+                time::set_offset,
                 site_static,
                 index
             ],
