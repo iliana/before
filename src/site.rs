@@ -1,7 +1,7 @@
 use crate::chronicler::{Order, Paginated, RequestBuilder, SiteUpdate};
 use anyhow::Result;
 use chrono::{DateTime, Utc};
-use reqwest::{Response, Url};
+use reqwest::Response;
 
 pub async fn get(path: &str, at: DateTime<Utc>) -> Result<Option<Response>> {
     // TODO cache `v1/site/updates`

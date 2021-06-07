@@ -12,12 +12,24 @@ fn get_offset(req: &Request<'_>) -> Duration {
     {
         Duration::seconds(secs)
     } else {
-        let duration = Duration::weeks(2);
+        let duration = Duration::weeks(3);
         req.cookies().add(Cookie::new(
             "offset_sec",
             duration.num_seconds().to_string(),
         ));
         duration
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
+pub struct Offset(pub Duration);
+
+#[async_trait]
+impl<'r> FromRequest<'r> for Offset {
+    type Error = Infallible;
+
+    async fn from_request(req: &'r Request<'_>) -> Outcome<Offset, Infallible> {
+        Outcome::Success(Offset(get_offset(req)))
     }
 }
 

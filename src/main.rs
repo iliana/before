@@ -7,6 +7,7 @@ macro_rules! io_err {
 }
 
 mod chronicler;
+mod events;
 mod proxy;
 mod site;
 mod time;
@@ -80,6 +81,15 @@ async fn index_default(req: &Request<'_>) -> Result<Either<Proxy, NotFound<()>>>
 #[launch]
 fn rocket() -> _ {
     rocket::build()
-        .mount("/", routes![get_user, get_user_rewards, site_static, index])
+        .mount(
+            "/",
+            routes![
+                events::stream_data,
+                get_user,
+                get_user_rewards,
+                site_static,
+                index
+            ],
+        )
         .register("/", catchers![index_default])
 }
