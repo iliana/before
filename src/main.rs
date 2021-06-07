@@ -6,6 +6,7 @@ macro_rules! io_err {
     };
 }
 
+mod api;
 mod chronicler;
 mod events;
 mod proxy;
@@ -17,29 +18,11 @@ use crate::time::OffsetTime;
 use anyhow::anyhow;
 use either::Either;
 use rocket::request::FromRequest;
-use rocket::response::content::Json;
-use rocket::response::status::{NoContent, NotFound};
+use rocket::response::status::NotFound;
 use rocket::{catch, catchers, get, launch, routes, Request};
-use serde_json::json;
 use std::path::PathBuf;
 
 type Result<T> = std::result::Result<T, rocket::response::Debug<anyhow::Error>>;
-
-#[get("/api/getUser")]
-fn get_user() -> Json<serde_json::Value> {
-    Json(json!({
-        "id": "be457c4e-79e6-4016-94f5-76c6705741bb",
-        "email": "before@sibr.dev",
-        "verified": true,
-        "snacks": [],
-        "snackOrder": [],
-    }))
-}
-
-#[get("/api/getUserRewards")]
-fn get_user_rewards() -> NoContent {
-    NoContent
-}
 
 #[get("/static/<path..>")]
 async fn site_static(path: PathBuf, time: OffsetTime) -> Result<Option<Proxy>> {
@@ -84,9 +67,9 @@ fn rocket() -> _ {
         .mount(
             "/",
             routes![
+                api::get_user,
+                api::get_user_rewards,
                 events::stream_data,
-                get_user,
-                get_user_rewards,
                 site_static,
                 index
             ],
