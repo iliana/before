@@ -4,7 +4,7 @@ use rocket::http::Cookie;
 use rocket::request::{FromRequest, Outcome, Request};
 use std::convert::Infallible;
 
-pub fn get_offset(req: &Request<'_>) -> Duration {
+fn get_offset(req: &Request<'_>) -> Duration {
     if let Some(secs) = req
         .cookies()
         .get_pending("offset_sec")

@@ -14,8 +14,8 @@ mod time;
 use crate::proxy::Proxy;
 use crate::time::OffsetTime;
 use anyhow::anyhow;
-use chrono::Utc;
 use either::Either;
+use rocket::request::FromRequest;
 use rocket::response::status::NotFound;
 use rocket::{catch, catchers, get, launch, routes, Request};
 use std::path::PathBuf;
@@ -33,19 +33,23 @@ async fn site_static(path: PathBuf, time: OffsetTime) -> Result<Option<Proxy>> {
         .map(Proxy))
 }
 
+#[get("/")]
+async fn index(time: OffsetTime) -> Result<Option<Proxy>> {
+    // TODO replace cloudfront URLs with chronicler-backed proxies, just in case they start
+    // deleting old files out of S3.
+    Ok(site::get("/", time.0).await?.map(Proxy))
+}
+
 // Blaseball returns the index page for any unknown route, so that the React frontend can display
 // the correct thing when the page loads.
 #[catch(404)]
-async fn index(req: &Request<'_>) -> Result<Either<Proxy, NotFound<()>>> {
-    let time = Utc::now() - crate::time::get_offset(req);
+async fn index_default(req: &Request<'_>) -> Result<Either<Proxy, NotFound<()>>> {
+    let time = OffsetTime::from_request(req).await.unwrap();
     // Normally we'd want to return a `Result<Option<_>>` here, but the Responder implementation
     // for Option "fails" with the NotFound Responder. Any failing Responder on a _catcher_ results
     // in a 500. This shouldn't ever happen, but use `Either` to work around this.
-    //
-    // TODO replace cloudfront URLs with chronicler-backed proxies, just in case they start
-    // deleting old files out of S3.
-    Ok(match site::get("/", time).await? {
-        Some(response) => Either::Left(Proxy(response)),
+    Ok(match index(time).await? {
+        Some(response) => Either::Left(response),
         None => Either::Right(NotFound(())),
     })
 }
@@ -53,6 +57,6 @@ async fn index(req: &Request<'_>) -> Result<Either<Proxy, NotFound<()>>> {
 #[launch]
 fn rocket() -> _ {
     rocket::build()
-        .mount("/", routes![site_static])
-        .register("/", catchers![index])
+        .mount("/", routes![site_static, index])
+        .register("/", catchers![index_default])
 }
