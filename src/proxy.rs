@@ -23,7 +23,7 @@ impl<'r> Responder<'r, 'static> for Proxy {
             .streamed_body(
                 self.0
                     .bytes_stream()
-                    .map_err(|err| io_err!(err))
+                    .map_err(|err| std::io::Error::new(std::io::ErrorKind::Other, err))
                     .into_async_read()
                     .compat(),
             )

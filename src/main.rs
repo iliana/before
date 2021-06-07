@@ -1,11 +1,5 @@
 #![deny(rust_2018_idioms)]
 
-macro_rules! io_err {
-    ($err:expr) => {
-        std::io::Error::new(std::io::ErrorKind::Other, $err)
-    };
-}
-
 mod api;
 mod chronicler;
 mod events;

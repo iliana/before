@@ -1,6 +1,6 @@
 use crate::chronicler::{Order, RequestBuilder, Stream, Version, Versions};
 use crate::time::{Offset, OffsetTime};
-use anyhow::Result;
+use crate::Result;
 use chrono::Utc;
 use rocket::get;
 use rocket::response::stream::{Event, EventStream};
@@ -42,7 +42,8 @@ async fn next_event(version: Version<Box<RawValue>>, offset: Offset) -> Event {
     Event::json(&version.data)
 }
 
-async fn stream_data_inner(time: OffsetTime, offset: Offset) -> Result<EventStream![]> {
+#[get("/events/streamData")]
+pub async fn stream_data(time: OffsetTime, offset: Offset) -> Result<EventStream![]> {
     // A given `Stream` version does not necessarily have all the top-level fields present, but the
     // frontend needs all fields present in the first event. While we fetch the next 15 events, we
     // also fetch the previous 15, allowing us to find the most recent definition of each field and
@@ -66,18 +67,12 @@ async fn stream_data_inner(time: OffsetTime, offset: Offset) -> Result<EventStre
             .count(15)
             .order(Order::Ascending)
             .json(),
-    )?;
+    )
+    .map_err(rocket::response::Debug)?;
     Ok(EventStream! {
         yield start_event(&before);
         for version in after.items {
             yield next_event(version, offset).await;
         }
     })
-}
-
-#[get("/events/streamData")]
-pub async fn stream_data(time: OffsetTime, offset: Offset) -> crate::Result<EventStream![]> {
-    stream_data_inner(time, offset)
-        .await
-        .map_err(rocket::response::Debug)
 }
