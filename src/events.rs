@@ -1,40 +1,40 @@
-use crate::chronicler::{Order, RequestBuilder, Stream, StreamValue, Version, Versions};
+use crate::chronicler::{Order, RequestBuilder, Stream, Version, Versions};
 use crate::time::{Offset, OffsetTime};
 use anyhow::Result;
 use chrono::Utc;
 use rocket::get;
 use rocket::response::stream::{Event, EventStream};
 use rocket::tokio::{time::sleep, try_join};
-use serde_json::value::RawValue;
+use serde_json::{json, value::RawValue};
 use std::time::Duration;
 
 type PastPage = Versions<Stream>;
 type Page = Versions<Box<RawValue>>;
 
 fn start_event(before: &PastPage) -> Event {
-    Event::json(&Stream {
-        value: StreamValue {
-            games: before
+    Event::json(&json!({
+        "value": {
+            "games": before
                 .items
                 .iter()
-                .find_map(|v| v.data.value.games.as_ref().cloned()),
-            leagues: before
+                .find_map(|v| v.data.value.games.as_ref()),
+            "leagues": before
                 .items
                 .iter()
-                .find_map(|v| v.data.value.leagues.as_ref().cloned()),
-            temporal: before
+                .find_map(|v| v.data.value.leagues.as_ref()),
+            "temporal": before
                 .items
                 .iter()
-                .find_map(|v| v.data.value.temporal.as_ref().cloned()),
-            fights: before
+                .find_map(|v| v.data.value.temporal.as_ref()),
+            "fights": before
                 .items
                 .iter()
-                .find_map(|v| v.data.value.fights.as_ref().cloned()),
-        },
-    })
+                .find_map(|v| v.data.value.fights.as_ref()),
+        }
+    }))
 }
 
-async fn next_event(version: &Version<Box<RawValue>>, offset: Offset) -> Event {
+async fn next_event(version: Version<Box<RawValue>>, offset: Offset) -> Event {
     let duration = (version.valid_from - (Utc::now() - offset.0))
         .to_std()
         .unwrap_or_else(|_| Duration::from_nanos(0));
@@ -42,62 +42,35 @@ async fn next_event(version: &Version<Box<RawValue>>, offset: Offset) -> Event {
     Event::json(&version.data)
 }
 
-async fn next_page(page: &Page) -> Option<Page> {
-    if page.items.is_empty() {
-        sleep(Duration::from_secs(45)).await;
-    }
-    let next_page = page.next_page.as_ref()?;
-    match RequestBuilder::new("v2/versions")
-        .ty("Stream")
-        .page(next_page)
-        .count(50)
-        .order(Order::Ascending)
-        .json()
-        .await
-    {
-        Ok(p) => Some(p),
-        Err(err) => {
-            log::error!(
-                "{:?}",
-                err.context("failed to fetch next page of v2/versions")
-            );
-            None
-        }
-    }
-}
-
 async fn stream_data_inner(time: OffsetTime, offset: Offset) -> Result<EventStream![]> {
     // A given `Stream` version does not necessarily have all the top-level fields present, but the
-    // frontend needs all fields present in the first event. While we fetch the next 50 events, we
-    // also fetch the previous 25, allowing us to find the most recent definition of each field and
+    // frontend needs all fields present in the first event. While we fetch the next 15 events, we
+    // also fetch the previous 15, allowing us to find the most recent definition of each field and
     // send it as the first event to the stream.
     //
+    // There is no need to continue fetching additional pages because frontend is hardcoded to
+    // close and reopen the stream every 40 seconds... :(
+    //
     // `EventStream` cannot handle errors, so we start by making the two requests we need and
-    // propagating their errors before the stream starts. If future requests fail, end the stream.
-    let (before, mut page): (PastPage, Page) = try_join!(
+    // propagating their errors before the stream starts.
+    let (before, after): (PastPage, Page) = try_join!(
         RequestBuilder::new("v2/versions")
             .ty("Stream")
             .before(time.0)
-            .count(25)
+            .count(15)
             .order(Order::Descending)
             .json(),
         RequestBuilder::new("v2/versions")
             .ty("Stream")
             .after(time.0)
-            .count(50)
+            .count(15)
             .order(Order::Ascending)
             .json(),
     )?;
     Ok(EventStream! {
         yield start_event(&before);
-        loop {
-            for version in &page.items {
-                yield next_event(version, offset).await;
-            }
-            page = match next_page(&page).await {
-                Some(page) => page,
-                None => break,
-            }
+        for version in after.items {
+            yield next_event(version, offset).await;
         }
     })
 }
