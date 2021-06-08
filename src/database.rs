@@ -39,7 +39,10 @@ pub fn entity_routes() -> Vec<Route> {
 
     vec![
         entity_route!("/api/getIdols", "Idols"),
+        entity_route!("/api/getTribute", "Tributes"),
+        entity_route!("/database/giftProgress"),
         entity_route!("/database/globalEvents"),
+        entity_route!("/database/offseasonRecap"),
         entity_route!("/database/offseasonSetup"),
         entity_route!("/database/shopSetup"),
     ]
