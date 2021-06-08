@@ -30,7 +30,7 @@ features = ["json", "stream"]
 
 [dependencies.rocket]
 git = "https://github.com/SergioBenitez/Rocket"
-branch = "v0.5-pre"
+branch = "master"
 features = ["json"]
 
 [dependencies.serde]
