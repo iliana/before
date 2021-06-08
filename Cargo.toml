@@ -1,9 +1,12 @@
 [package]
-name = "blaseball-before"
+name = "before"
 version = "0.1.0"
 authors = ["iliana etaoin <iliana@buttslol.net>"]
 edition = "2018"
 publish = false
+
+[profile.release]
+lto = 'thin'
 
 [dependencies]
 derive_builder = "0.10"

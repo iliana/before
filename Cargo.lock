@@ -110,19 +110,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "904dfeac50f3cdaba28fc6f57fdcddb75f49ed61346676a78c4ffe55877802fd"
 
 [[package]]
-name = "binascii"
-version = "0.1.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "383d29d513d8764dcdc42ea295d979eb99c3c9f00607b3692cf68a431f7dca72"
-
-[[package]]
-name = "bitflags"
-version = "1.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cf1de2fe8c75bc145a2f577add951f8134889b4795d47466a54a5c846d691693"
-
-[[package]]
-name = "blaseball-before"
+name = "before"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -138,6 +126,18 @@ dependencies = [
  "serde_urlencoded",
  "tokio-util",
 ]
+
+[[package]]
+name = "binascii"
+version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "383d29d513d8764dcdc42ea295d979eb99c3c9f00607b3692cf68a431f7dca72"
+
+[[package]]
+name = "bitflags"
+version = "1.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cf1de2fe8c75bc145a2f577add951f8134889b4795d47466a54a5c846d691693"
 
 [[package]]
 name = "bumpalo"
@@ -1149,7 +1149,7 @@ dependencies = [
 [[package]]
 name = "rocket"
 version = "0.5.0-dev"
-source = "git+https://github.com/SergioBenitez/Rocket?branch=v0.5-pre#bbc41ee4399fc022b5de3d13f026d9cf592db03a"
+source = "git+https://github.com/SergioBenitez/Rocket?branch=v0.5-pre#693273806c5d7795e140bf79416e10d2987860a1"
 dependencies = [
  "async-stream",
  "async-trait",
@@ -1187,7 +1187,7 @@ dependencies = [
 [[package]]
 name = "rocket_codegen"
 version = "0.5.0-dev"
-source = "git+https://github.com/SergioBenitez/Rocket?branch=v0.5-pre#bbc41ee4399fc022b5de3d13f026d9cf592db03a"
+source = "git+https://github.com/SergioBenitez/Rocket?branch=v0.5-pre#693273806c5d7795e140bf79416e10d2987860a1"
 dependencies = [
  "devise",
  "glob",
@@ -1202,7 +1202,7 @@ dependencies = [
 [[package]]
 name = "rocket_http"
 version = "0.5.0-dev"
-source = "git+https://github.com/SergioBenitez/Rocket?branch=v0.5-pre#bbc41ee4399fc022b5de3d13f026d9cf592db03a"
+source = "git+https://github.com/SergioBenitez/Rocket?branch=v0.5-pre#693273806c5d7795e140bf79416e10d2987860a1"
 dependencies = [
  "cookie",
  "either",
