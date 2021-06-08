@@ -63,6 +63,7 @@ fn rocket() -> _ {
         .mount(
             "/",
             routes![
+                api::get_active_bets,
                 api::get_user,
                 api::get_user_rewards,
                 database::player_names_ids,

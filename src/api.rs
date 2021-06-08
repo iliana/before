@@ -3,6 +3,11 @@ use rocket::response::status::NoContent;
 use rocket::serde::json::Json;
 use serde_json::{json, Value};
 
+#[get("/api/getActiveBets")]
+pub fn get_active_bets() -> Json<Vec<()>> {
+    Json(vec![])
+}
+
 #[get("/api/getUser")]
 pub fn get_user() -> Json<Value> {
     Json(json!({
