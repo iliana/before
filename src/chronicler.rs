@@ -6,6 +6,12 @@ use serde::{Deserialize, Serialize};
 use serde_json::value::RawValue;
 use std::fmt;
 
+lazy_static::lazy_static! {
+    static ref BASE_URL: String = std::env::var("CHRONICLER_BASE_URL")
+        .ok()
+        .unwrap_or_else(|| "https://api.sibr.dev/chronicler/".to_string());
+}
+
 #[derive(Debug, Default, Serialize, Builder)]
 #[builder(pattern = "owned")]
 pub struct Request {
@@ -40,7 +46,7 @@ impl RequestBuilder {
         let request = self.build()?;
         let url = format!(
             "{}{}?{}",
-            option_env!("CHRONICLER_BASE_URL").unwrap_or("https://api.sibr.dev/chronicler/"),
+            *BASE_URL,
             &request.route,
             serde_urlencoded::to_string(&request)?
         );
