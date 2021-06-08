@@ -48,6 +48,8 @@ async fn index(time: OffsetTime) -> Result<Option<Html<String>>> {
                     "</head>",
                     r#"<link href="/_before/inject.css" rel="stylesheet"></head>"#,
                 )
+                // swap title
+                .replace("<title>Blaseball</title>", "<title>Before</title>")
                 // ensure static assets are served by us
                 .replace("https://d35iw2jmbg6ut8.cloudfront.net/static/", "/static/")
                 // remove opengraph/twitter meta
