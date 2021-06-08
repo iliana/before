@@ -10,7 +10,6 @@ derive_builder = "0.10"
 either = "1"
 lazy_static = "1"
 log = "0.4"
-serde_plain = "0.3"
 serde_urlencoded = "0.7"
 
 [dependencies.anyhow]

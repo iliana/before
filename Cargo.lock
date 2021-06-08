@@ -135,7 +135,6 @@ dependencies = [
  "rocket",
  "serde",
  "serde_json",
- "serde_plain",
  "serde_urlencoded",
  "tokio-util",
 ]
@@ -1342,15 +1341,6 @@ checksum = "799e97dc9fdae36a5c8b8f2cae9ce2ee9fdce2058c57a93e6099d919fd982f79"
 dependencies = [
  "itoa",
  "ryu",
- "serde",
-]
-
-[[package]]
-name = "serde_plain"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "625fb0da2b006092b426a94acc1611bec52f2ec27bb27b266a9f93c29ee38eda"
-dependencies = [
  "serde",
 ]
 

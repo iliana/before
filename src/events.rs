@@ -59,13 +59,13 @@ pub async fn stream_data(time: OffsetTime, offset: Offset) -> Result<EventStream
             .ty("Stream")
             .before(time.0)
             .count(15)
-            .order(Order::Descending)
+            .order(Order::Desc)
             .json(),
         RequestBuilder::new("v2/versions")
             .ty("Stream")
             .after(time.0)
             .count(15)
-            .order(Order::Ascending)
+            .order(Order::Asc)
             .json(),
     )
     .map_err(rocket::response::Debug)?;

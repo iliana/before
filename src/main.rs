@@ -65,6 +65,7 @@ fn rocket() -> _ {
             routes![
                 api::get_user,
                 api::get_user_rewards,
+                database::player_names_ids,
                 events::stream_data,
                 time::set_offset,
                 site_static,

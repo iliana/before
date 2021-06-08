@@ -1,6 +1,7 @@
-use crate::chronicler::{RequestBuilder, Versions};
+use crate::chronicler::{PlayerNameId, RequestBuilder, Versions};
 use crate::time::OffsetTime;
 use crate::Result;
+use rocket::futures::TryStreamExt;
 use rocket::serde::json::Json;
 use rocket::Route;
 use rocket::{get, routes};
@@ -43,4 +44,17 @@ pub fn entity_routes() -> Vec<Route> {
         entity_route!("/database/shopSetup"),
     ]
     .concat()
+}
+
+#[get("/database/playerNamesIds")]
+pub async fn player_names_ids(time: OffsetTime) -> Result<Json<Vec<PlayerNameId>>> {
+    let mut v = RequestBuilder::new("v2/entities")
+        .ty("Player")
+        .at(time.0)
+        .paged_json::<PlayerNameId>()
+        .map_ok(|v| v.data)
+        .try_collect::<Vec<_>>()
+        .await?;
+    v.sort_by(|l, r| l.name.cmp(&r.name));
+    Ok(Json(v))
 }

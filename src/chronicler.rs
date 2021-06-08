@@ -2,9 +2,10 @@ use anyhow::Result;
 use chrono::{DateTime, Utc};
 use derive_builder::Builder;
 use reqwest::Response;
+use rocket::futures::stream::Stream as StreamTrait;
+use rocket::response::stream::stream;
 use serde::{Deserialize, Serialize};
 use serde_json::value::RawValue;
-use std::fmt;
 
 lazy_static::lazy_static! {
     static ref BASE_URL: String = std::env::var("CHRONICLER_BASE_URL")
@@ -13,7 +14,7 @@ lazy_static::lazy_static! {
 }
 
 #[derive(Debug, Default, Serialize, Builder)]
-#[builder(pattern = "owned")]
+#[builder(derive(Clone), pattern = "owned")]
 pub struct Request {
     #[builder(setter(into))]
     #[serde(skip)]
@@ -42,6 +43,10 @@ pub struct Request {
 }
 
 impl RequestBuilder {
+    pub fn new<I: Into<String>>(route: I) -> RequestBuilder {
+        RequestBuilder::default().route(route)
+    }
+
     pub async fn send(self) -> Result<Response> {
         let request = self.build()?;
         let url = format!(
@@ -60,35 +65,39 @@ impl RequestBuilder {
     {
         Ok(self.send().await?.json().await?)
     }
-}
 
-impl RequestBuilder {
-    pub fn new<I: Into<String>>(route: I) -> RequestBuilder {
-        RequestBuilder::default().route(route)
-    }
-}
+    pub fn paged_json<T>(self) -> impl StreamTrait<Item = Result<Version<T>>>
+    where
+        for<'de> T: Deserialize<'de>,
+    {
+        stream! {
+            let response = self.clone().json::<Versions<T>>().await?;
+            for item in response.items {
+                yield Ok(item);
+            }
+            let mut next_page = response.next_page;
 
-#[derive(Debug, Copy, Clone)]
-pub enum Order {
-    Ascending,
-    Descending,
-}
-
-impl fmt::Display for Order {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            Order::Ascending => "asc",
-            Order::Descending => "desc",
+            while let Some(page) = next_page {
+                let response = self.clone().page(page).json::<Versions<T>>().await?;
+                for item in response.items {
+                    yield Ok(item);
+                }
+                next_page = response.next_page;
+            }
         }
-        .fmt(f)
     }
 }
 
-serde_plain::derive_serialize_from_display!(Order);
+#[derive(Debug, Copy, Clone, Serialize)]
+#[serde(rename_all = "lowercase")]
+pub enum Order {
+    Asc,
+    Desc,
+}
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Paginated<T> {
+pub struct Data<T> {
     pub next_page: Option<String>,
     pub data: Vec<T>,
 }
@@ -125,4 +134,10 @@ pub struct StreamValue {
     pub leagues: Option<Box<RawValue>>,
     pub temporal: Option<Box<RawValue>>,
     pub fights: Option<Box<RawValue>>,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct PlayerNameId {
+    pub id: String,
+    pub name: String,
 }
