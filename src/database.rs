@@ -7,44 +7,80 @@ use rocket::Route;
 use rocket::{get, routes};
 use serde_json::value::RawValue;
 
-type Entity = Result<Option<Json<Box<RawValue>>>>;
+async fn fetch(
+    ty: &'static str,
+    ids: Option<String>,
+    time: OffsetTime,
+) -> Result<impl Iterator<Item = Box<RawValue>>> {
+    let mut builder = RequestBuilder::new("v2/entities").ty(ty).at(time.0);
+    if let Some(ids) = ids {
+        builder = builder.id(ids)
+    }
 
-async fn entity(ty: &'static str, time: OffsetTime) -> Entity {
-    Ok(RequestBuilder::new("v2/entities")
-        .ty(ty)
-        .at(time.0)
-        .count(1)
+    Ok(builder
         .json::<Versions<Box<RawValue>>>()
         .await?
         .items
         .into_iter()
-        .next()
-        .map(|version| Json(version.data)))
+        .map(|version| version.data))
 }
 
 pub fn entity_routes() -> Vec<Route> {
-    macro_rules! entity_route {
+    macro_rules! route {
         ($uri:expr) => {
-            entity_route!($uri, $uri.rsplitn(2, '/').next().unwrap())
+            route!($uri, $uri.rsplitn(2, '/').next().unwrap())
         };
 
         ($uri:expr, $ty:expr) => {{
             #[get($uri)]
-            pub async fn entity_route(time: OffsetTime) -> Entity {
-                entity($ty, time).await
+            pub async fn entity(time: OffsetTime) -> Result<Option<Json<Box<RawValue>>>> {
+                Ok(fetch($ty, None, time).await?.next().map(Json))
             }
-            routes![entity_route]
+            routes![entity]
+        }};
+    }
+
+    macro_rules! route_id {
+        ($uri:expr, $ty:expr) => {{
+            #[get($uri)]
+            pub async fn entity_id(
+                id: String,
+                time: OffsetTime,
+            ) -> Result<Option<Json<Box<RawValue>>>> {
+                Ok(fetch($ty, Some(id), time).await?.next().map(Json))
+            }
+            routes![entity_id]
+        }};
+    }
+
+    macro_rules! route_ids {
+        ($uri:expr, $ty:expr) => {{
+            #[get($uri)]
+            pub async fn entity_ids(
+                ids: String,
+                time: OffsetTime,
+            ) -> Result<Json<Vec<Box<RawValue>>>> {
+                Ok(Json(fetch($ty, Some(ids), time).await?.collect()))
+            }
+            routes![entity_ids]
         }};
     }
 
     vec![
-        entity_route!("/api/getIdols", "Idols"),
-        entity_route!("/api/getTribute", "Tributes"),
-        entity_route!("/database/giftProgress"),
-        entity_route!("/database/globalEvents"),
-        entity_route!("/database/offseasonRecap"),
-        entity_route!("/database/offseasonSetup"),
-        entity_route!("/database/shopSetup"),
+        route!("/api/getIdols", "Idols"),
+        route!("/api/getTribute", "Tributes"),
+        route!("/database/allTeams", "Team"),
+        route!("/database/giftProgress"),
+        route!("/database/globalEvents"),
+        route!("/database/offseasonRecap"),
+        route!("/database/offseasonSetup"),
+        route!("/database/shopSetup"),
+        route_id!("/database/renovationProgress?<id>", "RenovationProgress"),
+        route_id!("/database/teamElectionStats?<id>", "TeamElectionStats"),
+        route_ids!("/database/bonusResults?<ids>", "BonusResult"),
+        route_ids!("/database/decreeResults?<ids>", "DecreeResult"),
+        route_ids!("/database/eventResults?<ids>", "EventResult"),
+        route_ids!("/database/players?<ids>", "Player"),
     ]
     .concat()
 }
