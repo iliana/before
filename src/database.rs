@@ -64,7 +64,7 @@ pub fn entity_routes() -> Vec<Route> {
                 ids: String,
                 time: OffsetTime,
             ) -> Result<Json<Vec<Box<RawValue>>>> {
-                if ids.is_empty() {
+                if ids.is_empty() || ids == "placeholder-idol" {
                     Ok(Json(vec![]))
                 } else {
                     Ok(Json(fetch($ty, Some(ids), time).await?.collect()))

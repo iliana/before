@@ -23,16 +23,33 @@ pub fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
             .unwrap_or(false),
         "verified": true,
         "coins": 0,
-        "snacks": [],
-        "snackOrder": [],
+        "idol": "placeholder-idol",
+        "unlockedShop": true,
+        "unlockedElection": true,
+        "snacks": {
+            "Forbidden_Knowledge_Access": 1,
+            "Stadium_Access": 1,
+            "Wills_Access": 1,
+        },
+        "snackOrder": [
+            "Forbidden_Knowledge_Access",
+            "Stadium_Access",
+            "Wills_Access",
+            "E",
+            "E",
+            "E",
+            "E",
+            "E",
+        ],
+        "packSize": 8,
         // set all these to reasonably high values to avoid rendering the "what to do next" actions
         // in the bulletin
         "trackers": {
-            "BEGS": 69,
-            "BETS": 69,
-            "VOTES_CAST": 69,
-            "SNACKS_BOUGHT": 69,
-            "SNACK_UPGRADES": 69,
+            "BEGS": 3,
+            "BETS": 10,
+            "VOTES_CAST": 1,
+            "SNACKS_BOUGHT": 2,
+            "SNACK_UPGRADES": 3,
         },
     }))
 }
