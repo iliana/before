@@ -13,8 +13,8 @@ use crate::time::OffsetTime;
 use anyhow::anyhow;
 use either::Either;
 use rocket::request::FromRequest;
-use rocket::response::status::NotFound;
-use rocket::{catch, catchers, get, launch, routes, Request};
+use rocket::response::{status::NotFound, Redirect};
+use rocket::{catch, catchers, get, launch, routes, uri, Request};
 use std::path::PathBuf;
 
 type Result<T> = std::result::Result<T, rocket::response::Debug<anyhow::Error>>;
@@ -35,6 +35,11 @@ async fn index(time: OffsetTime) -> Result<Option<Proxy>> {
     // TODO replace cloudfront URLs with chronicler-backed proxies, just in case they start
     // deleting old files out of S3.
     Ok(site::get("/", time.0).await?.map(Proxy))
+}
+
+#[get("/auth/logout")]
+fn logout() -> Redirect {
+    Redirect::to(uri!(index))
 }
 
 // Blaseball returns the index page for any unknown route, so that the React frontend can display
@@ -71,7 +76,8 @@ fn rocket() -> _ {
                 events::stream_data,
                 time::set_offset,
                 site_static,
-                index
+                index,
+                logout,
             ],
         )
         .register("/", catchers![index_default])
