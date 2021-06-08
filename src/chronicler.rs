@@ -108,7 +108,9 @@ pub struct Data<T> {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SiteUpdate {
+    pub timestamp: DateTime<Utc>,
     pub path: String,
+    pub hash: String,
     pub download_url: String,
 }
 
