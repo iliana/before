@@ -50,6 +50,9 @@ async fn index(time: OffsetTime) -> Result<Option<Html<String>>> {
                 )
                 // ensure static assets are served by us
                 .replace("https://d35iw2jmbg6ut8.cloudfront.net/static/", "/static/")
+                // remove opengraph/twitter meta
+                .replace(r#"<meta property="og:"#, r#"<meta property="removed:"#)
+                .replace(r#"<meta name="twitter:"#, r#"<meta name="removed:"#)
                 // remove google analytics so that we don't mess with it
                 .replace(
                     "https://pagead2.googlesyndication.com",
