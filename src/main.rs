@@ -2,6 +2,7 @@
 
 mod api;
 mod chronicler;
+mod database;
 mod events;
 mod proxy;
 mod site;
@@ -58,6 +59,7 @@ async fn index_default(req: &Request<'_>) -> Result<Either<Proxy, NotFound<()>>>
 #[launch]
 fn rocket() -> _ {
     rocket::build()
+        .mount("/", database::entity_routes())
         .mount(
             "/",
             routes![

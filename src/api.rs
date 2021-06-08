@@ -1,6 +1,6 @@
 use rocket::get;
-use rocket::response::content::Json;
 use rocket::response::status::NoContent;
+use rocket::serde::json::Json;
 use serde_json::{json, Value};
 
 #[get("/api/getUser")]

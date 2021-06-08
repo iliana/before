@@ -26,6 +26,9 @@ pub struct Request {
     order: Option<Order>,
     #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
+    at: Option<DateTime<Utc>>,
+    #[builder(default, setter(strip_option))]
+    #[serde(skip_serializing_if = "Option::is_none")]
     after: Option<DateTime<Utc>>,
     #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
