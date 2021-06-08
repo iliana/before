@@ -15,7 +15,7 @@ use either::Either;
 use rocket::request::FromRequest;
 use rocket::response::content::{Css, Html};
 use rocket::response::{status::NotFound, Redirect};
-use rocket::{catch, catchers, get, launch, routes, uri, Request};
+use rocket::{catch, catchers, get, launch, routes, Request};
 use std::path::PathBuf;
 
 type Result<T> = std::result::Result<T, rocket::response::Debug<anyhow::Error>>;
@@ -71,7 +71,8 @@ fn inject_css() -> Css<&'static [u8]> {
 
 #[get("/auth/logout")]
 fn logout() -> Redirect {
-    Redirect::to(uri!(index))
+    // ... because you're logging out of Before
+    Redirect::to("https://www.blaseball.com/")
 }
 
 // Blaseball returns the index page for any unknown route, so that the React frontend can display
