@@ -13,6 +13,7 @@ use crate::time::OffsetTime;
 use anyhow::anyhow;
 use either::Either;
 use rocket::request::FromRequest;
+use rocket::response::content::Html;
 use rocket::response::{status::NotFound, Redirect};
 use rocket::{catch, catchers, get, launch, routes, uri, Request};
 use std::path::PathBuf;
@@ -31,10 +32,27 @@ async fn site_static(path: PathBuf, time: OffsetTime) -> Result<Option<Proxy>> {
 }
 
 #[get("/")]
-async fn index(time: OffsetTime) -> Result<Option<Proxy>> {
-    // TODO replace cloudfront URLs with chronicler-backed proxies, just in case they start
-    // deleting old files out of S3.
-    Ok(site::get("/", time.0).await?.map(Proxy))
+async fn index(time: OffsetTime) -> Result<Option<Html<String>>> {
+    Ok(match site::get("/", time.0).await? {
+        Some(response) => Some(Html(
+            response
+                .text()
+                .await
+                .map_err(anyhow::Error::from)?
+                // ensure static assets are served by us
+                .replace("https://d35iw2jmbg6ut8.cloudfront.net/static/", "/static/")
+                // remove google analytics so that we don't mess with it
+                .replace(
+                    "https://pagead2.googlesyndication.com",
+                    "https://removed.invalid",
+                )
+                .replace(
+                    "https://www.googletagmanager.com",
+                    "https://removed.invalid",
+                ),
+        )),
+        None => None,
+    })
 }
 
 #[get("/auth/logout")]
@@ -45,7 +63,7 @@ fn logout() -> Redirect {
 // Blaseball returns the index page for any unknown route, so that the React frontend can display
 // the correct thing when the page loads.
 #[catch(404)]
-async fn index_default(req: &Request<'_>) -> Result<Either<Proxy, NotFound<()>>> {
+async fn index_default(req: &Request<'_>) -> Result<Either<Html<String>, NotFound<()>>> {
     let path = req.uri().path();
     if path.starts_with("/api") || path.starts_with("/database") || path.starts_with("/events") {
         return Ok(Either::Right(NotFound(())));
