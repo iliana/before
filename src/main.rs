@@ -107,6 +107,7 @@ fn rocket() -> _ {
                 api::update_settings,
                 database::player_names_ids,
                 events::stream_data,
+                time::adjust_offset,
                 time::set_offset,
                 site_static,
                 index,
