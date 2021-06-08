@@ -47,7 +47,11 @@ pub fn entity_routes() -> Vec<Route> {
                 id: String,
                 time: OffsetTime,
             ) -> Result<Option<Json<Box<RawValue>>>> {
-                Ok(fetch($ty, Some(id), time).await?.next().map(Json))
+                if id.is_empty() {
+                    Ok(None)
+                } else {
+                    Ok(fetch($ty, Some(id), time).await?.next().map(Json))
+                }
             }
             routes![entity_id]
         }};
@@ -60,7 +64,11 @@ pub fn entity_routes() -> Vec<Route> {
                 ids: String,
                 time: OffsetTime,
             ) -> Result<Json<Vec<Box<RawValue>>>> {
-                Ok(Json(fetch($ty, Some(ids), time).await?.collect()))
+                if ids.is_empty() {
+                    Ok(Json(vec![]))
+                } else {
+                    Ok(Json(fetch($ty, Some(ids), time).await?.collect()))
+                }
             }
             routes![entity_ids]
         }};
