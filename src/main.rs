@@ -13,7 +13,7 @@ use crate::time::OffsetTime;
 use anyhow::anyhow;
 use either::Either;
 use rocket::request::FromRequest;
-use rocket::response::content::Html;
+use rocket::response::content::{Css, Html};
 use rocket::response::{status::NotFound, Redirect};
 use rocket::{catch, catchers, get, launch, routes, uri, Request};
 use std::path::PathBuf;
@@ -39,6 +39,15 @@ async fn index(time: OffsetTime) -> Result<Option<Html<String>>> {
                 .text()
                 .await
                 .map_err(anyhow::Error::from)?
+                // inject before code
+                .replace(
+                    r#"<div id="root">"#,
+                    concat!(include_str!("inject.html"), r#"<div id="root">"#),
+                )
+                .replace(
+                    "</head>",
+                    r#"<link href="/_before/inject.css" rel="stylesheet"></head>"#,
+                )
                 // ensure static assets are served by us
                 .replace("https://d35iw2jmbg6ut8.cloudfront.net/static/", "/static/")
                 // remove google analytics so that we don't mess with it
@@ -53,6 +62,11 @@ async fn index(time: OffsetTime) -> Result<Option<Html<String>>> {
         )),
         None => None,
     })
+}
+
+#[get("/_before/inject.css")]
+fn inject_css() -> Css<&'static [u8]> {
+    Css(include_bytes!("style.css"))
 }
 
 #[get("/auth/logout")]
@@ -95,6 +109,7 @@ fn rocket() -> _ {
                 time::set_offset,
                 site_static,
                 index,
+                inject_css,
                 logout,
             ],
         )

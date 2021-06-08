@@ -1,0 +1,22 @@
+#_before {
+    background: #222;
+    color: white;
+    border-bottom: 1px solid #444;
+    width: 100%;
+    padding: 0.5em calc(50% - 512px);
+    font-family: "Lora", "Courier New", monospace, serif;
+}
+
+body.theme-light #_before {
+    background: #ddd;
+    color: black;
+    border-bottom-color: #bbb;
+}
+
+@media (max-width: 1080px) {
+    padding: 0 20px;
+}
+
+#_before_title {
+    font-weight: 700;
+}
