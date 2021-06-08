@@ -9,6 +9,7 @@ pub fn get_user() -> Json<Value> {
         "id": "be457c4e-79e6-4016-94f5-76c6705741bb",
         "email": "before@sibr.dev",
         "verified": true,
+        "coins": 0,
         "snacks": [],
         "snackOrder": [],
         // set all these to reasonably high values to avoid rendering the "what to do next" actions
