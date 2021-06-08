@@ -2,9 +2,9 @@ use crate::chronicler::{Order, RequestBuilder, Stream, Version, Versions};
 use crate::time::{Offset, OffsetTime};
 use crate::Result;
 use chrono::Utc;
-use rocket::get;
 use rocket::response::stream::{Event, EventStream};
-use rocket::tokio::{time::sleep, try_join};
+use rocket::tokio::{select, time::sleep, try_join};
+use rocket::{get, Shutdown};
 use serde_json::{json, value::RawValue};
 use std::time::Duration;
 
@@ -43,7 +43,11 @@ async fn next_event(version: Version<Box<RawValue>>, offset: Offset) -> Event {
 }
 
 #[get("/events/streamData")]
-pub async fn stream_data(time: OffsetTime, offset: Offset) -> Result<EventStream![]> {
+pub async fn stream_data(
+    time: OffsetTime,
+    offset: Offset,
+    mut shutdown: Shutdown,
+) -> Result<EventStream![]> {
     // A given `Stream` version does not necessarily have all the top-level fields present, but the
     // frontend needs all fields present in the first event. While we fetch the next 15 events, we
     // also fetch the previous 15, allowing us to find the most recent definition of each field and
@@ -72,7 +76,10 @@ pub async fn stream_data(time: OffsetTime, offset: Offset) -> Result<EventStream
     Ok(EventStream! {
         yield start_event(&before);
         for version in after.items {
-            yield next_event(version, offset).await;
+            select! {
+                event = next_event(version, offset) => yield event,
+                _ = &mut shutdown => break,
+            };
         }
     })
 }
