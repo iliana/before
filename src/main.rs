@@ -49,7 +49,11 @@ async fn index(time: OffsetTime) -> Result<Option<Html<String>>> {
                     r#"<link href="/_before/inject.css" rel="stylesheet"></head>"#,
                 )
                 // swap title
-                .replace("<title>Blaseball</title>", "<title>Before</title>")
+                .replace("<title>Blaseball</title>", "<title>before.sibr.dev</title>")
+                .replace(
+                    r#"content="Baseball at your mercy""#,
+                    r#"content="&#x1FA78 Do you remember before? &#x1FA78""#,
+                )
                 // ensure static assets are served by us
                 .replace("https://d35iw2jmbg6ut8.cloudfront.net/static/", "/static/")
                 // remove opengraph/twitter meta
