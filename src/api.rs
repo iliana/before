@@ -74,7 +74,7 @@ pub fn update_settings(cookies: &CookieJar<'_>, settings: Json<Settings>) -> Jso
 }
 
 // Should be a list of players that have been around (in the database) since Season 1
-static IDOL_CHOICES: &'static [&str] = &[
+static IDOL_CHOICES: &[&str] = &[
     "04e14d7b-5021-4250-a3cd-932ba8e0a889", // Jaylen Hotdogfingers
     "083d09d4-7ed3-4100-b021-8fbe30dd43e8", // Jessica Telephone
     "1f159bab-923a-4811-b6fa-02bfde50925a", // NaN
@@ -94,11 +94,11 @@ static IDOL_CHOICES: &'static [&str] = &[
 
 fn random_idol() -> &'static str {
     let index = Utc::now().timestamp_millis() as usize;
-    return IDOL_CHOICES[index % IDOL_CHOICES.len()];
+    IDOL_CHOICES[index % IDOL_CHOICES.len()]
 }
 
 // All 20 original Season 1 teams, no Breach/Lift
-static TEAM_CHOICES: &'static [&str] = &[
+static TEAM_CHOICES: &[&str] = &[
     "105bc3ff-1320-4e37-8ef0-8d595cb95dd0", // Garages
     "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7", // Pies
     "36569151-a2fb-43c1-9df7-2df512424c82", // Millennials
@@ -123,5 +123,5 @@ static TEAM_CHOICES: &'static [&str] = &[
 
 fn random_favorite_team() -> &'static str {
     let index = Utc::now().timestamp_millis() as usize;
-    return TEAM_CHOICES[index % TEAM_CHOICES.len()];
+    TEAM_CHOICES[index % TEAM_CHOICES.len()]
 }
