@@ -10,25 +10,19 @@ mod time;
 
 use crate::proxy::Proxy;
 use crate::time::OffsetTime;
-use anyhow::anyhow;
 use either::Either;
+use rocket::http::uri::Origin;
 use rocket::request::FromRequest;
 use rocket::response::content::{Css, Html};
 use rocket::response::{status::NotFound, Redirect};
 use rocket::{catch, catchers, get, launch, routes, Request};
-use std::path::PathBuf;
 
 type Result<T> = std::result::Result<T, rocket::response::Debug<anyhow::Error>>;
 
-#[get("/static/<path..>")]
-async fn site_static(path: PathBuf, time: OffsetTime) -> Result<Option<Proxy>> {
-    let path = path
-        .into_os_string()
-        .into_string()
-        .map_err(|err| anyhow!("OsString to String conversion failed: {:?}", err))?;
-    Ok(site::get(&format!("/static/{}", path), time.0)
-        .await?
-        .map(Proxy))
+#[get("/static/<_..>")]
+async fn site_static(origin: &Origin<'_>, time: OffsetTime) -> Result<Option<Proxy>> {
+    let path = origin.path().as_str();
+    Ok(site::get(path, time.0).await?.map(Proxy))
 }
 
 #[get("/")]
@@ -89,9 +83,16 @@ fn logout() -> Redirect {
 #[catch(404)]
 async fn index_default(req: &Request<'_>) -> Result<Either<Html<String>, NotFound<()>>> {
     let path = req.uri().path();
-    if ["/api", "/auth", "/database", "/events", "/_before"]
-        .iter()
-        .any(|p| path.starts_with(p))
+    if [
+        "/api",
+        "/auth",
+        "/database",
+        "/events",
+        "/static",
+        "/_before",
+    ]
+    .iter()
+    .any(|p| path.starts_with(p))
     {
         return Ok(Either::Right(NotFound(())));
     }
