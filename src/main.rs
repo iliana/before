@@ -5,6 +5,7 @@ mod chronicler;
 mod database;
 mod events;
 mod proxy;
+mod redirect;
 mod site;
 mod time;
 

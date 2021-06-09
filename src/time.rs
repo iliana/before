@@ -1,8 +1,8 @@
+use crate::redirect::RedirectBack;
 use chrono::{DateTime, Duration, Utc};
 use rocket::http::{Cookie, CookieJar};
 use rocket::request::{FromRequest, Outcome, Request};
-use rocket::response::Redirect;
-use rocket::{async_trait, get, uri};
+use rocket::{async_trait, get};
 use std::convert::Infallible;
 
 fn get_offset(cookies: &CookieJar<'_>) -> Duration {
@@ -56,12 +56,12 @@ pub fn adjust_offset(
     hours: Option<i64>,
     days: Option<i64>,
     weeks: Option<i64>,
-) -> Redirect {
+) -> RedirectBack {
     set_offset_inner(
         cookies,
         get_offset(cookies) - duration(seconds, hours, days, weeks),
     );
-    Redirect::to(uri!(crate::index))
+    RedirectBack
 }
 
 #[derive(Debug, Clone, Copy)]
