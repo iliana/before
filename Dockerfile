@@ -1,12 +1,7 @@
-# syntax=docker/dockerfile:1.2
-
 FROM rust:1.52-buster as builder
 WORKDIR /usr/src/before
 COPY . .
-RUN --mount=type=cache,target=/usr/local/cargo/registry \
-    --mount=type=cache,target=/usr/local/cargo/git \
-    --mount=type=cache,target=/usr/src/before/target \
-    cargo build --release && cargo install --path .
+RUN cargo install --path .
 RUN objcopy --compress-debug-sections /usr/local/cargo/bin/before
 
 FROM debian:buster-slim
