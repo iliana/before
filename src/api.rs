@@ -1,3 +1,4 @@
+use chrono::Utc;
 use rocket::http::{Cookie, CookieJar};
 use rocket::response::status::NoContent;
 use rocket::serde::json::Json;
@@ -23,7 +24,8 @@ pub fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
             .unwrap_or(false),
         "verified": true,
         "coins": 0,
-        "idol": "placeholder-idol",
+        "idol": random_idol(),
+        "favoriteTeam": random_favorite_team(),
         "unlockedShop": true,
         "unlockedElection": true,
         "snacks": {
@@ -69,4 +71,57 @@ pub struct Settings {
 pub fn update_settings(cookies: &CookieJar<'_>, settings: Json<Settings>) -> Json<Value> {
     cookies.add(Cookie::new("light_mode", settings.light_mode.to_string()));
     Json(json!({ "message": "Settings updated" }))
+}
+
+// Should be a list of players that have been around (in the database) since Season 1
+static IDOL_CHOICES: &'static [&str] = &[
+    "04e14d7b-5021-4250-a3cd-932ba8e0a889", // Jaylen Hotdogfingers
+    "083d09d4-7ed3-4100-b021-8fbe30dd43e8", // Jessica Telephone
+    "1f159bab-923a-4811-b6fa-02bfde50925a", // NaN
+    "20be1c34-071d-40c6-8824-dde2af184b4d", // Qais Dogwalker
+    "20fd71e7-4fa0-4132-9f47-06a314ed539a", // Lars Taylor
+    "338694b7-6256-4724-86b6-3884299a5d9e", // PolkaDot Patterson
+    "493a83de-6bcf-41a1-97dd-cc5e150548a3", // Boyfriend Monreal
+    "53e701c7-e3c8-4e18-ba05-9b41b4b64cda", // Marquez Clark
+    "a1628d97-16ca-4a75-b8df-569bae02bef9", // Chorby Soul
+    "a3947fbc-50ec-45a4-bca4-49ffebb77dbe", // Chorby Short
+    "c675fcdf-6117-49a6-ac32-99a89a3a88aa", // Valentine Games
+    "c6a277c3-d2b5-4363-839b-950896a5ec5e", // Mike Townsend
+    "d4a10c2a-0c28-466a-9213-38ba3339b65e", // Richmond Harrison
+    "f2a27a7e-bf04-4d31-86f5-16bfa3addbe7", // Winnie Hess
+    "f70dd57b-55c4-4a62-a5ea-7cc4bf9d8ac1", // Tillman Henderson
+];
+
+fn random_idol() -> &'static str {
+    let index = Utc::now().timestamp_millis() as usize;
+    return IDOL_CHOICES[index % IDOL_CHOICES.len()];
+}
+
+// All 20 original Season 1 teams, no Breach/Lift
+static TEAM_CHOICES: &'static [&str] = &[
+    "105bc3ff-1320-4e37-8ef0-8d595cb95dd0", // Garages
+    "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7", // Pies
+    "36569151-a2fb-43c1-9df7-2df512424c82", // Millennials
+    "3f8bbb15-61c0-4e3f-8e4a-907a5fb1565e", // Flowers
+    "57ec08cc-0411-4643-b304-0e80dbc15ac7", // Wild Wings
+    "747b8e4a-7e50-4638-a973-ea7950a3e739", // Tigers
+    "7966eb04-efcc-499b-8f03-d13916330531", // Magic
+    "878c1bf6-0d21-4659-bfee-916c8314d69c", // Tacos
+    "8d87c468-699a-47a8-b40d-cfb73a5660ad", // Crabs
+    "979aee4a-6d80-4863-bf1c-ee1a78e06024", // Fridays
+    "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5", // Spies
+    "a37f9158-7f82-46bc-908c-c9e2dda7c33b", // Jazz Hands
+    "adc5b394-8f76-416d-9ce9-813706877b84", // The Breath Mints.
+    "b024e975-1c4a-4575-8936-a3754a08806a", // Steaks
+    "b63be8c2-576a-4d6e-8daf-814f8bcea96f", // Dale
+    "b72f3061-f573-40d7-832a-5ad475bd7909", // Lovers
+    "bfd38797-8404-4b38-8b82-341da28b1f83", // Shoe Thieves
+    "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16", // Firefighters
+    "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff", // Moist Talkers
+    "f02aeae2-5e6a-4098-9842-02d2273f25c7", // Sunbeams
+];
+
+fn random_favorite_team() -> &'static str {
+    let index = Utc::now().timestamp_millis() as usize;
+    return TEAM_CHOICES[index % TEAM_CHOICES.len()];
 }
