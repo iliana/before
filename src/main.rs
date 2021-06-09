@@ -89,7 +89,10 @@ fn logout() -> Redirect {
 #[catch(404)]
 async fn index_default(req: &Request<'_>) -> Result<Either<Html<String>, NotFound<()>>> {
     let path = req.uri().path();
-    if path.starts_with("/api") || path.starts_with("/database") || path.starts_with("/events") {
+    if ["/api", "/auth", "/database", "/events", "/_before"]
+        .iter()
+        .any(|p| path.starts_with(p))
+    {
         return Ok(Either::Right(NotFound(())));
     }
 
