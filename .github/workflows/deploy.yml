@@ -1,7 +1,7 @@
 name: Build and push
 on:
   push:
-    branches: [main]
+    branches: [main, live]
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,9 +14,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v2
+      - uses: nelonoel/branch-name@v1
       - uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/${{ github.repository }}:${{ env.BRANCH_NAME }}
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:${{ env.BRANCH_NAME }}
           cache-to: type=inline
