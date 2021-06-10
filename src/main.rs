@@ -10,12 +10,14 @@ mod site;
 mod time;
 
 use crate::proxy::Proxy;
+use crate::redirect::Redirect;
 use crate::time::OffsetTime;
 use either::Either;
 use rocket::http::uri::Origin;
+use rocket::http::CookieJar;
 use rocket::request::FromRequest;
 use rocket::response::content::{Css, Html};
-use rocket::response::{status::NotFound, Redirect};
+use rocket::response::{status::NotFound, Redirect as Redir};
 use rocket::{catch, catchers, get, launch, routes, Request};
 
 type Result<T> = std::result::Result<T, rocket::response::Debug<anyhow::Error>>;
@@ -73,10 +75,20 @@ fn inject_css() -> Css<&'static [u8]> {
     Css(include_bytes!("style.css"))
 }
 
+#[get("/_before/reset?<redirect>")]
+fn reset(cookies: &CookieJar<'_>, redirect: Option<String>) -> Redirect {
+    cookies.iter().for_each(|c| {
+        let mut c = c.clone();
+        c.make_removal();
+        cookies.add(c);
+    });
+    Redirect(redirect)
+}
+
 #[get("/auth/logout")]
-fn logout() -> Redirect {
+fn logout() -> Redir {
     // ... because you're logging out of Before
-    Redirect::to("https://www.blaseball.com/")
+    Redir::to("https://www.blaseball.com/")
 }
 
 // Blaseball returns the index page for any unknown route, so that the React frontend can display
@@ -126,6 +138,7 @@ fn rocket() -> _ {
                 site_static,
                 index,
                 inject_css,
+                reset,
                 logout,
             ],
         )
