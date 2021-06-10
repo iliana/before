@@ -77,48 +77,51 @@ impl SiteUpdate {
     }
 }
 
-#[get("/static/<path..>")]
-pub async fn site_static(
+#[get("/static/heuristic/<path..>", rank = 1)]
+pub async fn site_static_heuristic(
     path: PathBuf,
-    origin: &Origin<'_>,
     time: OffsetTime,
 ) -> crate::Result<Option<Proxy>> {
     update_cache(time.0).await?;
     let cache = CACHE.read().await;
 
-    Ok(if time.0 >= *CHRONICLER_EPOCH {
-        match cache.assets.get(origin.path().as_str()) {
-            Some(update) => Some(Proxy {
-                response: update.fetch().await?,
-                cache: true,
-            }),
-            None => None,
+    // Do you remember before? For the most part we have all the JavaScript assets, but we're
+    // missing a lot of CSS and index assets.
+    //
+    // For JS, grab the most recent asset of that type; for CSS, grab the next asset in the
+    // future. The CSS is usually backwards-compatible; we can tweak if we need to.
+    let update = match path.file_name().and_then(|s| s.to_str()) {
+        Some(x) if x.starts_with("main.") && x.ends_with(".css") => {
+            cache.css.range(time.0..).next()
         }
-    } else {
-        // Do you remember before? For the most part we have all the JavaScript assets, but we're
-        // missing a lot of CSS and index assets.
-        //
-        // For JS, grab the most recent asset of that type; for CSS, grab the next asset in the
-        // future. The CSS is usually backwards-compatible; we can tweak if we need to.
-        let update = match path.file_name().and_then(|s| s.to_str()) {
-            Some(x) if x.starts_with("main.") && x.ends_with(".css") => {
-                cache.css.range(time.0..).next()
-            }
-            Some(x) if x.starts_with("main.") && x.ends_with(".js") => {
-                cache.js_main.range(..=time.0).rev().next()
-            }
-            Some(x) if x.starts_with("2.") && x.ends_with(".js") => {
-                cache.js_2.range(..=time.0).rev().next()
-            }
-            _ => None,
-        };
-        match update {
-            Some((_, update)) => Some(Proxy {
-                response: update.fetch().await?,
-                cache: false,
-            }),
-            None => None,
+        Some(x) if x.starts_with("main.") && x.ends_with(".js") => {
+            cache.js_main.range(..=time.0).rev().next()
         }
+        Some(x) if x.starts_with("2.") && x.ends_with(".js") => {
+            cache.js_2.range(..=time.0).rev().next()
+        }
+        _ => None,
+    };
+    Ok(match update {
+        Some((_, update)) => Some(Proxy {
+            response: update.fetch().await?,
+            etag: None,
+        }),
+        None => None,
+    })
+}
+
+#[get("/static/<_..>", rank = 2)]
+pub async fn site_static(origin: &Origin<'_>, time: OffsetTime) -> crate::Result<Option<Proxy>> {
+    update_cache(time.0).await?;
+    let cache = CACHE.read().await;
+
+    Ok(match cache.assets.get(origin.path().as_str()) {
+        Some(update) => Some(Proxy {
+            response: update.fetch().await?,
+            etag: Some(update.hash.clone()),
+        }),
+        None => None,
     })
 }
 
@@ -132,10 +135,15 @@ pub async fn get_index(at: DateTime<Utc>) -> Result<String> {
         // Similar logic as `site_static`'s handling of CSS assets.
         cache.index.range(at..).next()
     };
-    match update {
-        Some((_, update)) => Ok(update.fetch().await?.text().await?),
+    let text = match update {
+        Some((_, update)) => update.fetch().await?.text().await?,
         None => bail!("failed to find `/` asset somehow"),
-    }
+    };
+    Ok(if at >= *CHRONICLER_EPOCH {
+        text
+    } else {
+        text.replace("\"/static/", "\"/static/heuristic/")
+    })
 }
 
 #[cfg(test)]

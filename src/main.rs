@@ -131,6 +131,7 @@ async fn rocket() -> _ {
                 time::jump,
                 time::relative,
                 site::site_static,
+                site::site_static_heuristic,
                 index,
                 inject_css,
                 reset,

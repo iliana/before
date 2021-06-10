@@ -110,6 +110,7 @@ pub struct Data<T> {
 pub struct SiteUpdate {
     pub timestamp: DateTime<Utc>,
     pub path: String,
+    pub hash: String,
     pub download_url: String,
 }
 
