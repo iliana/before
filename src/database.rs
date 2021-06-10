@@ -1,6 +1,7 @@
 use crate::chronicler::{PlayerNameId, RequestBuilder, Versions};
 use crate::time::OffsetTime;
 use crate::Result;
+use chrono::{DateTime, Duration, Utc};
 use rocket::futures::TryStreamExt;
 use rocket::serde::json::Json;
 use rocket::Route;
@@ -10,9 +11,9 @@ use serde_json::value::RawValue;
 async fn fetch(
     ty: &'static str,
     ids: Option<String>,
-    time: OffsetTime,
+    time: DateTime<Utc>,
 ) -> Result<impl Iterator<Item = Box<RawValue>>> {
-    let mut builder = RequestBuilder::new("v2/entities").ty(ty).at(time.0);
+    let mut builder = RequestBuilder::new("v2/entities").ty(ty).at(time);
     if let Some(ids) = ids {
         builder = builder.id(ids)
     }
@@ -34,7 +35,7 @@ pub fn entity_routes() -> Vec<Route> {
         ($uri:expr, $ty:expr) => {{
             #[get($uri)]
             pub async fn entity(time: OffsetTime) -> Result<Option<Json<Box<RawValue>>>> {
-                Ok(fetch($ty, None, time).await?.next().map(Json))
+                Ok(fetch($ty, None, time.0).await?.next().map(Json))
             }
             routes![entity]
         }};
@@ -50,7 +51,7 @@ pub fn entity_routes() -> Vec<Route> {
                 if id.is_empty() {
                     Ok(None)
                 } else {
-                    Ok(fetch($ty, Some(id), time).await?.next().map(Json))
+                    Ok(fetch($ty, Some(id), time.0).await?.next().map(Json))
                 }
             }
             routes![entity_id]
@@ -67,7 +68,7 @@ pub fn entity_routes() -> Vec<Route> {
                 if ids.is_empty() || ids == "placeholder-idol" {
                     Ok(Json(vec![]))
                 } else {
-                    Ok(Json(fetch($ty, Some(ids), time).await?.collect()))
+                    Ok(Json(fetch($ty, Some(ids), time.0).await?.collect()))
                 }
             }
             routes![entity_ids]
@@ -91,6 +92,23 @@ pub fn entity_routes() -> Vec<Route> {
         route_ids!("/database/players?<ids>", "Player"),
     ]
     .concat()
+}
+
+#[get("/database/items?<ids>")]
+pub async fn items(ids: String, time: OffsetTime) -> Result<Json<Vec<Box<RawValue>>>> {
+    // Workaround for Chronicler not picking up items as soon as prize matches start: if requesting
+    // a single item, fetch as normal, and if the response is empty, try again with an `at` of one
+    // hour later.
+    let data = fetch("Item", Some(ids.clone()), time.0)
+        .await?
+        .collect::<Vec<_>>();
+    Ok(Json(if !ids.contains(',') && data.is_empty() {
+        fetch("Item", Some(ids), time.0 + Duration::hours(1))
+            .await?
+            .collect()
+    } else {
+        data
+    }))
 }
 
 #[get("/database/playerNamesIds")]

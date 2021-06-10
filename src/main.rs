@@ -126,6 +126,7 @@ async fn rocket() -> _ {
                 api::get_user_rewards,
                 api::sell_slot,
                 api::update_settings,
+                database::items,
                 database::player_names_ids,
                 events::stream_data,
                 time::jump,
