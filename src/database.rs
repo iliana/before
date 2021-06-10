@@ -123,3 +123,20 @@ pub async fn player_names_ids(time: OffsetTime) -> Result<Json<Vec<PlayerNameId>
     v.sort_by(|l, r| l.name.cmp(&r.name));
     Ok(Json(v))
 }
+
+// TODO get these in chronicler, then add a workaround to cap the OffsetTime at the earliest point
+// where the data is present
+#[get("/database/renovations?<ids>")]
+pub async fn renovations(ids: String) -> Result<Json<Box<RawValue>>> {
+    Ok(Json(
+        reqwest::get(format!(
+            "https://www.blaseball.com/database/renovations?ids={}",
+            ids
+        ))
+        .await
+        .map_err(anyhow::Error::from)?
+        .json()
+        .await
+        .map_err(anyhow::Error::from)?,
+    ))
+}

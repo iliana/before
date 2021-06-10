@@ -125,6 +125,7 @@ async fn rocket() -> _ {
                 api::update_settings,
                 database::items,
                 database::player_names_ids,
+                database::renovations,
                 events::stream_data,
                 time::jump,
                 time::relative,
