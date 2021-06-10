@@ -1,4 +1,5 @@
-use chrono::Utc;
+use crate::choose;
+use crate::error::ErrorMessage;
 use rocket::http::{Cookie, CookieJar};
 use rocket::response::status::NoContent;
 use rocket::serde::json::Json;
@@ -24,10 +25,11 @@ pub fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
             .unwrap_or(false),
         "verified": true,
         "coins": 0,
-        "idol": random_idol(),
-        "favoriteTeam": random_favorite_team(),
+        "idol": choose(IDOL_CHOICES),
+        "favoriteTeam": choose(TEAM_CHOICES),
         "unlockedShop": true,
         "unlockedElection": true,
+        "spread": [],
         "snacks": {
             "Forbidden_Knowledge_Access": 1,
             "Stadium_Access": 1,
@@ -61,6 +63,21 @@ pub fn get_user_rewards() -> NoContent {
     NoContent
 }
 
+#[post("/api/buySlot")]
+pub fn buy_slot() -> ErrorMessage {
+    ErrorMessage("error")
+}
+
+#[post("/api/sellSlot")]
+pub fn sell_slot() -> ErrorMessage {
+    ErrorMessage("error")
+}
+
+#[post("/api/buySnackNoUpgrade")]
+pub fn buy_snack_no_upgrade() -> ErrorMessage {
+    ErrorMessage("message")
+}
+
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Settings {
@@ -92,11 +109,6 @@ static IDOL_CHOICES: &[&str] = &[
     "f70dd57b-55c4-4a62-a5ea-7cc4bf9d8ac1", // Tillman Henderson
 ];
 
-fn random_idol() -> &'static str {
-    let index = Utc::now().timestamp_millis() as usize;
-    IDOL_CHOICES[index % IDOL_CHOICES.len()]
-}
-
 // All 20 original Season 1 teams, no Breach/Lift
 static TEAM_CHOICES: &[&str] = &[
     "105bc3ff-1320-4e37-8ef0-8d595cb95dd0", // Garages
@@ -120,8 +132,3 @@ static TEAM_CHOICES: &[&str] = &[
     "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff", // Moist Talkers
     "f02aeae2-5e6a-4098-9842-02d2273f25c7", // Sunbeams
 ];
-
-fn random_favorite_team() -> &'static str {
-    let index = Utc::now().timestamp_millis() as usize;
-    TEAM_CHOICES[index % TEAM_CHOICES.len()]
-}

@@ -3,6 +3,7 @@
 mod api;
 mod chronicler;
 mod database;
+mod error;
 mod events;
 mod proxy;
 mod redirect;
@@ -13,6 +14,8 @@ use crate::proxy::Proxy;
 use crate::redirect::Redirect;
 use crate::time::OffsetTime;
 use either::Either;
+use rand::seq::SliceRandom;
+use rand::thread_rng;
 use rocket::http::uri::Origin;
 use rocket::http::CookieJar;
 use rocket::request::FromRequest;
@@ -21,6 +24,11 @@ use rocket::response::{status::NotFound, Redirect as Redir};
 use rocket::{catch, catchers, get, launch, routes, Request};
 
 type Result<T> = std::result::Result<T, rocket::response::Debug<anyhow::Error>>;
+
+fn choose<'a>(x: &[&'a str]) -> &'a str {
+    debug_assert!(!x.is_empty());
+    x.choose(&mut thread_rng()).cloned().unwrap_or_default()
+}
 
 #[get("/static/<_..>")]
 async fn site_static(origin: &Origin<'_>, time: OffsetTime) -> Result<Option<Proxy>> {
@@ -127,9 +135,12 @@ fn rocket() -> _ {
         .mount(
             "/",
             routes![
+                api::buy_slot,
+                api::buy_snack_no_upgrade,
                 api::get_active_bets,
                 api::get_user,
                 api::get_user_rewards,
+                api::sell_slot,
                 api::update_settings,
                 database::player_names_ids,
                 events::stream_data,

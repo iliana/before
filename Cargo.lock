@@ -119,6 +119,7 @@ dependencies = [
  "either",
  "lazy_static",
  "log",
+ "rand",
  "reqwest",
  "rocket",
  "serde",
