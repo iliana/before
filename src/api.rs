@@ -1,9 +1,8 @@
 use crate::choose;
-use crate::error::ErrorMessage;
 use rocket::http::{Cookie, CookieJar};
-use rocket::response::status::NoContent;
+use rocket::response::status::{BadRequest, NoContent};
 use rocket::serde::json::Json;
-use rocket::{get, post};
+use rocket::{get, post, routes, Route};
 use serde::Deserialize;
 use serde_json::{json, Value};
 use std::str::FromStr;
@@ -63,24 +62,35 @@ pub fn get_user_rewards() -> NoContent {
     NoContent
 }
 
-#[post("/api/buySlot")]
-pub fn buy_slot() -> ErrorMessage {
-    ErrorMessage("error")
-}
+pub fn mocked_error_routes() -> Vec<Route> {
+    static ERROR_MESSAGES: &[&str] = &[
+        "If you were meant to have that, you already would",
+        "Monitor's on vacation, sorry",
+        "You can't get ye flask!",
+    ];
 
-#[post("/api/sellSlot")]
-pub fn sell_slot() -> ErrorMessage {
-    ErrorMessage("error")
-}
+    macro_rules! mock {
+        ($uri:expr) => {{
+            #[post($uri)]
+            pub fn mock_error() -> BadRequest<Json<Value>> {
+                let message = choose(ERROR_MESSAGES);
+                BadRequest(Some(Json(json!({
+                    "error": message,
+                    "message": message,
+                }))))
+            }
+            routes![mock_error]
+        }};
+    }
 
-#[post("/api/buySnack")]
-pub fn buy_snack() -> ErrorMessage {
-    ErrorMessage("message")
-}
-
-#[post("/api/buySnackNoUpgrade")]
-pub fn buy_snack_no_upgrade() -> ErrorMessage {
-    ErrorMessage("message")
+    vec![
+        mock!("/api/buySlot"),
+        mock!("/api/buySnack"),
+        mock!("/api/buySnackNoUpgrade"),
+        mock!("/api/sellSlot"),
+        mock!("/api/sellSnack"),
+    ]
+    .concat()
 }
 
 #[derive(Deserialize)]

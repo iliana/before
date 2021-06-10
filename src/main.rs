@@ -3,7 +3,6 @@
 mod api;
 mod chronicler;
 mod database;
-mod error;
 mod events;
 mod proxy;
 mod redirect;
@@ -115,17 +114,14 @@ async fn index_default(req: &Request<'_>) -> Result<Either<Html<String>, NotFoun
 async fn rocket() -> _ {
     tokio::spawn(site::update_cache(Utc::now()));
     rocket::build()
+        .mount("/", api::mocked_error_routes())
         .mount("/", database::entity_routes())
         .mount(
             "/",
             routes![
-                api::buy_slot,
-                api::buy_snack,
-                api::buy_snack_no_upgrade,
                 api::get_active_bets,
                 api::get_user,
                 api::get_user_rewards,
-                api::sell_slot,
                 api::update_settings,
                 database::items,
                 database::player_names_ids,
