@@ -87,6 +87,7 @@ pub fn mocked_error_routes() -> Vec<Route> {
         mock!("/api/buySlot"),
         mock!("/api/buySnack"),
         mock!("/api/buySnackNoUpgrade"),
+        mock!("/api/reorderSnacks"),
         mock!("/api/sellSlot"),
         mock!("/api/sellSnack"),
     ]
