@@ -120,6 +120,7 @@ async fn rocket() -> _ {
             "/",
             routes![
                 api::buy_slot,
+                api::buy_snack,
                 api::buy_snack_no_upgrade,
                 api::get_active_bets,
                 api::get_user,

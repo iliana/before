@@ -73,6 +73,11 @@ pub fn sell_slot() -> ErrorMessage {
     ErrorMessage("error")
 }
 
+#[post("/api/buySnack")]
+pub fn buy_snack() -> ErrorMessage {
+    ErrorMessage("message")
+}
+
 #[post("/api/buySnackNoUpgrade")]
 pub fn buy_snack_no_upgrade() -> ErrorMessage {
     ErrorMessage("message")
