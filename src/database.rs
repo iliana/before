@@ -129,14 +129,16 @@ pub async fn player_names_ids(time: OffsetTime) -> Result<Json<Vec<PlayerNameId>
 #[get("/database/renovations?<ids>")]
 pub async fn renovations(ids: String) -> Result<Json<Box<RawValue>>> {
     Ok(Json(
-        reqwest::get(format!(
-            "https://www.blaseball.com/database/renovations?ids={}",
-            ids
-        ))
-        .await
-        .map_err(anyhow::Error::from)?
-        .json()
-        .await
-        .map_err(anyhow::Error::from)?,
+        crate::CLIENT
+            .get(format!(
+                "https://www.blaseball.com/database/renovations?ids={}",
+                ids
+            ))
+            .send()
+            .await
+            .map_err(anyhow::Error::from)?
+            .json()
+            .await
+            .map_err(anyhow::Error::from)?,
     ))
 }

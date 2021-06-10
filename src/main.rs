@@ -22,6 +22,13 @@ use rocket::response::{status::NotFound, Redirect as Redir};
 use rocket::tokio;
 use rocket::{catch, catchers, get, launch, routes, Request};
 
+lazy_static::lazy_static! {
+    static ref CLIENT: reqwest::Client = reqwest::Client::builder()
+        .user_agent("before.sibr.dev/1.0 (https://github.com/iliana/before; iliana@sibr.dev)")
+        .build()
+        .unwrap();
+}
+
 type Result<T> = std::result::Result<T, rocket::response::Debug<anyhow::Error>>;
 
 fn choose<'a>(x: &[&'a str]) -> &'a str {

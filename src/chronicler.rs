@@ -59,7 +59,7 @@ impl RequestBuilder {
             serde_urlencoded::to_string(&request)?
         );
         log::debug!("chronicler request: {}", url);
-        Ok(reqwest::get(url).await?)
+        Ok(crate::CLIENT.get(url).send().await?)
     }
 
     pub async fn json<T>(self) -> Result<T>
