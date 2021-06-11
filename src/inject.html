@@ -1,4 +1,44 @@
 <div id="_before">
+    <script>
+      const CurrentDate = Date;
+
+      // cursed glue
+      var bind = Function.bind;
+      var unbind = bind.bind(bind);
+
+      function instantiate(constructor, args) {
+          return new (unbind(constructor, null).apply(null, args));
+      }
+
+      // trickery
+      Date = function(Date) {
+        for (var n of Object.getOwnPropertyNames(Date)) {
+          if (n in TrickeryDate) continue;
+
+          let desc = Object.getOwnPropertyDescriptor(Date,n);
+          Object.defineProperty(TrickeryDate,n,desc);
+        }
+
+        return TrickeryDate;
+
+        function TrickeryDate() {
+          if (arguments.length > 0) {
+            return instantiate(CurrentDate,arguments);
+          }
+
+          const offset = parseInt(document.cookie
+          .split('; ')
+          .find(row => row.startsWith('offset_sec'))
+          .split('=')[1]);
+
+          var date = instantiate(CurrentDate,arguments);
+          date = instantiate(CurrentDate,[date.getTime() - offset * 1000]);
+          return date;
+        }
+
+      }(Date);
+
+    </script>
     <div id="_before_title">before.sibr.dev</div>
     <div id="_before_adjust">
         <div><a href="/_before/relative?seconds=-900">&minus;</a>&nbsp;<abbr title="15 minutes">15m</abbr>&nbsp;<a href="/_before/relative?seconds=900">&plus;</a></div>
