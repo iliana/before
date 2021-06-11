@@ -7,6 +7,13 @@ use rocket::serde::json::Json;
 use rocket::Route;
 use rocket::{get, routes};
 use serde_json::value::RawValue;
+use std::collections::HashMap;
+
+lazy_static::lazy_static! {
+    static ref EVENTUALLY_BASE_URL: String = std::env::var("EVENTUALLY_BASE_URL")
+        .ok()
+        .unwrap_or_else(|| "https://api.sibr.dev/eventually/v2/".to_string());
+}
 
 async fn fetch(
     ty: &'static str,
@@ -134,6 +141,23 @@ pub async fn renovations(ids: String) -> Result<Json<Box<RawValue>>> {
                 "https://www.blaseball.com/database/renovations?ids={}",
                 ids
             ))
+            .send()
+            .await
+            .map_err(anyhow::Error::from)?
+            .json()
+            .await
+            .map_err(anyhow::Error::from)?,
+    ))
+}
+
+#[get("/database/feed/global")] // TODO: actually add in params support here
+pub async fn global_feed(time: OffsetTime) -> Result<Json<Box<RawValue>>> {
+    println!("{base_url}events?before={time}&limit=200",base_url=*EVENTUALLY_BASE_URL,time=time.0.timestamp());
+    Ok(Json(
+        crate::CLIENT
+            .get(
+                format!("{base_url}events?before={time}&limit=200&sortorder=desc",base_url=*EVENTUALLY_BASE_URL,time=time.0.timestamp())
+            )
             .send()
             .await
             .map_err(anyhow::Error::from)?
