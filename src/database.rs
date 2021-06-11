@@ -150,19 +150,32 @@ pub async fn renovations(ids: String) -> Result<Json<Box<RawValue>>> {
     ))
 }
 
-#[get("/database/feed/global?<category>")] // TODO: actually add in sorting params support here
-pub async fn global_feed(category: Option<String>,time: OffsetTime) -> Result<Json<Box<RawValue>>> {
+#[get("/database/feed/global?<category>&<limit>")] // TODO: actually add in sorting params support here
+pub async fn global_feed(
+    category: Option<String>,
+    limit: Option<String>,
+    time: OffsetTime,
+) -> Result<Json<Box<RawValue>>> {
     let url = if let Some(c) = category {
-       format!("{base_url}events?before={time}&limit=200&sortorder=desc&category={category}",base_url=*EVENTUALLY_BASE_URL,time=time.0.timestamp(),category=c)
+        format!(
+            "{base_url}events?before={time}&limit={limit}&sortorder=desc&category={category}",
+            base_url = *EVENTUALLY_BASE_URL,
+            limit = limit.unwrap_or("200".to_owned()),
+            time = time.0.timestamp(),
+            category = c
+        )
     } else {
-       format!("{base_url}events?before={time}&limit=200&sortorder=desc",base_url=*EVENTUALLY_BASE_URL,time=time.0.timestamp()) 
+        format!(
+            "{base_url}events?before={time}&limit={limit}&sortorder=desc",
+            base_url = *EVENTUALLY_BASE_URL,
+            limit = limit.unwrap_or("200".to_owned()),
+            time = time.0.timestamp()
+        )
     };
 
     Ok(Json(
         crate::CLIENT
-            .get(
-                url 
-            )
+            .get(url)
             .send()
             .await
             .map_err(anyhow::Error::from)?
