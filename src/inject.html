@@ -1,4 +1,12 @@
 <div id="_before">
+    <div id="_before_title">before.sibr.dev</div>
+    <div id="_before_adjust">
+        <div><span id="_before_current-time">Currently at </span></div>
+        <div><a href="/_before/relative?seconds=-900">&minus;</a>&nbsp;<abbr title="15 minutes">15m</abbr>&nbsp;<a href="/_before/relative?seconds=900">&plus;</a></div>
+        <div><a href="/_before/relative?hours=-1">&minus;</a>&nbsp;<abbr title="1 hour">1h</abbr>&nbsp;<a href="/_before/relative?hours=1">&plus;</a></div>
+        <div><a href="/_before/relative?days=-1">&minus;</a>&nbsp;<abbr title="1 real-time day">1d</abbr>&nbsp;<a href="/_before/relative?days=1">&plus;</a></div>
+        <div><a href="/_before/relative?weeks=-1">&minus;</a>&nbsp;<abbr title="1 week">1w</abbr>&nbsp;<a href="/_before/relative?weeks=1">&plus;</a></div>
+    </div>
     <script>
       const CurrentDate = Date;
 
@@ -38,12 +46,12 @@
 
       }(Date);
 
+      function _before_set_time() {
+        document.getElementById("_before_current-time").innerText = `Currently ${(new Date()).toLocaleString(undefined, { timeZone: 'UTC', dateStyle: 'medium', timeStyle:'short'})}`;
+      }
+
+      _before_set_time();
+
+      window.setInterval(_before_set_time, 60000);
     </script>
-    <div id="_before_title">before.sibr.dev</div>
-    <div id="_before_adjust">
-        <div><a href="/_before/relative?seconds=-900">&minus;</a>&nbsp;<abbr title="15 minutes">15m</abbr>&nbsp;<a href="/_before/relative?seconds=900">&plus;</a></div>
-        <div><a href="/_before/relative?hours=-1">&minus;</a>&nbsp;<abbr title="1 hour">1h</abbr>&nbsp;<a href="/_before/relative?hours=1">&plus;</a></div>
-        <div><a href="/_before/relative?days=-1">&minus;</a>&nbsp;<abbr title="1 real-time day">1d</abbr>&nbsp;<a href="/_before/relative?days=1">&plus;</a></div>
-        <div><a href="/_before/relative?weeks=-1">&minus;</a>&nbsp;<abbr title="1 week">1w</abbr>&nbsp;<a href="/_before/relative?weeks=1">&plus;</a></div>
-    </div>
 </div>
