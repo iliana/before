@@ -133,6 +133,7 @@ async fn rocket() -> _ {
                 database::items,
                 database::player_names_ids,
                 database::renovations,
+                database::global_feed,
                 events::stream_data,
                 time::jump,
                 time::relative,

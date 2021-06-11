@@ -7,6 +7,13 @@ use rocket::serde::json::Json;
 use rocket::Route;
 use rocket::{get, routes};
 use serde_json::value::RawValue;
+use std::collections::HashMap;
+
+lazy_static::lazy_static! {
+    static ref EVENTUALLY_BASE_URL: String = std::env::var("EVENTUALLY_BASE_URL")
+        .ok()
+        .unwrap_or_else(|| "https://api.sibr.dev/eventually/v2/".to_string());
+}
 
 async fn fetch(
     ty: &'static str,
@@ -134,6 +141,41 @@ pub async fn renovations(ids: String) -> Result<Json<Box<RawValue>>> {
                 "https://www.blaseball.com/database/renovations?ids={}",
                 ids
             ))
+            .send()
+            .await
+            .map_err(anyhow::Error::from)?
+            .json()
+            .await
+            .map_err(anyhow::Error::from)?,
+    ))
+}
+
+#[get("/database/feed/global?<category>&<limit>")] // TODO: actually add in sorting params support here
+pub async fn global_feed(
+    category: Option<String>,
+    limit: Option<String>,
+    time: OffsetTime,
+) -> Result<Json<Box<RawValue>>> {
+    let url = if let Some(c) = category {
+        format!(
+            "{base_url}events?before={time}&limit={limit}&sortorder=desc&category={category}",
+            base_url = *EVENTUALLY_BASE_URL,
+            limit = limit.unwrap_or("200".to_owned()),
+            time = time.0.timestamp(),
+            category = c
+        )
+    } else {
+        format!(
+            "{base_url}events?before={time}&limit={limit}&sortorder=desc",
+            base_url = *EVENTUALLY_BASE_URL,
+            limit = limit.unwrap_or("200".to_owned()),
+            time = time.0.timestamp()
+        )
+    };
+
+    Ok(Json(
+        crate::CLIENT
+            .get(url)
             .send()
             .await
             .map_err(anyhow::Error::from)?
