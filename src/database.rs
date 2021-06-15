@@ -15,6 +15,12 @@ lazy_static::lazy_static! {
         .unwrap_or_else(|| "https://api.sibr.dev/eventually/v2/".to_string());
 }
 
+lazy_static::lazy_static! {
+    static ref UPNUTS_BASE_URL: String = std::env::var("UPNUTS_BASE_URL")
+        .ok()
+        .unwrap_or_else(|| "https://api.sibr.dev/upnuts/".to_string());
+}
+
 async fn fetch(
     ty: &'static str,
     ids: Option<String>,
@@ -150,26 +156,29 @@ pub async fn renovations(ids: String) -> Result<Json<Box<RawValue>>> {
     ))
 }
 
-#[get("/database/feed/global?<category>&<limit>")] // TODO: actually add in sorting params support here
+#[get("/database/feed/global?<sort>&<category>&<limit>")] // TODO: actually add in sorting params support here
 pub async fn global_feed(
+    sort: Option<String>,
     category: Option<String>,
     limit: Option<String>,
     time: OffsetTime,
 ) -> Result<Json<Box<RawValue>>> {
     let url = if let Some(c) = category {
         format!(
-            "{base_url}events?before={time}&limit={limit}&sortorder=desc&category={category}",
-            base_url = *EVENTUALLY_BASE_URL,
+            "{base_url}feed/global?time={time}&limit={limit}&sort={sort}&category={category}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
             limit = limit.unwrap_or("200".to_owned()),
-            time = time.0.timestamp(),
+            sort = sort.unwrap_or("0".to_owned()),
+            time = time.0.timestamp_millis(),
             category = c
         )
     } else {
         format!(
-            "{base_url}events?before={time}&limit={limit}&sortorder=desc",
-            base_url = *EVENTUALLY_BASE_URL,
+            "{base_url}feed/global?time={time}&limit={limit}&sort={sort}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
             limit = limit.unwrap_or("200".to_owned()),
-            time = time.0.timestamp()
+            sort = sort.unwrap_or("0".to_owned()),
+            time = time.0.timestamp_millis()
         )
     };
 
