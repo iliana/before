@@ -91,6 +91,7 @@ pub fn entity_routes() -> Vec<Route> {
         route!("/database/offseasonRecap"),
         route!("/database/offseasonSetup"),
         route!("/database/shopSetup"),
+        route!("/database/sunsun","sunsun"),
         route_id!("/database/renovationProgress?<id>", "RenovationProgress"),
         route_id!("/database/teamElectionStats?<id>", "TeamElectionStats"),
         route_ids!("/database/bonusResults?<ids>", "BonusResult"),
