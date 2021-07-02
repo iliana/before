@@ -319,3 +319,44 @@ pub async fn team_feed(
             .map_err(anyhow::Error::from)?,
     ))
 }
+
+#[get("/database/feed/story?<id>&<sort>&<category>&<limit>")]
+pub async fn story_feed(
+    id: String,
+    sort: Option<String>,
+    category: Option<String>,
+    limit: Option<String>,
+    time: OffsetTime,
+) -> Result<Json<Box<RawValue>>> {
+    let url = if let Some(c) = category {
+        format!(
+            "{base_url}feed/story?id={id}&time={time}&limit={limit}&sort={sort}&category={category}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
+            id = id,
+            limit = limit.unwrap_or("2000".to_owned()),
+            sort = sort.unwrap_or("1".to_owned()),
+            time = time.0.timestamp_millis(),
+            category = c
+        )
+    } else {
+        format!(
+            "{base_url}feed/story?id={id}&time={time}&limit={limit}&sort={sort}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
+            id = id,
+            limit = limit.unwrap_or("2000".to_owned()),
+            sort = sort.unwrap_or("1".to_owned()),
+            time = time.0.timestamp_millis()
+        )
+    };
+
+    Ok(Json(
+        crate::CLIENT
+            .get(url)
+            .send()
+            .await
+            .map_err(anyhow::Error::from)?
+            .json()
+            .await
+            .map_err(anyhow::Error::from)?,
+    ))
+}

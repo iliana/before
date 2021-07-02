@@ -137,6 +137,7 @@ async fn rocket() -> _ {
                 database::game_feed,
                 database::player_feed,
                 database::team_feed,
+                database::story_feed,
                 events::stream_data,
                 time::jump,
                 time::relative,
