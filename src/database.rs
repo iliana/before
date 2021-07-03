@@ -15,11 +15,17 @@ lazy_static::lazy_static! {
         .unwrap_or_else(|| "https://api.sibr.dev/eventually/v2/".to_string());
 }
 
+lazy_static::lazy_static! {
+    static ref UPNUTS_BASE_URL: String = std::env::var("UPNUTS_BASE_URL")
+        .ok()
+        .unwrap_or_else(|| "https://api.sibr.dev/upnuts/".to_string());
+}
+
 async fn fetch(
     ty: &'static str,
     ids: Option<String>,
     time: DateTime<Utc>,
-) -> Result<impl Iterator<Item = Box<RawValue>>> {
+) -> Result<impl Iterator<Item=Box<RawValue>>> {
     let mut builder = RequestBuilder::new("v2/entities").ty(ty).at(time);
     if let Some(ids) = ids {
         builder = builder.id(ids)
@@ -99,7 +105,7 @@ pub fn entity_routes() -> Vec<Route> {
         route_ids!("/database/eventResults?<ids>", "EventResult"),
         route_ids!("/database/players?<ids>", "Player"),
     ]
-    .concat()
+        .concat()
 }
 
 #[get("/database/items?<ids>")]
@@ -151,26 +157,196 @@ pub async fn renovations(ids: String) -> Result<Json<Box<RawValue>>> {
     ))
 }
 
-#[get("/database/feed/global?<category>&<limit>")] // TODO: actually add in sorting params support here
+#[get("/database/feed/global?<sort>&<category>&<start>&<limit>")]
 pub async fn global_feed(
+    sort: Option<String>,
+    category: Option<String>,
+    start: Option<String>,
+    limit: Option<String>,
+    time: OffsetTime,
+) -> Result<Json<Box<RawValue>>> {
+    let url = if let Some(c) = category {
+        format!(
+            "{base_url}feed/global?time={time}&start={start}&limit={limit}&sort={sort}&category={category}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
+            start = start.unwrap_or("0".to_owned()),
+            limit = limit.unwrap_or("200".to_owned()),
+            sort = sort.unwrap_or("0".to_owned()),
+            time = time.0.timestamp_millis(),
+            category = c
+        )
+    } else {
+        format!(
+            "{base_url}feed/global?time={time}&start={start}&limit={limit}&sort={sort}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
+            start = start.unwrap_or("0".to_owned()),
+            limit = limit.unwrap_or("200".to_owned()),
+            sort = sort.unwrap_or("0".to_owned()),
+            time = time.0.timestamp_millis()
+        )
+    };
+
+    Ok(Json(
+        crate::CLIENT
+            .get(url)
+            .send()
+            .await
+            .map_err(anyhow::Error::from)?
+            .json()
+            .await
+            .map_err(anyhow::Error::from)?,
+    ))
+}
+
+#[get("/database/feed/game?<id>&<sort>&<category>&<limit>")]
+pub async fn game_feed(
+    id: String,
+    sort: Option<String>,
     category: Option<String>,
     limit: Option<String>,
     time: OffsetTime,
 ) -> Result<Json<Box<RawValue>>> {
     let url = if let Some(c) = category {
         format!(
-            "{base_url}events?before={time}&limit={limit}&sortorder=desc&category={category}",
-            base_url = *EVENTUALLY_BASE_URL,
-            limit = limit.unwrap_or("200".to_owned()),
-            time = time.0.timestamp(),
+            "{base_url}feed/game?id={id}&time={time}&limit={limit}&sort={sort}&category={category}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
+            id = id,
+            limit = limit.unwrap_or("2000".to_owned()),
+            sort = sort.unwrap_or("1".to_owned()),
+            time = time.0.timestamp_millis(),
             category = c
         )
     } else {
         format!(
-            "{base_url}events?before={time}&limit={limit}&sortorder=desc",
-            base_url = *EVENTUALLY_BASE_URL,
+            "{base_url}feed/game?id={id}&time={time}&limit={limit}&sort={sort}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
+            id = id,
+            limit = limit.unwrap_or("2000".to_owned()),
+            sort = sort.unwrap_or("1".to_owned()),
+            time = time.0.timestamp_millis()
+        )
+    };
+
+    Ok(Json(
+        crate::CLIENT
+            .get(url)
+            .send()
+            .await
+            .map_err(anyhow::Error::from)?
+            .json()
+            .await
+            .map_err(anyhow::Error::from)?,
+    ))
+}
+
+#[get("/database/feed/player?<id>&<sort>&<category>&<limit>")]
+pub async fn player_feed(
+    id: String,
+    sort: Option<String>,
+    category: Option<String>,
+    limit: Option<String>,
+    time: OffsetTime,
+) -> Result<Json<Box<RawValue>>> {
+    let url = if let Some(c) = category {
+        format!(
+            "{base_url}feed/player?id={id}&time={time}&limit={limit}&sort={sort}&category={category}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
+            id = id,
             limit = limit.unwrap_or("200".to_owned()),
-            time = time.0.timestamp()
+            sort = sort.unwrap_or("1".to_owned()),
+            time = time.0.timestamp_millis(),
+            category = c
+        )
+    } else {
+        format!(
+            "{base_url}feed/player?id={id}&time={time}&limit={limit}&sort={sort}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
+            id = id,
+            limit = limit.unwrap_or("200".to_owned()),
+            sort = sort.unwrap_or("1".to_owned()),
+            time = time.0.timestamp_millis()
+        )
+    };
+
+    Ok(Json(
+        crate::CLIENT
+            .get(url)
+            .send()
+            .await
+            .map_err(anyhow::Error::from)?
+            .json()
+            .await
+            .map_err(anyhow::Error::from)?,
+    ))
+}
+
+#[get("/database/feed/team?<id>&<sort>&<category>&<limit>")]
+pub async fn team_feed(
+    id: String,
+    sort: Option<String>,
+    category: Option<String>,
+    limit: Option<String>,
+    time: OffsetTime,
+) -> Result<Json<Box<RawValue>>> {
+    let url = if let Some(c) = category {
+        format!(
+            "{base_url}feed/team?id={id}&time={time}&limit={limit}&sort={sort}&category={category}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
+            id = id,
+            limit = limit.unwrap_or("200".to_owned()),
+            sort = sort.unwrap_or("1".to_owned()),
+            time = time.0.timestamp_millis(),
+            category = c
+        )
+    } else {
+        format!(
+            "{base_url}feed/team?id={id}&time={time}&limit={limit}&sort={sort}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
+            id = id,
+            limit = limit.unwrap_or("200".to_owned()),
+            sort = sort.unwrap_or("1".to_owned()),
+            time = time.0.timestamp_millis()
+        )
+    };
+
+    Ok(Json(
+        crate::CLIENT
+            .get(url)
+            .send()
+            .await
+            .map_err(anyhow::Error::from)?
+            .json()
+            .await
+            .map_err(anyhow::Error::from)?,
+    ))
+}
+
+#[get("/database/feed/story?<id>&<sort>&<category>&<limit>")]
+pub async fn story_feed(
+    id: String,
+    sort: Option<String>,
+    category: Option<String>,
+    limit: Option<String>,
+    time: OffsetTime,
+) -> Result<Json<Box<RawValue>>> {
+    let url = if let Some(c) = category {
+        format!(
+            "{base_url}feed/story?id={id}&time={time}&limit={limit}&sort={sort}&category={category}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
+            id = id,
+            limit = limit.unwrap_or("2000".to_owned()),
+            sort = sort.unwrap_or("1".to_owned()),
+            time = time.0.timestamp_millis(),
+            category = c
+        )
+    } else {
+        format!(
+            "{base_url}feed/story?id={id}&time={time}&limit={limit}&sort={sort}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
+            base_url = *UPNUTS_BASE_URL,
+            id = id,
+            limit = limit.unwrap_or("2000".to_owned()),
+            sort = sort.unwrap_or("1".to_owned()),
+            time = time.0.timestamp_millis()
         )
     };
 
