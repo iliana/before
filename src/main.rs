@@ -131,6 +131,7 @@ async fn rocket() -> _ {
                 api::get_user_rewards,
                 api::update_settings,
                 database::feed,
+                database::feedbyphase,
                 database::items,
                 database::player_names_ids,
                 database::renovations,

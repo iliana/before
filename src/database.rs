@@ -168,7 +168,10 @@ pub async fn feed(
     let url = Url::parse_with_params(
         &format!("{}feed/{}", *UPNUTS_BASE_URL, kind),
         vec![
-            ("one_of_providers", Some("7fcb63bc-11f2-40b9-b465-f1d458692a63")),
+            (
+                "one_of_providers",
+                Some("7fcb63bc-11f2-40b9-b465-f1d458692a63"),
+            ),
             ("time", Some(time.as_str())),
             ("id", id),
             ("start", start),
@@ -178,6 +181,36 @@ pub async fn feed(
         ]
         .into_iter()
         .filter_map(|(k, v)| v.map(|v| (k, v))),
+    )
+    .map_err(anyhow::Error::from)?;
+
+    Ok(Json(
+        crate::CLIENT
+            .get(url)
+            .send()
+            .await
+            .map_err(anyhow::Error::from)?
+            .json()
+            .await
+            .map_err(anyhow::Error::from)?,
+    ))
+}
+
+#[get("/database/feedbyphase?<phase>&<season>")]
+pub async fn feedbyphase(
+    phase: &str,
+    season: &str,
+    time: OffsetTime,
+) -> Result<Json<Box<RawValue>>> {
+    let url = Url::parse_with_params(
+        &format!("{}/feed/global", *UPNUTS_BASE_URL),
+        &[
+            ("one_of_providers", "7fcb63bc-11f2-40b9-b465-f1d458692a63"),
+            ("time", time.0.timestamp_millis().to_string().as_str()),
+            ("sort", "1"),
+            ("phase", phase),
+            ("season", season),
+        ],
     )
     .map_err(anyhow::Error::from)?;
 
