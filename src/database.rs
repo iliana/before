@@ -2,12 +2,12 @@ use crate::chronicler::{PlayerNameId, RequestBuilder, Versions};
 use crate::time::OffsetTime;
 use crate::Result;
 use chrono::{DateTime, Duration, Utc};
+use reqwest::Url;
 use rocket::futures::TryStreamExt;
 use rocket::serde::json::Json;
 use rocket::Route;
 use rocket::{get, routes};
 use serde_json::value::RawValue;
-use std::collections::HashMap;
 
 lazy_static::lazy_static! {
     static ref EVENTUALLY_BASE_URL: String = std::env::var("EVENTUALLY_BASE_URL")
@@ -157,198 +157,32 @@ pub async fn renovations(ids: String) -> Result<Json<Box<RawValue>>> {
     ))
 }
 
-#[get("/database/feed/global?<sort>&<category>&<start>&<limit>")]
-pub async fn global_feed(
-    sort: Option<String>,
-    category: Option<String>,
-    start: Option<String>,
-    limit: Option<String>,
+#[get("/database/feed/<kind>?<id>&<start>&<category>&<sort>&<limit>")]
+pub async fn feed(
+    kind: &str,
+    id: Option<&str>,
+    start: Option<&str>,
+    category: Option<&str>,
+    sort: Option<&str>,
+    limit: Option<&str>,
     time: OffsetTime,
 ) -> Result<Json<Box<RawValue>>> {
-    let url = if let Some(c) = category {
-        format!(
-            "{base_url}feed/global?time={time}&start={start}&limit={limit}&sort={sort}&category={category}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
-            base_url = *UPNUTS_BASE_URL,
-            start = start.unwrap_or("0".to_owned()),
-            limit = limit.unwrap_or("200".to_owned()),
-            sort = sort.unwrap_or("0".to_owned()),
-            time = time.0.timestamp_millis(),
-            category = c
-        )
-    } else {
-        format!(
-            "{base_url}feed/global?time={time}&start={start}&limit={limit}&sort={sort}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
-            base_url = *UPNUTS_BASE_URL,
-            start = start.unwrap_or("0".to_owned()),
-            limit = limit.unwrap_or("200".to_owned()),
-            sort = sort.unwrap_or("0".to_owned()),
-            time = time.0.timestamp_millis()
-        )
-    };
-
-    Ok(Json(
-        crate::CLIENT
-            .get(url)
-            .send()
-            .await
-            .map_err(anyhow::Error::from)?
-            .json()
-            .await
-            .map_err(anyhow::Error::from)?,
-    ))
-}
-
-#[get("/database/feed/game?<id>&<sort>&<category>&<limit>")]
-pub async fn game_feed(
-    id: String,
-    sort: Option<String>,
-    category: Option<String>,
-    limit: Option<String>,
-    time: OffsetTime,
-) -> Result<Json<Box<RawValue>>> {
-    let url = if let Some(c) = category {
-        format!(
-            "{base_url}feed/game?id={id}&time={time}&limit={limit}&sort={sort}&category={category}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
-            base_url = *UPNUTS_BASE_URL,
-            id = id,
-            limit = limit.unwrap_or("2000".to_owned()),
-            sort = sort.unwrap_or("1".to_owned()),
-            time = time.0.timestamp_millis(),
-            category = c
-        )
-    } else {
-        format!(
-            "{base_url}feed/game?id={id}&time={time}&limit={limit}&sort={sort}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
-            base_url = *UPNUTS_BASE_URL,
-            id = id,
-            limit = limit.unwrap_or("2000".to_owned()),
-            sort = sort.unwrap_or("1".to_owned()),
-            time = time.0.timestamp_millis()
-        )
-    };
-
-    Ok(Json(
-        crate::CLIENT
-            .get(url)
-            .send()
-            .await
-            .map_err(anyhow::Error::from)?
-            .json()
-            .await
-            .map_err(anyhow::Error::from)?,
-    ))
-}
-
-#[get("/database/feed/player?<id>&<sort>&<category>&<limit>")]
-pub async fn player_feed(
-    id: String,
-    sort: Option<String>,
-    category: Option<String>,
-    limit: Option<String>,
-    time: OffsetTime,
-) -> Result<Json<Box<RawValue>>> {
-    let url = if let Some(c) = category {
-        format!(
-            "{base_url}feed/player?id={id}&time={time}&limit={limit}&sort={sort}&category={category}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
-            base_url = *UPNUTS_BASE_URL,
-            id = id,
-            limit = limit.unwrap_or("200".to_owned()),
-            sort = sort.unwrap_or("1".to_owned()),
-            time = time.0.timestamp_millis(),
-            category = c
-        )
-    } else {
-        format!(
-            "{base_url}feed/player?id={id}&time={time}&limit={limit}&sort={sort}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
-            base_url = *UPNUTS_BASE_URL,
-            id = id,
-            limit = limit.unwrap_or("200".to_owned()),
-            sort = sort.unwrap_or("1".to_owned()),
-            time = time.0.timestamp_millis()
-        )
-    };
-
-    Ok(Json(
-        crate::CLIENT
-            .get(url)
-            .send()
-            .await
-            .map_err(anyhow::Error::from)?
-            .json()
-            .await
-            .map_err(anyhow::Error::from)?,
-    ))
-}
-
-#[get("/database/feed/team?<id>&<sort>&<category>&<limit>")]
-pub async fn team_feed(
-    id: String,
-    sort: Option<String>,
-    category: Option<String>,
-    limit: Option<String>,
-    time: OffsetTime,
-) -> Result<Json<Box<RawValue>>> {
-    let url = if let Some(c) = category {
-        format!(
-            "{base_url}feed/team?id={id}&time={time}&limit={limit}&sort={sort}&category={category}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
-            base_url = *UPNUTS_BASE_URL,
-            id = id,
-            limit = limit.unwrap_or("200".to_owned()),
-            sort = sort.unwrap_or("1".to_owned()),
-            time = time.0.timestamp_millis(),
-            category = c
-        )
-    } else {
-        format!(
-            "{base_url}feed/team?id={id}&time={time}&limit={limit}&sort={sort}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
-            base_url = *UPNUTS_BASE_URL,
-            id = id,
-            limit = limit.unwrap_or("200".to_owned()),
-            sort = sort.unwrap_or("1".to_owned()),
-            time = time.0.timestamp_millis()
-        )
-    };
-
-    Ok(Json(
-        crate::CLIENT
-            .get(url)
-            .send()
-            .await
-            .map_err(anyhow::Error::from)?
-            .json()
-            .await
-            .map_err(anyhow::Error::from)?,
-    ))
-}
-
-#[get("/database/feed/story?<id>&<sort>&<category>&<limit>")]
-pub async fn story_feed(
-    id: String,
-    sort: Option<String>,
-    category: Option<String>,
-    limit: Option<String>,
-    time: OffsetTime,
-) -> Result<Json<Box<RawValue>>> {
-    let url = if let Some(c) = category {
-        format!(
-            "{base_url}feed/story?id={id}&time={time}&limit={limit}&sort={sort}&category={category}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
-            base_url = *UPNUTS_BASE_URL,
-            id = id,
-            limit = limit.unwrap_or("2000".to_owned()),
-            sort = sort.unwrap_or("1".to_owned()),
-            time = time.0.timestamp_millis(),
-            category = c
-        )
-    } else {
-        format!(
-            "{base_url}feed/story?id={id}&time={time}&limit={limit}&sort={sort}&one_of_providers=7fcb63bc-11f2-40b9-b465-f1d458692a63",
-            base_url = *UPNUTS_BASE_URL,
-            id = id,
-            limit = limit.unwrap_or("2000".to_owned()),
-            sort = sort.unwrap_or("1".to_owned()),
-            time = time.0.timestamp_millis()
-        )
-    };
+    let time = time.0.timestamp_millis().to_string();
+    let url = Url::parse_with_params(
+        &format!("{}feed/{}", *UPNUTS_BASE_URL, kind),
+        vec![
+            ("one_of_providers", Some("7fcb63bc-11f2-40b9-b465-f1d458692a63")),
+            ("time", Some(time.as_str())),
+            ("id", id),
+            ("start", start),
+            ("category", category),
+            ("sort", sort),
+            ("limit", limit),
+        ]
+        .into_iter()
+        .filter_map(|(k, v)| v.map(|v| (k, v))),
+    )
+    .map_err(anyhow::Error::from)?;
 
     Ok(Json(
         crate::CLIENT
