@@ -13,9 +13,6 @@ lazy_static::lazy_static! {
     static ref EVENTUALLY_BASE_URL: String = std::env::var("EVENTUALLY_BASE_URL")
         .ok()
         .unwrap_or_else(|| "https://api.sibr.dev/eventually/v2/".to_string());
-}
-
-lazy_static::lazy_static! {
     static ref UPNUTS_BASE_URL: String = std::env::var("UPNUTS_BASE_URL")
         .ok()
         .unwrap_or_else(|| "https://api.sibr.dev/upnuts/".to_string());
