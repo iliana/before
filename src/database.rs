@@ -25,7 +25,7 @@ async fn fetch(
     ty: &'static str,
     ids: Option<String>,
     time: DateTime<Utc>,
-) -> Result<impl Iterator<Item=Box<RawValue>>> {
+) -> Result<impl Iterator<Item = Box<RawValue>>> {
     let mut builder = RequestBuilder::new("v2/entities").ty(ty).at(time);
     if let Some(ids) = ids {
         builder = builder.id(ids)
@@ -97,7 +97,7 @@ pub fn entity_routes() -> Vec<Route> {
         route!("/database/offseasonRecap"),
         route!("/database/offseasonSetup"),
         route!("/database/shopSetup"),
-        route!("/database/sunsun","sunsun"),
+        route!("/database/sunsun", "sunsun"),
         route_id!("/database/renovationProgress?<id>", "RenovationProgress"),
         route_id!("/database/teamElectionStats?<id>", "TeamElectionStats"),
         route_ids!("/database/bonusResults?<ids>", "BonusResult"),
@@ -105,7 +105,7 @@ pub fn entity_routes() -> Vec<Route> {
         route_ids!("/database/eventResults?<ids>", "EventResult"),
         route_ids!("/database/players?<ids>", "Player"),
     ]
-        .concat()
+    .concat()
 }
 
 #[get("/database/items?<ids>")]
