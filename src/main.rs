@@ -133,6 +133,7 @@ async fn rocket() -> _ {
                 database::feed,
                 database::feedbyphase,
                 database::items,
+                database::offseason_recap,
                 database::player_names_ids,
                 database::renovations,
                 events::stream_data,

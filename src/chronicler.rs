@@ -5,7 +5,8 @@ use reqwest::Response;
 use rocket::futures::stream::Stream as StreamTrait;
 use rocket::response::stream::stream;
 use serde::{Deserialize, Serialize};
-use serde_json::value::RawValue;
+use serde_json::value::{RawValue, Value};
+use std::collections::HashMap;
 
 lazy_static::lazy_static! {
     static ref BASE_URL: String = std::env::var("CHRONICLER_BASE_URL")
@@ -145,4 +146,12 @@ pub struct StreamValue {
 pub struct PlayerNameId {
     pub id: String,
     pub name: String,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct OffseasonRecap {
+    pub season: i64,
+    // can't use RawValue here due to https://github.com/serde-rs/json/issues/599
+    #[serde(flatten)]
+    everything_else: HashMap<String, Value>,
 }

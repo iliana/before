@@ -1,4 +1,4 @@
-use crate::chronicler::{PlayerNameId, RequestBuilder, Versions};
+use crate::chronicler::{OffseasonRecap, PlayerNameId, RequestBuilder, Versions};
 use crate::time::OffsetTime;
 use crate::Result;
 use chrono::{DateTime, Duration, Utc};
@@ -91,7 +91,6 @@ pub fn entity_routes() -> Vec<Route> {
         route!("/database/allTeams", "Team"),
         route!("/database/giftProgress"),
         route!("/database/globalEvents"),
-        route!("/database/offseasonRecap"),
         route!("/database/offseasonSetup"),
         route!("/database/shopSetup"),
         route!("/database/sunsun", "sunsun"),
@@ -133,6 +132,28 @@ pub async fn player_names_ids(time: OffsetTime) -> Result<Json<Vec<PlayerNameId>
         .await?;
     v.sort_by(|l, r| l.name.cmp(&r.name));
     Ok(Json(v))
+}
+
+#[get("/database/offseasonRecap?<season>")]
+pub async fn offseason_recap(
+    season: i64,
+    time: OffsetTime,
+) -> Result<Option<Json<OffseasonRecap>>> {
+    Ok(RequestBuilder::new("v2/entities")
+        .ty("OffseasonRecap")
+        .at(time.0)
+        .count(1000)
+        .json::<Versions<OffseasonRecap>>()
+        .await?
+        .items
+        .into_iter()
+        .find_map(|item| {
+            if item.data.season == season {
+                Some(Json(item.data))
+            } else {
+                None
+            }
+        }))
 }
 
 // TODO get these in chronicler, then add a workaround to cap the OffsetTime at the earliest point
@@ -208,6 +229,7 @@ pub async fn feedbyphase(
             ("one_of_providers", "7fcb63bc-11f2-40b9-b465-f1d458692a63"),
             ("time", time.0.timestamp_millis().to_string().as_str()),
             ("sort", "1"),
+            ("limit", "1000"),
             ("phase", phase),
             ("season", season),
         ],
