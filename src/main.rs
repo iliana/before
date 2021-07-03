@@ -15,10 +15,10 @@ use chrono::Utc;
 use either::Either;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
-use rocket::http::CookieJar;
+use rocket::http::{CookieJar, Status};
 use rocket::request::FromRequest;
 use rocket::response::content::{Css, Html};
-use rocket::response::{status::NotFound, Redirect as Redir};
+use rocket::response::{status::Custom, status::NotFound, Redirect as Redir};
 use rocket::tokio;
 use rocket::{catch, catchers, get, launch, routes, Request};
 
@@ -97,7 +97,7 @@ fn logout() -> Redir {
 // Blaseball returns the index page for any unknown route, so that the React frontend can display
 // the correct thing when the page loads.
 #[catch(404)]
-async fn index_default(req: &Request<'_>) -> Result<Either<Html<String>, NotFound<()>>> {
+async fn index_default(req: &Request<'_>) -> Result<Either<Custom<Html<String>>, NotFound<()>>> {
     let path = req.uri().path();
     if [
         "/api",
@@ -114,7 +114,7 @@ async fn index_default(req: &Request<'_>) -> Result<Either<Html<String>, NotFoun
     }
 
     let time = OffsetTime::from_request(req).await.unwrap();
-    Ok(Either::Left(index(time).await?))
+    Ok(Either::Left(Custom(Status::Ok, index(time).await?)))
 }
 
 #[launch]
