@@ -1,6 +1,6 @@
 use crate::choose;
 use rocket::http::{Cookie, CookieJar};
-use rocket::response::status::{BadRequest, NoContent};
+use rocket::response::status::BadRequest;
 use rocket::serde::json::Json;
 use rocket::{get, post, routes, Route};
 use serde::Deserialize;
@@ -58,8 +58,13 @@ pub fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
 }
 
 #[get("/api/getUserRewards")]
-pub fn get_user_rewards() -> NoContent {
-    NoContent
+pub fn get_user_rewards() -> Json<Option<()>> {
+    Json(None)
+}
+
+#[get("/api/getUserNotifications")]
+pub fn get_user_notifications() -> Json<Option<()>> {
+    Json(None)
 }
 
 pub fn mocked_error_routes() -> Vec<Route> {

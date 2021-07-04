@@ -128,6 +128,7 @@ async fn rocket() -> _ {
             routes![
                 api::get_active_bets,
                 api::get_user,
+                api::get_user_notifications,
                 api::get_user_rewards,
                 api::update_settings,
                 database::feed,
