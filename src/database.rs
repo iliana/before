@@ -38,16 +38,22 @@ async fn fetch(
 
 pub fn entity_routes() -> Vec<Route> {
     macro_rules! route {
-        ($uri:expr) => {
-            route!($uri, $uri.rsplitn(2, '/').next().unwrap())
-        };
-
         ($uri:expr, $ty:expr) => {{
             #[get($uri)]
             pub async fn entity(time: OffsetTime) -> Result<Option<Json<Box<RawValue>>>> {
                 Ok(fetch($ty, None, time.0).await?.next().map(Json))
             }
             routes![entity]
+        }};
+    }
+
+    macro_rules! route_all {
+        ($uri:expr, $ty:expr) => {{
+            #[get($uri)]
+            pub async fn entity_all(time: OffsetTime) -> Result<Json<Vec<Box<RawValue>>>> {
+                Ok(Json(fetch($ty, None, time.0).await?.collect()))
+            }
+            routes![entity_all]
         }};
     }
 
@@ -89,14 +95,18 @@ pub fn entity_routes() -> Vec<Route> {
         route!("/api/getIdols", "Idols"),
         route!("/api/getRisingStars", "RisingStars"),
         route!("/api/getTribute", "Tributes"),
-        route!("/database/allTeams", "Team"),
-        route!("/database/giftProgress"),
-        route!("/database/globalEvents"),
-        route!("/database/offseasonSetup"),
-        route!("/database/shopSetup"),
-        route!("/database/sunsun"),
-        route!("/database/vault"),
+        route!("/database/communityChestProgress", "CommunityChestProgress"),
+        route!("/database/giftProgress", "GiftProgress"),
+        route!("/database/globalEvents", "GlobalEvents"),
+        route!("/database/offseasonSetup", "OffseasonSetup"),
+        route!("/database/shopSetup", "ShopSetup"),
+        route!("/database/sunsun", "SunSun"),
+        route!("/database/vault", "Vault"),
+        route_all!("/database/allDivisions", "Division"),
+        route_all!("/database/allTeams", "Team"),
         route_id!("/database/renovationProgress?<id>", "RenovationProgress"),
+        route_id!("/database/subleague?<id>", "Subleague"),
+        route_id!("/database/team?<id>", "Team"),
         route_id!("/database/teamElectionStats?<id>", "TeamElectionStats"),
         route_ids!("/database/bonusResults?<ids>", "BonusResult"),
         route_ids!("/database/decreeResults?<ids>", "DecreeResult"),
@@ -104,6 +114,15 @@ pub fn entity_routes() -> Vec<Route> {
         route_ids!("/database/players?<ids>", "Player"),
     ]
     .concat()
+}
+
+#[get("/database/gameById/<id>")]
+pub async fn game_by_id(id: String, time: OffsetTime) -> Result<Option<Json<Box<RawValue>>>> {
+    if id.is_empty() {
+        Ok(None)
+    } else {
+        Ok(fetch("Game", Some(id), time.0).await?.next().map(Json))
+    }
 }
 
 #[get("/database/items?<ids>")]

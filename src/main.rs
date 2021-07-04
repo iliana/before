@@ -133,6 +133,7 @@ async fn rocket() -> _ {
                 api::update_settings,
                 database::feed,
                 database::feedbyphase,
+                database::game_by_id,
                 database::items,
                 database::offseason_recap,
                 database::player_names_ids,
