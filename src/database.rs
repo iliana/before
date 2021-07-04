@@ -87,13 +87,15 @@ pub fn entity_routes() -> Vec<Route> {
 
     vec![
         route!("/api/getIdols", "Idols"),
+        route!("/api/getRisingStars", "RisingStars"),
         route!("/api/getTribute", "Tributes"),
         route!("/database/allTeams", "Team"),
         route!("/database/giftProgress"),
         route!("/database/globalEvents"),
         route!("/database/offseasonSetup"),
         route!("/database/shopSetup"),
-        route!("/database/sunsun", "sunsun"),
+        route!("/database/sunsun"),
+        route!("/database/vault"),
         route_id!("/database/renovationProgress?<id>", "RenovationProgress"),
         route_id!("/database/teamElectionStats?<id>", "TeamElectionStats"),
         route_ids!("/database/bonusResults?<ids>", "BonusResult"),
