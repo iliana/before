@@ -136,9 +136,13 @@ pub struct Stream {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct StreamValue {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub games: Option<Box<RawValue>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub leagues: Option<Box<RawValue>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub temporal: Option<Box<RawValue>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub fights: Option<Box<RawValue>>,
 }
 
