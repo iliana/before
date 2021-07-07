@@ -15,12 +15,14 @@ use chrono::Utc;
 use either::Either;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
+use rocket::fs::{relative, FileServer};
 use rocket::http::{CookieJar, Status};
 use rocket::request::FromRequest;
-use rocket::response::content::{Css, Html};
+use rocket::response::content::Html;
 use rocket::response::{status::Custom, status::NotFound, Redirect as Redir};
-use rocket::tokio;
+use rocket::tokio::{self, fs};
 use rocket::{catch, catchers, get, launch, routes, Request};
+use std::path::Path;
 
 lazy_static::lazy_static! {
     static ref CLIENT: reqwest::Client = reqwest::Client::builder()
@@ -36,15 +38,22 @@ fn choose<'a>(x: &[&'a str]) -> &'a str {
     x.choose(&mut thread_rng()).cloned().unwrap_or_default()
 }
 
+fn static_dir() -> &'static Path {
+    Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static")))
+}
+
 #[get("/")]
 async fn index(time: OffsetTime) -> Result<Html<String>> {
+    let inject = fs::read_to_string(static_dir().join("inject.html"))
+        .await
+        .map_err(anyhow::Error::from)?;
     Ok(Html(
         site::get_index(time.0)
             .await?
             // inject before code
             .replace(
                 r#"<div id="root">"#,
-                concat!(include_str!("inject.html"), r#"<div id="root">"#),
+                &format!("{}{}", inject, r#"<div id="root">"#,),
             )
             .replace(
                 "</head>",
@@ -71,11 +80,6 @@ async fn index(time: OffsetTime) -> Result<Html<String>> {
                 "https://removed.invalid",
             ),
     ))
-}
-
-#[get("/_before/inject.css")]
-fn inject_css() -> Css<&'static [u8]> {
-    Css(include_bytes!("style.css"))
 }
 
 #[get("/_before/reset?<redirect>")]
@@ -121,6 +125,7 @@ async fn index_default(req: &Request<'_>) -> Result<Either<Custom<Html<String>>,
 async fn rocket() -> _ {
     tokio::spawn(site::update_cache(Utc::now()));
     rocket::build()
+        .mount("/_before", FileServer::from(static_dir()))
         .mount("/", api::mocked_error_routes())
         .mount("/", database::entity_routes())
         .mount(
@@ -144,7 +149,6 @@ async fn rocket() -> _ {
                 site::site_static,
                 site::site_static_heuristic,
                 index,
-                inject_css,
                 reset,
                 logout,
             ],
