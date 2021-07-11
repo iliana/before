@@ -25,7 +25,16 @@ pub fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
         "verified": true,
         "coins": 0,
         "idol": choose(IDOL_CHOICES),
-        "favoriteTeam": choose(TEAM_CHOICES),
+        "favoriteTeam": cookies.get_pending("favorite_team")
+            .map(|s| {
+                let s = s.value().to_owned();
+                if s == "_before_change_team" {
+                    Value::Null
+                } else {
+                    Value::String(s)
+                }
+            })
+            .unwrap_or(Value::String(choose(TEAM_CHOICES).to_owned())),
         "unlockedShop": true,
         "unlockedElection": true,
         "spread": [],
@@ -33,12 +42,13 @@ pub fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
             "Forbidden_Knowledge_Access": 1,
             "Stadium_Access": 1,
             "Wills_Access": 1,
+            "Flutes": 1,
         },
         "snackOrder": [
             "Forbidden_Knowledge_Access",
             "Stadium_Access",
             "Wills_Access",
-            "E",
+            "Flutes",
             "E",
             "E",
             "E",
@@ -65,6 +75,38 @@ pub fn get_user_rewards() -> Json<Option<()>> {
 #[get("/api/getUserNotifications")]
 pub fn get_user_notifications() -> Json<Option<()>> {
     Json(None)
+}
+
+#[post("/api/clearUserNotifications")]
+pub fn clear_user_notifications() -> Json<Option<()>> {
+    Json(None)
+}
+
+#[post("/api/buyUpdateFavoriteTeam")]
+pub fn buy_flute(cookies: &CookieJar<'_>) -> Json<Value> {
+    cookies.add(Cookie::new(
+        "favorite_team",
+        "_before_change_team".to_string(),
+    ));
+    Json(json!({"message": "Reload this page to choose a new team."}))
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct FavoriteTeamUpdate {
+    pub team_id: String,
+}
+
+#[post("/api/updateFavoriteTeam", data = "<new_favorite>")]
+pub fn update_favourite_team(
+    cookies: &CookieJar<'_>,
+    new_favorite: Json<FavoriteTeamUpdate>,
+) -> Json<Value> {
+    cookies.add(Cookie::new(
+        "favorite_team",
+        new_favorite.team_id.to_string(),
+    ));
+    Json(json!({ "message": "You now remember the Before of a new team." }))
 }
 
 pub fn mocked_error_routes() -> Vec<Route> {
