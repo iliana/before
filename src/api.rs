@@ -34,7 +34,7 @@ pub fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
                     Value::String(s)
                 }
             })
-            .unwrap_or(Value::String(choose(TEAM_CHOICES).to_owned())),
+            .unwrap_or_else(|| Value::String(choose(TEAM_CHOICES).to_owned())),
         "unlockedShop": true,
         "unlockedElection": true,
         "spread": [],
