@@ -10,8 +10,8 @@ mod site;
 mod time;
 
 use crate::redirect::Redirect;
-use crate::time::OffsetTime;
-use chrono::Utc;
+use crate::time::{DayMap, OffsetTime};
+use chrono::{Duration, DurationRound, Utc};
 use either::Either;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
@@ -20,8 +20,8 @@ use rocket::http::{CookieJar, Status};
 use rocket::request::FromRequest;
 use rocket::response::content::Html;
 use rocket::response::{status::Custom, status::NotFound, Redirect as Redir};
-use rocket::tokio::{self, fs};
-use rocket::{catch, catchers, get, launch, routes, Request};
+use rocket::tokio::{self, fs, time::Instant};
+use rocket::{catch, catchers, get, routes, Build, Request, Rocket};
 use std::path::Path;
 
 lazy_static::lazy_static! {
@@ -121,9 +121,7 @@ async fn index_default(req: &Request<'_>) -> Result<Either<Custom<Html<String>>,
     Ok(Either::Left(Custom(Status::Ok, index(time).await?)))
 }
 
-#[launch]
-async fn rocket() -> _ {
-    tokio::spawn(site::update_cache(Utc::now()));
+fn build_rocket() -> Rocket<Build> {
     rocket::build()
         .mount("/_before", FileServer::from(static_dir()))
         .mount("/", api::mocked_error_routes())
@@ -157,4 +155,54 @@ async fn rocket() -> _ {
             ],
         )
         .register("/", catchers![index_default])
+}
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    match std::env::args().nth(1).as_deref() {
+        Some("build-day-map") => {
+            let mut map = DayMap::default();
+            map.update().await?;
+            fs::write(
+                Path::new(relative!("data")).join("day-map.bin"),
+                &bincode::serialize(&map)?,
+            )
+            .await?;
+        }
+        _ => {
+            tokio::spawn(async {
+                if let Err(err) = site::update_cache(Utc::now()).await {
+                    log::error!("{:?}", err);
+                }
+            });
+            tokio::spawn(async {
+                if let Err(err) = crate::time::DAY_MAP.write().await.update().await {
+                    log::error!("{:?}", err);
+                }
+            });
+
+            // Check for new games to add to the day map at 5 past the hour
+            {
+                let now = Utc::now();
+                let offset = (now.duration_trunc(Duration::hours(1))? + Duration::minutes(65)
+                    - now)
+                    .to_std()?;
+                tokio::spawn(async move {
+                    let mut interval = tokio::time::interval_at(
+                        Instant::now() + offset,
+                        std::time::Duration::from_secs(3600),
+                    );
+                    loop {
+                        interval.tick().await;
+                        if let Err(err) = crate::time::DAY_MAP.write().await.update().await {
+                            log::error!("{:?}", err);
+                        }
+                    }
+                });
+            }
+
+            build_rocket().launch().await?;
+        }
+    };
+    Ok(())
 }

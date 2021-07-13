@@ -9,8 +9,10 @@ publish = false
 lto = 'thin'
 
 [dependencies]
+bincode = "1"
 derive_builder = "0.10"
 either = "1"
+itertools = "0.10"
 lazy_static = "1"
 log = "0.4"
 rand = "0.8"

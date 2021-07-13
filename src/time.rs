@@ -1,11 +1,156 @@
+use crate::chronicler::{ChroniclerGame, Data, RequestBuilder};
 use crate::redirect::Redirect;
 use crate::Result;
-use chrono::{DateTime, Duration, Utc};
+use chrono::{DateTime, Duration, DurationRound, Utc};
+use itertools::Itertools;
+use rocket::form::FromForm;
 use rocket::http::{Cookie, CookieJar};
 use rocket::request::{FromRequest, Outcome, Request};
-use rocket::{async_trait, get};
+use rocket::response::status::NotFound;
+use rocket::tokio::sync::RwLock;
+use rocket::{async_trait, get, Either};
+use serde::{Deserialize, Serialize};
+use std::collections::BTreeMap;
 use std::convert::Infallible;
 use std::str::FromStr;
+
+lazy_static::lazy_static! {
+    pub static ref DAY_MAP: RwLock<DayMap> =
+        RwLock::new(bincode::deserialize(include_bytes!("../data/day-map.bin")).unwrap());
+
+    static ref SEASON_3_START: DateTime<Utc> = "2020-08-03T16:00:00Z".parse().unwrap();
+}
+
+#[derive(Debug, Default, Deserialize, Serialize)]
+pub struct DayMap {
+    until: Option<DateTime<Utc>>,
+    season: BTreeMap<(i64, i64), DateTime<Utc>>,
+    tournament: BTreeMap<(i64, i64), DateTime<Utc>>,
+}
+
+impl DayMap {
+    pub async fn update(&mut self) -> anyhow::Result<()> {
+        log::warn!("updating v1/games start_time cache");
+        let after = self
+            .until
+            .unwrap_or(*SEASON_3_START)
+            .duration_trunc(Duration::hours(1))?;
+        let times = RequestBuilder::new("v1/games")
+            .after(after)
+            .started(true)
+            .json::<Data<ChroniclerGame>>()
+            .await?
+            .data
+            .into_iter()
+            .map(|game| (game.data, game.start_time))
+            .into_grouping_map()
+            .min();
+        let start = self.season.len() + self.tournament.len();
+        self.season.extend(
+            times
+                .iter()
+                .filter(|(date, _)| date.season > -1)
+                .map(|(date, start)| ((date.season, date.day), *start)),
+        );
+        self.tournament.extend(
+            times
+                .iter()
+                .filter(|(date, _)| date.tournament > -1)
+                .map(|(date, start)| ((date.tournament, date.day), *start)),
+        );
+        log::warn!(
+            "added {} entries to day map",
+            self.season.len() + self.tournament.len() - start
+        );
+        self.until = Some(Utc::now());
+        Ok(())
+    }
+}
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
+#[get("/_before/jump?<redirect>&<jump_time..>")]
+pub async fn jump(
+    cookies: &CookieJar<'_>,
+    redirect: Option<String>,
+    jump_time: JumpTime<'_>,
+) -> Result<Either<Redirect, NotFound<()>>> {
+    Ok(if let Some(time) = jump_time.to_time().await? {
+        set_offset(cookies, Utc::now() - (time - Duration::seconds(5)));
+        Either::Left(Redirect(redirect))
+    } else {
+        Either::Right(NotFound(()))
+    })
+}
+
+#[derive(Debug, Clone, Copy, FromForm)]
+pub struct JumpTime<'a> {
+    time: Option<&'a str>,
+    season: Option<i64>,
+    tournament: Option<i64>,
+    day: Option<i64>,
+}
+
+impl<'a> JumpTime<'a> {
+    async fn to_time(self) -> anyhow::Result<Option<DateTime<Utc>>> {
+        Ok(if let Some(time) = self.time {
+            Some(DateTime::from_str(time)?)
+        } else if let Some(day) = self.day {
+            if let Some(season) = self.season {
+                DAY_MAP
+                    .read()
+                    .await
+                    .season
+                    .get(&(season - 1, day - 1))
+                    .copied()
+            } else if let Some(tournament) = self.tournament {
+                DAY_MAP
+                    .read()
+                    .await
+                    .tournament
+                    .get(&(tournament, day - 1))
+                    .copied()
+            } else {
+                None
+            }
+        } else {
+            None
+        })
+    }
+}
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
+#[get("/_before/relative?<redirect>&<duration..>")]
+pub fn relative(
+    cookies: &CookieJar<'_>,
+    redirect: Option<String>,
+    duration: FormDuration,
+) -> Redirect {
+    set_offset(cookies, get_offset(cookies) - duration.to_duration());
+    Redirect(redirect)
+}
+
+#[derive(Debug, Clone, Copy, FromForm)]
+pub struct FormDuration {
+    seconds: Option<i64>,
+    minutes: Option<i64>,
+    hours: Option<i64>,
+    days: Option<i64>,
+    weeks: Option<i64>,
+}
+
+impl FormDuration {
+    fn to_duration(self) -> Duration {
+        Duration::seconds(self.seconds.unwrap_or(0))
+            + Duration::minutes(self.minutes.unwrap_or(0))
+            + Duration::hours(self.hours.unwrap_or(0))
+            + Duration::days(self.days.unwrap_or(0))
+            + Duration::weeks(self.weeks.unwrap_or(0))
+    }
+}
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
 fn get_offset(cookies: &CookieJar<'_>) -> Duration {
     if let Some(secs) = cookies
@@ -25,43 +170,6 @@ fn set_offset(cookies: &CookieJar<'_>, duration: Duration) {
         "offset_sec",
         duration.num_seconds().to_string(),
     ));
-}
-
-fn duration(
-    seconds: Option<i64>,
-    hours: Option<i64>,
-    days: Option<i64>,
-    weeks: Option<i64>,
-) -> Duration {
-    Duration::seconds(seconds.unwrap_or(0))
-        + Duration::hours(hours.unwrap_or(0))
-        + Duration::days(days.unwrap_or(0))
-        + Duration::weeks(weeks.unwrap_or(0))
-}
-
-#[get("/_before/jump?<redirect>&<time>")]
-pub fn jump(cookies: &CookieJar<'_>, redirect: Option<String>, time: &str) -> Result<Redirect> {
-    set_offset(
-        cookies,
-        Utc::now() - DateTime::from_str(time).map_err(anyhow::Error::from)?,
-    );
-    Ok(Redirect(redirect))
-}
-
-#[get("/_before/relative?<redirect>&<seconds>&<hours>&<days>&<weeks>")]
-pub fn relative(
-    cookies: &CookieJar<'_>,
-    redirect: Option<String>,
-    seconds: Option<i64>,
-    hours: Option<i64>,
-    days: Option<i64>,
-    weeks: Option<i64>,
-) -> Redirect {
-    set_offset(
-        cookies,
-        get_offset(cookies) - duration(seconds, hours, days, weeks),
-    );
-    Redirect(redirect)
 }
 
 #[derive(Debug, Clone, Copy)]

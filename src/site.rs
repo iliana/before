@@ -145,9 +145,3 @@ pub async fn get_index(at: DateTime<Utc>) -> Result<String> {
         text.replace("\"/static/", "\"/static/heuristic/")
     })
 }
-
-#[cfg(test)]
-#[test]
-fn test_chronicler_epoch_parses() {
-    let _ = *CHRONICLER_EPOCH;
-}

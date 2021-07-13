@@ -44,6 +44,9 @@ pub struct Request {
     #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
     before: Option<DateTime<Utc>>,
+    #[builder(default, setter(strip_option))]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    started: Option<bool>,
 }
 
 impl RequestBuilder {
@@ -158,4 +161,25 @@ pub struct OffseasonRecap {
     // can't use RawValue here due to https://github.com/serde-rs/json/issues/599
     #[serde(flatten)]
     everything_else: HashMap<String, Value>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ChroniclerGame {
+    pub start_time: DateTime<Utc>,
+    pub data: GameDay,
+}
+
+// This is (ab)used by crate::time::DayMap::update, don't add fields to this :)
+#[derive(Debug, PartialEq, Eq, Hash, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GameDay {
+    pub season: i64,
+    #[serde(default = "default_tournament")]
+    pub tournament: i64,
+    pub day: i64,
+}
+
+fn default_tournament() -> i64 {
+    -1
 }
