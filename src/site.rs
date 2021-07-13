@@ -13,7 +13,7 @@ use std::path::PathBuf;
 lazy_static::lazy_static! {
     /// After this point, site data from Chronicler is self-contained. Before this point, we need
     /// to heuristically determine a decent set of code to load.
-    static ref CHRONICLER_EPOCH: DateTime<Utc> = "2020-09-22T20:36:48.327677Z".parse().unwrap();
+    static ref CHRONICLER_EPOCH: DateTime<Utc> = "2020-09-08T02:00:00Z".parse().unwrap();
 
     static ref CACHE: RwLock<Cache> = RwLock::new(Cache::default());
 }
