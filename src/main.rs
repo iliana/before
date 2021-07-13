@@ -26,7 +26,7 @@ use std::path::Path;
 
 lazy_static::lazy_static! {
     static ref CLIENT: reqwest::Client = reqwest::Client::builder()
-        .user_agent("before.sibr.dev/1.0 (https://github.com/iliana/before; iliana@sibr.dev)")
+        .user_agent("Before/1.0 (https://github.com/iliana/before; iliana@sibr.dev)")
         .build()
         .unwrap();
 }
@@ -60,7 +60,7 @@ async fn index(time: OffsetTime) -> Result<Html<String>> {
                 r#"<link href="/_before/inject.css" rel="stylesheet"></head>"#,
             )
             // swap title
-            .replace("<title>Blaseball</title>", "<title>before.sibr.dev</title>")
+            .replace("<title>Blaseball</title>", "<title>Before</title>")
             .replace(
                 r#"content="Baseball at your mercy""#,
                 r#"content="&#x1FA78 Do you remember before? &#x1FA78""#,
