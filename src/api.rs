@@ -64,6 +64,12 @@ pub fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
             "SNACKS_BOUGHT": 2,
             "SNACK_UPGRADES": 3,
         },
+        "relics": {
+            "Idol_Strikeouts": 0,
+            "Idol_Shutouts": 0,
+            "Idol_Homers": 0,
+            "Idol_Hits": 0,
+        },
     }))
 }
 
