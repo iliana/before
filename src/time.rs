@@ -69,14 +69,22 @@ impl DayMap {
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
-#[get("/_before/jump?<redirect>&<jump_time..>")]
+#[get("/_before/jump?<redirect>&<start>&<jump_time..>")]
 pub async fn jump(
     cookies: &CookieJar<'_>,
     redirect: Option<String>,
+    start: Option<&str>,
     jump_time: JumpTime<'_>,
 ) -> Result<Either<Redirect, NotFound<()>>> {
+    let start_offset = match start {
+        Some(start) => DateTime::from_str(start).map_err(anyhow::Error::from)? - Utc::now(),
+        None => Duration::zero(),
+    };
     Ok(if let Some(time) = jump_time.to_time().await? {
-        set_offset(cookies, Utc::now() - (time - Duration::seconds(5)));
+        set_offset(
+            cookies,
+            Utc::now() + start_offset - (time - Duration::seconds(5)),
+        );
         Either::Left(Redirect(redirect))
     } else {
         Either::Right(NotFound(()))
