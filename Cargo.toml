@@ -5,9 +5,6 @@ authors = ["iliana etaoin <iliana@buttslol.net>"]
 edition = "2018"
 publish = false
 
-[profile.release]
-lto = 'thin'
-
 [dependencies]
 bincode = "1"
 derive_builder = "0.10"
