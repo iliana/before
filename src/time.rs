@@ -4,7 +4,7 @@ use crate::Result;
 use chrono::{DateTime, Duration, DurationRound, Utc};
 use itertools::Itertools;
 use rocket::form::FromForm;
-use rocket::http::{Cookie, CookieJar};
+use rocket::http::CookieJar;
 use rocket::request::{FromRequest, Outcome, Request};
 use rocket::response::status::NotFound;
 use rocket::tokio::sync::RwLock;
@@ -78,7 +78,7 @@ pub async fn jump(
     jump_time: JumpTime<'_>,
 ) -> Result<Either<Redirect, NotFound<()>>> {
     if let Some(team) = team {
-        cookies.add(Cookie::new("favorite_team", team.to_string()));
+        cookies.add(crate::new_cookie("favorite_team", team.to_string()));
     }
     let start_offset = match start {
         Some(start) => DateTime::from_str(start).map_err(anyhow::Error::from)? - Utc::now(),
@@ -178,7 +178,7 @@ fn get_offset(cookies: &CookieJar<'_>) -> Duration {
 }
 
 fn set_offset(cookies: &CookieJar<'_>, duration: Duration) {
-    cookies.add(Cookie::new(
+    cookies.add(crate::new_cookie(
         "offset_sec",
         duration.num_seconds().to_string(),
     ));

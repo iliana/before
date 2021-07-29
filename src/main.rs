@@ -16,12 +16,13 @@ use either::Either;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use rocket::fs::{relative, FileServer};
-use rocket::http::{CookieJar, Status};
+use rocket::http::{Cookie, CookieJar, SameSite, Status};
 use rocket::request::FromRequest;
 use rocket::response::content::Html;
 use rocket::response::{status::Custom, status::NotFound, Redirect as Redir};
 use rocket::tokio::{self, fs, time::Instant};
 use rocket::{catch, catchers, get, routes, Build, Request, Rocket};
+use std::borrow::Cow;
 use std::path::Path;
 
 lazy_static::lazy_static! {
@@ -36,6 +37,16 @@ type Result<T> = std::result::Result<T, rocket::response::Debug<anyhow::Error>>;
 fn choose<'a>(x: &[&'a str]) -> &'a str {
     debug_assert!(!x.is_empty());
     x.choose(&mut thread_rng()).cloned().unwrap_or_default()
+}
+
+fn new_cookie<N, V>(name: N, value: V) -> Cookie<'static>
+where
+    N: Into<Cow<'static, str>>,
+    V: Into<Cow<'static, str>>,
+{
+    let mut cookie = Cookie::new(name, value);
+    cookie.set_same_site(SameSite::Lax);
+    cookie
 }
 
 fn static_dir() -> &'static Path {

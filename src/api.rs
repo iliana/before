@@ -1,5 +1,5 @@
 use crate::choose;
-use rocket::http::{Cookie, CookieJar};
+use rocket::http::CookieJar;
 use rocket::response::status::BadRequest;
 use rocket::serde::json::Json;
 use rocket::{get, post, routes, Route};
@@ -90,10 +90,7 @@ pub fn clear_user_notifications() -> Json<Option<()>> {
 
 #[post("/api/buyUpdateFavoriteTeam")]
 pub fn buy_flute(cookies: &CookieJar<'_>) -> Json<Value> {
-    cookies.add(Cookie::new(
-        "favorite_team",
-        "_before_change_team".to_string(),
-    ));
+    cookies.add(crate::new_cookie("favorite_team", "_before_change_team"));
     Json(json!({"message": "Reload this page to choose a new team."}))
 }
 
@@ -108,7 +105,7 @@ pub fn update_favourite_team(
     cookies: &CookieJar<'_>,
     new_favorite: Json<FavoriteTeamUpdate>,
 ) -> Json<Value> {
-    cookies.add(Cookie::new(
+    cookies.add(crate::new_cookie(
         "favorite_team",
         new_favorite.team_id.to_string(),
     ));
@@ -156,7 +153,10 @@ pub struct Settings {
 
 #[post("/api/updateSettings", data = "<settings>")]
 pub fn update_settings(cookies: &CookieJar<'_>, settings: Json<Settings>) -> Json<Value> {
-    cookies.add(Cookie::new("light_mode", settings.light_mode.to_string()));
+    cookies.add(crate::new_cookie(
+        "light_mode",
+        settings.light_mode.to_string(),
+    ));
     Json(json!({ "message": "Settings updated" }))
 }
 
