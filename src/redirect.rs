@@ -18,7 +18,7 @@ impl<'r> Responder<'r, 'static> for Redirect {
         {
             Redir::to(referer.path().as_str().to_owned())
         } else {
-            Redir::to(uri!(crate::index))
+            Redir::to(uri!(crate::site::index))
         }
         .respond_to(req)
     }

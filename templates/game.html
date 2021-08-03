@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/static/media/favicon-32x32.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="&#x1FA78; Do you remember before? &#x1FA78;" />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>Before</title>
+    <link href="{{ css.path }}" rel="stylesheet">
+    <link href="/_before/inject.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="_before">
+        <div id="_before_title">Before</div>
+        <div id="_before_adjust">
+            <div><span id="_before_current-time">Currently at </span></div>
+            <div><a href="/_before/relative?seconds=-900">&minus;</a>&nbsp;<abbr title="15 minutes">15m</abbr>&nbsp;<a href="/_before/relative?seconds=900">&plus;</a></div>
+            <div><a href="/_before/relative?hours=-1">&minus;</a>&nbsp;<abbr title="1 hour">1h</abbr>&nbsp;<a href="/_before/relative?hours=1">&plus;</a></div>
+            <div><a href="/_before/relative?days=-1">&minus;</a>&nbsp;<abbr title="1 real-time day">1d</abbr>&nbsp;<a href="/_before/relative?days=1">&plus;</a></div>
+            <div><a href="/_before/relative?weeks=-1">&minus;</a>&nbsp;<abbr title="1 week">1w</abbr>&nbsp;<a href="/_before/relative?weeks=1">&plus;</a></div>
+        </div>
+    </div>
+    <script>
+        const CurrentDate = Date;
+
+        // cursed glue
+        var bind = Function.bind;
+        var unbind = bind.bind(bind);
+
+        function instantiate(constructor, args) {
+            return new (unbind(constructor, null).apply(null, args));
+        }
+
+        // trickery
+        Date = function(Date) {
+            for (var n of Object.getOwnPropertyNames(Date)) {
+                if (n in TrickeryDate) continue;
+
+                let desc = Object.getOwnPropertyDescriptor(Date,n);
+                Object.defineProperty(TrickeryDate,n,desc);
+            }
+
+            return TrickeryDate;
+
+            function TrickeryDate() {
+                if (arguments.length > 0) {
+                    return instantiate(CurrentDate,arguments);
+                }
+
+                const offset = parseInt(document.cookie
+                .split('; ')
+                .find(row => row.startsWith('offset_sec'))
+                .split('=')[1]);
+
+                var date = instantiate(CurrentDate,arguments);
+                date = instantiate(CurrentDate,[date.getTime() - offset * 1000]);
+                return date;
+            }
+        }(Date);
+
+        function _before_set_time() {
+            document.getElementById("_before_current-time").innerText = `Currently ${(new Date()).toLocaleString(undefined, { timeZone: 'UTC', dateStyle: 'medium', timeStyle:'short'})}`;
+        }
+
+        _before_set_time();
+
+        window.setInterval(_before_set_time, 60000);
+    </script>
+
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <div id="root"></div>
+    <script>
+        // unknown create-react-app goop
+        ! function(e) {
+            function t(t) {
+                for (var n, i, l = t[0], f = t[1], p = t[2], c = 0, s = []; c < l.length; c++) i = l[c], Object.prototype.hasOwnProperty.call(o, i) && o[i] && s.push(o[i][0]), o[i] = 0;
+                for (n in f) Object.prototype.hasOwnProperty.call(f, n) && (e[n] = f[n]);
+                for (a && a(t); s.length;) s.shift()();
+                return u.push.apply(u, p || []), r()
+            }
+
+            function r() {
+                for (var e, t = 0; t < u.length; t++) {
+                    for (var r = u[t], n = !0, l = 1; l < r.length; l++) {
+                        var f = r[l];
+                        0 !== o[f] && (n = !1)
+                    }
+                    n && (u.splice(t--, 1), e = i(i.s = r[0]))
+                }
+                return e
+            }
+            var n = {},
+                o = {
+                    1: 0
+                },
+                u = [];
+
+            function i(t) {
+                if (n[t]) return n[t].exports;
+                var r = n[t] = {
+                    i: t,
+                    l: !1,
+                    exports: {}
+                };
+                return e[t].call(r.exports, r, r.exports, i), r.l = !0, r.exports
+            }
+            i.m = e, i.c = n, i.d = function(e, t, r) {
+                i.o(e, t) || Object.defineProperty(e, t, {
+                    enumerable: !0,
+                    get: r
+                })
+            }, i.r = function(e) {
+                "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
+                    value: "Module"
+                }), Object.defineProperty(e, "__esModule", {
+                    value: !0
+                })
+            }, i.t = function(e, t) {
+                if (1 & t && (e = i(e)), 8 & t) return e;
+                if (4 & t && "object" == typeof e && e && e.__esModule) return e;
+                var r = Object.create(null);
+                if (i.r(r), Object.defineProperty(r, "default", {
+                        enumerable: !0,
+                        value: e
+                    }), 2 & t && "string" != typeof e)
+                    for (var n in e) i.d(r, n, function(t) {
+                        return e[t]
+                    }.bind(null, n));
+                return r
+            }, i.n = function(e) {
+                var t = e && e.__esModule ? function() {
+                    return e.default
+                } : function() {
+                    return e
+                };
+                return i.d(t, "a", t), t
+            }, i.o = function(e, t) {
+                return Object.prototype.hasOwnProperty.call(e, t)
+            }, i.p = "https://d35iw2jmbg6ut8.cloudfront.net/";
+            var l = this.webpackJsonpsite = this.webpackJsonpsite || [],
+                f = l.push.bind(l);
+            l.push = t, l = l.slice();
+            for (var p = 0; p < l.length; p++) t(l[p]);
+            var a = f;
+            r()
+        }([])
+    </script>
+    <script src="{{ js_2.path }}"></script>
+    <script src="{{ js_main.path }}"></script>
+</body>
+
+</html>

@@ -6,6 +6,7 @@ edition = "2018"
 publish = false
 
 [dependencies]
+askama = "0.10"
 bincode = "1"
 derive_builder = "0.10"
 either = "1"

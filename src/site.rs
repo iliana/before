@@ -1,14 +1,19 @@
 use crate::chronicler::{Data, Order, RequestBuilder, SiteUpdate};
 use crate::proxy::Proxy;
 use crate::time::OffsetTime;
-use anyhow::{bail, Result};
+use crate::Result;
+use anyhow::anyhow;
+use askama::Template;
 use chrono::{DateTime, Utc};
+use either::Either;
 use reqwest::Response;
-use rocket::get;
-use rocket::http::uri::Origin;
+use rocket::http::{uri::Origin, Status};
+use rocket::request::FromRequest;
+use rocket::response::content::Html;
+use rocket::response::{status::Custom, status::NotFound};
 use rocket::tokio::{join, sync::RwLock};
+use rocket::{catch, get, Request};
 use std::collections::{BTreeMap, HashMap};
-use std::path::PathBuf;
 
 lazy_static::lazy_static! {
     /// After this point, site data from Chronicler is self-contained. Before this point, we need
@@ -34,7 +39,7 @@ struct Cache {
     assets: HashMap<String, SiteUpdate>,
 }
 
-pub async fn update_cache(at: DateTime<Utc>) -> Result<()> {
+pub async fn update_cache(at: DateTime<Utc>) -> anyhow::Result<()> {
     let mut request = RequestBuilder::new("v1/site/updates").order(Order::Asc);
     if let Some(until) = CACHE.read().await.until {
         if at <= until {
@@ -69,7 +74,7 @@ pub async fn update_cache(at: DateTime<Utc>) -> Result<()> {
 }
 
 impl SiteUpdate {
-    async fn fetch(&self) -> Result<Response> {
+    async fn fetch(&self) -> anyhow::Result<Response> {
         Ok(RequestBuilder::new(format!("v1{}", self.download_url))
             .send()
             .await?
@@ -77,41 +82,7 @@ impl SiteUpdate {
     }
 }
 
-#[get("/static/heuristic/<path..>", rank = 1)]
-pub async fn site_static_heuristic(
-    path: PathBuf,
-    time: OffsetTime,
-) -> crate::Result<Option<Proxy>> {
-    update_cache(time.0).await?;
-    let cache = CACHE.read().await;
-
-    // Do you remember before? For the most part we have all the JavaScript assets, but we're
-    // missing a lot of CSS and index assets.
-    //
-    // For JS, grab the most recent asset of that type; for CSS, grab the next asset in the
-    // future. The CSS is usually backwards-compatible; we can tweak if we need to.
-    let update = match path.file_name().and_then(|s| s.to_str()) {
-        Some(x) if x.starts_with("main.") && x.ends_with(".css") => {
-            cache.css.range(time.0..).next()
-        }
-        Some(x) if x.starts_with("main.") && x.ends_with(".js") => {
-            cache.js_main.range(..=time.0).rev().next()
-        }
-        Some(x) if x.starts_with("2.") && x.ends_with(".js") => {
-            cache.js_2.range(..=time.0).rev().next()
-        }
-        _ => None,
-    };
-    Ok(match update {
-        Some((_, update)) => Some(Proxy {
-            response: update.fetch().await?,
-            etag: None,
-        }),
-        None => None,
-    })
-}
-
-#[get("/static/<_..>", rank = 2)]
+#[get("/static/<_..>", rank = 1)]
 pub async fn site_static(origin: &Origin<'_>, time: OffsetTime) -> crate::Result<Option<Proxy>> {
     update_cache(time.0).await?;
     let cache = CACHE.read().await;
@@ -125,23 +96,59 @@ pub async fn site_static(origin: &Origin<'_>, time: OffsetTime) -> crate::Result
     })
 }
 
-pub async fn get_index(at: DateTime<Utc>) -> Result<String> {
-    update_cache(at).await?;
+#[derive(Template)]
+#[template(path = "game.html")]
+struct GameTemplate<'a> {
+    css: &'a SiteUpdate,
+    js_main: &'a SiteUpdate,
+    js_2: &'a SiteUpdate,
+}
+
+#[get("/")]
+pub async fn index(time: OffsetTime) -> Result<Html<String>> {
+    update_cache(time.0).await?;
     let cache = CACHE.read().await;
 
-    let update = if at >= *CHRONICLER_EPOCH {
-        cache.index.range(..=at).rev().next()
-    } else {
-        // Similar logic as `site_static`'s handling of CSS assets.
-        cache.index.range(at..).next()
+    macro_rules! opt {
+        ($x:expr) => {
+            $x.ok_or_else(|| anyhow!("cache was empty"))
+        };
+    }
+
+    // Do you remember before? For the most part we have all the JavaScript assets, but we're
+    // missing a lot of CSS and index assets.
+    //
+    // For JS, grab the most recent asset of that type; for CSS, grab the next asset in the
+    // future. The CSS is usually backwards-compatible; we can tweak if we need to.
+    let template = GameTemplate {
+        css: opt!(cache.css.range(time.0..).next())?.1,
+        js_main: opt!(cache.js_main.range(..=time.0).rev().next())?.1,
+        js_2: opt!(cache.js_2.range(..=time.0).rev().next())?.1,
     };
-    let text = match update {
-        Some((_, update)) => update.fetch().await?.text().await?,
-        None => bail!("failed to find `/` asset somehow"),
-    };
-    Ok(if at >= *CHRONICLER_EPOCH {
-        text
-    } else {
-        text.replace("\"/static/", "\"/static/heuristic/")
-    })
+    Ok(Html(template.render().map_err(anyhow::Error::from)?))
+}
+
+// Blaseball returns the index page for any unknown route, so that the React frontend can display
+// the correct thing when the page loads.
+#[catch(404)]
+pub async fn index_default(
+    req: &Request<'_>,
+) -> Result<Either<Custom<Html<String>>, NotFound<()>>> {
+    let path = req.uri().path();
+    if [
+        "/api",
+        "/auth",
+        "/database",
+        "/events",
+        "/static",
+        "/_before",
+    ]
+    .iter()
+    .any(|p| path.starts_with(p))
+    {
+        return Ok(Either::Right(NotFound(())));
+    }
+
+    let time = OffsetTime::from_request(req).await.unwrap();
+    Ok(Either::Left(Custom(Status::Ok, index(time).await?)))
 }

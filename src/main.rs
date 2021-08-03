@@ -10,18 +10,15 @@ mod site;
 mod time;
 
 use crate::redirect::Redirect;
-use crate::time::{DayMap, OffsetTime};
+use crate::time::DayMap;
 use chrono::{Duration, DurationRound, Utc};
-use either::Either;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use rocket::fs::{relative, FileServer};
-use rocket::http::{Cookie, CookieJar, SameSite, Status};
-use rocket::request::FromRequest;
-use rocket::response::content::Html;
-use rocket::response::{status::Custom, status::NotFound, Redirect as Redir};
+use rocket::http::{Cookie, CookieJar, SameSite};
+use rocket::response::Redirect as Redir;
 use rocket::tokio::{self, fs, time::Instant};
-use rocket::{catch, catchers, get, routes, Build, Request, Rocket};
+use rocket::{catchers, get, routes, Build, Rocket};
 use std::borrow::Cow;
 use std::path::Path;
 
@@ -53,46 +50,6 @@ fn static_dir() -> &'static Path {
     Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static")))
 }
 
-#[get("/")]
-async fn index(time: OffsetTime) -> Result<Html<String>> {
-    let inject = fs::read_to_string(static_dir().join("inject.html"))
-        .await
-        .map_err(anyhow::Error::from)?;
-    Ok(Html(
-        site::get_index(time.0)
-            .await?
-            // inject before code
-            .replace(
-                r#"<div id="root">"#,
-                &format!("{}{}", inject, r#"<div id="root">"#,),
-            )
-            .replace(
-                "</head>",
-                r#"<link href="/_before/inject.css" rel="stylesheet"></head>"#,
-            )
-            // swap title
-            .replace("<title>Blaseball</title>", "<title>Before</title>")
-            .replace(
-                r#"content="Baseball at your mercy""#,
-                r#"content="&#x1FA78 Do you remember before? &#x1FA78""#,
-            )
-            // ensure static assets are served by us
-            .replace("https://d35iw2jmbg6ut8.cloudfront.net/static/", "/static/")
-            // remove opengraph/twitter meta
-            .replace(r#"<meta property="og:"#, r#"<meta property="removed:"#)
-            .replace(r#"<meta name="twitter:"#, r#"<meta name="removed:"#)
-            // remove google analytics so that we don't mess with it
-            .replace(
-                "https://pagead2.googlesyndication.com",
-                "https://removed.invalid",
-            )
-            .replace(
-                "https://www.googletagmanager.com",
-                "https://removed.invalid",
-            ),
-    ))
-}
-
 #[get("/_before/reset?<redirect>")]
 fn reset(cookies: &CookieJar<'_>, redirect: Option<String>) -> Redirect {
     cookies.iter().for_each(|c| {
@@ -109,31 +66,12 @@ fn logout() -> Redir {
     Redir::to("https://www.blaseball.com/")
 }
 
-// Blaseball returns the index page for any unknown route, so that the React frontend can display
-// the correct thing when the page loads.
-#[catch(404)]
-async fn index_default(req: &Request<'_>) -> Result<Either<Custom<Html<String>>, NotFound<()>>> {
-    let path = req.uri().path();
-    if [
-        "/api",
-        "/auth",
-        "/database",
-        "/events",
-        "/static",
-        "/_before",
-    ]
-    .iter()
-    .any(|p| path.starts_with(p))
-    {
-        return Ok(Either::Right(NotFound(())));
-    }
-
-    let time = OffsetTime::from_request(req).await.unwrap();
-    Ok(Either::Left(Custom(Status::Ok, index(time).await?)))
-}
-
 fn build_rocket() -> Rocket<Build> {
     rocket::build()
+        .mount(
+            "/static/media",
+            FileServer::from(static_dir().join("media")).rank(0),
+        )
         .mount("/_before", FileServer::from(static_dir()))
         .mount("/", api::mocked_error_routes())
         .mount("/", database::entity_routes())
@@ -158,14 +96,13 @@ fn build_rocket() -> Rocket<Build> {
                 events::stream_data,
                 time::jump,
                 time::relative,
+                site::index,
                 site::site_static,
-                site::site_static_heuristic,
-                index,
                 reset,
                 logout,
             ],
         )
-        .register("/", catchers![index_default])
+        .register("/", catchers![site::index_default])
 }
 
 #[tokio::main]
