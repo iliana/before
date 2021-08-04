@@ -1,0 +1,152 @@
+*,
+:after,
+:before {
+    box-sizing: border-box;
+}
+body {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    margin: 0;
+    font-family: "Lora", "Courier New", monospace, serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+a,
+a:hover {
+    text-decoration: none;
+    color: unset;
+}
+h1 {
+    line-height: 1.2;
+    margin: 0;
+}
+h2 {
+    margin: 0;
+}
+
+.Main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    padding: 0 calc(50% - 512px);
+    background: black;
+    color: white;
+}
+
+.Header-Links {
+    display: flex;
+}
+.Header-Title {
+    font-size: 1em;
+    font-weight: 700;
+}
+.Header-Logo {
+    font-size: 60px;
+    display: flex;
+    flex-direction: row;
+    text-transform: uppercase;
+    align-items: flex-end;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.Header-Logo-Era {
+    font-size: 20px;
+    width: 100%;
+    left: 16px;
+    margin-top: -10px;
+    width: 232px;
+}
+.Header-Logo-Era,
+.Header-Logo-SubEra {
+    font-family: "Lora", "Courier New", monospace, serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+}
+.Header-Logo-SubEra {
+    font-size: 16px;
+    width: 200px;
+}
+.Header-Logo-Tag {
+    margin: 10px;
+    padding: 5px;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 3px;
+    background: hsla(0, 0%, 39.6%, 0.65098);
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+div.season {
+    padding-left: 32px;
+}
+
+div.season span {
+    display: inline-block;
+}
+
+ul.events {
+    list-style: none;
+    margin: 0 0 1em 0;
+    padding: 0;
+    font-size: 0.9em;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+ul.events.era {
+    padding-left: 32px;
+}
+
+ul.events li {
+    display: inline;
+    padding-right: 1em;
+}
+
+ul.events a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 1080px) {
+    body {
+        font-size: 14px;
+    }
+    .Main {
+        padding: 0 20px;
+    }
+
+    .Header-Logo {
+        font-size: 20px;
+        margin-bottom: 10px;
+        width: 100%;
+        align-items: flex-start;
+    }
+    .Header-Logo-Era {
+        font-size: 14px;
+        margin-top: 0;
+    }
+    .Header-Logo-SubEra {
+        font-size: 14px;
+    }
+    .Header-Logo-Tag {
+        font-size: 12px;
+        margin: 0 5px;
+        padding: 5px 5px 2px;
+    }
+
+    div.season span {
+        display: block;
+    }
+}

@@ -8,6 +8,7 @@ mod events;
 mod proxy;
 mod redirect;
 mod site;
+mod start;
 mod time;
 
 use chrono::{Duration, DurationRound, Utc};
@@ -131,13 +132,13 @@ pub fn build() -> anyhow::Result<Rocket<Build>> {
         .mount(
             "/",
             routes![
+                api::buy_flute,
+                api::clear_user_notifications,
                 api::get_active_bets,
                 api::get_user,
                 api::get_user_notifications,
-                api::clear_user_notifications,
-                api::buy_flute,
-                api::update_favourite_team,
                 api::get_user_rewards,
+                api::update_favourite_team,
                 api::update_settings,
                 database::feed,
                 database::feedbyphase,
@@ -147,10 +148,11 @@ pub fn build() -> anyhow::Result<Rocket<Build>> {
                 database::player_names_ids,
                 database::renovations,
                 events::stream_data,
-                time::jump,
-                time::relative,
                 site::index,
                 site::site_static,
+                start::start,
+                time::jump,
+                time::relative,
                 reset,
             ],
         )

@@ -1,17 +1,17 @@
 use crate::chronicler::{ChroniclerGame, Data, RequestBuilder};
 use crate::redirect::Redirect;
 use crate::Result;
+use anyhow::anyhow;
 use chrono::{DateTime, Duration, DurationRound, Utc};
 use itertools::Itertools;
 use rocket::form::FromForm;
-use rocket::http::CookieJar;
+use rocket::http::{CookieJar, Status};
 use rocket::request::{FromRequest, Outcome, Request};
 use rocket::response::status::NotFound;
 use rocket::tokio::sync::RwLock;
 use rocket::{async_trait, get, Either};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
-use std::convert::Infallible;
 use std::str::FromStr;
 
 lazy_static::lazy_static! {
@@ -135,10 +135,11 @@ impl<'a> JumpTime<'a> {
 #[get("/_before/relative?<redirect>&<duration..>")]
 pub fn relative(
     cookies: &CookieJar<'_>,
+    offset: Offset,
     redirect: Option<String>,
     duration: FormDuration,
 ) -> Redirect {
-    set_offset(cookies, get_offset(cookies) - duration.to_duration());
+    set_offset(cookies, offset.0 - duration.to_duration());
     Redirect(redirect)
 }
 
@@ -163,17 +164,11 @@ impl FormDuration {
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
-fn get_offset(cookies: &CookieJar<'_>) -> Duration {
-    if let Some(secs) = cookies
+fn get_offset(cookies: &CookieJar<'_>) -> Option<Duration> {
+    cookies
         .get_pending("offset_sec")
         .and_then(|c| c.value().parse().ok())
-    {
-        Duration::seconds(secs)
-    } else {
-        let duration = Duration::weeks(3);
-        set_offset(cookies, duration);
-        duration
-    }
+        .map(Duration::seconds)
 }
 
 fn set_offset(cookies: &CookieJar<'_>, duration: Duration) {
@@ -188,10 +183,14 @@ pub struct Offset(pub Duration);
 
 #[async_trait]
 impl<'r> FromRequest<'r> for Offset {
-    type Error = Infallible;
+    type Error = anyhow::Error;
 
-    async fn from_request(req: &'r Request<'_>) -> Outcome<Offset, Infallible> {
-        Outcome::Success(Offset(get_offset(req.cookies())))
+    async fn from_request(req: &'r Request<'_>) -> Outcome<Offset, anyhow::Error> {
+        if let Some(offset) = get_offset(req.cookies()) {
+            Outcome::Success(Offset(offset))
+        } else {
+            Outcome::Failure((Status::BadRequest, anyhow!("offset not present")))
+        }
     }
 }
 
@@ -200,9 +199,13 @@ pub struct OffsetTime(pub DateTime<Utc>);
 
 #[async_trait]
 impl<'r> FromRequest<'r> for OffsetTime {
-    type Error = Infallible;
+    type Error = anyhow::Error;
 
-    async fn from_request(req: &'r Request<'_>) -> Outcome<OffsetTime, Infallible> {
-        Outcome::Success(OffsetTime(Utc::now() - get_offset(req.cookies())))
+    async fn from_request(req: &'r Request<'_>) -> Outcome<OffsetTime, anyhow::Error> {
+        if let Some(offset) = get_offset(req.cookies()) {
+            Outcome::Success(OffsetTime(Utc::now() - offset))
+        } else {
+            Outcome::Failure((Status::BadRequest, anyhow!("offset not present")))
+        }
     }
 }

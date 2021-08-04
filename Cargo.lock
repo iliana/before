@@ -183,6 +183,7 @@ dependencies = [
  "serde_json",
  "serde_urlencoded",
  "tokio-util",
+ "toml",
 ]
 
 [[package]]

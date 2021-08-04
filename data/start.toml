@@ -1,0 +1,219 @@
+[[eras]]
+title = "The Discipline Era"
+color = "#ff0000"
+
+[[eras.seasons]]
+number = 3
+title = "Peanut Plague"
+color = "#c4aa70"
+days = "August 3–9, 2020"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 4
+title = "Feedback"
+color = "#ff007b"
+days = "August 24–30, 2020"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 5
+title = "Reverb"
+color = "#61b3ff"
+days = "August 31–September 6, 2020"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 6
+title = "Idols"
+color = "#ffe082"
+days = "September 7–13, 2020"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 7
+title = "Getting Shelled"
+color = "#ffe082"
+days = "September 14–20, 2020"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 8
+title = "Rest in Violence"
+color = "#5988FF"
+days = "September 21–27, 2020"
+events = [
+    { title = "Opening Day", day = 1 },
+    { title = "End of Season", time = "2020-09-25T19:00:48.873Z" },
+]
+
+[[eras.seasons]]
+number = 9
+title = "Forecast"
+color = "#576b8c"
+days = "October 5–11, 2020"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 10
+title = "Backdraft"
+color = "#ab383a"
+days = "October 12–18, 2020"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 11
+title = "Peace & Prosperity"
+color = "#3cc28a"
+days = "October 19–25, 2020"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras]]
+title = "The Coffee Cup"
+color = "#9a7b4f"
+seasons = []
+days = "November 17–December 8, 2020"
+events = [
+    { title = "Round 1", tournament = 0, day = 1 },
+]
+
+[[eras]]
+title = "The Expansion Era"
+color = "#ffbe00"
+
+[[eras.seasons]]
+number = 12
+title = "The Return"
+color = "#607e82"
+days = "March 1–7, 2021"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 13
+title = "Home Free"
+color = "#b185de"
+days = "March 8–14, 2021"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 14
+title = "The -ides"
+color = "#bdb3c3"
+days = "March 15–21, 2021"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 15
+title = "Live Bait"
+color = "#ba7b97"
+days = "April 5–11, 2021"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 16
+title = "Mass Production"
+color = "#b3b3b3"
+days = "April 12–18, 2021"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 17
+title = "Collections"
+color = "#c5a168"
+days = "April 19–25, 2021"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 18
+title = "New Editions"
+color = "#ff2e2e"
+days = "May 10–16, 2021"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 19
+title = "Undertow"
+color = "#a16dc3"
+days = "May 17–23, 2021"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 20
+title = "Win(Win)"
+color = "#3faf66"
+days = "June 14–20, 2021"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 21
+title = "Red Herring"
+color = "#ea3f66"
+days = "June 21–27, 2021"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 22
+title = "Overdue"
+color = "#3c81d8"
+days = "June 28–July 4, 2021"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 23
+title = "A Set Up"
+color = "#d9d3d2"
+days = "July 19–25, 2021"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[[eras.seasons]]
+number = 24
+title = "Fire Sale"
+color = "#ea5b23"
+days = "July 26–30, 2021"
+events = [
+    { title = "Opening Day", day = 1 },
+]
+
+[eras.seasons.extra_title]
+title = "Save Situation"
+color = "#64aadc"

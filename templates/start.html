@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/static/media/favicon-32x32.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="&#x1FA78; Do you remember before? &#x1FA78;" />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>Before</title>
+    <link href="/_before/inject.css" rel="stylesheet">
+    <link href="/_before/start.css" rel="stylesheet">
+</head>
+
+<body>
+    {% include "nav.html" %}
+
+    <div class="Main">
+        <div class="Header-Links">
+            <div class="Header-Logo">
+                <h1 class="Header-Title"><a href="/">Blaseball</a></h1>
+                <div class="Header-Logo-Tag">BETA</div>
+            </div>
+        </div>
+
+        {% for era in eras %}
+        <section>
+            <h2 class="Header-Logo-Era" style="color: {{ era.color }}">{{ era.title }}</h2>
+            {% match era.days %}
+            {% when Some with (days) %}
+            <span class="days">{{ days }}</span>
+            {% when None %}
+            {% endmatch %}
+            {% match era.events %}
+            {% when Some with (events) %}
+            <ul class="events era">
+                {% for event in events %}
+                <li><a href="{{ event.jump() }}">{{ event.title }}</a></li>
+                {% endfor %}
+            </ul>
+            {% when None %}
+            {% endmatch %}
+
+            {% for season in era.seasons %}
+            <div class="season">
+                <a href="{{ season.jump() }}"><span class="Header-Logo-SubEra" style="color: {{ season.color }}">{{ season.title }}</span></a>
+                {% match season.extra_title %}
+                {% when Some with (extra_title) %}
+                <br><a href="{{ season.jump() }}"><span class="Header-Logo-SubEra" style="color: {{ extra_title.color }}">{{ extra_title.title }}</span></a>
+                {% when None %}
+                {% endmatch %}
+                <span class="days">Season {{ season.number }}, {{ season.days }}</span>
+                <ul class="events">
+                    {% for event in season.events %}
+                    <li><a href="{{ event.season_jump(season) }}">{{ event.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </section>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

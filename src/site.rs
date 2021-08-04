@@ -9,10 +9,9 @@ use either::Either;
 use reqwest::Response;
 use rocket::http::{uri::Origin, Status};
 use rocket::request::FromRequest;
-use rocket::response::content::Html;
-use rocket::response::{status::Custom, status::NotFound};
+use rocket::response::{content::Html, status::Custom, status::NotFound, Redirect};
 use rocket::tokio::{join, sync::RwLock};
-use rocket::{catch, get, Request};
+use rocket::{catch, get, uri, Request};
 use std::collections::{BTreeMap, HashMap};
 
 lazy_static::lazy_static! {
@@ -104,8 +103,15 @@ struct GameTemplate<'a> {
     js_2: &'a SiteUpdate,
 }
 
+type IndexResponse = Either<Custom<Html<String>>, Redirect>;
+
 #[get("/")]
-pub async fn index(time: OffsetTime) -> Result<Html<String>> {
+pub async fn index(time: Option<OffsetTime>) -> Result<IndexResponse> {
+    let time = match time {
+        Some(time) => time,
+        None => return Ok(Either::Right(Redirect::to(uri!(crate::start::start)))),
+    };
+
     update_cache(time.0).await?;
     let cache = CACHE.read().await;
 
@@ -125,15 +131,16 @@ pub async fn index(time: OffsetTime) -> Result<Html<String>> {
         js_main: opt!(cache.js_main.range(..=time.0).rev().next())?.1,
         js_2: opt!(cache.js_2.range(..=time.0).rev().next())?.1,
     };
-    Ok(Html(template.render().map_err(anyhow::Error::from)?))
+    Ok(Either::Left(Custom(
+        Status::Ok,
+        Html(template.render().map_err(anyhow::Error::from)?),
+    )))
 }
 
 // Blaseball returns the index page for any unknown route, so that the React frontend can display
 // the correct thing when the page loads.
 #[catch(404)]
-pub async fn index_default(
-    req: &Request<'_>,
-) -> Result<Either<Custom<Html<String>>, NotFound<()>>> {
+pub async fn index_default(req: &Request<'_>) -> Result<Either<IndexResponse, NotFound<()>>> {
     let path = req.uri().path();
     if [
         "/api",
@@ -149,6 +156,6 @@ pub async fn index_default(
         return Ok(Either::Right(NotFound(())));
     }
 
-    let time = OffsetTime::from_request(req).await.unwrap();
-    Ok(Either::Left(Custom(Status::Ok, index(time).await?)))
+    let time: Option<OffsetTime> = FromRequest::from_request(req).await.unwrap();
+    Ok(Either::Left(index(time).await?))
 }
