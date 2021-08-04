@@ -10,16 +10,15 @@ mod redirect;
 mod site;
 mod time;
 
-use crate::redirect::Redirect;
 use chrono::{Duration, DurationRound, Utc};
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use rocket::figment::Figment;
 use rocket::fs::{relative, FileServer};
 use rocket::http::{Cookie, CookieJar, SameSite};
-use rocket::response::Redirect as Redir;
+use rocket::response::Redirect;
 use rocket::tokio::{self, time::Instant};
-use rocket::{catchers, get, routes, Build, Rocket};
+use rocket::{catchers, get, routes, uri, Build, Rocket};
 use serde::Deserialize;
 use std::borrow::Cow;
 use std::path::Path;
@@ -73,20 +72,14 @@ fn static_dir() -> &'static Path {
     Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static")))
 }
 
-#[get("/_before/reset?<redirect>")]
-fn reset(cookies: &CookieJar<'_>, redirect: Option<String>) -> Redirect {
+#[get("/auth/logout")]
+fn reset(cookies: &CookieJar<'_>) -> Redirect {
     cookies.iter().for_each(|c| {
         let mut c = c.clone();
         c.make_removal();
         cookies.add(c);
     });
-    Redirect(redirect)
-}
-
-#[get("/auth/logout")]
-fn logout() -> Redir {
-    // ... because you're logging out of Before
-    Redir::to("https://www.blaseball.com/")
+    Redirect::to(uri!(crate::site::index))
 }
 
 /// Builds a [`Rocket`] in the [`Build`] state for later launching.
@@ -159,7 +152,6 @@ pub fn build() -> anyhow::Result<Rocket<Build>> {
                 site::index,
                 site::site_static,
                 reset,
-                logout,
             ],
         )
         .register("/", catchers![site::index_default]))
