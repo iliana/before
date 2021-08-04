@@ -8,12 +8,6 @@ use serde::{Deserialize, Serialize};
 use serde_json::value::{RawValue, Value};
 use std::collections::HashMap;
 
-lazy_static::lazy_static! {
-    static ref BASE_URL: String = std::env::var("CHRONICLER_BASE_URL")
-        .ok()
-        .unwrap_or_else(|| "https://api.sibr.dev/chronicler/".to_string());
-}
-
 #[derive(Debug, Default, Serialize, Builder)]
 #[builder(derive(Clone), pattern = "owned")]
 pub struct Request {
@@ -58,7 +52,7 @@ impl RequestBuilder {
         let request = self.build()?;
         let url = format!(
             "{}{}?{}",
-            *BASE_URL,
+            crate::CONFIG.chronicler_base_url,
             &request.route,
             serde_urlencoded::to_string(&request)?
         );

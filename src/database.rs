@@ -5,18 +5,8 @@ use chrono::{DateTime, Duration, Utc};
 use reqwest::Url;
 use rocket::futures::TryStreamExt;
 use rocket::serde::json::Json;
-use rocket::Route;
-use rocket::{get, routes};
+use rocket::{get, routes, Route};
 use serde_json::value::RawValue;
-
-lazy_static::lazy_static! {
-    static ref EVENTUALLY_BASE_URL: String = std::env::var("EVENTUALLY_BASE_URL")
-        .ok()
-        .unwrap_or_else(|| "https://api.sibr.dev/eventually/v2/".to_string());
-    static ref UPNUTS_BASE_URL: String = std::env::var("UPNUTS_BASE_URL")
-        .ok()
-        .unwrap_or_else(|| "https://api.sibr.dev/upnuts/".to_string());
-}
 
 async fn fetch(
     ty: &'static str,
@@ -208,7 +198,7 @@ pub async fn feed(
 ) -> Result<Json<Box<RawValue>>> {
     let time = time.0.timestamp_millis().to_string();
     let url = Url::parse_with_params(
-        &format!("{}feed/{}", *UPNUTS_BASE_URL, kind),
+        &format!("{}feed/{}", crate::CONFIG.upnuts_base_url, kind),
         vec![
             (
                 "one_of_providers",
@@ -239,13 +229,13 @@ pub async fn feed(
 }
 
 #[get("/database/feedbyphase?<phase>&<season>")]
-pub async fn feedbyphase(
+pub(crate) async fn feedbyphase(
     phase: &str,
     season: &str,
     time: OffsetTime,
 ) -> Result<Json<Box<RawValue>>> {
     let url = Url::parse_with_params(
-        &format!("{}/feed/global", *UPNUTS_BASE_URL),
+        &format!("{}/feed/global", crate::CONFIG.upnuts_base_url),
         &[
             ("one_of_providers", "7fcb63bc-11f2-40b9-b465-f1d458692a63"),
             ("time", time.0.timestamp_millis().to_string().as_str()),

@@ -15,8 +15,7 @@ use std::convert::Infallible;
 use std::str::FromStr;
 
 lazy_static::lazy_static! {
-    pub static ref DAY_MAP: RwLock<DayMap> =
-        RwLock::new(bincode::deserialize(include_bytes!("../data/day-map.bin")).unwrap());
+    pub static ref DAY_MAP: RwLock<DayMap> = RwLock::new(DayMap::default());
 
     static ref SEASON_3_START: DateTime<Utc> = "2020-08-03T16:00:00Z".parse().unwrap();
 }
