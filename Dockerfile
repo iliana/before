@@ -1,4 +1,4 @@
-FROM rust:1.53-buster as builder
+FROM rust:1.54-buster as builder
 ENV STATIC_DIR=/var/www/before
 WORKDIR /usr/src/before
 COPY . .
