@@ -1,88 +1,88 @@
-[[eras]]
-title = "The Discipline Era"
-color = "#ff0000"
-
-[[eras.seasons]]
-number = 3
-title = "Peanut Plague"
-color = "#c4aa70"
-days = "August 3–9, 2020"
-events = [
-    { title = "Opening Day", day = 1 },
-]
-
-[[eras.seasons]]
-number = 4
-title = "Feedback"
-color = "#ff007b"
-days = "August 24–30, 2020"
-events = [
-    { title = "Opening Day", day = 1 },
-]
-
-[[eras.seasons]]
-number = 5
-title = "Reverb"
-color = "#61b3ff"
-days = "August 31–September 6, 2020"
-events = [
-    { title = "Opening Day", day = 1 },
-]
-
-[[eras.seasons]]
-number = 6
-title = "Idols"
-color = "#ffe082"
-days = "September 7–13, 2020"
-events = [
-    { title = "Opening Day", day = 1 },
-]
-
-[[eras.seasons]]
-number = 7
-title = "Getting Shelled"
-color = "#ffe082"
-days = "September 14–20, 2020"
-events = [
-    { title = "Opening Day", day = 1 },
-]
-
-[[eras.seasons]]
-number = 8
-title = "Rest in Violence"
-color = "#5988FF"
-days = "September 21–27, 2020"
-events = [
-    { title = "Opening Day", day = 1 },
-    { title = "End of Season", time = "2020-09-25T19:00:48.873Z" },
-]
-
-[[eras.seasons]]
-number = 9
-title = "Forecast"
-color = "#576b8c"
-days = "October 5–11, 2020"
-events = [
-    { title = "Opening Day", day = 1 },
-]
-
-[[eras.seasons]]
-number = 10
-title = "Backdraft"
-color = "#ab383a"
-days = "October 12–18, 2020"
-events = [
-    { title = "Opening Day", day = 1 },
-]
-
-[[eras.seasons]]
-number = 11
-title = "Peace & Prosperity"
-color = "#3cc28a"
-days = "October 19–25, 2020"
-events = [
-    { title = "Opening Day", day = 1 },
-]
+#[[eras]]
+#title = "The Discipline Era"
+#color = "#ff0000"
+#
+#[[eras.seasons]]
+#number = 3
+#title = "Peanut Plague"
+#color = "#c4aa70"
+#days = "August 3–9, 2020"
+#events = [
+#    { title = "Opening Day", day = 1 },
+#]
+#
+#[[eras.seasons]]
+#number = 4
+#title = "Feedback"
+#color = "#ff007b"
+#days = "August 24–30, 2020"
+#events = [
+#    { title = "Opening Day", day = 1 },
+#]
+#
+#[[eras.seasons]]
+#number = 5
+#title = "Reverb"
+#color = "#61b3ff"
+#days = "August 31–September 6, 2020"
+#events = [
+#    { title = "Opening Day", day = 1 },
+#]
+#
+#[[eras.seasons]]
+#number = 6
+#title = "Idols"
+#color = "#ffe082"
+#days = "September 7–13, 2020"
+#events = [
+#    { title = "Opening Day", day = 1 },
+#]
+#
+#[[eras.seasons]]
+#number = 7
+#title = "Getting Shelled"
+#color = "#ffe082"
+#days = "September 14–20, 2020"
+#events = [
+#    { title = "Opening Day", day = 1 },
+#]
+#
+#[[eras.seasons]]
+#number = 8
+#title = "Rest in Violence"
+#color = "#5988FF"
+#days = "September 21–27, 2020"
+#events = [
+#    { title = "Opening Day", day = 1 },
+#    { title = "End of Season", time = "2020-09-25T19:00:48.873Z" },
+#]
+#
+#[[eras.seasons]]
+#number = 9
+#title = "Forecast"
+#color = "#576b8c"
+#days = "October 5–11, 2020"
+#events = [
+#    { title = "Opening Day", day = 1 },
+#]
+#
+#[[eras.seasons]]
+#number = 10
+#title = "Backdraft"
+#color = "#ab383a"
+#days = "October 12–18, 2020"
+#events = [
+#    { title = "Opening Day", day = 1 },
+#]
+#
+#[[eras.seasons]]
+#number = 11
+#title = "Peace & Prosperity"
+#color = "#3cc28a"
+#days = "October 19–25, 2020"
+#events = [
+#    { title = "Opening Day", day = 1 },
+#]
 
 [[eras]]
 title = "The Coffee Cup"
