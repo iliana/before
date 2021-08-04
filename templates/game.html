@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <title>Before</title>
     <link href="{{ css.path }}" rel="stylesheet">
-    <link href="/_before/inject.css" rel="stylesheet">
+    <link href="/_before/nav.css" rel="stylesheet">
 </head>
 
 <body>
@@ -54,12 +54,12 @@
         }(Date);
 
         function _before_set_time() {
-            document.getElementById("_before_current-time").innerText = `Currently ${(new Date()).toLocaleString(undefined, { timeZone: 'UTC', dateStyle: 'medium', timeStyle:'short'})}`;
+            document.getElementById("_before_current").innerText = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'long' });
         }
 
         _before_set_time();
 
-        window.setInterval(_before_set_time, 60000);
+        window.setInterval(_before_set_time, 1000);
     </script>
 
     <noscript>You need to enable JavaScript to run this app.</noscript>

@@ -1,0 +1,135 @@
+#_before, #_before * {
+    box-sizing: border-box;
+}
+
+#_before {
+    background: #222;
+    color: white;
+    border-bottom: 1px solid #444;
+    font-family: "Lora", "Courier New", monospace, serif;
+    font-size: 16px;
+    line-height: 1.5;
+
+    width: 100%;
+    padding: 0.5em calc(50% - 512px);
+
+    display: flex;
+    align-items: baseline;
+}
+
+body.theme-light #_before {
+    background: #ddd;
+    color: black;
+    border-bottom-color: #bbb;
+}
+
+#_before > * {
+    margin: 0 0.5em;
+}
+
+#_before > :first-child {
+    margin-left: 0;
+}
+
+#_before > :last-child {
+    margin-right: 0;
+}
+
+#_before_title {
+    font-weight: 700;
+}
+
+#_before_title a:hover {
+    text-decoration: underline;
+}
+
+#_before_current {
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+#_before #_before_spacer {
+    margin-right: auto;
+}
+
+._before_svg {
+    line-height: 1;
+    align-self: center;
+}
+
+._before_svg svg {
+    height: 1.25em;
+    color: white;
+    fill: white;
+}
+
+body.theme-light #_before_adjust svg {
+    fill: black;
+}
+
+#_before form {
+    align-self: center;
+    display: flex;
+    height: 100%;
+}
+
+#_before input {
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    align-self: center;
+    margin: 0 0.25em;
+    border: none;
+    background-image: none;
+    box-shadow: none;
+    overflow: visible;
+}
+
+#_before input[type="number"] {
+    appearance: textfield;
+    width: 7ch;
+    line-height: 1.5;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+#_before input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    padding: 0.25em 0.75em;
+    border: 1px solid white;
+    border-radius: 20px;
+    line-height: 1;
+}
+
+body._before_hide_controls ._before_control {
+    display: none;
+}
+
+@media (max-width: 1080px) {
+    #_before {
+        padding: 0.25em 20px;
+    }
+
+    #_before > * {
+        margin: 0 0.25em;
+    }
+
+    #_before_current, #_before input[type="submit"] {
+        display: none;
+    }
+
+    #_before input {
+        margin: 0 0.125em;
+    }
+
+    #_before input[type="number"] {
+        width: 5ch;
+    }
+
+    ._before_svg svg {
+        height: 1em;
+    }
+}

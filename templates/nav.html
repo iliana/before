@@ -1,10 +1,16 @@
 <div id="_before">
-    <div id="_before_title">Before</div>
-    <div id="_before_adjust">
-        <div><span id="_before_current-time"></span></div>
-        <div><a href="/_before/relative?seconds=-900">&minus;</a>&nbsp;<abbr title="15 minutes">15m</abbr>&nbsp;<a href="/_before/relative?seconds=900">&plus;</a></div>
-        <div><a href="/_before/relative?hours=-1">&minus;</a>&nbsp;<abbr title="1 hour">1h</abbr>&nbsp;<a href="/_before/relative?hours=1">&plus;</a></div>
-        <div><a href="/_before/relative?days=-1">&minus;</a>&nbsp;<abbr title="1 real-time day">1d</abbr>&nbsp;<a href="/_before/relative?days=1">&plus;</a></div>
-        <div><a href="/_before/relative?weeks=-1">&minus;</a>&nbsp;<abbr title="1 week">1w</abbr>&nbsp;<a href="/_before/relative?weeks=1">&plus;</a></div>
-    </div>
+    <div id="_before_title"><a href="/_before/start">Before</a></div>
+    <div id="_before_current"></div>
+    <div id="_before_spacer"></div>
+    <a class="_before_svg _before_control" href="/_before/relative?seconds=-300" title="Skip back 5 minutes">
+        {% include "back-5m.svg" %}
+    </a>
+    <form action="/_before/jump" method="get">
+        <input type="number" name="season" placeholder="Season">
+        <input type="number" name="day" placeholder="Day">
+        <input type="submit" value="Go">
+    </form>
+    <a class="_before_svg _before_control" href="/_before/relative?seconds=300" title="Skip forward 5 minutes">
+        {% include "forward-5m.svg" %}
+    </a>
 </div>
