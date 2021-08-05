@@ -1,43 +1,19 @@
 use crate::chronicler::{Order, RequestBuilder, Stream, Version, Versions};
 use crate::time::{Offset, OffsetTime};
 use crate::Result;
-use chrono::Utc;
+use chrono::{Duration, Utc};
 use rocket::response::stream::{Event, EventStream};
-use rocket::tokio::{select, time::sleep, try_join};
+use rocket::tokio::{select, time::sleep};
 use rocket::{get, Shutdown};
-use serde_json::{json, value::RawValue};
-use std::time::Duration;
+use serde_json::json;
+use std::collections::hash_map::DefaultHasher;
+use std::collections::HashSet;
+use std::hash::{Hash, Hasher};
 
-type PastPage = Versions<Stream>;
-type Page = Versions<Box<RawValue>>;
-
-fn start_event(before: &PastPage) -> Event {
-    Event::json(&json!({
-        "value": {
-            "games": before
-                .items
-                .iter()
-                .find_map(|v| v.data.value.games.as_ref()),
-            "leagues": before
-                .items
-                .iter()
-                .find_map(|v| v.data.value.leagues.as_ref()),
-            "temporal": before
-                .items
-                .iter()
-                .find_map(|v| v.data.value.temporal.as_ref()),
-            "fights": before
-                .items
-                .iter()
-                .find_map(|v| v.data.value.fights.as_ref()),
-        }
-    }))
-}
-
-async fn next_event(version: Version<Box<RawValue>>, offset: Offset) -> Event {
+async fn next_event(version: Version<Stream>, offset: Offset) -> Event {
     let duration = (version.valid_from - (Utc::now() - offset.0))
         .to_std()
-        .unwrap_or_else(|_| Duration::from_nanos(0));
+        .unwrap_or_else(|_| std::time::Duration::from_nanos(0));
     sleep(duration).await;
     Event::json(&version.data)
 }
@@ -49,33 +25,83 @@ pub async fn stream_data(
     mut shutdown: Shutdown,
 ) -> Result<EventStream![]> {
     // A given `Stream` version does not necessarily have all the top-level fields present, but the
-    // frontend needs all fields present in the first event. While we fetch the next 15 events, we
-    // also fetch the previous 15, allowing us to find the most recent definition of each field and
-    // send it as the first event to the stream.
+    // frontend needs all fields present in the first event to be fully functional. We fetch the
+    // next minute and the previous minute, so that we can construct a "first" event to send
+    // immediately.
     //
-    // There is no need to continue fetching additional pages because frontend is hardcoded to
-    // close and reopen the stream every 40 seconds... :(
+    // There is no need to fetch further than a minute out, because the frontend is hardcoded to
+    // close and reopen the stream every 40 seconds...
     //
     // `EventStream` cannot handle errors, so we start by making the two requests we need and
     // propagating their errors before the stream starts.
-    let (before, after): (PastPage, Page) = try_join!(
-        RequestBuilder::new("v2/versions")
-            .ty("Stream")
-            .before(time.0)
-            .count(15)
-            .order(Order::Desc)
-            .json(),
-        RequestBuilder::new("v2/versions")
-            .ty("Stream")
-            .after(time.0)
-            .count(15)
-            .order(Order::Asc)
-            .json(),
-    )
-    .map_err(rocket::response::Debug)?;
+    let mut events: Versions<Stream> = RequestBuilder::new("v2/versions")
+        .ty("Stream")
+        .after(time.0 - Duration::minutes(1))
+        .before(time.0 + Duration::minutes(1))
+        .order(Order::Asc)
+        .json()
+        .await?;
+
+    // Multiple data sources perceive events at different times, even with accurate clocks, due to
+    // the nature of blaseball.com's event stream. We can mostly mitigate this effect by deduping
+    // the individual components of the stream.
+    {
+        let mut seen = HashSet::new();
+        for event in &mut events.items {
+            macro_rules! dedup {
+                ($x:ident) => {{
+                    event.data.value.$x = if let Some(value) = event.data.value.$x.take() {
+                        let mut hasher = DefaultHasher::new();
+                        value.get().hash(&mut hasher);
+                        let key = (stringify!($x), hasher.finish());
+                        if seen.contains(&key) {
+                            None
+                        } else {
+                            seen.insert(key);
+                            Some(value)
+                        }
+                    } else {
+                        None
+                    };
+                }};
+            }
+
+            dedup!(games);
+            dedup!(leagues);
+            dedup!(temporal);
+            dedup!(fights);
+        }
+    }
+
+    let (past, future): (Vec<Version<Stream>>, Vec<Version<Stream>>) = events
+        .items
+        .into_iter()
+        .filter(|event| !event.data.is_empty())
+        .partition(|event| event.valid_from <= time.0);
+    let first_event = json!({
+        "value": {
+            "games": past
+                .iter()
+                .rev()
+                .find_map(|v| v.data.value.games.as_ref()),
+            "leagues": past
+                .iter()
+                .rev()
+                .find_map(|v| v.data.value.leagues.as_ref()),
+            "temporal": past
+                .iter()
+                .rev()
+                .find_map(|v| v.data.value.temporal.as_ref()),
+            "fights": past
+                .iter()
+                .rev()
+                .find_map(|v| v.data.value.fights.as_ref()),
+        }
+    });
+
     Ok(EventStream! {
-        yield start_event(&before);
-        for version in after.items {
+        yield Event::json(&first_event);
+        for version in future {
             select! {
                 event = next_event(version, offset) => yield event,
                 _ = &mut shutdown => break,

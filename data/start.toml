@@ -890,8 +890,10 @@ redirect = "/depth"
 [[eras.seasons.events]]
 title = "balance paid"
 being = "namerifeht"
-time = "2021-07-30T20:00:28Z"
+time = "2021-07-30T20:00:33Z"
+redirect = "/"
 
 [[eras.seasons.events]]
 title = "Credits"
 time = "2021-07-30T20:30:00Z"
+redirect = "/"

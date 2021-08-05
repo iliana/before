@@ -93,6 +93,7 @@ impl RequestBuilder {
 #[serde(rename_all = "lowercase")]
 pub enum Order {
     Asc,
+    #[allow(dead_code)]
     Desc,
 }
 
@@ -129,6 +130,15 @@ pub struct Version<T> {
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Stream {
     pub value: StreamValue,
+}
+
+impl Stream {
+    pub fn is_empty(&self) -> bool {
+        self.value.games.is_none()
+            && self.value.leagues.is_none()
+            && self.value.temporal.is_none()
+            && self.value.fights.is_none()
+    }
 }
 
 #[derive(Debug, Deserialize, Serialize)]
