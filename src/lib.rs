@@ -25,19 +25,29 @@ use std::borrow::Cow;
 use std::path::Path;
 
 lazy_static::lazy_static! {
-    static ref CLIENT: reqwest::Client = reqwest::Client::builder()
-        .user_agent("Before/1.0 (https://github.com/iliana/before; iliana@sibr.dev)")
-        .build()
-        .unwrap();
-
     static ref FIGMENT: Figment = rocket::Config::figment();
     static ref CONFIG: Config = FIGMENT.extract().unwrap();
+
+    static ref CLIENT: reqwest::Client = build_client().unwrap();
+}
+
+fn build_client() -> reqwest::Result<reqwest::Client> {
+    let mut builder = reqwest::Client::builder();
+    builder = builder.user_agent("Before/1.0 (https://github.com/iliana/before; iliana@sibr.dev)");
+
+    #[cfg(feature = "gzip")]
+    {
+        builder = builder.gzip(CONFIG.http_client_gzip);
+    }
+
+    builder.build()
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(default)]
 struct Config {
     siesta_mode: bool,
+    http_client_gzip: bool,
     chronicler_base_url: String,
     upnuts_base_url: String,
 }
@@ -46,6 +56,7 @@ impl Default for Config {
     fn default() -> Config {
         Config {
             siesta_mode: false,
+            http_client_gzip: true,
             chronicler_base_url: "https://api.sibr.dev/chronicler/".to_string(),
             upnuts_base_url: "https://api.sibr.dev/upnuts/".to_string(),
         }
