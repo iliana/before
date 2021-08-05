@@ -20,7 +20,8 @@ struct Era {
     color: String,
     seasons: Vec<Season>,
     days: Option<String>,
-    events: Option<Vec<Event>>,
+    #[serde(default)]
+    events: Vec<Event>,
 }
 
 #[derive(Deserialize, Default)]
@@ -30,6 +31,7 @@ struct Season {
     extra_title: Option<ExtraTitle>,
     color: String,
     days: String,
+    #[serde(default)]
     events: Vec<Event>,
 }
 

@@ -88,19 +88,28 @@ h2 {
     background: hsla(0, 0%, 39.6%, 0.65098);
 }
 
+section.intro {
+    padding: 0 16px;
+    font-size: 20px;
+}
+
+section.intro p {
+    margin: 0;
+}
+
 section {
     margin-bottom: 20px;
 }
 
 div.season {
-    padding-left: 32px;
+    padding: 0 32px;
 }
 
 div.season span {
     display: inline-block;
 }
 
-ul.events {
+section.intro ul, ul.events {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
@@ -111,20 +120,20 @@ ul.events {
 }
 
 ul.events.era {
-    padding-left: 32px;
+    padding: 0 32px;
 }
 
-ul.events li:after {
+section.intro ul li:after, ul.events li:after {
     content: "\00b7";
     padding: 0 0.75em;
 }
 
-ul.events li:last-child:after {
+section.intro ul li:last-child:after, ul.events li:last-child:after {
     content: none;
     padding: 0;
 }
 
-ul.events a:hover {
+section.intro ul a:hover, ul.events a:hover {
     text-decoration: underline;
 }
 

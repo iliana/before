@@ -24,6 +24,17 @@
             </div>
         </div>
 
+        <section class="intro">
+            <p><strong>Before</strong> replays Blaseball from any moment recorded by the SIBR archives.</p>
+            <p>Earlier seasons will be listed here when confirmed working.</p>
+            <ul>
+                <!--
+                <li><a href="/_before/extra">Extra navigation</a></li>
+                <li><a href="/_before/credits">Credits</a></li>
+                -->
+            </ul>
+        </section>
+
         {% for era in eras %}
         <section>
             <h2 class="Header-Logo-Era" style="color: {{ era.color }}">{{ era.title }}</h2>
@@ -32,15 +43,13 @@
             <span class="days">{{ days }}</span>
             {% when None %}
             {% endmatch %}
-            {% match era.events %}
-            {% when Some with (events) %}
+            {% if !era.events.is_empty() %}
             <ul class="events era">
-                {% for event in events %}
+                {% for event in era.events %}
                 <li><a class="{{ event.class() }}" href="{{ event.jump() }}">{{ event.title }}</a></li>
                 {% endfor %}
             </ul>
-            {% when None %}
-            {% endmatch %}
+            {% endif %}
 
             {% for season in era.seasons %}
             <div class="season">

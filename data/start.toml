@@ -7,82 +7,54 @@
 #title = "Peanut Plague"
 #color = "#c4aa70"
 #days = "August 3–9, 2020"
-#events = [
-#    { title = "Opening Day", day = 1 },
-#]
 #
 #[[eras.seasons]]
 #number = 4
 #title = "Feedback"
 #color = "#ff007b"
 #days = "August 24–30, 2020"
-#events = [
-#    { title = "Opening Day", day = 1 },
-#]
 #
 #[[eras.seasons]]
 #number = 5
 #title = "Reverb"
 #color = "#61b3ff"
 #days = "August 31–September 6, 2020"
-#events = [
-#    { title = "Opening Day", day = 1 },
-#]
 #
 #[[eras.seasons]]
 #number = 6
 #title = "Idols"
 #color = "#ffe082"
 #days = "September 7–13, 2020"
-#events = [
-#    { title = "Opening Day", day = 1 },
-#]
 #
 #[[eras.seasons]]
 #number = 7
 #title = "Getting Shelled"
 #color = "#ffe082"
 #days = "September 14–20, 2020"
-#events = [
-#    { title = "Opening Day", day = 1 },
-#]
 #
 #[[eras.seasons]]
 #number = 8
 #title = "Rest in Violence"
 #color = "#5988FF"
 #days = "September 21–27, 2020"
-#events = [
-#    { title = "Opening Day", day = 1 },
-#    { title = "End of Season", time = "2020-09-25T19:00:48.873Z" },
-#]
 #
 #[[eras.seasons]]
 #number = 9
 #title = "Forecast"
 #color = "#576b8c"
 #days = "October 5–11, 2020"
-#events = [
-#    { title = "Opening Day", day = 1 },
-#]
 #
 #[[eras.seasons]]
 #number = 10
 #title = "Backdraft"
 #color = "#ab383a"
 #days = "October 12–18, 2020"
-#events = [
-#    { title = "Opening Day", day = 1 },
-#]
 #
 #[[eras.seasons]]
 #number = 11
 #title = "Peace & Prosperity"
 #color = "#3cc28a"
 #days = "October 19–25, 2020"
-#events = [
-#    { title = "Opening Day", day = 1 },
-#]
 
 [[eras]]
 title = "The Coffee Cup"
@@ -106,7 +78,7 @@ tournament = 0
 day = 11
 
 [[eras.events]]
-title = "Finals"
+title = "The Coffee Cup Finals"
 tournament = 0
 day = 14
 
@@ -200,15 +172,15 @@ time = "2021-03-09T18:42:55Z"
 title = "Latesiesta"
 time = "2021-03-11T16:45:00Z"
 
-[[eras.season.events]]
+[[eras.seasons.events]]
 title = "MVP Awards"
 time = "2021-03-12T21:00:18Z"
 
-[[eras.season.events]]
+[[eras.seasons.events]]
 title = "Postseason"
 day = 100
 
-[[eras.season.events]]
+[[eras.seasons.events]]
 title = "The Internet Series"
 day = 114
 
@@ -222,90 +194,159 @@ number = 14
 title = "The -ides"
 color = "#bdb3c3"
 days = "March 15–21, 2021"
-events = [
-    { title = "Opening Day", day = 1 },
-]
+
+[[eras.seasons.events]]
+title = "tides rising"
+being = "monitor"
+time = "2021-03-15T01:48:47Z"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "you see the boss anywhere?"
+being = "monitor"
+time = "2021-03-15T20:44:41Z"
+
+[[eras.seasons.events]]
+title = "It's time we ramp up efforts to stay afloat."
+being = "coin"
+time = "2021-03-16T17:35:25Z"
+
+[[eras.seasons.events]]
+title = "Latesiesta"
+time = "2021-03-18T15:45:00Z"
+
+[[eras.seasons.events]]
+title = "CONSUMERS ATTACK NICHOLAS MORA"
+time = "2021-03-19T06:18:22Z"
+team = "747b8e4a-7e50-4638-a973-ea7950a3e739"
+
+[[eras.seasons.events]]
+title = "MVP Awards"
+time = "2021-03-19T20:00:56Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 115
+
+[[eras.seasons.events]]
+title = "somebody better do something"
+being = "monitor"
+time = "2021-03-21T18:01:42Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2021-03-21T18:15:00Z"
+redirect = "/offseason"
 
 [[eras.seasons]]
 number = 15
 title = "Live Bait"
 color = "#ba7b97"
 days = "April 5–11, 2021"
-events = [
-    { title = "Opening Day", day = 1 },
-]
+
+# TODO: add a set of Observed / Redacted / Secret Base attraction events
+
+[[eras.seasons.events]]
+title = "We know you're doing your best"
+being = "coin"
+time = "2021-04-05T14:50:16Z"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "CONSUMERS ATTACK CHORBY SOUL"
+time = "2021-04-05T16:25:01Z"
+team = "105bc3ff-1320-4e37-8ef0-8d595cb95dd0"
+
+[[eras.seasons.events]]
+title = "immateria materia"
+being = "reader"
+time = "2021-04-06T17:39:12Z"
+
+[[eras.seasons.events]]
+title = "Latesiesta"
+time = "2021-04-08T15:45:00Z"
+
+[[eras.seasons.events]]
+title = "MVP Awards"
+time = "2021-04-09T20:01:44Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 111
+
+[[eras.seasons.events]]
+title = "Witnesses shape the Current"
+being = "lootcrates"
+time = "2021-04-11T18:18:42Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2021-04-11T18:30:00Z"
+redirect = "/offseason"
 
 [[eras.seasons]]
 number = 16
 title = "Mass Production"
 color = "#b3b3b3"
 days = "April 12–18, 2021"
-events = [
-    { title = "Opening Day", day = 1 },
-]
 
 [[eras.seasons]]
 number = 17
 title = "Collections"
 color = "#c5a168"
 days = "April 19–25, 2021"
-events = [
-    { title = "Opening Day", day = 1 },
-]
 
 [[eras.seasons]]
 number = 18
 title = "New Editions"
 color = "#ff2e2e"
 days = "May 10–16, 2021"
-events = [
-    { title = "Opening Day", day = 1 },
-]
 
 [[eras.seasons]]
 number = 19
 title = "Undertow"
 color = "#a16dc3"
 days = "May 17–23, 2021"
-events = [
-    { title = "Opening Day", day = 1 },
-]
 
 [[eras.seasons]]
 number = 20
 title = "Win(Win)"
 color = "#3faf66"
 days = "June 14–20, 2021"
-events = [
-    { title = "Opening Day", day = 1 },
-]
 
 [[eras.seasons]]
 number = 21
 title = "Red Herring"
 color = "#ea3f66"
 days = "June 21–27, 2021"
-events = [
-    { title = "Opening Day", day = 1 },
-]
 
 [[eras.seasons]]
 number = 22
 title = "Overdue"
 color = "#3c81d8"
 days = "June 28–July 4, 2021"
-events = [
-    { title = "Opening Day", day = 1 },
-]
 
 [[eras.seasons]]
 number = 23
 title = "A Set Up"
 color = "#d9d3d2"
 days = "July 19–25, 2021"
-events = [
-    { title = "Opening Day", day = 1 },
-]
 
 [[eras.seasons]]
 number = 24
