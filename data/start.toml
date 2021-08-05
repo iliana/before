@@ -89,9 +89,31 @@ title = "The Coffee Cup"
 color = "#9a7b4f"
 seasons = []
 days = "November 17–December 8, 2020"
-events = [
-    { title = "Round 1", tournament = 0, day = 1 },
-]
+
+[[eras.events]]
+title = "Round 1"
+tournament = 0
+day = 1
+
+[[eras.events]]
+title = "Round 2"
+tournament = 0
+day = 6
+
+[[eras.events]]
+title = "Round 3"
+tournament = 0
+day = 11
+
+[[eras.events]]
+title = "Finals"
+tournament = 0
+day = 14
+
+[[eras.events]]
+title = "Congratulations [Champion]!"
+being = "coin"
+time = "2020-12-09T00:27:47Z"
 
 [[eras]]
 title = "The Expansion Era"
@@ -102,9 +124,53 @@ number = 12
 title = "The Return"
 color = "#607e82"
 days = "March 1–7, 2021"
-events = [
-    { title = "Opening Day", day = 1 },
-]
+
+[[eras.seasons.events]]
+title = "you want some snacks?"
+being = "monitor"
+time = "2021-03-01T04:06:05Z"
+
+[[eras.seasons.events]]
+title = "The wait is over."
+being = "coin"
+time = "2021-03-01T15:55:58Z"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-03-02T18:36:01Z"
+
+[[eras.seasons.events]]
+title = "BREACH DETECTED"
+being = "alert"
+time = "2021-03-04T16:30:13Z"
+
+[[eras.seasons.events]]
+title = "We have the Flooding issue under control."
+being = "coin"
+time = "2021-03-05T20:50:01Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 112
+
+[[eras.seasons.events]]
+title = "Smooth sailing ahead."
+being = "coin"
+time = "2021-03-07T18:59:07Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2021-03-07T19:15:00Z"
+redirect = "/offseason"
 
 [[eras.seasons]]
 number = 13

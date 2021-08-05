@@ -13,10 +13,12 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+a {
+    color: unset;
+}
 a,
 a:hover {
     text-decoration: none;
-    color: unset;
 }
 h1 {
     line-height: 1.2;
@@ -99,6 +101,8 @@ div.season span {
 }
 
 ul.events {
+    display: flex;
+    flex-wrap: wrap;
     list-style: none;
     margin: 0 0 1em 0;
     padding: 0;
@@ -110,13 +114,71 @@ ul.events.era {
     padding-left: 32px;
 }
 
-ul.events li {
-    display: inline;
-    padding-right: 1em;
+ul.events li:after {
+    content: "\00b7";
+    padding: 0 0.75em;
+}
+
+ul.events li:last-child:after {
+    content: none;
+    padding: 0;
 }
 
 ul.events a:hover {
     text-decoration: underline;
+}
+
+.bigdeal {
+    font-family: "Lora", "Courier New", monospace, serif;
+}
+
+.bigdeal:before {
+    content: "\201c";
+    font-family: "Lora", "Courier New", monospace, serif;
+}
+
+.bigdeal:after {
+    content: "\201d";
+    font-family: "Lora", "Courier New", monospace, serif;
+}
+
+.bigdeal--1 {
+    font-style: italic;
+}
+
+.bigdeal-0 {
+    color: red;
+}
+
+.bigdeal-1 {
+    color: #5988ff;
+    text-shadow: 0 0 1em #5988ff;
+}
+
+.bigdeal-2 {
+    color: #ffbe00;
+}
+
+.bigdeal-3 {
+    color: #a16dc3;
+    text-shadow: 0 0 1em #a16dc3;
+}
+
+.bigdeal-4 {
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.bigdeal-5 {
+    color: #b3b3b3;
+    font-style: italic;
+}
+
+body.theme-light .bigdeal-5 {
+    color: #626262;
+}
+
+.bigdeal-6 {
+    color: #ea5b23;
 }
 
 @media (max-width: 1080px) {

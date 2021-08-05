@@ -36,7 +36,7 @@
             {% when Some with (events) %}
             <ul class="events era">
                 {% for event in events %}
-                <li><a href="{{ event.jump() }}">{{ event.title }}</a></li>
+                <li><a class="{{ event.class() }}" href="{{ event.jump() }}">{{ event.title }}</a></li>
                 {% endfor %}
             </ul>
             {% when None %}
@@ -53,7 +53,7 @@
                 <span class="days">Season {{ season.number }}, {{ season.days }}</span>
                 <ul class="events">
                     {% for event in season.events %}
-                    <li><a href="{{ event.season_jump(season) }}">{{ event.title }}</a></li>
+                    <li><a class="{{ event.class() }}" href="{{ event.season_jump(season) }}">{{ event.title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
