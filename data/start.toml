@@ -112,13 +112,21 @@ title = "Opening Day"
 day = 1
 
 [[eras.seasons.events]]
-title = "Earlsiesta"
+title = "Seasonal Reading"
 time = "2021-03-02T18:36:01Z"
+
+[[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-03-02T18:45:00Z"
 
 [[eras.seasons.events]]
 title = "BREACH DETECTED"
 being = "alert"
 time = "2021-03-04T16:30:13Z"
+
+[[eras.seasons.events]]
+title = "Latesiesta"
+time = "2021-03-04T16:45:00Z"
 
 [[eras.seasons.events]]
 title = "We have the Flooding issue under control."
@@ -165,15 +173,20 @@ title = "Opening Day"
 day = 1
 
 [[eras.seasons.events]]
-title = "Earlsiesta"
+title = "Seasonal Reading"
 time = "2021-03-09T18:42:55Z"
+
+[[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-03-09T18:50:00Z"
 
 [[eras.seasons.events]]
 title = "Latesiesta"
 time = "2021-03-11T16:45:00Z"
 
 [[eras.seasons.events]]
-title = "MVP Awards"
+title = "Congratulations to Our MVPs."
+being = "coin"
 time = "2021-03-12T21:00:18Z"
 
 [[eras.seasons.events]]
@@ -210,12 +223,16 @@ being = "monitor"
 time = "2021-03-15T20:44:41Z"
 
 [[eras.seasons.events]]
-title = "It's time we ramp up efforts to stay afloat."
+title = "It’s time we ramp up efforts to stay afloat."
 being = "coin"
 time = "2021-03-16T17:35:25Z"
 
 [[eras.seasons.events]]
-title = "The Second Wyatt Masoning"
+title = "Earlsiesta"
+time = "2021-03-16T17:50:00Z"
+
+[[eras.seasons.events]]
+title = "Latesiesta (The Second Wyatt Masoning)"
 time = "2021-03-18T15:45:00Z"
 
 # TODO: add first wyatt static
@@ -226,7 +243,8 @@ time = "2021-03-19T06:18:22Z"
 team = "747b8e4a-7e50-4638-a973-ea7950a3e739"
 
 [[eras.seasons.events]]
-title = "MVP Awards"
+title = "guess i should read this"
+being = "monitor"
 time = "2021-03-19T20:00:56Z"
 
 [[eras.seasons.events]]
@@ -257,7 +275,7 @@ days = "April 5–11, 2021"
 # TODO: add a set of Observed / Redacted / Secret Base attraction events
 
 [[eras.seasons.events]]
-title = "We know you're doing your best"
+title = "We know you’re doing your best"
 being = "coin"
 time = "2021-04-05T14:50:16Z"
 
@@ -276,11 +294,16 @@ being = "reader"
 time = "2021-04-06T17:39:12Z"
 
 [[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-04-06T17:45:00Z"
+
+[[eras.seasons.events]]
 title = "Latesiesta"
 time = "2021-04-08T15:45:00Z"
 
 [[eras.seasons.events]]
-title = "MVP Awards"
+title = "Congratulations to our MVP(s)!"
+being = "coin"
 time = "2021-04-09T20:01:44Z"
 
 [[eras.seasons.events]]
@@ -318,11 +341,16 @@ being = "reader"
 time = "2021-04-13T18:44:03Z"
 
 [[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-04-13T18:50:00Z"
+
+[[eras.seasons.events]]
 title = "Latesiesta"
 time = "2021-04-15T17:45:00Z"
 
 [[eras.seasons.events]]
-title = "MVP Awards"
+title = "Accolades collect en masse."
+being = "lootcrates"
 time = "2021-04-16T22:02:11Z"
 
 [[eras.seasons.events]]
@@ -358,6 +386,10 @@ day = 1
 title = "The Reader interjects"
 being = "lootcrates"
 time = "2021-04-20T17:32:53Z"
+
+[[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-04-20T17:45:00Z"
 
 [[eras.seasons.events]]
 title = "Latesiesta"
@@ -408,9 +440,17 @@ being = "reader"
 time = "2021-05-11T18:35:15Z"
 
 [[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-05-11T18:50:00Z"
+
+[[eras.seasons.events]]
 title = "Please ignore any unauthorized Ballot additions."
 being = "coin"
 time = "2021-05-13T16:39:09Z"
+
+[[eras.seasons.events]]
+title = "Latesiesta"
+time = "2021-05-13T16:50:00Z"
 
 [[eras.seasons.events]]
 title = "Undertow tugs against the Current."
@@ -426,7 +466,7 @@ title = "The Internet Series"
 day = 112
 
 [[eras.seasons.events]]
-title = "Today's Results are disappointing."
+title = "Today’s Results are disappointing."
 being = "coin"
 time = "2021-05-16T18:03:02Z"
 redirect = "/offseason"
@@ -442,11 +482,104 @@ title = "Undertow"
 color = "#a16dc3"
 days = "May 17–23, 2021"
 
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "We’ve all had enough chaos."
+being = "coin"
+time = "2021-05-18T17:34:06Z"
+
+[[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-05-18T17:50:00Z"
+
+[[eras.seasons.events]]
+title = "Latesiesta"
+time = "2021-05-20T15:45:00Z"
+
+[[eras.seasons.events]]
+title = "kinda juggling a lot right now"
+being = "monitor"
+time = "2021-05-21T20:02:33Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 113
+
+[[eras.seasons.events]]
+title = "We’ve been forced to make a Deal"
+being = "coin"
+time = "2021-05-23T18:04:49Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2021-05-23T18:15:00Z"
+redirect = "/offseason"
+
 [[eras.seasons]]
 number = 20
 title = "Win(Win)"
 color = "#3faf66"
 days = "June 14–20, 2021"
+
+[[eras.seasons.events]]
+title = "haven’t checked the hall in a bit"
+being = "monitor"
+time = "2021-06-14T03:47:57Z"
+
+[[eras.seasons.events]]
+title = "The Historian eyes the Horizon"
+being = "lootcrates"
+time = "2021-06-14T14:47:31Z"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "go long"
+being = "reader"
+time = "2021-06-15T17:39:12Z"
+redirect = "/depth"
+
+[[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-06-15T17:50:00Z"
+
+[[eras.seasons.events]]
+title = "Latesiesta"
+time = "2021-06-17T15:45:00Z"
+
+[[eras.seasons.events]]
+title = "Approaching Ends."
+being = "lootcrates"
+time = "2021-06-18T20:03:56Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 112
+
+[[eras.seasons.events]]
+title = "We must deepen our investments"
+being = "coin"
+time = "2021-06-20T18:02:09Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2021-06-20T18:15:00Z"
+redirect = "/offseason"
 
 [[eras.seasons]]
 number = 21
@@ -454,17 +587,177 @@ title = "Red Herring"
 color = "#ea3f66"
 days = "June 21–27, 2021"
 
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "who makes this stuff"
+being = "monitor"
+time = "2021-06-22T17:34:48Z"
+
+[[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-06-22T17:45:00Z"
+
+[[eras.seasons.events]]
+title = "Latesiesta"
+time = "2021-06-24T15:40:43Z"
+
+[[eras.seasons.events]]
+title = "SMASH"
+time = "2021-06-24T19:00:30Z"
+redirect = "/depth"
+
+[[eras.seasons.events]]
+title = "something smells fishy"
+being = "monitor"
+time = "2021-06-24T19:32:28Z"
+
+[[eras.seasons.events]]
+title = "[TUMBLEWEED SOUNDS]"
+time = "2021-06-24T20:00:30Z"
+redirect = "/depth"
+
+[[eras.seasons.events]]
+title = "The Current Dammed"
+being = "lootcrates"
+time = "2021-06-25T21:03:20Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 113
+
+[[eras.seasons.events]]
+title = "Classified information has been Leaked"
+being = "coin"
+time = "2021-06-27T18:04:36Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2021-06-27T18:15:00Z"
+redirect = "/offseason"
+
 [[eras.seasons]]
 number = 22
 title = "Overdue"
 color = "#3c81d8"
 days = "June 28–July 4, 2021"
 
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "The ILB Semi-Centennial!"
+being = "coin"
+time = "2021-06-29T17:43:16Z"
+
+[[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-06-29T17:55:00Z"
+
+[[eras.seasons.events]]
+title = "gotta offload this herring"
+being = "monitor"
+time = "2021-07-01T15:44:27Z"
+
+[[eras.seasons.events]]
+title = "Latesiesta"
+time = "2021-07-01T17:45:00Z"
+
+[[eras.seasons.events]]
+title = "A Golden Glove"
+being = "lootcrates"
+time = "2021-07-02T21:04:08Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 113
+
+[[eras.seasons.events]]
+title = "An Exhibition Match for the Ages"
+being = "coin"
+time = "2021-07-04T18:02:55Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2021-07-04T18:15:00Z"
+redirect = "/offseason"
+
 [[eras.seasons]]
 number = 23
 title = "A Set Up"
 color = "#d9d3d2"
 days = "July 19–25, 2021"
+
+[[eras.seasons.events]]
+title = "Following the Postseason, We’ll celebrate"
+being = "coin"
+time = "2021-07-19T14:50:56Z"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "game over"
+being = "reader"
+time = "2021-07-20T17:35:24Z"
+
+[[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-07-20T17:45:00Z"
+
+[[eras.seasons.events]]
+title = "hope there’s fireworks"
+being = "monitor"
+time = "2021-07-22T15:46:42Z"
+
+[[eras.seasons.events]]
+title = "Latesiesta"
+time = "2021-07-22T15:55:00Z"
+
+[[eras.seasons.events]]
+title = "An Ending Begins"
+being = "lootcrates"
+time = "2021-07-23T20:03:51Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 113
+
+[[eras.seasons.events]]
+title = "The ILB Semi-Centennial"
+time = "2021-07-25T01:58:06Z"
+
+[[eras.seasons.events]]
+title = "Yes, Sun(Sun) appears to have exploded."
+being = "coin"
+time = "2021-07-25T03:38:25Z"
+
+[[eras.seasons.events]]
+title = "Credit Denied"
+being = "namerifeht"
+time = "2021-07-25T18:02:39Z"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2021-07-25T18:15:00Z"
 
 [[eras.seasons]]
 number = 24
@@ -496,12 +789,12 @@ being = "monitor"
 time = "2021-07-26T17:37:32Z"
 
 [[eras.seasons.events]]
-title = "Hawai'i Fridays incinerated"
+title = "Hawai’i Fridays incinerated"
 time = "2021-07-26T19:05:46-07:00"
 team = "979aee4a-6d80-4863-bf1c-ee1a78e06024"
 
 [[eras.seasons.events]]
-title = "it's island time"
+title = "it’s island time"
 being = "monitor"
 time = "2021-07-27T02:33:39Z"
 
@@ -510,6 +803,10 @@ title = "This is Parker MacMillan IIIII speaking"
 being = "parker"
 time = "2021-07-27T17:39:46Z"
 redirect = "/depth"
+
+[[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-07-20T18:00:00Z"
 
 [[eras.seasons.events]]
 title = "hey talkers"
@@ -551,6 +848,10 @@ time = "2021-07-29T16:37:21Z"
 redirect = "/depth"
 
 [[eras.seasons.events]]
+title = "Latesiesta"
+time = "2021-07-29T16:50:00Z"
+
+[[eras.seasons.events]]
 title = "Philly Pies nullify themselves"
 time = "2021-07-30T00:15:07Z"
 team = "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7"
@@ -561,7 +862,7 @@ time = "2021-07-30T02:50:00Z"
 redirect = "/depth"
 
 [[eras.seasons.events]]
-title = "We'r- F-ns, j-st l-ke y--"
+title = "We’r- F-ns, j-st l-ke y--"
 being = "coin"
 time = "2021-07-30T02:55:15Z"
 redirect = "/depth"

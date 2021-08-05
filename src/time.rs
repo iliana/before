@@ -84,10 +84,7 @@ pub async fn jump(
         None => Duration::zero(),
     };
     Ok(if let Some(time) = jump_time.to_time().await? {
-        set_offset(
-            cookies,
-            Utc::now() + start_offset - (time - Duration::seconds(5)),
-        );
+        set_offset(cookies, Utc::now() + start_offset - time);
         Either::Left(Redirect(redirect))
     } else {
         Either::Right(NotFound(()))

@@ -3,7 +3,7 @@ use askama::Template;
 use rocket::get;
 use rocket::response::content::Html;
 use serde::Deserialize;
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use toml::Value;
 
 const JUMP_BASE: &str = "/_before/jump";
@@ -52,7 +52,7 @@ struct Event {
     title: String,
     being: Option<Being>,
     #[serde(flatten)]
-    jump_args: HashMap<String, Value>,
+    jump_args: BTreeMap<String, Value>,
 }
 
 impl Event {

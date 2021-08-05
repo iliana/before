@@ -120,7 +120,7 @@ section.intro ul, ul.events {
 }
 
 ul.events.era {
-    padding: 0 32px;
+    padding: 0 48px;
 }
 
 section.intro ul li:after, ul.events li:after {
@@ -135,6 +135,10 @@ section.intro ul li:last-child:after, ul.events li:last-child:after {
 
 section.intro ul a:hover, ul.events a:hover {
     text-decoration: underline;
+}
+
+section ul.events {
+    padding: 0 16px;
 }
 
 .bigdeal {
@@ -175,6 +179,10 @@ section.intro ul a:hover, ul.events a:hover {
 
 .bigdeal-4 {
     font-family: "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.bigdeal-4:before, .bigdeal-4:after {
+    color: #ff007b;
 }
 
 .bigdeal-5 {
