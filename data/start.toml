@@ -177,9 +177,45 @@ number = 13
 title = "Home Free"
 color = "#b185de"
 days = "March 8–14, 2021"
-events = [
-    { title = "Opening Day", day = 1 },
-]
+
+[[eras.seasons.events]]
+title = "pretzels got wet"
+being = "monitor"
+time = "2021-03-08T02:36:38Z"
+
+[[eras.seasons.events]]
+title = "Focus on what you do best."
+being = "coin"
+time = "2021-03-08T15:53:31Z"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "Earlsiesta"
+time = "2021-03-09T18:42:55Z"
+
+[[eras.seasons.events]]
+title = "Latesiesta"
+time = "2021-03-11T16:45:00Z"
+
+[[eras.season.events]]
+title = "MVP Awards"
+time = "2021-03-12T21:00:18Z"
+
+[[eras.season.events]]
+title = "Postseason"
+day = 100
+
+[[eras.season.events]]
+title = "The Internet Series"
+day = 114
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2021-03-14T19:15:00Z"
+redirect = "/offseason"
 
 [[eras.seasons]]
 number = 14
