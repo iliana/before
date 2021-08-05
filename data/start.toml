@@ -215,8 +215,10 @@ being = "coin"
 time = "2021-03-16T17:35:25Z"
 
 [[eras.seasons.events]]
-title = "Latesiesta"
+title = "The Second Wyatt Masoning"
 time = "2021-03-18T15:45:00Z"
+
+# TODO: add first wyatt static
 
 [[eras.seasons.events]]
 title = "CONSUMERS ATTACK NICHOLAS MORA"
@@ -306,17 +308,133 @@ title = "Mass Production"
 color = "#b3b3b3"
 days = "April 12–18, 2021"
 
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "materia immateria"
+being = "reader"
+time = "2021-04-13T18:44:03Z"
+
+[[eras.seasons.events]]
+title = "Latesiesta"
+time = "2021-04-15T17:45:00Z"
+
+[[eras.seasons.events]]
+title = "MVP Awards"
+time = "2021-04-16T22:02:11Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 114
+
+[[eras.seasons.events]]
+title = "We will Preserve what We Love."
+being = "coin"
+time = "2021-04-18T18:03:24Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2021-04-18T18:15:00Z"
+redirect = "/offseason"
+
 [[eras.seasons]]
 number = 17
 title = "Collections"
 color = "#c5a168"
 days = "April 19–25, 2021"
 
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "The Reader interjects"
+being = "lootcrates"
+time = "2021-04-20T17:32:53Z"
+
+[[eras.seasons.events]]
+title = "Latesiesta"
+time = "2021-04-22T15:45:00Z"
+
+[[eras.seasons.events]]
+title = "Stars Vaulted"
+being = "lootcrates"
+time = "2021-04-23T20:04:24Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 112
+
+[[eras.seasons.events]]
+title = "The Stacks Remember"
+being = "lootcrates"
+time = "2021-04-25T18:03:48Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2021-04-25T18:15:00Z"
+redirect = "/offseason"
+
 [[eras.seasons]]
 number = 18
 title = "New Editions"
 color = "#ff2e2e"
 days = "May 10–16, 2021"
+
+[[eras.seasons.events]]
+title = "Chorby Soul has been Preserved!"
+being = "coin"
+time = "2021-05-10T14:47:24Z"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "lighten up"
+being = "reader"
+time = "2021-05-11T18:35:15Z"
+
+[[eras.seasons.events]]
+title = "Please ignore any unauthorized Ballot additions."
+being = "coin"
+time = "2021-05-13T16:39:09Z"
+
+[[eras.seasons.events]]
+title = "Undertow tugs against the Current."
+being = "lootcrates"
+time = "2021-05-14T21:03:20Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 112
+
+[[eras.seasons.events]]
+title = "Today's Results are disappointing."
+being = "coin"
+time = "2021-05-16T18:03:02Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2021-05-16T18:15:00Z"
+redirect = "/offseason"
 
 [[eras.seasons]]
 number = 19

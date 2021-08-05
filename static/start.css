@@ -161,7 +161,7 @@ section.intro ul a:hover, ul.events a:hover {
 
 .bigdeal-1 {
     color: #5988ff;
-    text-shadow: 0 0 1em #5988ff;
+    text-shadow: 0 0 0.5em #5988ff;
 }
 
 .bigdeal-2 {
@@ -170,7 +170,7 @@ section.intro ul a:hover, ul.events a:hover {
 
 .bigdeal-3 {
     color: #a16dc3;
-    text-shadow: 0 0 1em #a16dc3;
+    text-shadow: 0 0 0.5em #a16dc3;
 }
 
 .bigdeal-4 {
