@@ -312,10 +312,106 @@ number = 24
 title = "Fire Sale"
 color = "#ea5b23"
 days = "July 26–30, 2021"
-events = [
-    { title = "Opening Day", day = 1 },
-]
 
 [eras.seasons.extra_title]
 title = "Save Situation"
 color = "#64aadc"
+
+[[eras.seasons.events]]
+title = "In Light of Recent Events"
+being = "coin"
+time = "2021-07-26T14:48:14Z"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "Kansas City Breath Mints incinerated"
+time = "2021-07-26T17:13:23Z"
+team = "adc5b394-8f76-416d-9ce9-813706877b84"
+
+[[eras.seasons.events]]
+title = "the breath mints."
+being = "monitor"
+time = "2021-07-26T17:37:32Z"
+
+[[eras.seasons.events]]
+title = "Hawai'i Fridays incinerated"
+time = "2021-07-26T19:05:46-07:00"
+team = "979aee4a-6d80-4863-bf1c-ee1a78e06024"
+
+[[eras.seasons.events]]
+title = "it's island time"
+being = "monitor"
+time = "2021-07-27T02:33:39Z"
+
+[[eras.seasons.events]]
+title = "This is Parker MacMillan IIIII speaking"
+being = "parker"
+time = "2021-07-27T17:39:46Z"
+redirect = "/depth"
+
+[[eras.seasons.events]]
+title = "hey talkers"
+being = "monitor"
+time = "2021-07-28T01:46:15Z"
+
+[[eras.seasons.events]]
+title = "HARVEST TRACKING INITIATED"
+being = "alert"
+time = "2021-07-28T16:45:19Z"
+redirect = "/depth"
+
+[[eras.seasons.events]]
+title = "sunbeams"
+being = "reader"
+time = "2021-07-28T19:34:01Z"
+redirect = "/depth"
+
+[[eras.seasons.events]]
+title = "The Historian Steels Second"
+being = "lootcrates"
+time = "2021-07-29T01:56:03Z"
+redirect = "/depth"
+
+[[eras.seasons.events]]
+title = "New York Millennials nullify the economy"
+time = "2021-07-29T03:27:45Z"
+team = "36569151-a2fb-43c1-9df7-2df512424c82"
+
+[[eras.seasons.events]]
+title = "Wh-t are you doi--"
+being = "coin"
+time = "2021-07-29T09:00:13Z"
+
+[[eras.seasons.events]]
+title = "i quit"
+being = "monitor"
+time = "2021-07-29T16:37:21Z"
+redirect = "/depth"
+
+[[eras.seasons.events]]
+title = "Philly Pies nullify themselves"
+time = "2021-07-30T00:15:07Z"
+team = "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7"
+
+[[eras.seasons.events]]
+title = "Rogue Hades Tigers approach"
+time = "2021-07-30T02:50:00Z"
+redirect = "/depth"
+
+[[eras.seasons.events]]
+title = "We'r- F-ns, j-st l-ke y--"
+being = "coin"
+time = "2021-07-30T02:55:15Z"
+redirect = "/depth"
+
+[[eras.seasons.events]]
+title = "balance paid"
+being = "namerifeht"
+time = "2021-07-30T20:00:28Z"
+
+[[eras.seasons.events]]
+title = "Credits"
+time = "2021-07-30T20:30:00Z"
