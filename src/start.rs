@@ -101,9 +101,30 @@ enum Being {
     Namerifeht = 6,
 }
 
+#[cfg(debug_assertions)] // debug mode
+async fn load_start() -> anyhow::Result<StartData> {
+    Ok(toml::from_str(
+        &rocket::tokio::fs::read_to_string(
+            std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+                .join("data")
+                .join("start.toml"),
+        )
+        .await?,
+    )?)
+}
+
+#[cfg(not(debug_assertions))] // release mode
+async fn load_start() -> anyhow::Result<&'static StartData> {
+    lazy_static::lazy_static! {
+        static ref DATA: StartData = toml::from_str(include_str!("../data/start.toml")).unwrap();
+    }
+
+    Ok(&DATA)
+}
+
 #[get("/_before/start", rank = 1)]
-pub fn start() -> Result<Html<String>> {
-    let data: StartData =
-        toml::from_str(include_str!("../data/start.toml")).map_err(anyhow::Error::from)?;
-    Ok(Html(data.render().map_err(anyhow::Error::from)?))
+pub async fn start() -> Result<Html<String>> {
+    Ok(Html(
+        load_start().await?.render().map_err(anyhow::Error::from)?,
+    ))
 }
