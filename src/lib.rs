@@ -50,6 +50,7 @@ struct Config {
     http_client_gzip: bool,
     chronicler_base_url: String,
     upnuts_base_url: String,
+    static_dir: Cow<'static, Path>,
 }
 
 impl Default for Config {
@@ -59,6 +60,7 @@ impl Default for Config {
             http_client_gzip: true,
             chronicler_base_url: "https://api.sibr.dev/chronicler/".to_string(),
             upnuts_base_url: "https://api.sibr.dev/upnuts/".to_string(),
+            static_dir: Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static"))).into(),
         }
     }
 }
@@ -78,10 +80,6 @@ where
     let mut cookie = Cookie::new(name, value);
     cookie.set_same_site(SameSite::Lax);
     cookie
-}
-
-fn static_dir() -> &'static Path {
-    Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static")))
 }
 
 #[get("/auth/logout")]
@@ -135,9 +133,9 @@ pub fn build() -> anyhow::Result<Rocket<Build>> {
     Ok(rocket
         .mount(
             "/static/media",
-            FileServer::from(static_dir().join("media")).rank(0),
+            FileServer::from(CONFIG.static_dir.join("media")).rank(0),
         )
-        .mount("/_before", FileServer::from(static_dir()))
+        .mount("/_before", FileServer::from(&CONFIG.static_dir))
         .mount("/", api::mocked_error_routes())
         .mount("/", database::entity_routes())
         .mount(
