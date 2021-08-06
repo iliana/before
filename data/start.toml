@@ -150,6 +150,11 @@ title = "Latesiesta"
 time = "2021-03-04T16:45:00Z"
 
 [[eras.seasons.events]]
+title = "Raúl Leal is swept Elsewhere"
+time = "2021-03-04T18:28:49Z"
+team = "b63be8c2-576a-4d6e-8daf-814f8bcea96f"
+
+[[eras.seasons.events]]
 title = "We have the Flooding issue under control."
 being = "coin"
 time = "2021-03-05T20:50:01Z"
@@ -206,11 +211,6 @@ time = "2021-03-09T18:50:00Z"
 [[eras.seasons.events]]
 title = "Latesiesta"
 time = "2021-03-11T16:45:00Z"
-
-[[eras.seasons.events]]
-title = "Raúl Leal is swept Elsewhere"
-time = "2021-03-04T18:28:49Z"
-team = "b63be8c2-576a-4d6e-8daf-814f8bcea96f"
 
 [[eras.seasons.events]]
 title = "Yosh Carpenter pitches for both teams"
@@ -411,6 +411,11 @@ time = "2021-04-12T15:22:02Z"
 team = "8d87c468-699a-47a8-b40d-cfb73a5660ad"
 
 [[eras.seasons.events]]
+title = "Glitter weather"
+time = "2021-04-13T04:12:50Z"
+team = "bb4a9de5-c924-4923-a0cb-9d1445f1ee5d"
+
+[[eras.seasons.events]]
 title = "materia immateria"
 being = "reader"
 time = "2021-04-13T18:44:03Z"
@@ -546,7 +551,7 @@ title = "Postseason"
 day = 100
 
 [[eras.seasons.events]]
-title = "Nerd Pacheco's superallergic reaction"
+title = "Nerd Pacheco’s superallergic reaction"
 time = "2021-05-15T05:16:16Z"
 team = "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7"
 
@@ -592,7 +597,7 @@ title = "Earlsiesta"
 time = "2021-05-18T17:50:00Z"
 
 [[eras.seasons.events]]
-title = "Kelvin Drumsolo's 5-game drum solo"
+title = "Kelvin Drumsolo’s 5-game drum solo"
 day = 65
 team = "46358869-dce9-4a01-bfba-ac24fc56f57e"
 
@@ -655,6 +660,11 @@ redirect = "/depth"
 [[eras.seasons.events]]
 title = "Earlsiesta"
 time = "2021-06-15T17:50:00Z"
+
+[[eras.seasons.events]]
+title = "Jesús Koch places The Fifth Base"
+time = "2021-06-16T05:12:47Z"
+team = "7966eb04-efcc-499b-8f03-d13916330531"
 
 [[eras.seasons.events]]
 title = "Latesiesta"
@@ -777,6 +787,11 @@ time = "2021-07-01T15:44:27Z"
 [[eras.seasons.events]]
 title = "Latesiesta"
 time = "2021-07-01T17:45:00Z"
+
+[[eras.seasons.events]]
+title = "Baldwin Breadwinner steals The Fifth Base"
+time = "2021-07-02T05:10:49Z"
+team = "b024e975-1c4a-4575-8936-a3754a08806a"
 
 [[eras.seasons.events]]
 title = "A Golden Glove"
