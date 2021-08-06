@@ -56,6 +56,8 @@
 #color = "#3cc28a"
 #days = "October 19–25, 2020"
 
+### THE COFFEE CUP ###
+
 [[eras]]
 title = "The Coffee Cup"
 color = "#9a7b4f"
@@ -87,9 +89,13 @@ title = "Congratulations [Champion]!"
 being = "coin"
 time = "2020-12-09T00:27:47Z"
 
+### THE EXPANSION ERA ###
+
 [[eras]]
 title = "The Expansion Era"
 color = "#ffbe00"
+
+### SEASON 12 ### THE RETURN ###
 
 [[eras.seasons]]
 number = 12
@@ -162,6 +168,8 @@ title = "Election Results"
 time = "2021-03-07T19:15:00Z"
 redirect = "/offseason"
 
+### SEASON 13 ### HOME FREE ###
+
 [[eras.seasons]]
 number = 13
 title = "Home Free"
@@ -216,6 +224,8 @@ day = 114
 title = "Election Results"
 time = "2021-03-14T19:15:00Z"
 redirect = "/offseason"
+
+### SEASON 14 ### THE -IDES ###
 
 [[eras.seasons]]
 number = 14
@@ -281,6 +291,8 @@ title = "Election Results"
 time = "2021-03-21T18:15:00Z"
 redirect = "/offseason"
 
+### SEASON 15 ### LIVE BAIT ###
+
 [[eras.seasons]]
 number = 15
 title = "Live Bait"
@@ -340,6 +352,8 @@ title = "Election Results"
 time = "2021-04-11T18:30:00Z"
 redirect = "/offseason"
 
+### SEASON 16 ### MASS PRODUCTION ###
+
 [[eras.seasons]]
 number = 16
 title = "Mass Production"
@@ -386,6 +400,8 @@ redirect = "/offseason"
 title = "Election Results"
 time = "2021-04-18T18:15:00Z"
 redirect = "/offseason"
+
+### SEASON 17 ### COLLECTIONS ###
 
 [[eras.seasons]]
 number = 17
@@ -434,6 +450,8 @@ title = "Election Results"
 time = "2021-04-25T18:15:00Z"
 redirect = "/offseason"
 
+### SEASON 18 ### NEW EDITIONS ###
+
 [[eras.seasons]]
 number = 18
 title = "New Editions"
@@ -477,6 +495,11 @@ title = "Postseason"
 day = 100
 
 [[eras.seasons.events]]
+title = "Nerd Pacheco's superallergic reaction"
+time = "2021-05-15T05:16:16Z"
+team = "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7"
+
+[[eras.seasons.events]]
 title = "The Internet Series"
 day = 112
 
@@ -490,6 +513,8 @@ redirect = "/offseason"
 title = "Election Results"
 time = "2021-05-16T18:15:00Z"
 redirect = "/offseason"
+
+### SEASON 19 ### UNDERTOW ###
 
 [[eras.seasons]]
 number = 19
@@ -509,6 +534,11 @@ time = "2021-05-18T17:34:06Z"
 [[eras.seasons.events]]
 title = "Earlsiesta"
 time = "2021-05-18T17:50:00Z"
+
+[[eras.seasons.events]]
+title = "Kelvin Drumsolo's 5-game drum solo"
+day = 65
+team = "46358869-dce9-4a01-bfba-ac24fc56f57e"
 
 [[eras.seasons.events]]
 title = "Latesiesta"
@@ -537,6 +567,8 @@ redirect = "/offseason"
 title = "Election Results"
 time = "2021-05-23T18:15:00Z"
 redirect = "/offseason"
+
+### SEASON 20 ### WIN(WIN) ###
 
 [[eras.seasons]]
 number = 20
@@ -595,6 +627,8 @@ redirect = "/offseason"
 title = "Election Results"
 time = "2021-06-20T18:15:00Z"
 redirect = "/offseason"
+
+### SEASON 21 ### RED HERRING ###
 
 [[eras.seasons]]
 number = 21
@@ -658,6 +692,8 @@ title = "Election Results"
 time = "2021-06-27T18:15:00Z"
 redirect = "/offseason"
 
+### SEASON 22 ### OVERDUE ###
+
 [[eras.seasons]]
 number = 22
 title = "Overdue"
@@ -709,6 +745,8 @@ redirect = "/offseason"
 title = "Election Results"
 time = "2021-07-04T18:15:00Z"
 redirect = "/offseason"
+
+### SEASON 23 ### A SET UP ###
 
 [[eras.seasons]]
 number = 23
@@ -778,6 +816,8 @@ time = "2021-07-25T18:02:39Z"
 [[eras.seasons.events]]
 title = "Election Results"
 time = "2021-07-25T18:15:00Z"
+
+### SEASON 24 ### FIRE SALE ### SAVE SITUATION ###
 
 [[eras.seasons]]
 number = 24
