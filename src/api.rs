@@ -97,6 +97,7 @@ pub fn buy_flute(cookies: &CookieJar<'_>) -> Json<Value> {
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct FavoriteTeamUpdate {
+    #[serde(alias = "newTeamId")]
     pub team_id: String,
 }
 
