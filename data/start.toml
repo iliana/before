@@ -68,26 +68,31 @@ days = "November 17–December 8, 2020"
 title = "Round 1"
 tournament = 0
 day = 1
+redirect = "/"
 
 [[eras.events]]
 title = "Round 2"
 tournament = 0
 day = 6
+redirect = "/"
 
 [[eras.events]]
 title = "Round 3"
 tournament = 0
 day = 11
+redirect = "/"
 
 [[eras.events]]
 title = "The Coffee Cup Finals"
 tournament = 0
 day = 14
+redirect = "/"
 
 [[eras.events]]
 title = "Congratulations [Champion]!"
 being = "coin"
 time = "2020-12-09T00:27:47Z"
+redirect = "/"
 
 ### THE EXPANSION ERA ###
 
