@@ -743,7 +743,7 @@ redirect = "/offseason"
 
 [[eras.seasons.events]]
 title = "Election Results"
-time = "2021-07-04T18:15:00Z"
+time = "2021-07-04T18:20:00Z"
 redirect = "/offseason"
 
 ### SEASON 23 ### A SET UP ###
@@ -812,10 +812,12 @@ time = "2021-07-25T03:38:25Z"
 title = "Credit Denied"
 being = "namerifeht"
 time = "2021-07-25T18:02:39Z"
+redirect = "/offseason"
 
 [[eras.seasons.events]]
 title = "Election Results"
 time = "2021-07-25T18:15:00Z"
+redirect = "/offseason"
 
 ### SEASON 24 ### FIRE SALE ### SAVE SITUATION ###
 
