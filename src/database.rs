@@ -7,6 +7,7 @@ use rocket::futures::TryStreamExt;
 use rocket::serde::json::Json;
 use rocket::{get, routes, Route};
 use serde_json::value::RawValue;
+use std::collections::HashMap;
 
 async fn fetch(
     ty: &'static str,
@@ -167,25 +168,6 @@ pub async fn offseason_recap(
         }))
 }
 
-// TODO get these in chronicler, then add a workaround to cap the OffsetTime at the earliest point
-// where the data is present
-#[get("/database/renovations?<ids>")]
-pub async fn renovations(ids: String) -> Result<Json<Box<RawValue>>> {
-    Ok(Json(
-        crate::CLIENT
-            .get(format!(
-                "https://www.blaseball.com/database/renovations?ids={}",
-                ids
-            ))
-            .send()
-            .await
-            .map_err(anyhow::Error::from)?
-            .json()
-            .await
-            .map_err(anyhow::Error::from)?,
-    ))
-}
-
 #[get("/database/feed/<kind>?<id>&<start>&<category>&<sort>&<limit>")]
 pub async fn feed(
     kind: &str,
@@ -257,4 +239,19 @@ pub(crate) async fn feedbyphase(
             .await
             .map_err(anyhow::Error::from)?,
     ))
+}
+
+lazy_static::lazy_static! {
+    static ref RENOS: HashMap<&'static str, &'static RawValue> =
+        serde_json::from_str(include_str!("../data/renos.json")).unwrap();
+}
+
+#[get("/database/renovations?<ids>")]
+pub fn renovations(ids: String) -> Json<Vec<&'static RawValue>> {
+    Json(
+        ids.split(',')
+            .filter_map(|id| RENOS.get(id))
+            .copied()
+            .collect(),
+    )
 }
