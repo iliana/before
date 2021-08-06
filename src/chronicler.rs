@@ -93,7 +93,6 @@ impl RequestBuilder {
 #[serde(rename_all = "lowercase")]
 pub enum Order {
     Asc,
-    #[allow(dead_code)]
     Desc,
 }
 
