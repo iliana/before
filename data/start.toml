@@ -150,9 +150,9 @@ title = "Latesiesta"
 time = "2021-03-04T16:45:00Z"
 
 [[eras.seasons.events]]
-title = "Raúl Leal is swept Elsewhere"
-time = "2021-03-04T18:28:49Z"
-team = "b63be8c2-576a-4d6e-8daf-814f8bcea96f"
+title = "Peanutiel Duffy is swept Elsewhere"
+time = "2021-03-04T18:06:46Z"
+team = "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16"
 
 [[eras.seasons.events]]
 title = "We have the Flooding issue under control."
@@ -199,6 +199,11 @@ time = "2021-03-08T15:53:31Z"
 [[eras.seasons.events]]
 title = "Opening Day"
 day = 1
+
+[[eras.seasons.events]]
+title = "-easley Day returns, Scattered"
+time = "2021-03-08T16:07:33Z"
+team = "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7"
 
 [[eras.seasons.events]]
 title = "Seasonal Reading"
@@ -355,6 +360,11 @@ title = "Latesiesta"
 time = "2021-04-08T15:45:00Z"
 
 [[eras.seasons.events]]
+title = "Percival Wheeler hops on the Grind Rail"
+time = "2021-04-08T17:05:31Z"
+team = "b72f3061-f573-40d7-832a-5ad475bd7909"
+
+[[eras.seasons.events]]
 title = "Kurt Crueller enters the Secret Base in Yellowstone…"
 time = "2021-04-08T22:01:21Z"
 team = "7966eb04-efcc-499b-8f03-d13916330531"
@@ -423,6 +433,11 @@ time = "2021-04-13T18:44:03Z"
 [[eras.seasons.events]]
 title = "Earlsiesta"
 time = "2021-04-13T18:50:00Z"
+
+[[eras.seasons.events]]
+title = "28-inning Fridays–Mechanics game"
+day = 36
+team = "46358869-dce9-4a01-bfba-ac24fc56f57e"
 
 [[eras.seasons.events]]
 title = "Latesiesta"
@@ -771,6 +786,11 @@ title = "Opening Day"
 day = 1
 
 [[eras.seasons.events]]
+title = "Millennials get a Pitching Machine"
+day = 13
+team = "36569151-a2fb-43c1-9df7-2df512424c82"
+
+[[eras.seasons.events]]
 title = "The ILB Semi-Centennial!"
 being = "coin"
 time = "2021-06-29T17:43:16Z"
@@ -867,6 +887,11 @@ title = "Postseason"
 day = 100
 
 [[eras.seasons.events]]
+title = "Night weather"
+time = "2021-07-24T02:02:44Z"
+team = "7966eb04-efcc-499b-8f03-d13916330531"
+
+[[eras.seasons.events]]
 title = "The Internet Series"
 day = 113
 
@@ -942,9 +967,19 @@ title = "Earlsiesta"
 time = "2021-07-20T18:00:00Z"
 
 [[eras.seasons.events]]
+title = "Black Hole (Black Hole) nullifies Tunnels"
+time = "2021-07-27T19:28:44Z"
+team = "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5"
+
+[[eras.seasons.events]]
 title = "hey talkers"
 being = "monitor"
 time = "2021-07-28T01:46:15Z"
+
+[[eras.seasons.events]]
+title = "88-minute Pies–Lovers game"
+day = 38
+team = "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7"
 
 [[eras.seasons.events]]
 title = "HARVEST TRACKING INITIATED"
