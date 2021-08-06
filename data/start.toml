@@ -208,6 +208,11 @@ title = "Latesiesta"
 time = "2021-03-11T16:45:00Z"
 
 [[eras.seasons.events]]
+title = "Raúl Leal is swept Elsewhere"
+time = "2021-03-04T18:28:49Z"
+team = "b63be8c2-576a-4d6e-8daf-814f8bcea96f"
+
+[[eras.seasons.events]]
 title = "Yosh Carpenter pitches for both teams"
 time = "2021-03-12T00:01:16Z"
 team = "979aee4a-6d80-4863-bf1c-ee1a78e06024"
@@ -265,7 +270,10 @@ time = "2021-03-16T17:50:00Z"
 title = "Latesiesta (The Second Wyatt Masoning)"
 time = "2021-03-18T15:45:00Z"
 
-# TODO: add first wyatt static
+[[eras.seasons.events]]
+title = "Wyatt Mason IX and Wyatt Mason XI Echo into Static"
+time = "2021-03-18T21:07:22Z"
+team = "36569151-a2fb-43c1-9df7-2df512424c82"
 
 [[eras.seasons.events]]
 title = "CONSUMERS ATTACK NICHOLAS MORA"
@@ -304,11 +312,9 @@ title = "Live Bait"
 color = "#ba7b97"
 days = "April 5–11, 2021"
 
-# TODO: add a set of Observed / Redacted / Secret Base attraction events
-
 [[eras.seasons.events]]
-title = "We know you’re doing your best"
-being = "coin"
+title = "they sent the fish back"
+being = "monitor"
 time = "2021-04-05T14:50:16Z"
 
 [[eras.seasons.events]]
@@ -316,9 +322,24 @@ title = "Opening Day"
 day = 1
 
 [[eras.seasons.events]]
+title = "Wyatt Glover is Observed"
+time = "2021-04-05T16:10:42Z"
+team = "7966eb04-efcc-499b-8f03-d13916330531"
+
+[[eras.seasons.events]]
 title = "CONSUMERS ATTACK CHORBY SOUL"
 time = "2021-04-05T16:25:01Z"
 team = "105bc3ff-1320-4e37-8ef0-8d595cb95dd0"
+
+[[eras.seasons.events]]
+title = "Wyatt Glover is Redacted"
+time = "2021-04-05T17:40:13Z"
+team = "7966eb04-efcc-499b-8f03-d13916330531"
+
+[[eras.seasons.events]]
+title = "The Salmon swim upstream"
+time = "2021-04-05T18:12:29Z"
+team = "bfd38797-8404-4b38-8b82-341da28b1f83"
 
 [[eras.seasons.events]]
 title = "immateria materia"
@@ -334,6 +355,16 @@ title = "Latesiesta"
 time = "2021-04-08T15:45:00Z"
 
 [[eras.seasons.events]]
+title = "Kurt Crueller enters the Secret Base in Yellowstone…"
+time = "2021-04-08T22:01:21Z"
+team = "7966eb04-efcc-499b-8f03-d13916330531"
+
+[[eras.seasons.events]]
+title = "…and exits in Charleston"
+time = "2021-04-08T22:18:19Z"
+team = "bfd38797-8404-4b38-8b82-341da28b1f83"
+
+[[eras.seasons.events]]
 title = "Congratulations to our MVP(s)!"
 being = "coin"
 time = "2021-04-09T20:01:44Z"
@@ -341,6 +372,11 @@ time = "2021-04-09T20:01:44Z"
 [[eras.seasons.events]]
 title = "Postseason"
 day = 100
+
+[[eras.seasons.events]]
+title = "CONSUMERS ATTACK ALYSSA HARRELL"
+time = "2021-04-10T02:06:38Z"
+team = "8d87c468-699a-47a8-b40d-cfb73a5660ad"
 
 [[eras.seasons.events]]
 title = "The Internet Series"
@@ -370,6 +406,11 @@ title = "Opening Day"
 day = 1
 
 [[eras.seasons.events]]
+title = "The Crabs Attract Brisket Friendo"
+time = "2021-04-12T15:22:02Z"
+team = "8d87c468-699a-47a8-b40d-cfb73a5660ad"
+
+[[eras.seasons.events]]
 title = "materia immateria"
 being = "reader"
 time = "2021-04-13T18:44:03Z"
@@ -381,6 +422,11 @@ time = "2021-04-13T18:50:00Z"
 [[eras.seasons.events]]
 title = "Latesiesta"
 time = "2021-04-15T17:45:00Z"
+
+[[eras.seasons.events]]
+title = "Salmon Cannons expel Fish Summer Elsewhere"
+time = "2021-04-15T21:05:32Z"
+team = "8d87c468-699a-47a8-b40d-cfb73a5660ad"
 
 [[eras.seasons.events]]
 title = "Accolades collect en masse."
@@ -530,6 +576,11 @@ days = "May 17–23, 2021"
 [[eras.seasons.events]]
 title = "Opening Day"
 day = 1
+
+[[eras.seasons.events]]
+title = "Polarity weather"
+day = 14
+team = "a37f9158-7f82-46bc-908c-c9e2dda7c33b"
 
 [[eras.seasons.events]]
 title = "We’ve all had enough chaos."
