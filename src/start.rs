@@ -37,7 +37,7 @@ struct Season {
 
 impl Season {
     fn jump(&self) -> String {
-        format!("{}&season={}&day=1", JUMP_BASE, self.number)
+        format!("{}?season={}&day=1", JUMP_BASE, self.number)
     }
 }
 
