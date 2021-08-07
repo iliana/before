@@ -105,6 +105,27 @@ struct GameTemplate<'a> {
 
 type IndexResponse = Either<Custom<Html<String>>, Redirect>;
 
+fn fetch_cache(
+    cache: &BTreeMap<DateTime<Utc>, SiteUpdate>,
+    time: DateTime<Utc>,
+    rev: bool,
+) -> Option<&SiteUpdate> {
+    if rev {
+        cache.range(..=time)
+    } else {
+        cache.range(time..)
+    }
+    .next()
+    .or_else(|| {
+        if rev {
+            cache.iter().next()
+        } else {
+            cache.iter().rev().next()
+        }
+    })
+    .map(|(_, update)| update)
+}
+
 #[get("/")]
 pub async fn index(time: Option<OffsetTime>) -> Result<IndexResponse> {
     let time = match time {
@@ -127,9 +148,9 @@ pub async fn index(time: Option<OffsetTime>) -> Result<IndexResponse> {
     // For JS, grab the most recent asset of that type; for CSS, grab the next asset in the
     // future. The CSS is usually backwards-compatible; we can tweak if we need to.
     let template = GameTemplate {
-        css: opt!(cache.css.range(time.0..).next())?.1,
-        js_main: opt!(cache.js_main.range(..=time.0).rev().next())?.1,
-        js_2: opt!(cache.js_2.range(..=time.0).rev().next())?.1,
+        css: opt!(fetch_cache(&cache.css, time.0, false))?,
+        js_main: opt!(fetch_cache(&cache.js_main, time.0, true))?,
+        js_2: opt!(fetch_cache(&cache.js_2, time.0, true))?,
     };
     Ok(Either::Left(Custom(
         Status::Ok,
