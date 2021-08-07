@@ -15,9 +15,10 @@ use rocket::{catch, get, uri, Request};
 use std::collections::{BTreeMap, HashMap};
 
 lazy_static::lazy_static! {
-    /// After this point, site data from Chronicler is self-contained. Before this point, we need
-    /// to heuristically determine a decent set of code to load.
-    static ref CHRONICLER_EPOCH: DateTime<Utc> = "2020-09-08T02:00:00Z".parse().unwrap();
+    /// After this point, Chronicler fetched all of main.css, main.js, and 2.js, and we can just
+    /// pick the most recent code for each category. Before this point, we need to heuristically
+    /// determine a set of code to load.
+    static ref CHRONICLER_CSS_EPOCH: DateTime<Utc> = "2020-09-11T16:58:17Z".parse().unwrap();
 
     static ref CACHE: RwLock<Cache> = RwLock::new(Cache::default());
 }
@@ -105,6 +106,27 @@ struct GameTemplate<'a> {
 
 type IndexResponse = Either<Custom<Html<String>>, Redirect>;
 
+fn fetch_cache(
+    cache: &BTreeMap<DateTime<Utc>, SiteUpdate>,
+    time: DateTime<Utc>,
+    rev: bool,
+) -> Option<&SiteUpdate> {
+    let update = if rev {
+        cache.range(..=time).rev().next()
+    } else {
+        cache.range(time..).next()
+    };
+    update
+        .or_else(|| {
+            if rev {
+                cache.iter().next()
+            } else {
+                cache.iter().rev().next()
+            }
+        })
+        .map(|(_, update)| update)
+}
+
 #[get("/")]
 pub async fn index(time: Option<OffsetTime>) -> Result<IndexResponse> {
     let time = match time {
@@ -127,9 +149,13 @@ pub async fn index(time: Option<OffsetTime>) -> Result<IndexResponse> {
     // For JS, grab the most recent asset of that type; for CSS, grab the next asset in the
     // future. The CSS is usually backwards-compatible; we can tweak if we need to.
     let template = GameTemplate {
-        css: opt!(cache.css.range(time.0..).next())?.1,
-        js_main: opt!(cache.js_main.range(..=time.0).rev().next())?.1,
-        js_2: opt!(cache.js_2.range(..=time.0).rev().next())?.1,
+        css: opt!(fetch_cache(
+            &cache.css,
+            time.0,
+            time.0 >= *CHRONICLER_CSS_EPOCH
+        ))?,
+        js_main: opt!(fetch_cache(&cache.js_main, time.0, true))?,
+        js_2: opt!(fetch_cache(&cache.js_2, time.0, true))?,
     };
     Ok(Either::Left(Custom(
         Status::Ok,
