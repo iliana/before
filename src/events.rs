@@ -26,7 +26,7 @@ pub async fn stream_data(
 ) -> Result<EventStream![]> {
     // A given `Stream` version does not necessarily have all the top-level fields present, but the
     // frontend needs all fields present in the first event to be fully functional. We fetch the
-    // next and previous 15 events, so that we can construct a "first" event to send immediately.
+    // next and previous 25 events, so that we can construct a "first" event to send immediately.
     //
     // There is no need to fetch further than a minute out, because the frontend is hardcoded to
     // close and reopen the stream every 40 seconds...
@@ -37,13 +37,13 @@ pub async fn stream_data(
         RequestBuilder::new("v2/versions")
             .ty("Stream")
             .before(time.0)
-            .count(15)
+            .count(25)
             .order(Order::Desc)
             .json(),
         RequestBuilder::new("v2/versions")
             .ty("Stream")
             .after(time.0)
-            .count(15)
+            .count(25)
             .order(Order::Asc)
             .json(),
     )?;
