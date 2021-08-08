@@ -2,12 +2,15 @@ use crate::chronicler::{OffseasonRecap, PlayerNameId, RequestBuilder, Versions};
 use crate::time::OffsetTime;
 use crate::Result;
 use chrono::{DateTime, Duration, Utc};
+use either::{Either, Left, Right};
 use reqwest::Url;
 use rocket::futures::TryStreamExt;
 use rocket::serde::json::Json;
 use rocket::{get, routes, Route};
 use serde_json::value::RawValue;
+use std::borrow::Cow;
 use std::collections::HashMap;
+use std::convert::TryFrom;
 
 pub async fn fetch(
     ty: &'static str,
@@ -99,9 +102,6 @@ pub fn entity_routes() -> Vec<Route> {
         route_id!("/database/subleague?<id>", "Subleague"),
         route_id!("/database/team?<id>", "Team"),
         route_id!("/database/teamElectionStats?<id>", "TeamElectionStats"),
-        route_ids!("/database/bonusResults?<ids>", "BonusResult"),
-        route_ids!("/database/decreeResults?<ids>", "DecreeResult"),
-        route_ids!("/database/eventResults?<ids>", "EventResult"),
         route_ids!("/database/players?<ids>", "Player"),
     ]
     .concat()
@@ -146,22 +146,94 @@ pub async fn player_names_ids(time: OffsetTime) -> Result<Json<Vec<PlayerNameId>
 pub async fn offseason_recap(
     season: i64,
     time: OffsetTime,
-) -> Result<Option<Json<OffseasonRecap>>> {
-    Ok(RequestBuilder::new("v2/entities")
-        .ty("OffseasonRecap")
-        .at(time.0)
-        .count(1000)
-        .json::<Versions<OffseasonRecap>>()
-        .await?
-        .items
+) -> Result<Option<Either<Json<&'static RawValue>, Json<OffseasonRecap>>>> {
+    lazy_static::lazy_static! {
+        static ref DATA: Vec<&'static RawValue> =
+            serde_json::from_str(include_str!("../data/offseasonrecap.json")).unwrap();
+    }
+
+    Ok(if season < 10 {
+        DATA.get(usize::try_from(season).map_err(anyhow::Error::from)?)
+            .copied()
+            .map(|b| Left(Json(b)))
+    } else {
+        RequestBuilder::new("v2/entities")
+            .ty("OffseasonRecap")
+            .at(time.0)
+            .count(1000)
+            .json::<Versions<OffseasonRecap>>()
+            .await?
+            .items
+            .into_iter()
+            .find_map(|item| {
+                if item.data.season == season {
+                    Some(Right(Json(item.data)))
+                } else {
+                    None
+                }
+            })
+    })
+}
+
+async fn locally_patched(
+    ids: &str,
+    time: OffsetTime,
+    ty: &'static str,
+    data: &HashMap<&'static str, &'static RawValue>,
+) -> Result<Json<Vec<Cow<'static, RawValue>>>> {
+    let (local, to_fetch): (Vec<&str>, Vec<&str>) =
+        ids.split(',').partition(|id| data.contains_key(id));
+    let mut v: Vec<_> = local
         .into_iter()
-        .find_map(|item| {
-            if item.data.season == season {
-                Some(Json(item.data))
-            } else {
-                None
-            }
-        }))
+        .filter_map(|id| data.get(id).copied().map(Cow::Borrowed))
+        .collect();
+    if !to_fetch.is_empty() {
+        v.extend(
+            fetch(ty, Some(to_fetch.join(",")), time.0)
+                .await?
+                .map(Cow::Owned),
+        );
+    }
+    Ok(Json(v))
+}
+
+#[get("/database/bonusResults?<ids>")]
+pub async fn bonus_results(
+    ids: &str,
+    time: OffsetTime,
+) -> Result<Json<Vec<Cow<'static, RawValue>>>> {
+    lazy_static::lazy_static! {
+        static ref DATA: HashMap<&'static str, &'static RawValue> =
+            serde_json::from_str(include_str!("../data/bonusresults.json")).unwrap();
+    }
+
+    locally_patched(ids, time, "BonusResult", &DATA).await
+}
+
+#[get("/database/decreeResults?<ids>")]
+pub async fn decree_results(
+    ids: &str,
+    time: OffsetTime,
+) -> Result<Json<Vec<Cow<'static, RawValue>>>> {
+    lazy_static::lazy_static! {
+        static ref DATA: HashMap<&'static str, &'static RawValue> =
+            serde_json::from_str(include_str!("../data/decreeresults.json")).unwrap();
+    }
+
+    locally_patched(ids, time, "DecreeResult", &DATA).await
+}
+
+#[get("/database/eventResults?<ids>")]
+pub async fn event_results(
+    ids: &str,
+    time: OffsetTime,
+) -> Result<Json<Vec<Cow<'static, RawValue>>>> {
+    lazy_static::lazy_static! {
+        static ref DATA: HashMap<&'static str, &'static RawValue> =
+            serde_json::from_str(include_str!("../data/eventresults.json")).unwrap();
+    }
+
+    locally_patched(ids, time, "EventResult", &DATA).await
 }
 
 #[get("/database/feed/<kind>?<id>&<start>&<category>&<sort>&<limit>")]

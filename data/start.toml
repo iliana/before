@@ -99,6 +99,11 @@ title = "We’re fans, just like you."
 being = "coin"
 time = "2020-10-18T19:10:27Z"
 
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2020-10-18T19:30:00Z"
+redirect = "/offseason"
+
 ### SEASON 11 ### PEACE & PROSPERITY ###
 
 [[eras.seasons]]
@@ -136,7 +141,7 @@ time = "2020-10-25T19:01:13Z"
 redirect = "/offseason"
 
 [[eras.seasons.events]]
-title = "Election Results"
+title = "Election Results & Credits"
 time = "2020-10-25T19:15:00Z"
 redirect = "/offseason"
 
