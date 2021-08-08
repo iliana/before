@@ -9,11 +9,11 @@ use rocket::{get, routes, Route};
 use serde_json::value::RawValue;
 use std::collections::HashMap;
 
-async fn fetch(
+pub async fn fetch(
     ty: &'static str,
     ids: Option<String>,
     time: DateTime<Utc>,
-) -> Result<impl Iterator<Item = Box<RawValue>>> {
+) -> anyhow::Result<impl Iterator<Item = Box<RawValue>>> {
     let mut builder = RequestBuilder::new("v2/entities").ty(ty).at(time);
     if let Some(ids) = ids {
         builder = builder.id(ids)
@@ -109,11 +109,7 @@ pub fn entity_routes() -> Vec<Route> {
 
 #[get("/database/gameById/<id>")]
 pub async fn game_by_id(id: String, time: OffsetTime) -> Result<Option<Json<Box<RawValue>>>> {
-    if id.is_empty() {
-        Ok(None)
-    } else {
-        Ok(fetch("Game", Some(id), time.0).await?.next().map(Json))
-    }
+    Ok(crate::chronicler::fetch_game(id, time.0).await?.map(Json))
 }
 
 #[get("/database/items?<ids>")]

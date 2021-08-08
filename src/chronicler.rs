@@ -41,6 +41,15 @@ pub struct Request {
     #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
     started: Option<bool>,
+    #[builder(default, setter(strip_option))]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    season: Option<i64>,
+    #[builder(default, setter(strip_option))]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    day: Option<i64>,
+    #[builder(default, setter(strip_option))]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    game: Option<String>,
 }
 
 impl RequestBuilder {
@@ -123,6 +132,7 @@ pub struct Versions<T> {
 #[serde(rename_all = "camelCase")]
 pub struct Version<T> {
     pub valid_from: DateTime<Utc>,
+    pub entity_id: String,
     pub data: T,
 }
 
@@ -169,6 +179,7 @@ pub struct OffseasonRecap {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ChroniclerGame {
+    pub game_id: String,
     pub start_time: DateTime<Utc>,
     pub data: GameDay,
 }
@@ -183,6 +194,37 @@ pub struct GameDay {
     pub day: i64,
 }
 
-fn default_tournament() -> i64 {
+pub fn default_tournament() -> i64 {
     -1
+}
+
+// TODO either get `v2/entities` fixed for the Game type or add a working `before` param to
+// `v1/games/updates`
+pub async fn fetch_game(id: String, time: DateTime<Utc>) -> Result<Option<Box<RawValue>>> {
+    #[derive(Deserialize)]
+    struct Game {
+        timestamp: DateTime<Utc>,
+        data: Box<RawValue>,
+    }
+
+    Ok(if id.is_empty() {
+        None
+    } else {
+        RequestBuilder::new("v1/games/updates")
+            .game(id)
+            .order(Order::Desc)
+            .count(1000)
+            .json::<Data<Game>>()
+            .await?
+            .data
+            .into_iter()
+            .filter_map(|item| {
+                if item.timestamp < time {
+                    Some(item.data)
+                } else {
+                    None
+                }
+            })
+            .next()
+    })
 }

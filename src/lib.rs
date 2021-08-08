@@ -5,6 +5,7 @@ mod api;
 mod chronicler;
 mod database;
 mod events;
+mod postseason;
 mod proxy;
 mod redirect;
 mod site;
@@ -47,6 +48,7 @@ fn build_client() -> reqwest::Result<reqwest::Client> {
 #[serde(default)]
 struct Config {
     siesta_mode: bool,
+    chronplete: bool,
     http_client_gzip: bool,
     chronicler_base_url: String,
     upnuts_base_url: String,
@@ -57,6 +59,7 @@ impl Default for Config {
     fn default() -> Config {
         Config {
             siesta_mode: false,
+            chronplete: false,
             http_client_gzip: true,
             chronicler_base_url: "https://api.sibr.dev/chronicler/".to_string(),
             upnuts_base_url: "https://api.sibr.dev/upnuts/".to_string(),
