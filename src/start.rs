@@ -37,7 +37,18 @@ struct Season {
 
 impl Season {
     fn jump(&self) -> String {
-        format!("{}?redirect=/&season={}&day=1", JUMP_BASE, self.number)
+        let mut args = BTreeMap::new();
+        args.insert(
+            "redirect",
+            if self.number <= 11 { "/" } else { "/league" }.to_string(),
+        );
+        args.insert("season", self.number.to_string());
+        args.insert("day", 1.to_string());
+        format!(
+            "{}?{}",
+            JUMP_BASE,
+            serde_urlencoded::to_string(&args).unwrap()
+        )
     }
 }
 
@@ -77,7 +88,7 @@ impl Event {
     fn season_jump(&self, season: &Season) -> String {
         let mut args = self.jump_args.clone();
         args.entry("redirect".to_string())
-            .or_insert_with(|| Value::from("/league"));
+            .or_insert_with(|| Value::from(if season.number <= 11 { "/" } else { "/league" }));
         args.entry("season".to_string())
             .or_insert_with(|| Value::from(season.number));
         format!(

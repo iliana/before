@@ -1,7 +1,7 @@
-#[[eras]]
-#title = "The Discipline Era"
-#color = "#ff0000"
-#
+[[eras]]
+title = "The Discipline Era"
+color = "#ff0000"
+
 #[[eras.seasons]]
 #number = 3
 #title = "Peanut Plague"
@@ -43,18 +43,102 @@
 #title = "Forecast"
 #color = "#576b8c"
 #days = "October 5–11, 2020"
+
+### SEASON 10 ### BACKDRAFT ###
+
+[[eras.seasons]]
+number = 10
+title = "Backdraft"
+color = "#ab383a"
+days = "October 12–18, 2020"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+#[[eras.seasons.events]]
+#title = "Tillman Henderson climbs the Idol Leaderboard"
+#time = "2020-10-16T00:43:01Z"
+#redirect = "/leaderboard"
 #
-#[[eras.seasons]]
-#number = 10
-#title = "Backdraft"
-#color = "#ab383a"
-#days = "October 12–18, 2020"
-#
-#[[eras.seasons]]
-#number = 11
-#title = "Peace & Prosperity"
-#color = "#3cc28a"
-#days = "October 19–25, 2020"
+#[[eras.seasons.events]]
+#title = "Tillman swaps with Jaylen"
+#time = "2020-10-16T20:04:19Z"
+#redirect = "/thehall"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 111
+
+[[eras.seasons.events]]
+title = "THE CRABS ACCUMULATE 10"
+time = "2020-10-18T00:23:51Z"
+team = "8d87c468-699a-47a8-b40d-cfb73a5660ad"
+
+[[eras.seasons.events]]
+title = "FOOLS"
+being = "peanut"
+time = "2020-10-18T00:33:04Z"
+
+[[eras.seasons.events]]
+title = "A NEW CHALLENGER APPEARS"
+being = "alert"
+time = "2020-10-18T00:38:56Z"
+
+[[eras.seasons.events]]
+title = "*cronch*"
+being = "monitor"
+time = "2020-10-18T01:07:04Z"
+
+[[eras.seasons.events]]
+title = "We’re fans, just like you."
+being = "coin"
+time = "2020-10-18T19:10:27Z"
+
+### SEASON 11 ### PEACE & PROSPERITY ###
+
+[[eras.seasons]]
+number = 11
+title = "Peace & Prosperity"
+color = "#3cc28a"
+days = "October 19–25, 2020"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "Saboteur Jaylen Hotdogfingers pitches 23 home runs"
+day = 6
+team = "b72f3061-f573-40d7-832a-5ad475bd7909"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 116
+
+[[eras.seasons.events]]
+title = "You deserve a say."
+being = "coin"
+time = "2020-10-25T03:28:27Z"
+
+[[eras.seasons.events]]
+title = "your fates are sealed or something"
+being = "monitor"
+time = "2020-10-25T19:01:13Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2020-10-25T19:15:00Z"
+redirect = "/offseason"
 
 ### THE COFFEE CUP ###
 
