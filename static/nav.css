@@ -15,6 +15,8 @@
 
     display: flex;
     align-items: baseline;
+    z-index: 9999;
+    position: relative;
 }
 
 body.theme-light #_before {
