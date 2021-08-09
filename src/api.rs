@@ -171,7 +171,6 @@ static IDOL_CHOICES: &[&str] = &[
     "338694b7-6256-4724-86b6-3884299a5d9e", // PolkaDot Patterson
     "493a83de-6bcf-41a1-97dd-cc5e150548a3", // Boyfriend Monreal
     "53e701c7-e3c8-4e18-ba05-9b41b4b64cda", // Marquez Clark
-    "a1628d97-16ca-4a75-b8df-569bae02bef9", // Chorby Soul
     "a3947fbc-50ec-45a4-bca4-49ffebb77dbe", // Chorby Short
     "c675fcdf-6117-49a6-ac32-99a89a3a88aa", // Valentine Games
     "c6a277c3-d2b5-4363-839b-950896a5ec5e", // Mike Townsend
