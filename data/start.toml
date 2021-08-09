@@ -62,7 +62,7 @@ time = "2020-10-16T00:43:01Z"
 redirect = "/leaderboard"
 
 [[eras.seasons.events]]
-title = "Tillman swaps with Jaylen"
+title = "Jaylen swaps with Tillman"
 time = "2020-10-16T20:04:19Z"
 redirect = "/thehall"
 
@@ -92,7 +92,7 @@ time = "2020-10-18T00:38:56Z"
 [[eras.seasons.events]]
 title = "*cronch*"
 being = "monitor"
-time = "2020-10-18T01:07:04Z"
+time = "2020-10-18T01:06:48Z"
 
 [[eras.seasons.events]]
 title = "We’re fans, just like you."
