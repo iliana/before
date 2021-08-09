@@ -1,10 +1,10 @@
-use crate::chronicler::{OffseasonRecap, PlayerNameId, RequestBuilder, Versions};
+use crate::chronicler::{OffseasonRecap, Order, PlayerNameId, RequestBuilder, Versions};
 use crate::time::OffsetTime;
 use crate::Result;
 use chrono::{DateTime, Duration, Utc};
 use either::{Either, Left, Right};
 use reqwest::Url;
-use rocket::futures::TryStreamExt;
+use rocket::futures::{future::try_join_all, TryStreamExt};
 use rocket::serde::json::Json;
 use rocket::{get, routes, Route};
 use serde_json::value::RawValue;
@@ -68,6 +68,7 @@ pub fn entity_routes() -> Vec<Route> {
         }};
     }
 
+    /*
     macro_rules! route_ids {
         ($uri:expr, $ty:expr) => {{
             #[get($uri)]
@@ -84,16 +85,20 @@ pub fn entity_routes() -> Vec<Route> {
             routes![entity_ids]
         }};
     }
+    */
 
     vec![
         route!("/api/getIdols", "Idols"),
         route!("/api/getRisingStars", "RisingStars"),
         route!("/api/getTribute", "Tributes"),
         route!("/database/communityChestProgress", "CommunityChestProgress"),
+        route!("/database/fuelProgress", "FuelProgress"),
         route!("/database/giftProgress", "GiftProgress"),
         route!("/database/globalEvents", "GlobalEvents"),
+        route!("/database/nullified", "Nullified"),
         route!("/database/offseasonSetup", "OffseasonSetup"),
         route!("/database/shopSetup", "ShopSetup"),
+        route!("/database/simulationData", "Sim"),
         route!("/database/sunsun", "SunSun"),
         route!("/database/vault", "Vault"),
         route_all!("/database/allDivisions", "Division"),
@@ -102,7 +107,6 @@ pub fn entity_routes() -> Vec<Route> {
         route_id!("/database/subleague?<id>", "Subleague"),
         route_id!("/database/team?<id>", "Team"),
         route_id!("/database/teamElectionStats?<id>", "TeamElectionStats"),
-        route_ids!("/database/players?<ids>", "Player"),
     ]
     .concat()
 }
@@ -127,6 +131,46 @@ pub async fn items(ids: String, time: OffsetTime) -> Result<Json<Vec<Box<RawValu
     } else {
         data
     }))
+}
+
+#[get("/database/players?<ids>")]
+pub async fn players(ids: &str, time: OffsetTime) -> Result<Json<Vec<Box<RawValue>>>> {
+    // When a player is incinerated, the replacement won't be in Chronicler until it logs it. Check
+    // for missing players in the response and fetch the earliest version Chronicler knows about if
+    // missing.
+
+    if ids.is_empty() || ids == "placeholder-idol" {
+        return Ok(Json(Vec::new()));
+    }
+
+    let (returned_ids, mut v): (Vec<_>, Vec<_>) = RequestBuilder::new("v2/entities")
+        .ty("Player")
+        .at(time.0)
+        .id(ids.to_owned())
+        .json::<Versions<Box<RawValue>>>()
+        .await?
+        .items
+        .into_iter()
+        .map(|version| (version.entity_id, version.data))
+        .unzip();
+    v.extend(
+        try_join_all(
+            ids.split(',')
+                .filter(|id| !returned_ids.iter().any(|s| s == id))
+                .map(|id| {
+                    RequestBuilder::new("v2/versions")
+                        .ty("Player")
+                        .id(id.to_owned())
+                        .order(Order::Asc)
+                        .count(1)
+                        .json::<Versions<Box<RawValue>>>()
+                }),
+        )
+        .await?
+        .into_iter()
+        .filter_map(|versions| versions.items.into_iter().next().map(|v| v.data)),
+    );
+    Ok(Json(v))
 }
 
 #[get("/database/playerNamesIds")]

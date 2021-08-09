@@ -161,6 +161,7 @@ pub fn build() -> anyhow::Result<Rocket<Build>> {
                 database::items,
                 database::offseason_recap,
                 database::player_names_ids,
+                database::players,
                 database::renovations,
                 events::stream_data,
                 site::index,
