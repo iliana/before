@@ -8,7 +8,7 @@ use serde_json::value::RawValue;
 use std::collections::HashMap;
 use std::convert::TryFrom;
 
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Postseason {
     playoffs: Box<RawValue>,
@@ -20,7 +20,7 @@ pub struct Postseason {
     tomorrow_round: Box<RawValue>,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 struct Playoffs {
     rounds: Vec<String>,
@@ -28,7 +28,7 @@ struct Playoffs {
     season: i64,
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
 struct Round {
     matchups: Vec<String>,
 }

@@ -23,6 +23,16 @@ pub async fn stream_data(
     offset: Offset,
     mut shutdown: Shutdown,
 ) -> Result<EventStream![]> {
+    #[derive(Deserialize)]
+    struct Temporal {
+        doc: TemporalInner,
+    }
+
+    #[derive(Deserialize)]
+    struct TemporalInner {
+        epsilon: bool,
+    }
+
     // A given `Stream` version does not necessarily have all the top-level fields present, but the
     // frontend needs all fields present in the first event to be fully functional. We fetch the
     // next and previous 25 events, so that we can construct a "first" event to send immediately.
@@ -59,14 +69,38 @@ pub async fn stream_data(
             macro_rules! dedup {
                 ($x:ident) => {{
                     event.data.value.$x = if let Some(value) = event.data.value.$x.take() {
-                        let mut hasher = DefaultHasher::new();
-                        value.get().hash(&mut hasher);
-                        let key = (stringify!($x), hasher.finish());
-                        if seen.contains(&key) {
-                            None
+                        let epsilon = if stringify!($x) == "temporal" {
+                            serde_json::from_str::<Temporal>(value.get())
+                                .ok()
+                                .map(|t| t.doc.epsilon)
                         } else {
-                            seen.insert(key);
+                            None
+                        };
+
+                        // Sometimes we perceived empty top-level objects (other than fights)?
+                        // This most notably happened after Tillman swapped with Jaylen in Season
+                        // 10 (at 2020-10-16T20:06:42.130679Z). These crash frontend, so yank them
+                        // out of the stream with the worst hack you've ever seen
+                        if stringify!($x) != "fights" && value.get() == "{}" {
+                            None
+                        }
+                        // For "please wait..." messages, we can sometimes end up in a situation
+                        // where we perceive the message being set while epsilon is false, then
+                        // epsilon is set true, then set false again to hide. The last message
+                        // where epsilon is false will be deduped. As a workaround, don't dedupe
+                        // any message where epsilon is false.
+                        else if epsilon == Some(false) {
                             Some(value)
+                        } else {
+                            let mut hasher = DefaultHasher::new();
+                            value.get().hash(&mut hasher);
+                            let key = (stringify!($x), hasher.finish());
+                            if seen.contains(&key) {
+                                None
+                            } else {
+                                seen.insert(key);
+                                Some(value)
+                            }
                         }
                     } else {
                         None
@@ -97,30 +131,36 @@ pub async fn stream_data(
     Ok(EventStream! {
         yield Event::json(&first);
         for version in future {
-            select! {
-                event = next_event(version, offset) => yield event,
-                _ = &mut shutdown => break,
-            };
+            yield next_event(version, offset, &mut shutdown).await;
+        }
+        // We can potentially run out of elements if they're all duplicates. Sleep it off so the
+        // client doesn't reconnect.
+        select! {
+            _ = sleep(std::time::Duration::from_secs(40)) => {},
+            _ = &mut shutdown => {},
         }
     })
 }
 
-async fn next_event(version: Version<Stream>, offset: Offset) -> Event {
+async fn next_event(version: Version<Stream>, offset: Offset, shutdown: &mut Shutdown) -> Event {
     let duration = (version.valid_from - (Utc::now() - offset.0))
         .to_std()
         .unwrap_or_else(|_| std::time::Duration::from_nanos(0));
-    sleep(duration).await;
+    select! {
+        _ = sleep(duration) => {},
+        _ = shutdown => {},
+    }
     Event::json(&version.data)
 }
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 struct First {
     value: FirstInner,
 }
 
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 struct FirstInner {
     games: Games,
     leagues: Leagues,
@@ -129,14 +169,14 @@ struct FirstInner {
     fights: Fights,
 }
 
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 #[serde(transparent)]
 struct Games {
     #[serde(with = "either::serde_untagged")]
     value: Either<Box<RawValue>, GamesInner>,
 }
 
-#[derive(Default, Serialize)]
+#[derive(Debug, Default, Serialize)]
 #[serde(rename_all = "camelCase")]
 struct GamesInner {
     schedule: Vec<Box<RawValue>>,
@@ -300,14 +340,14 @@ async fn first_games(past: &mut [Version<Stream>], time: DateTime<Utc>) -> anyho
     })
 }
 
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 #[serde(transparent)]
 struct Leagues {
     #[serde(with = "either::serde_untagged")]
     value: Either<Box<RawValue>, LeaguesInner>,
 }
 
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 struct LeaguesInner {
     leagues: Vec<Box<RawValue>>,
     stadiums: Vec<Box<RawValue>>,
@@ -318,7 +358,7 @@ struct LeaguesInner {
     stats: LeaguesStats,
 }
 
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 struct LeaguesStats {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -391,7 +431,7 @@ async fn first_temporal(
     )
 }
 
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 #[serde(transparent)]
 struct Fights {
     #[serde(with = "either::serde_untagged")]
