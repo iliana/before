@@ -196,7 +196,7 @@ pub async fn offseason_recap(
             serde_json::from_str(include_str!("../data/offseasonrecap.json")).unwrap();
     }
 
-    Ok(if season < 10 {
+    Ok(if season < 11 {
         DATA.get(usize::try_from(season).map_err(anyhow::Error::from)?)
             .copied()
             .map(|b| Left(Json(b)))
