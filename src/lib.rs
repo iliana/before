@@ -216,6 +216,7 @@ pub fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 events::stream_data,
                 site::index,
                 site::site_static,
+                start::credits,
                 start::start,
                 time::jump,
                 time::relative,

@@ -140,3 +140,12 @@ pub(crate) async fn start() -> Result<Html<String>> {
         load_start().await?.render().map_err(anyhow::Error::from)?,
     ))
 }
+
+#[derive(Template)]
+#[template(path = "credits.html")]
+struct Credits;
+
+#[get("/_before/credits", rank = 1)]
+pub async fn credits() -> Result<Html<String>> {
+    Ok(Html(Credits.render().map_err(anyhow::Error::from)?))
+}
