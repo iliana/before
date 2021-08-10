@@ -143,6 +143,7 @@ section ul.events {
 
 .bigdeal {
     font-family: "Lora", "Courier New", monospace, serif;
+    font-weight: 500;
 }
 
 .bigdeal:before {
@@ -179,6 +180,7 @@ section ul.events {
 
 .bigdeal-4 {
     font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: 400;
 }
 
 .bigdeal-4:before, .bigdeal-4:after {
