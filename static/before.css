@@ -183,7 +183,7 @@ section ul.events {
     font-weight: 400;
 }
 
-.bigdeal-4:before, .bigdeal-4:after {
+.bigdeal-4:before, .bigdeal-4:after, .bigdeal--99:before, .bigdeal--99:after {
     color: #ff007b;
 }
 

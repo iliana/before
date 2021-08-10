@@ -102,6 +102,7 @@ impl Event {
 #[derive(Deserialize, Clone, Copy)]
 #[serde(rename_all = "lowercase")]
 enum Being {
+    Microphone = -99, // special case for Hi Friends / It is Wyatt / I have a plan
     Alert = -1,
     Peanut = 0,
     Monitor = 1,

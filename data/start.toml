@@ -125,10 +125,11 @@ being = "peanut"
 time = "2020-09-25T19:00:48Z"
 redirect = "/leaderboard"
 
-#[[eras.seasons.events]]
-#title = "hi friends"
-#being = "microphone"
-#time = "2020-09-25T19:17:40Z"
+[[eras.seasons.events]]
+title = "Hi Friends"
+being = "microphone"
+time = "2020-09-25T19:17:48Z"
+redirect = "/leaderboard"
 
 [[eras.seasons.events]]
 title = "Postseason"

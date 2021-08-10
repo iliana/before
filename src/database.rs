@@ -3,14 +3,23 @@ use crate::time::OffsetTime;
 use crate::Result;
 use chrono::{DateTime, Duration, Utc};
 use either::{Either, Left, Right};
+use itertools::Itertools;
 use reqwest::Url;
 use rocket::futures::{future::try_join_all, TryStreamExt};
 use rocket::serde::json::Json;
 use rocket::{get, routes, Route};
+use serde::Deserialize;
 use serde_json::value::RawValue;
 use std::borrow::Cow;
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::convert::TryFrom;
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+enum Nudge {
+    Forward(DateTime<Utc>),
+    Replace(serde_json::Value),
+}
 
 pub async fn fetch(
     ty: &'static str,
@@ -135,28 +144,74 @@ pub async fn items(ids: String, time: OffsetTime) -> Result<Json<Vec<Box<RawValu
 
 #[get("/database/players?<ids>")]
 pub async fn players(ids: &str, time: OffsetTime) -> Result<Json<Vec<Box<RawValue>>>> {
-    // When a player is incinerated, the replacement won't be in Chronicler until it logs it. Check
-    // for missing players in the response and fetch the earliest version Chronicler knows about if
-    // missing.
-
     if ids.is_empty() || ids == "placeholder-idol" {
         return Ok(Json(Vec::new()));
     }
 
-    let (returned_ids, mut v): (Vec<_>, Vec<_>) = RequestBuilder::new("v2/entities")
-        .ty("Player")
-        .at(time.0)
-        .id(ids.to_owned())
-        .json::<Versions<Box<RawValue>>>()
-        .await?
-        .items
-        .into_iter()
-        .map(|version| (version.entity_id, version.data))
-        .unzip();
-    v.extend(
+    // Filter out players with nudges and handle those requests separately
+    lazy_static::lazy_static! {
+        static ref NUDGES: HashMap<String, BTreeMap<DateTime<Utc>, Option<Nudge>>> =
+            serde_json::from_str(include_str!("../data/playernudge.json")).unwrap();
+    }
+    let mut nudges = Vec::new();
+    let remaining_ids = ids
+        .split(',')
+        .filter(|id| {
+            if let Some(nudge) = NUDGES
+                .get(*id)
+                .and_then(|nudges| nudges.range(..time.0).rev().next())
+                .and_then(|(_, nudge)| nudge.as_ref())
+            {
+                match nudge {
+                    Nudge::Forward(end) if time.0 >= *end => true,
+                    _ => {
+                        nudges.push((*id, nudge));
+                        false
+                    }
+                }
+            } else {
+                true
+            }
+        })
+        .join(",");
+
+    let mut players = HashMap::new();
+    for (id, nudge) in nudges {
+        match nudge {
+            Nudge::Forward(end) => {
+                if let Some(player) = fetch("Player", Some(id.to_owned()), *end).await?.next() {
+                    players.insert(Cow::Borrowed(id), player);
+                }
+            }
+            Nudge::Replace(v) => {
+                players.insert(
+                    Cow::Borrowed(id),
+                    serde_json::from_value(v.clone()).map_err(anyhow::Error::from)?,
+                );
+            }
+        };
+    }
+    if !remaining_ids.is_empty() {
+        players.extend(
+            RequestBuilder::new("v2/entities")
+                .ty("Player")
+                .at(time.0)
+                .id(remaining_ids)
+                .json::<Versions<Box<RawValue>>>()
+                .await?
+                .items
+                .into_iter()
+                .map(|version| (Cow::Owned(version.entity_id), version.data)),
+        );
+    }
+
+    // When a player is incinerated, the replacement won't be in Chronicler until it logs it. Check
+    // for missing players in the response and fetch the earliest version Chronicler knows about if
+    // missing.
+    players.extend(
         try_join_all(
             ids.split(',')
-                .filter(|id| !returned_ids.iter().any(|s| s == id))
+                .filter(|id| !players.contains_key(*id))
                 .map(|id| {
                     RequestBuilder::new("v2/versions")
                         .ty("Player")
@@ -168,9 +223,19 @@ pub async fn players(ids: &str, time: OffsetTime) -> Result<Json<Vec<Box<RawValu
         )
         .await?
         .into_iter()
-        .filter_map(|versions| versions.items.into_iter().next().map(|v| v.data)),
+        .filter_map(|versions| {
+            versions
+                .items
+                .into_iter()
+                .next()
+                .map(|version| (Cow::Owned(version.entity_id), version.data))
+        }),
     );
-    Ok(Json(v))
+
+    // Combine a final list of players in the originally-provided ID order.
+    Ok(Json(
+        ids.split(',').filter_map(|id| players.remove(id)).collect(),
+    ))
 }
 
 #[get("/database/playerNamesIds")]
