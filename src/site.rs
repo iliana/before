@@ -4,7 +4,7 @@ use crate::time::OffsetTime;
 use crate::Result;
 use anyhow::anyhow;
 use askama::Template;
-use chrono::{DateTime, Utc};
+use chrono::{DateTime, Duration, DurationRound, Utc};
 use either::Either;
 use reqwest::Response;
 use rocket::http::{uri::Origin, Status};
@@ -15,10 +15,11 @@ use rocket::{catch, get, uri, Request};
 use std::collections::{BTreeMap, HashMap};
 
 lazy_static::lazy_static! {
-    /// After this point, Chronicler fetched all of main.css, main.js, and 2.js, and we can just
-    /// pick the most recent code for each category. Before this point, we need to heuristically
-    /// determine a set of code to load.
-    static ref CHRONICLER_CSS_EPOCH: DateTime<Utc> = "2020-09-11T16:58:17Z".parse().unwrap();
+    /// After this point, Chronicler fetched main.js and 2.js.
+    static ref CHRONICLER_JS_EPOCH: DateTime<Utc> = "2020-09-07T23:29:00Z".parse().unwrap();
+
+    /// After this point, Chronicler fetched main.css in addition to the JS assets.
+    static ref CHRONICLER_CSS_EPOCH: DateTime<Utc> = "2020-09-11T16:58:00Z".parse().unwrap();
 
     static ref CACHE: RwLock<Cache> = RwLock::new(Cache::default());
 }
@@ -50,7 +51,9 @@ pub async fn update_cache(at: DateTime<Utc>) -> anyhow::Result<()> {
     log::warn!("updating v1/site/updates cache");
 
     let (response, mut cache) = join!(request.json::<Data<SiteUpdate>>(), CACHE.write());
-    for update in response?.data {
+    for mut update in response?.data {
+        // round down timestamps to the most recent minute so that we get consistent update sets
+        update.timestamp = update.timestamp.duration_round(Duration::minutes(1))?;
         if update.path == "/" {
             cache.index.insert(update.timestamp, update);
         } else {
