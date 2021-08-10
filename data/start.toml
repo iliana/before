@@ -122,13 +122,13 @@ time = "2020-09-22T23:37:39Z"
 [[eras.seasons.events]]
 title = "IT IS COMPLETE"
 being = "peanut"
-time = "2020-09-22T23:37:39Z"
+time = "2020-09-25T19:00:48Z"
+redirect = "/leaderboard"
 
 #[[eras.seasons.events]]
 #title = "hi friends"
 #being = "microphone"
 #time = "2020-09-25T19:17:40Z"
-# TODO research #watch-party and figure out where to patch epsilon=false after the monitor's appearance
 
 [[eras.seasons.events]]
 title = "Postseason"

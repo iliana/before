@@ -1,0 +1,28 @@
+{
+  "2020-09-17T07:49:24Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "beta": 1,
+        "zeta": "WAIT",
+        "alpha": 1000,
+        "delta": true,
+        "gamma": 500000000,
+        "epsilon": false
+      }
+    }
+  },
+  "2020-09-25T19:17:47Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "beta": 1,
+        "zeta": "",
+        "alpha": 1000,
+        "delta": true,
+        "gamma": -1,
+        "epsilon": false
+      }
+    }
+  }
+}

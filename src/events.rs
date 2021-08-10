@@ -1,12 +1,13 @@
 use crate::chronicler::{
-    fetch_game, ChroniclerGame, Data, Order, RequestBuilder, Stream, Version, Versions,
+    fetch_game, ChroniclerGame, Data, Order, RequestBuilder, Stream, StreamValue, Version, Versions,
 };
 use crate::database::fetch;
 use crate::postseason::{postseason, Postseason};
 use crate::time::{Offset, OffsetTime};
 use crate::Result;
-use chrono::{DateTime, Utc};
+use chrono::{DateTime, Duration, Utc};
 use either::{Either, Left, Right};
+use itertools::Itertools;
 use rocket::futures::{future::try_join_all, FutureExt};
 use rocket::response::stream::{Event, EventStream};
 use rocket::tokio::{select, time::sleep, try_join};
@@ -14,8 +15,13 @@ use rocket::{get, Shutdown};
 use serde::{Deserialize, Serialize};
 use serde_json::value::{RawValue, Value};
 use std::collections::hash_map::DefaultHasher;
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::hash::{Hash, Hasher};
+
+lazy_static::lazy_static! {
+    static ref INJECT: BTreeMap<DateTime<Utc>, StreamValue> =
+        serde_json::from_str(include_str!("../data/inject.json")).unwrap();
+}
 
 #[get("/events/streamData")]
 pub async fn stream_data(
@@ -57,8 +63,20 @@ pub async fn stream_data(
             .json(),
     )?;
     let mut events = past.items;
-    events.reverse();
     events.extend(future.items);
+
+    // Inject events into the stream if defined in data/inject.json. Note that injected events are
+    // also checked when rebuilding the temporal object if missing
+    if let Some((min, mut max)) = events.iter().map(|v| v.valid_from).minmax().into_option() {
+        max = max + Duration::minutes(1);
+        events.extend(INJECT.range(min..=max).map(|(k, v)| Version {
+            valid_from: *k,
+            entity_id: String::new(),
+            data: Stream { value: v.clone() },
+        }));
+    }
+
+    events.sort_by_key(|v| v.valid_from);
 
     // Multiple data sources perceive events at different times, even with accurate clocks, due to
     // the nature of blaseball.com's event stream. We can mostly mitigate this effect by deduping
@@ -426,7 +444,30 @@ async fn first_temporal(
             .find_map(|v| v.data.value.temporal.take())
         {
             Some(v) => Some(v),
-            None => fetch("Temporal", None, time).await?.next(),
+            None => {
+                if let Some(version) = RequestBuilder::new("v2/entities")
+                    .ty("Temporal")
+                    .at(time)
+                    .json::<Versions<Box<RawValue>>>()
+                    .await?
+                    .items
+                    .into_iter()
+                    .next()
+                {
+                    if let Some(inject) = INJECT
+                        .range(version.valid_from..=time)
+                        .filter_map(|(_, v)| v.temporal.clone())
+                        .rev()
+                        .next()
+                    {
+                        Some(inject)
+                    } else {
+                        Some(version.data)
+                    }
+                } else {
+                    None
+                }
+            }
         },
     )
 }
