@@ -25,24 +25,180 @@ color = "#ff0000"
 #title = "Idols"
 #color = "#ffe082"
 #days = "September 7–13, 2020"
-#
-#[[eras.seasons]]
-#number = 7
-#title = "Getting Shelled"
-#color = "#ffe082"
-#days = "September 14–20, 2020"
-#
-#[[eras.seasons]]
-#number = 8
-#title = "Rest in Violence"
-#color = "#5988FF"
-#days = "September 21–27, 2020"
-#
-#[[eras.seasons]]
-#number = 9
-#title = "Forecast"
-#color = "#576b8c"
-#days = "October 5–11, 2020"
+
+### SEASON 7 ### GETTING SHELLED ###
+
+[[eras.seasons]]
+number = 7
+title = "Getting Shelled"
+color = "#ffe082"
+days = "September 14–20, 2020"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "Jaylen Hotdogfingers hits Dickerson Morse with a pitch"
+time = "2020-09-14T20:04:26Z"
+team = "105bc3ff-1320-4e37-8ef0-8d595cb95dd0"
+
+[[eras.seasons.events]]
+title = "Ruby Tuesday"
+time = "2020-09-15T23:05:55Z"
+team = "747b8e4a-7e50-4638-a973-ea7950a3e739"
+
+[[eras.seasons.events]]
+title = "Birds peck Jessica Telephone free"
+time = "2020-09-17T07:25:30Z"
+team = "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7"
+
+[[eras.seasons.events]]
+title = "WAIT"
+being = "peanut"
+time = "2020-09-17T07:46:54Z"
+
+[[eras.seasons.events]]
+title = "The Snackrifice"
+day = 98
+redirect = "/leaderboard"
+
+[[eras.seasons.events]]
+title = "THAT IS MORE LIKE IT."
+being = "peanut"
+time = "2020-09-18T21:13:34Z"
+
+[[eras.seasons.events]]
+title = "who was that"
+being = "monitor"
+time = "2020-09-18T21:23:57Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "Mexico City Wild Wings renamed ahead of Solar Eclipse game"
+time = "2020-09-19T19:53:00Z"
+team = "57ec08cc-0411-4643-b304-0e80dbc15ac7"
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 110
+
+[[eras.seasons.events]]
+title = "i will make you a deal"
+being = "monitor"
+time = "2020-09-20T19:15:36Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2020-09-20T19:30:00Z"
+redirect = "/offseason"
+
+### SEASON 8 ### REST IN VIOLENCE ###
+
+[[eras.seasons]]
+number = 8
+title = "Rest in Violence"
+color = "#5988FF"
+days = "September 21–27, 2020"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "Jaylen Hotdogfingers hits Marquez Clark with a pitch"
+time = "2020-09-21T20:16:35Z"
+team = "105bc3ff-1320-4e37-8ef0-8d595cb95dd0"
+
+[[eras.seasons.events]]
+title = "this one at a time thing is killing me"
+being = "monitor"
+time = "2020-09-22T23:37:39Z"
+
+[[eras.seasons.events]]
+title = "IT IS COMPLETE"
+being = "peanut"
+time = "2020-09-22T23:37:39Z"
+
+#[[eras.seasons.events]]
+#title = "hi friends"
+#being = "microphone"
+#time = "2020-09-25T19:17:40Z"
+# TODO research #watch-party and figure out where to patch epsilon=false after the monitor's appearance
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 109
+
+[[eras.seasons.events]]
+title = "STRIKE FOUR"
+time = "2020-09-27T18:59:23Z"
+team = "57ec08cc-0411-4643-b304-0e80dbc15ac7"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2020-09-27T19:30:00Z"
+redirect = "/offseason"
+
+### SEASON 9 ### FORECAST ###
+
+[[eras.seasons]]
+number = 9
+title = "Forecast"
+color = "#576b8c"
+days = "October 5–11, 2020"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "Crowvertime"
+time = "2020-10-05T16:30:15Z"
+team = "b72f3061-f573-40d7-832a-5ad475bd7909"
+
+[[eras.seasons.events]]
+title = "A Big Peanut crashes into the field, encasing Wyatt Quitter"
+time = "2020-10-07T13:21:07Z"
+team = "878c1bf6-0d21-4659-bfee-916c8314d69c"
+
+[[eras.seasons.events]]
+title = "*crunch*"
+being = "monitor"
+time = "2020-10-09T18:59:40Z"
+redirect = "/leaderboard"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 112
+
+[[eras.seasons.events]]
+title = "TIME TO TEACH YOU SOME DISCIPLINE"
+being = "peanut"
+time = "2020-10-11T02:23:32Z"
+
+[[eras.seasons.events]]
+title = "did i miss something?"
+being = "monitor"
+time = "2020-10-11T02:47:22Z"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2020-10-11T19:15:00Z"
+redirect = "/offseason"
 
 ### SEASON 10 ### BACKDRAFT ###
 
@@ -80,7 +236,7 @@ time = "2020-10-18T00:23:51Z"
 team = "8d87c468-699a-47a8-b40d-cfb73a5660ad"
 
 [[eras.seasons.events]]
-title = "FOOLS"
+title = "THIS IS YOUR CHAMPION?"
 being = "peanut"
 time = "2020-10-18T00:33:04Z"
 
