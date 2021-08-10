@@ -141,6 +141,7 @@ pub fn build() -> anyhow::Result<Rocket<Build>> {
         .mount("/_before", FileServer::from(&CONFIG.static_dir))
         .mount("/", api::mocked_error_routes())
         .mount("/", database::entity_routes())
+        .mount("/", events::extra_season_4_routes())
         .mount(
             "/",
             routes![

@@ -1,3 +1,9 @@
+// /////////////////////////////////////// //
+//                                         //
+//   ABANDON ALL HOPE, YE WHO ENTER HERE   //
+//                                         //
+// /////////////////////////////////////// //
+
 use crate::chronicler::{
     fetch_game, ChroniclerGame, Data, Order, RequestBuilder, Stream, StreamValue, Version, Versions,
 };
@@ -5,13 +11,14 @@ use crate::database::fetch;
 use crate::postseason::{postseason, Postseason};
 use crate::time::{Offset, OffsetTime};
 use crate::Result;
+use async_stream::stream;
 use chrono::{DateTime, Duration, Utc};
 use either::{Either, Left, Right};
 use itertools::Itertools;
-use rocket::futures::{future::try_join_all, FutureExt};
+use rocket::futures::{future, future::try_join_all, FutureExt, Stream as StreamTrait, StreamExt};
 use rocket::response::stream::{Event, EventStream};
 use rocket::tokio::{select, time::sleep, try_join};
-use rocket::{get, Shutdown};
+use rocket::{get, routes, Route, Shutdown};
 use serde::{Deserialize, Serialize};
 use serde_json::value::{RawValue, Value};
 use std::collections::hash_map::DefaultHasher;
@@ -23,12 +30,11 @@ lazy_static::lazy_static! {
         serde_json::from_str(include_str!("../data/inject.json")).unwrap();
 }
 
-#[get("/events/streamData")]
-pub async fn stream_data(
+async fn build_stream(
     time: OffsetTime,
     offset: Offset,
     mut shutdown: Shutdown,
-) -> Result<EventStream![]> {
+) -> anyhow::Result<impl StreamTrait<Item = MetaStream>> {
     #[derive(Deserialize)]
     struct Temporal {
         doc: TemporalInner,
@@ -137,8 +143,8 @@ pub async fn stream_data(
         .into_iter()
         .filter(|event| !event.data.is_empty())
         .partition(|event| event.valid_from <= time.0);
-    let first = First {
-        value: FirstInner {
+    let first = ValueWrapper {
+        value: First {
             games: first_games(&mut past, time.0).await?,
             leagues: first_leagues(&mut past, time.0).await?,
             temporal: first_temporal(&mut past, time.0).await?,
@@ -146,10 +152,10 @@ pub async fn stream_data(
         },
     };
 
-    Ok(EventStream! {
-        yield Event::json(&first);
+    Ok(stream! {
+        yield MetaStream::First(first);
         for version in future {
-            yield next_event(version, offset, &mut shutdown).await;
+            yield MetaStream::Firsnt(next_event(version, offset, &mut shutdown).await);
         }
         // We can potentially run out of elements if they're all duplicates. Sleep it off so the
         // client doesn't reconnect.
@@ -160,7 +166,7 @@ pub async fn stream_data(
     })
 }
 
-async fn next_event(version: Version<Stream>, offset: Offset, shutdown: &mut Shutdown) -> Event {
+async fn next_event(version: Version<Stream>, offset: Offset, shutdown: &mut Shutdown) -> Stream {
     let duration = (version.valid_from - (Utc::now() - offset.0))
         .to_std()
         .unwrap_or_else(|_| std::time::Duration::from_nanos(0));
@@ -168,18 +174,78 @@ async fn next_event(version: Version<Stream>, offset: Offset, shutdown: &mut Shu
         _ = sleep(duration) => {},
         _ = shutdown => {},
     }
-    Event::json(&version.data)
+    version.data
+}
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
+#[get("/events/streamData")]
+pub async fn stream_data(
+    time: OffsetTime,
+    offset: Offset,
+    shutdown: Shutdown,
+) -> Result<EventStream![]> {
+    Ok(EventStream::from(
+        build_stream(time, offset, shutdown)
+            .await?
+            .map(|item| Event::json(&item)),
+    ))
+}
+
+// i am being punished for my hubris
+#[derive(Serialize)]
+#[serde(untagged)]
+enum MetaStream {
+    First(ValueWrapper<First>),
+    Firsnt(Stream),
+}
+
+pub fn extra_season_4_routes() -> Vec<Route> {
+    macro_rules! implnt {
+        ($x:ident, $uri:expr) => {{
+            #[get($uri)]
+            pub async fn stream_individual(
+                time: OffsetTime,
+                offset: Offset,
+                shutdown: Shutdown,
+            ) -> Result<EventStream![]> {
+                Ok(EventStream::from(
+                    build_stream(time, offset, shutdown)
+                        .await?
+                        .filter_map(|item| {
+                            future::ready(match item {
+                                MetaStream::First(v) => {
+                                    Some(Event::json(&ValueWrapper { value: v.value.$x }))
+                                }
+                                MetaStream::Firsnt(v) => {
+                                    v.value.$x.map(|x| Event::json(&ValueWrapper { value: x }))
+                                }
+                            })
+                        }),
+                ))
+            }
+
+            routes![stream_individual]
+        }};
+    }
+
+    vec![
+        implnt!(games, "/events/streamGameData"),
+        implnt!(leagues, "/events/streamLeagueData"),
+        implnt!(temporal, "/events/streamTemporalData"),
+    ]
+    .concat()
 }
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
 #[derive(Debug, Serialize)]
-struct First {
-    value: FirstInner,
+struct ValueWrapper<T> {
+    value: T,
 }
 
 #[derive(Debug, Serialize)]
-struct FirstInner {
+struct First {
     games: Games,
     leagues: Leagues,
     #[serde(skip_serializing_if = "Option::is_none")]
