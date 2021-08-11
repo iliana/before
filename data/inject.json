@@ -1,14 +1,430 @@
 {
+  "2020-08-03T22:11:18.931Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "BLASPHEMY"
+      }
+    }
+  },
+  "2020-08-03T22:39:40.346Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": false,
+        "zeta": "BLASPHEMY"
+      }
+    }
+  },
+  "2020-08-06T21:47:13.388Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "HELLO"
+      }
+    }
+  },
+  "2020-08-06T21:49:08.556Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "DID YOU TASTE THE INFINITE?"
+      }
+    }
+  },
+  "2020-08-06T21:50:54.385Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "I AM BENEVOLENT"
+      }
+    }
+  },
+  "2020-08-06T21:51:05.821Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": false,
+        "zeta": "I AM BENEVOLENT"
+      }
+    }
+  },
+  "2020-08-06T22:21:45.032Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "I AM A SNACK"
+      }
+    }
+  },
+  "2020-08-06T22:22:15.163Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "I AM A LEGUME"
+      }
+    }
+  },
+  "2020-08-06T22:22:43.203Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "I WAS BENEVOLENT"
+      }
+    }
+  },
+  "2020-08-06T22:24:54.391Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "YOU ARE INSATIABLE"
+      }
+    }
+  },
+  "2020-08-06T22:25:41.259Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "WHERE IS YOUR RESTRAINT?"
+      }
+    }
+  },
+  "2020-08-06T22:27:10.222Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": false,
+        "zeta": "WHERE IS YOUR RESTRAINT?"
+      }
+    }
+  },
+  "2020-08-08T21:33:35.221Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "SO ABOUT THE PEANUTS"
+      }
+    }
+  },
+  "2020-08-08T21:34:03.511Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "THE BOOK WAS STRIKE ONE"
+      }
+    }
+  },
+  "2020-08-08T21:34:30.915Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "THE FRAUD IS STRIKE TWO"
+      }
+    }
+  },
+  "2020-08-08T21:35:11.846Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "YOU WILL LEARN DISCIPLINE"
+      }
+    }
+  },
+  "2020-08-08T21:35:39.270Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "PEANUTS"
+      }
+    }
+  },
+  "2020-08-08T21:36:03.844Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "GET YOUR PEANUTS"
+      }
+    }
+  },
+  "2020-08-08T21:36:29.916Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "WHILE YOU STILL CAN"
+      }
+    }
+  },
+  "2020-08-08T21:37:05.485Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": false,
+        "zeta": "WHILE YOU STILL CAN"
+      }
+    }
+  },
+  "2020-08-24T15:45:02.207Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "ARE YOU RESTED?"
+      }
+    }
+  },
+  "2020-08-24T15:46:42.686Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "ARE YOU READY"
+      }
+    }
+  },
+  "2020-08-24T15:48:44.815Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "I HAVE HEARD YOU"
+      }
+    }
+  },
+  "2020-08-24T15:51:28.215Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "TIME TO LISTEN"
+      }
+    }
+  },
+  "2020-08-24T15:55:54.168Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": false,
+        "zeta": "TIME TO LISTEN"
+      }
+    }
+  },
+  "2020-08-30T19:09:46.711Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "IT IS TOO LOUD"
+      }
+    }
+  },
+  "2020-08-30T19:10:48.170Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "WHO IS TALKING"
+      }
+    }
+  },
+  "2020-08-30T19:12:12.133Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "QUIET"
+      }
+    }
+  },
+  "2020-08-30T19:12:35.168Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "QUIET THEM"
+      }
+    }
+  },
+  "2020-08-30T19:13:07.991Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "YOU LOOKED TOO CLOSE"
+      }
+    }
+  },
+  "2020-08-30T19:13:34.058Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": true,
+        "zeta": "WHERE IS YOUR FAITH"
+      }
+    }
+  },
+  "2020-08-30T19:14:14.884Z": {
+    "temporal": {
+      "doc": {
+        "id": "whatistime",
+        "alpha": 1000,
+        "beta": 1,
+        "gamma": 500000000,
+        "delta": true,
+        "epsilon": false,
+        "zeta": "WHERE IS YOUR FAITH"
+      }
+    }
+  },
   "2020-09-17T07:49:24Z": {
     "temporal": {
       "doc": {
         "id": "whatistime",
-        "beta": 1,
-        "zeta": "WAIT",
         "alpha": 1000,
-        "delta": true,
+        "beta": 1,
         "gamma": 500000000,
-        "epsilon": false
+        "delta": true,
+        "epsilon": false,
+        "zeta": "WAIT"
       }
     }
   },
@@ -16,12 +432,12 @@
     "temporal": {
       "doc": {
         "id": "whatistime",
-        "beta": 1,
-        "zeta": "",
         "alpha": 1000,
-        "delta": true,
+        "beta": 1,
         "gamma": -1,
-        "epsilon": false
+        "delta": true,
+        "epsilon": false,
+        "zeta": ""
       }
     }
   }

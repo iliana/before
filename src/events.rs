@@ -15,12 +15,13 @@ use async_stream::stream;
 use chrono::{DateTime, Duration, Utc};
 use either::{Either, Left, Right};
 use itertools::Itertools;
+use rand::{thread_rng, Rng};
 use rocket::futures::{future, future::try_join_all, FutureExt, Stream as StreamTrait, StreamExt};
 use rocket::response::stream::{Event, EventStream};
 use rocket::tokio::{select, time::sleep, try_join};
 use rocket::{get, routes, Route, Shutdown};
 use serde::{Deserialize, Serialize};
-use serde_json::value::{RawValue, Value};
+use serde_json::{json, value::RawValue, Value};
 use std::collections::hash_map::DefaultHasher;
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::hash::{Hash, Hasher};
@@ -200,7 +201,21 @@ enum MetaStream {
     Firsnt(Stream),
 }
 
+// For part of Season 4, the frontend used separate endpoints for the different components of the
+// data stream. It also relied on the presence of a `lastUpdateTime` field which we just set to the
+// equivalent of `Date.now()`.
 pub fn extra_season_4_routes() -> Vec<Route> {
+    fn add_last_update_time<T: Serialize>(data: T) -> Value {
+        let mut value = serde_json::to_value(data).unwrap();
+        if let Some(object) = value.as_object_mut() {
+            object.insert(
+                "lastUpdateTime".to_string(),
+                Utc::now().timestamp_millis().into(),
+            );
+        }
+        value
+    }
+
     macro_rules! implnt {
         ($x:ident, $uri:expr) => {{
             #[get($uri)]
@@ -214,12 +229,14 @@ pub fn extra_season_4_routes() -> Vec<Route> {
                         .await?
                         .filter_map(|item| {
                             future::ready(match item {
-                                MetaStream::First(v) => {
-                                    Some(Event::json(&ValueWrapper { value: v.value.$x }))
-                                }
-                                MetaStream::Firsnt(v) => {
-                                    v.value.$x.map(|x| Event::json(&ValueWrapper { value: x }))
-                                }
+                                MetaStream::First(v) => Some(Event::json(&ValueWrapper {
+                                    value: add_last_update_time(v.value.$x),
+                                })),
+                                MetaStream::Firsnt(v) => v.value.$x.map(|x| {
+                                    Event::json(&ValueWrapper {
+                                        value: add_last_update_time(x),
+                                    })
+                                }),
                             })
                         }),
                 ))
@@ -248,8 +265,7 @@ struct ValueWrapper<T> {
 struct First {
     games: Games,
     leagues: Leagues,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    temporal: Option<Box<RawValue>>,
+    temporal: Box<RawValue>,
     fights: Fights,
 }
 
@@ -455,6 +471,11 @@ async fn first_leagues(
     past: &mut [Version<Stream>],
     time: DateTime<Utc>,
 ) -> anyhow::Result<Leagues> {
+    lazy_static::lazy_static! {
+        static ref LEAGUES_START: DateTime<Utc> = "2020-09-03T21:40:38.266Z".parse().unwrap();
+        static ref TIEBREAKERS_START: DateTime<Utc> = "2020-09-10T17:51:30.577Z".parse().unwrap();
+    }
+
     Ok(Leagues {
         value: match past
             .iter_mut()
@@ -473,12 +494,12 @@ async fn first_leagues(
                     mut community_chest,
                     mut sunsun,
                 ) = try_join!(
-                    fetch("League", None, time),
+                    fetch("League", None, std::cmp::max(time, *LEAGUES_START)),
                     fetch("Stadium", None, time),
-                    fetch("Subleague", None, time),
-                    fetch("Division", None, time),
+                    fetch("Subleague", None, std::cmp::max(time, *LEAGUES_START)),
+                    fetch("Division", None, std::cmp::max(time, *LEAGUES_START)),
                     fetch("Team", None, time),
-                    fetch("Tiebreakers", None, time),
+                    fetch("Tiebreakers", None, std::cmp::max(time, *TIEBREAKERS_START)),
                     fetch("CommunityChestProgress", None, time),
                     fetch("SunSun", None, time),
                 )?;
@@ -502,38 +523,57 @@ async fn first_leagues(
 async fn first_temporal(
     past: &mut [Version<Stream>],
     time: DateTime<Utc>,
-) -> anyhow::Result<Option<Box<RawValue>>> {
+) -> anyhow::Result<Box<RawValue>> {
+    lazy_static::lazy_static! {
+        static ref UNCERTAINTY: DateTime<Utc> = "2020-08-03T22:11:18.931Z".parse().unwrap();
+        static ref GET_YOUR_PEANUTS: DateTime<Utc> = "2020-08-08T21:36:03.844Z".parse().unwrap();
+        static ref CHRONICLER_TEMPORAL_START: DateTime<Utc> =
+            "2020-09-03T21:40:38.266Z".parse().unwrap();
+    }
+
     Ok(
-        match past
+        if let Some(version) = past
             .iter_mut()
             .rev()
             .find_map(|v| v.data.value.temporal.take())
         {
-            Some(v) => Some(v),
-            None => {
-                if let Some(version) = RequestBuilder::new("v2/entities")
-                    .ty("Temporal")
-                    .at(time)
-                    .json::<Versions<Box<RawValue>>>()
-                    .await?
-                    .items
-                    .into_iter()
-                    .next()
-                {
-                    if let Some(inject) = INJECT
-                        .range(version.valid_from..=time)
-                        .filter_map(|(_, v)| v.temporal.clone())
-                        .rev()
-                        .next()
-                    {
-                        Some(inject)
-                    } else {
-                        Some(version.data)
-                    }
-                } else {
-                    None
-                }
+            version
+        } else if let Some(version) = RequestBuilder::new("v2/entities")
+            .ty("Temporal")
+            .at(time)
+            .json::<Versions<Box<RawValue>>>()
+            .await?
+            .items
+            .into_iter()
+            .next()
+        {
+            if let Some(inject) = INJECT
+                .range(version.valid_from..=time)
+                .filter_map(|(_, v)| v.temporal.clone())
+                .rev()
+                .next()
+            {
+                inject
+            } else {
+                version.data
             }
+        } else if let Some(inject) = INJECT
+            .range(..=time)
+            .filter_map(|(_, v)| v.temporal.clone())
+            .rev()
+            .next()
+        {
+            inject
+        } else {
+            serde_json::from_value(json!({
+                "id": "whatistime",
+                "alpha": thread_rng().gen_range(-2..5),
+                "beta": 1,
+                "gamma": 500000000,
+                "delta": true,
+                "epsilon": false,
+                "zeta": ""
+            }))?
         },
     )
 }

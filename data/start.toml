@@ -2,35 +2,37 @@
 title = "The Discipline Era"
 color = "#ff0000"
 
+#### SEASON 3 ### PEANUT PLAGUE ###
+#
 #[[eras.seasons]]
 #number = 3
 #title = "Peanut Plague"
 #color = "#c4aa70"
 #days = "August 3–9, 2020"
-
-### SEASON 4 ### FEEDBACK ###
-
-[[eras.seasons]]
-number = 4
-title = "Feedback"
-color = "#ff007b"
-days = "August 24–30, 2020"
-
-### SEASON 5 ### REVERB ###
-
-[[eras.seasons]]
-number = 5
-title = "Reverb"
-color = "#61b3ff"
-days = "August 31–September 6, 2020"
-
-### SEASON 6 ### IDOLS ###
-
-[[eras.seasons]]
-number = 6
-title = "Idols"
-color = "#ffe082"
-days = "September 7–13, 2020"
+#
+#### SEASON 4 ### FEEDBACK ###
+#
+#[[eras.seasons]]
+#number = 4
+#title = "Feedback"
+#color = "#ff007b"
+#days = "August 24–30, 2020"
+#
+#### SEASON 5 ### REVERB ###
+#
+#[[eras.seasons]]
+#number = 5
+#title = "Reverb"
+#color = "#61b3ff"
+#days = "August 31–September 6, 2020"
+#
+#### SEASON 6 ### IDOLS ###
+#
+#[[eras.seasons]]
+#number = 6
+#title = "Idols"
+#color = "#ffe082"
+#days = "September 7–13, 2020"
 
 ### SEASON 7 ### GETTING SHELLED ###
 
