@@ -263,8 +263,8 @@ day = 109
 
 [[eras.seasons.events]]
 title = "STRIKE FOUR"
+being = "peanut"
 time = "2020-09-27T18:59:23Z"
-team = "57ec08cc-0411-4643-b304-0e80dbc15ac7"
 redirect = "/offseason"
 
 [[eras.seasons.events]]
