@@ -9,30 +9,144 @@ color = "#ff0000"
 #title = "Peanut Plague"
 #color = "#c4aa70"
 #days = "August 3–9, 2020"
-#
-#### SEASON 4 ### FEEDBACK ###
-#
-#[[eras.seasons]]
-#number = 4
-#title = "Feedback"
-#color = "#ff007b"
-#days = "August 24–30, 2020"
-#
-#### SEASON 5 ### REVERB ###
-#
-#[[eras.seasons]]
-#number = 5
-#title = "Reverb"
-#color = "#61b3ff"
-#days = "August 31–September 6, 2020"
-#
-#### SEASON 6 ### IDOLS ###
-#
-#[[eras.seasons]]
-#number = 6
-#title = "Idols"
-#color = "#ffe082"
-#days = "September 7–13, 2020"
+
+### SEASON 4 ### FEEDBACK ###
+
+[[eras.seasons]]
+number = 4
+title = "Feedback"
+color = "#ff007b"
+days = "August 24–30, 2020"
+
+[[eras.seasons.events]]
+title = "TIME TO LISTEN"
+being = "peanut"
+time = "2020-08-24T15:45:03Z"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "Paula Mason and Thomas Kirby switch teams in the feedback"
+time = "2020-08-24T19:19:18Z"
+team = "b024e975-1c4a-4575-8936-a3754a08806a"
+
+[[eras.seasons.events]]
+title = "Sandie Turner walks, steals three bases"
+time = "2020-08-26T10:19:18Z"
+team = "36569151-a2fb-43c1-9df7-2df512424c82"
+
+[[eras.seasons.events]]
+title = "Thomas England incinerated, replaced by Sixpack Dogwalker"
+time = "2020-08-28T15:10:01Z"
+team = "979aee4a-6d80-4863-bf1c-ee1a78e06024"
+
+[[eras.seasons.events]]
+title = "Sixpack Dogwalker left “confused” by the Waveback Event"
+time = "2020-08-28T21:02:35Z"
+team = "979aee4a-6d80-4863-bf1c-ee1a78e06024"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "Thomas Dracaena hit a ground out to Edric Tosser."
+time = "2020-08-29T21:21:59Z"
+team = "36569151-a2fb-43c1-9df7-2df512424c82"
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 110
+
+[[eras.seasons.events]]
+title = "IT IS TOO LOUD"
+being = "peanut"
+time = "2020-08-30T19:09:47Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2020-08-30T19:15:00Z"
+redirect = "/offseason"
+
+### SEASON 5 ### REVERB ###
+
+[[eras.seasons]]
+number = 5
+title = "Reverb"
+color = "#61b3ff"
+days = "August 31–September 6, 2020"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "Hawai’i Fridays shuffled in the Reverb"
+time = "2020-08-31T20:16:16Z"
+team = "979aee4a-6d80-4863-bf1c-ee1a78e06024"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 109
+
+[[eras.seasons.events]]
+title = "YOU WORSHIP THEM WHEN I WALK AMONG YOU?"
+being = "peanut"
+time = "2020-09-06T19:00:21Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2020-09-06T19:15:00Z"
+redirect = "/offseason"
+
+### SEASON 6 ### IDOLS ###
+
+[[eras.seasons]]
+number = 6
+title = "Idols"
+color = "#ffe082"
+days = "September 7–13, 2020"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "The Blooddrain gurgles"
+time = "2020-09-07T16:10:55Z"
+team = "7966eb04-efcc-499b-8f03-d13916330531"
+
+[[eras.seasons.events]]
+title = "NO HALF-MEASURES"
+being = "peanut"
+time = "2020-09-11T19:00:03Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 108
+
+[[eras.seasons.events]]
+title = "HOTDOGFINGERS? AMUSING"
+being = "peanut"
+time = "2020-09-13T19:18:07Z"
+redirect = "/offseason"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2020-09-13T19:30:00Z"
+redirect = "/offseason"
 
 ### SEASON 7 ### GETTING SHELLED ###
 
@@ -77,7 +191,7 @@ being = "peanut"
 time = "2020-09-18T21:13:34Z"
 
 [[eras.seasons.events]]
-title = "who was that"
+title = "where is hotdogfingers"
 being = "monitor"
 time = "2020-09-18T21:23:57Z"
 

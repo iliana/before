@@ -12,6 +12,7 @@ use rocket::request::FromRequest;
 use rocket::response::{content::Html, status::Custom, status::NotFound, Redirect};
 use rocket::tokio::{join, sync::RwLock};
 use rocket::{catch, get, uri, Request};
+use serde::Deserialize;
 use std::collections::{BTreeMap, HashMap};
 
 lazy_static::lazy_static! {
@@ -20,6 +21,9 @@ lazy_static::lazy_static! {
 
     /// After this point, Chronicler fetched main.css in addition to the JS assets.
     static ref CHRONICLER_CSS_EPOCH: DateTime<Utc> = "2020-09-11T16:58:00Z".parse().unwrap();
+
+    static ref EARLY_ASSETS: BTreeMap<DateTime<Utc>, AssetSet<'static>> =
+        toml::from_str(include_str!("../data/assets.toml")).unwrap();
 
     static ref CACHE: RwLock<Cache> = RwLock::new(Cache::default());
 }
@@ -99,12 +103,12 @@ pub async fn site_static(origin: &Origin<'_>, time: OffsetTime) -> crate::Result
     })
 }
 
-#[derive(Template)]
+#[derive(Deserialize, Clone, Copy, Template)]
 #[template(path = "game.html")]
-struct GameTemplate<'a> {
-    css: &'a SiteUpdate,
-    js_main: &'a SiteUpdate,
-    js_2: &'a SiteUpdate,
+struct AssetSet<'a> {
+    css: &'a str,
+    js_main: &'a str,
+    js_2: &'a str,
 }
 
 type IndexResponse = Either<Custom<Html<String>>, Redirect>;
@@ -146,20 +150,23 @@ pub async fn index(time: Option<OffsetTime>) -> Result<IndexResponse> {
         };
     }
 
-    // Do you remember before? For the most part we have all the JavaScript assets, but we're
-    // missing a lot of CSS and index assets.
-    //
-    // For JS, grab the most recent asset of that type; for CSS, grab the next asset in the
-    // future. The CSS is usually backwards-compatible; we can tweak if we need to.
-    let template = GameTemplate {
-        css: opt!(fetch_cache(
-            &cache.css,
-            time.0,
-            time.0 >= *CHRONICLER_CSS_EPOCH
-        ))?,
-        js_main: opt!(fetch_cache(&cache.js_main, time.0, true))?,
-        js_2: opt!(fetch_cache(&cache.js_2, time.0, true))?,
+    let template = if time.0 >= *CHRONICLER_JS_EPOCH {
+        AssetSet {
+            css: &opt!(fetch_cache(
+                &cache.css,
+                time.0,
+                time.0 >= *CHRONICLER_CSS_EPOCH
+            ))?
+            .path,
+            js_main: &opt!(fetch_cache(&cache.js_main, time.0, true))?.path,
+            js_2: &opt!(fetch_cache(&cache.js_2, time.0, true))?.path,
+        }
+    } else if let Some(template) = EARLY_ASSETS.range(..time.0).map(|(_, v)| v).rev().next() {
+        *template
+    } else {
+        return Ok(Either::Right(Redirect::to(uri!(crate::start::start))));
     };
+
     Ok(Either::Left(Custom(
         Status::Ok,
         Html(template.render().map_err(anyhow::Error::from)?),

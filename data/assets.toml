@@ -1,0 +1,38 @@
+# Season 4 deploy
+["2020-08-23T23:23:00Z"]
+css = "/static/css/main.85301904.chunk.css"
+js_main = "/static/js/main.93fa4fd2.chunk.js"
+js_2 = "/static/js/2.639e22ae.chunk.js"
+
+# This build replaces shame_pit with targeted_shame
+# (Build originally observed at 2020-08-24T15:53:09Z but below timestamp is the
+# offseasonSetup update time in Chronicler)
+["2020-08-24T09:03:00Z"]
+css = "/static/css/main.85301904.chunk.css"
+js_main = "/static/js/main.867bea3d.chunk.js"
+js_2 = "/static/js/2.639e22ae.chunk.js"
+
+# Season 5 deploy
+["2020-08-30T08:23:00Z"]
+css = "/static/css/main.298dfde9.chunk.css"
+js_main = "/static/js/main.054b7f45.chunk.js"
+js_2 = "/static/js/2.472ea432.chunk.js"
+
+# Bulletin: "Here's the setup for Postseason 5."
+["2020-09-04T21:54:00Z"]
+css = "/static/css/main.298dfde9.chunk.css"
+js_main = "/static/js/main.cd6829d6.chunk.js"
+js_2 = "/static/js/2.472ea432.chunk.js"
+
+# Pre-Season 5 Election deploy
+# TODO: main.bac1f01d.chunk.js patched to use Season 5 Bulletin and Sponsor
+["2020-09-06T07:28:00Z"]
+#css = "/static/css/main.298dfde9.chunk.css"
+#js_main = ""
+#js_2 = "/static/js/2.83e1849b.chunk.js"
+#
+## Season 6 Bulletin update
+#["2020-09-07T14:14:00Z"]
+css = "/static/css/main.298dfde9.chunk.css"
+js_main = "/static/js/main.bac1f01d.chunk.js"
+js_2 = "/static/js/2.83e1849b.chunk.js"
