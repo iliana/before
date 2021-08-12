@@ -12,7 +12,6 @@ tls = ["reqwest/default-tls"]
 
 [dependencies]
 askama = "0.10"
-async-stream = "0.3"
 derive_builder = "0.10"
 erased-serde = "0.3"
 itertools = "0.10"

@@ -11,20 +11,23 @@ use crate::database::fetch;
 use crate::postseason::{postseason, Postseason};
 use crate::time::{Offset, OffsetTime};
 use crate::Result;
-use async_stream::stream;
 use chrono::{DateTime, Duration, Utc};
 use either::{Either, Left, Right};
 use itertools::Itertools;
 use rand::{thread_rng, Rng};
-use rocket::futures::{future, future::try_join_all, FutureExt, Stream as StreamTrait, StreamExt};
-use rocket::response::stream::{Event, EventStream};
+use rocket::futures::{future::try_join_all, FutureExt, Stream as StreamTrait, StreamExt};
+use rocket::response::stream::{stream, Event, EventStream};
+use rocket::tokio::sync::Mutex;
 use rocket::tokio::{select, time::sleep, try_join};
-use rocket::{get, routes, Route, Shutdown};
+use rocket::{get, post, routes, Route, Shutdown};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, value::RawValue, Value};
+use std::borrow::Borrow;
 use std::collections::hash_map::DefaultHasher;
-use std::collections::{BTreeMap, HashMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet, VecDeque};
 use std::hash::{Hash, Hasher};
+use std::pin::Pin;
+use std::time::{Duration as StdDuration, Instant};
 
 lazy_static::lazy_static! {
     static ref INJECT: BTreeMap<DateTime<Utc>, StreamValue> =
@@ -35,7 +38,7 @@ async fn build_stream(
     time: OffsetTime,
     offset: Offset,
     mut shutdown: Shutdown,
-) -> anyhow::Result<impl StreamTrait<Item = MetaStream>> {
+) -> anyhow::Result<impl StreamTrait<Item = MetaStream> + Send + Sync> {
     #[derive(Deserialize)]
     struct Temporal {
         doc: TemporalInner,
@@ -158,19 +161,13 @@ async fn build_stream(
         for version in future {
             yield MetaStream::Firsnt(next_event(version, offset, &mut shutdown).await);
         }
-        // We can potentially run out of elements if they're all duplicates. Sleep it off so the
-        // client doesn't reconnect.
-        select! {
-            _ = sleep(std::time::Duration::from_secs(40)) => {},
-            _ = &mut shutdown => {},
-        }
     })
 }
 
 async fn next_event(version: Version<Stream>, offset: Offset, shutdown: &mut Shutdown) -> Stream {
     let duration = (version.valid_from - (Utc::now() - offset.0))
         .to_std()
-        .unwrap_or_else(|_| std::time::Duration::from_nanos(0));
+        .unwrap_or_else(|_| StdDuration::from_nanos(0));
     select! {
         _ = sleep(duration) => {},
         _ = shutdown => {},
@@ -186,11 +183,18 @@ pub async fn stream_data(
     offset: Offset,
     shutdown: Shutdown,
 ) -> Result<EventStream![]> {
-    Ok(EventStream::from(
-        build_stream(time, offset, shutdown)
-            .await?
-            .map(|item| Event::json(&item)),
-    ))
+    let mut stream = Box::pin(build_stream(time, offset, shutdown.clone()).await?);
+    Ok(EventStream! {
+        while let Some(item) = stream.next().await {
+            yield Event::json(&item);
+        }
+        // We can potentially run out of elements if they're all duplicates. Sleep it off so the
+        // client doesn't reconnect.
+        select! {
+            _ = sleep(StdDuration::from_secs(40)) => {},
+            _ = shutdown => {},
+        }
+    })
 }
 
 // i am being punished for my hubris
@@ -224,22 +228,29 @@ pub fn extra_season_4_routes() -> Vec<Route> {
                 offset: Offset,
                 shutdown: Shutdown,
             ) -> Result<EventStream![]> {
-                Ok(EventStream::from(
-                    build_stream(time, offset, shutdown)
-                        .await?
-                        .filter_map(|item| {
-                            future::ready(match item {
-                                MetaStream::First(v) => Some(Event::json(&ValueWrapper {
-                                    value: add_last_update_time(v.value.$x),
-                                })),
-                                MetaStream::Firsnt(v) => v.value.$x.map(|x| {
-                                    Event::json(&ValueWrapper {
-                                        value: add_last_update_time(x),
-                                    })
-                                }),
-                            })
-                        }),
-                ))
+                let mut stream = Box::pin(build_stream(time, offset, shutdown.clone()).await?);
+                Ok(EventStream! {
+                    while let Some(item) = stream.next().await {
+                        match item {
+                            MetaStream::First(v) => yield Event::json(&ValueWrapper {
+                                value: add_last_update_time(v.value.$x),
+                            }),
+                            MetaStream::Firsnt(v) => {
+                                if let Some(v) = v.value.$x {
+                                    yield Event::json(&ValueWrapper {
+                                        value: add_last_update_time(v),
+                                    });
+                                }
+                            }
+                        }
+                    }
+                    // We can potentially run out of elements if they're all duplicates. Sleep it
+                    // off so the client doesn't reconnect.
+                    select! {
+                        _ = sleep(StdDuration::from_secs(40)) => {},
+                        _ = shutdown => {},
+                    }
+                })
             }
 
             routes![stream_individual]
@@ -252,6 +263,160 @@ pub fn extra_season_4_routes() -> Vec<Route> {
         implnt!(temporal, "/events/streamTemporalData"),
     ]
     .concat()
+}
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
+// In the Bigger Machines Era (seasons 1-3), the game used socket.io. We've patched the frontend
+// code to only use polling, and these functions implement the protocol.
+
+// Look on my Types, ye Mighty, and despair!
+type Ozymandias = (
+    VecDeque<String>,
+    Pin<Box<dyn StreamTrait<Item = MetaStream> + Send + Sync>>,
+);
+
+lazy_static::lazy_static! {
+    static ref SESSIONS: Mutex<TimedCache<u64, Ozymandias>> = Mutex::new(TimedCache::new());
+}
+
+pub async fn remove_expired_sessions() {
+    SESSIONS
+        .lock()
+        .await
+        .remove_expired(StdDuration::from_secs(15 * 60));
+}
+
+fn eio_payload<T: Serialize>(value: &T) -> anyhow::Result<String> {
+    let payload = format!("42{}", serde_json::to_string(&value)?);
+    Ok(format!("{}:{}", payload.encode_utf16().count(), payload))
+}
+
+impl MetaStream {
+    fn into_eio(self) -> anyhow::Result<Vec<String>> {
+        match self {
+            MetaStream::First(v) => Ok(vec![
+                eio_payload(&("gameDataUpdate", v.value.games))?,
+                eio_payload(&("leagueDataUpdate", v.value.leagues))?,
+                eio_payload(&("temporalDataUpdate", v.value.temporal))?,
+            ]),
+            MetaStream::Firsnt(v) => vec![
+                ("gameDataUpdate", v.value.games),
+                ("leagueDataUpdate", v.value.leagues),
+                ("temporalDataUpdate", v.value.temporal),
+            ]
+            .into_iter()
+            .filter_map(|(k, v)| v.map(|v| eio_payload(&(k, v))))
+            .collect(),
+        }
+    }
+}
+
+#[get("/socket.io?<sid>")]
+pub async fn socket_io(
+    sid: Option<u64>,
+    time: OffsetTime,
+    offset: Offset,
+    shutdown: Shutdown,
+) -> Result<String> {
+    if let Some(sid) = sid {
+        let mut guard = SESSIONS.lock().await;
+        let value = guard.remove(&sid);
+        drop(guard);
+
+        if let Some((mut to_send, mut stream)) = value {
+            let message = if let Some(send_me) = to_send.pop_front() {
+                log::warn!("{} branch 0", sid);
+                send_me
+            } else {
+                match select! {
+                    v = stream.next() => Some(v),
+                    _ = sleep(StdDuration::from_secs(15)) => None,
+                } {
+                    Some(Some(v)) => {
+                        log::warn!("{} branch 1", sid);
+                        to_send.extend(v.into_eio()?);
+                        match to_send.pop_front() {
+                            Some(v) => v,
+                            None => eio_payload(&())?,
+                        }
+                    }
+                    Some(None) => {
+                        log::warn!("{} branch 2", sid);
+                        stream = Box::pin(build_stream(time, offset, shutdown).await?);
+                        eio_payload(&())?
+                    }
+                    None => {
+                        log::warn!("{} branch 3", sid);
+                        eio_payload(&())?
+                    }
+                }
+            };
+
+            SESSIONS.lock().await.insert(sid, (to_send, stream));
+            return Ok(message);
+        }
+    }
+
+    let new_sid: u64 = thread_rng().gen();
+    SESSIONS.lock().await.insert(
+        new_sid,
+        (
+            VecDeque::new(),
+            Box::pin(build_stream(time, offset, shutdown).await?),
+        ),
+    );
+    let payload = format!(
+        "0{}",
+        json!({
+            "sid": new_sid.to_string(),
+            "upgrades": [],
+            "pingInterval": 25000,
+            "pingTimeout": 5000,
+        })
+    );
+    Ok(format!(
+        "{}:{}2:40",
+        payload.encode_utf16().count(),
+        payload
+    ))
+}
+
+#[post("/socket.io")]
+pub fn socket_io_post() -> &'static str {
+    "ok"
+}
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
+#[derive(Debug, Clone)]
+struct TimedCache<K, V> {
+    inner: HashMap<K, (Instant, V)>,
+}
+
+impl<K: Eq + Hash, V> TimedCache<K, V> {
+    fn new() -> Self {
+        TimedCache {
+            inner: HashMap::new(),
+        }
+    }
+
+    fn insert(&mut self, key: K, value: V) -> Option<V> {
+        self.inner.insert(key, (Instant::now(), value)).map(|v| v.1)
+    }
+
+    fn remove<Q>(&mut self, key: &Q) -> Option<V>
+    where
+        K: Borrow<Q>,
+        Q: Hash + Eq,
+    {
+        self.inner.remove(key).map(|v| v.1)
+    }
+
+    fn remove_expired(&mut self, deadline: StdDuration) {
+        let now = Instant::now();
+        self.inner.retain(|_, (time, _)| now - *time <= deadline);
+    }
 }
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=

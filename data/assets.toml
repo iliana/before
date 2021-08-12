@@ -1,3 +1,27 @@
+# First working code in the archives
+["2020-07-29T20:00:00Z"]
+css = "/static/css/main.aea6926f.chunk.css"
+js_main = "/_before/patched/main.6ea96dd6.chunk.js"
+js_2 = "/static/js/2.6a00e0ce.chunk.js"
+
+# Season 3 deploy
+["2020-08-02T09:40:00Z"]
+css = "/static/css/main.ee21f0bc.chunk.css"
+js_main = "/_before/patched/main.fa6a8f79.chunk.js"
+js_2 = "/static/js/2.70b012b4.chunk.js"
+
+# Peanut Fraud deploy
+["2020-08-03T22:13:00Z"]
+css = "/static/css/main.ee21f0bc.chunk.css"
+js_main = "/_before/patched/main.e71dc0e8.chunk.js"
+js_2 = "/static/js/2.5476d475.chunk.js"
+
+# Season 3 Elections deploy
+["2020-08-09T02:30:00Z"]
+css = "/static/css/main.ee21f0bc.chunk.css"
+js_main = "/_before/patched/main.4a40a3eb.chunk.js"
+js_2 = "/static/js/2.8fd673be.chunk.js"
+
 # Season 4 deploy
 ["2020-08-23T23:23:00Z"]
 css = "/static/css/main.85301904.chunk.css"

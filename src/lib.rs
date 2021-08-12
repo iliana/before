@@ -24,6 +24,7 @@ use rocket::{catchers, get, routes, uri, Build, Rocket};
 use serde::Deserialize;
 use std::borrow::Cow;
 use std::path::Path;
+use std::time::Duration as StdDuration;
 
 lazy_static::lazy_static! {
     static ref FIGMENT: Figment = rocket::Config::figment();
@@ -113,6 +114,13 @@ pub fn build() -> anyhow::Result<Rocket<Build>> {
             log::error!("{:?}", err);
         }
     });
+    tokio::spawn(async {
+        let mut interval = tokio::time::interval(StdDuration::from_secs(15 * 60));
+        loop {
+            interval.tick().await;
+            crate::events::remove_expired_sessions().await;
+        }
+    });
 
     // Check for new games to add to the day map at 5 past the hour
     if !CONFIG.siesta_mode {
@@ -120,10 +128,8 @@ pub fn build() -> anyhow::Result<Rocket<Build>> {
         let offset =
             (now.duration_trunc(Duration::hours(1))? + Duration::minutes(65) - now).to_std()?;
         tokio::spawn(async move {
-            let mut interval = tokio::time::interval_at(
-                Instant::now() + offset,
-                std::time::Duration::from_secs(3600),
-            );
+            let mut interval =
+                tokio::time::interval_at(Instant::now() + offset, StdDuration::from_secs(3600));
             loop {
                 interval.tick().await;
                 if let Err(err) = crate::time::DAY_MAP.write().await.update().await {
@@ -164,6 +170,8 @@ pub fn build() -> anyhow::Result<Rocket<Build>> {
                 database::player_names_ids,
                 database::players,
                 database::renovations,
+                events::socket_io,
+                events::socket_io_post,
                 events::stream_data,
                 site::index,
                 site::site_static,

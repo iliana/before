@@ -17,7 +17,7 @@ use std::str::FromStr;
 lazy_static::lazy_static! {
     pub static ref DAY_MAP: RwLock<DayMap> = RwLock::new(DayMap::default());
 
-    static ref SEASON_3_START: DateTime<Utc> = "2020-08-03T16:00:00Z".parse().unwrap();
+    static ref DAY_MAP_START: DateTime<Utc> = "2020-08-01T13:00:00Z".parse().unwrap();
 }
 
 #[derive(Debug, Default, Deserialize, Serialize)]
@@ -32,7 +32,7 @@ impl DayMap {
         log::warn!("updating v1/games start_time cache");
         let after = self
             .until
-            .unwrap_or(*SEASON_3_START)
+            .unwrap_or(*DAY_MAP_START)
             .duration_trunc(Duration::hours(1))?;
         let times = RequestBuilder::new("v1/games")
             .after(after)
