@@ -231,6 +231,11 @@ time = "2020-09-14T20:04:26Z"
 team = "105bc3ff-1320-4e37-8ef0-8d595cb95dd0"
 
 [[eras.seasons.events]]
+title = "Inky Rutledge pitches first recorded no-hitter"
+day = 7
+team = "7966eb04-efcc-499b-8f03-d13916330531"
+
+[[eras.seasons.events]]
 title = "Ruby Tuesday"
 time = "2020-09-15T23:05:55Z"
 team = "747b8e4a-7e50-4638-a973-ea7950a3e739"
@@ -305,6 +310,11 @@ team = "105bc3ff-1320-4e37-8ef0-8d595cb95dd0"
 title = "this one at a time thing is killing me"
 being = "monitor"
 time = "2020-09-22T23:37:39Z"
+
+[[eras.seasons.events]]
+title = "Patty Fox pitches first recorded perfect game"
+day = 61
+team = "36569151-a2fb-43c1-9df7-2df512424c82"
 
 [[eras.seasons.events]]
 title = "IT IS COMPLETE"
@@ -404,6 +414,11 @@ days = "October 12–18, 2020"
 [[eras.seasons.events]]
 title = "Opening Day"
 day = 1
+
+[[eras.seasons.events]]
+title = "Simon Haley hits a pentaslam"
+time = "2020-10-12T22:06:18Z"
+team = "bfd38797-8404-4b38-8b82-341da28b1f83"
 
 [[eras.seasons.events]]
 title = "Tillman Henderson climbs the Idol Leaderboard"
@@ -654,6 +669,11 @@ time = "2021-03-09T18:50:00Z"
 [[eras.seasons.events]]
 title = "Latesiesta"
 time = "2021-03-11T16:45:00Z"
+
+[[eras.seasons.events]]
+title = "Aldon Cashmoney hits for the first recorded natural cycle"
+day = 22
+team = "f02aeae2-5e6a-4098-9842-02d2273f25c7"
 
 [[eras.seasons.events]]
 title = "Yosh Carpenter pitches for both teams"
