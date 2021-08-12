@@ -91,25 +91,6 @@ pub fn entity_routes() -> Vec<Route> {
         }};
     }
 
-    /*
-    macro_rules! route_ids {
-        ($uri:expr, $ty:expr) => {{
-            #[get($uri)]
-            pub async fn entity_ids(
-                ids: String,
-                time: OffsetTime,
-            ) -> Result<Json<Vec<Box<RawValue>>>> {
-                if ids.is_empty() || ids == "placeholder-idol" {
-                    Ok(Json(vec![]))
-                } else {
-                    Ok(Json(fetch($ty, Some(ids), time.0).await?.collect()))
-                }
-            }
-            routes![entity_ids]
-        }};
-    }
-    */
-
     vec![
         route!("/api/getIdols", "Idols"),
         route!("/api/getRisingStars", "RisingStars"),
@@ -166,6 +147,8 @@ pub async fn players(ids: &str, time: OffsetTime) -> Result<Json<Vec<Box<RawValu
     lazy_static::lazy_static! {
         static ref NUDGES: HashMap<String, BTreeMap<DateTime<Utc>, Option<Nudge>>> =
             serde_json::from_str(include_str!("../data/playernudge.json")).unwrap();
+        static ref HALL_REVEALED: DateTime<Utc> = "2020-09-20T19:18:00Z".parse().unwrap();
+        static ref HALL_FIXED: DateTime<Utc> = "2020-09-23T12:00:00Z".parse().unwrap();
     }
     let mut nudges = Vec::new();
     let remaining_ids = ids
@@ -209,7 +192,17 @@ pub async fn players(ids: &str, time: OffsetTime) -> Result<Json<Vec<Box<RawValu
         players.extend(
             RequestBuilder::new("v2/entities")
                 .ty("Player")
-                .at(time.0)
+                .at(
+                    // heuristically detect a query for hall of flame players with missing
+                    // attributes
+                    if time.0 > *HALL_REVEALED
+                        && ids.contains("d74a2473-1f29-40fa-a41e-66fa2281dfca")
+                    {
+                        std::cmp::max(*HALL_FIXED, time.0)
+                    } else {
+                        time.0
+                    },
+                )
                 .id(remaining_ids)
                 .json::<Versions<Box<RawValue>>>()
                 .await?
@@ -248,7 +241,9 @@ pub async fn players(ids: &str, time: OffsetTime) -> Result<Json<Vec<Box<RawValu
 
     // Combine a final list of players in the originally-provided ID order.
     Ok(Json(
-        ids.split(',').filter_map(|id| players.remove(id)).collect(),
+        ids.split(',')
+            .filter_map(|id| players.remove(id).map(|p| fix_id(p, time.0)))
+            .collect::<anyhow::Result<_>>()?,
     ))
 }
 
