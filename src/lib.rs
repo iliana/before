@@ -37,6 +37,9 @@ pub(crate) struct Config {
     upnuts_base_url: String,
     static_dir: Cow<'static, Path>,
 
+    #[serde(flatten)]
+    rocket_config: rocket::Config,
+
     #[serde(skip)]
     client: reqwest::Client,
 }
@@ -54,6 +57,19 @@ impl Config {
 
         self.client = builder.build()?;
 
+        let addr = format!(
+            "{}://{}:{}",
+            if self.rocket_config.tls_enabled() {
+                "https"
+            } else {
+                "http"
+            },
+            self.rocket_config.address,
+            self.rocket_config.port,
+        );
+        self.chronicler_base_url = self.chronicler_base_url.replace("{addr}", &addr);
+        self.upnuts_base_url = self.upnuts_base_url.replace("{addr}", &addr);
+
         Ok(())
     }
 }
@@ -67,6 +83,7 @@ impl Default for Config {
             chronicler_base_url: "https://api.sibr.dev/chronicler/".to_string(),
             upnuts_base_url: "https://api.sibr.dev/upnuts/".to_string(),
             static_dir: Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static"))).into(),
+            rocket_config: rocket::Config::default(),
             client: reqwest::Client::default(),
         }
     }
