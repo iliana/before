@@ -1,3 +1,4 @@
+use crate::Config;
 use anyhow::Result;
 use chrono::{DateTime, Utc};
 use derive_builder::Builder;
@@ -10,7 +11,7 @@ use std::collections::HashMap;
 
 #[derive(Debug, Default, Serialize, Builder)]
 #[builder(derive(Clone), pattern = "owned")]
-pub struct Request {
+pub(crate) struct Request {
     #[builder(setter(into))]
     #[serde(skip)]
     route: String,
@@ -53,42 +54,45 @@ pub struct Request {
 }
 
 impl RequestBuilder {
-    pub fn new<I: Into<String>>(route: I) -> RequestBuilder {
+    pub(crate) fn new<I: Into<String>>(route: I) -> RequestBuilder {
         RequestBuilder::default().route(route)
     }
 
-    pub async fn send(self) -> Result<Response> {
+    pub(crate) async fn send(self, config: &Config) -> Result<Response> {
         let request = self.build()?;
         let url = format!(
             "{}{}?{}",
-            crate::CONFIG.chronicler_base_url,
+            config.chronicler_base_url,
             &request.route,
             serde_urlencoded::to_string(&request)?
         );
         log::debug!("chronicler request: {}", url);
-        Ok(crate::CLIENT.get(url).send().await?)
+        Ok(config.client.get(url).send().await?)
     }
 
-    pub async fn json<T>(self) -> Result<T>
+    pub(crate) async fn json<T>(self, config: &Config) -> Result<T>
     where
         for<'de> T: Deserialize<'de>,
     {
-        Ok(self.send().await?.json().await?)
+        Ok(self.send(config).await?.json().await?)
     }
 
-    pub fn paged_json<T>(self) -> impl StreamTrait<Item = Result<Version<T>>>
+    pub(crate) fn paged_json<'a, T: 'a>(
+        self,
+        config: &'a Config,
+    ) -> impl StreamTrait<Item = Result<Version<T>>> + 'a
     where
         for<'de> T: Deserialize<'de>,
     {
         stream! {
-            let response = self.clone().json::<Versions<T>>().await?;
+            let response = self.clone().json::<Versions<T>>(config).await?;
             for item in response.items {
                 yield Ok(item);
             }
             let mut next_page = response.next_page;
 
             while let Some(page) = next_page {
-                let response = self.clone().page(page).json::<Versions<T>>().await?;
+                let response = self.clone().page(page).json::<Versions<T>>(config).await?;
                 for item in response.items {
                     yield Ok(item);
                 }
@@ -100,49 +104,49 @@ impl RequestBuilder {
 
 #[derive(Debug, Copy, Clone, Serialize)]
 #[serde(rename_all = "lowercase")]
-pub enum Order {
+pub(crate) enum Order {
     Asc,
     Desc,
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Data<T> {
-    pub next_page: Option<String>,
-    pub data: Vec<T>,
+pub(crate) struct Data<T> {
+    pub(crate) next_page: Option<String>,
+    pub(crate) data: Vec<T>,
 }
 
 #[derive(Debug, Clone, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct SiteUpdate {
-    pub timestamp: DateTime<Utc>,
-    pub path: String,
-    pub hash: String,
-    pub download_url: String,
+pub(crate) struct SiteUpdate {
+    pub(crate) timestamp: DateTime<Utc>,
+    pub(crate) path: String,
+    pub(crate) hash: String,
+    pub(crate) download_url: String,
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Versions<T> {
-    pub next_page: Option<String>,
-    pub items: Vec<Version<T>>,
+pub(crate) struct Versions<T> {
+    pub(crate) next_page: Option<String>,
+    pub(crate) items: Vec<Version<T>>,
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Version<T> {
-    pub valid_from: DateTime<Utc>,
-    pub entity_id: String,
-    pub data: T,
+pub(crate) struct Version<T> {
+    pub(crate) valid_from: DateTime<Utc>,
+    pub(crate) entity_id: String,
+    pub(crate) data: T,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct Stream {
-    pub value: StreamValue,
+pub(crate) struct Stream {
+    pub(crate) value: StreamValue,
 }
 
 impl Stream {
-    pub fn is_empty(&self) -> bool {
+    pub(crate) fn is_empty(&self) -> bool {
         self.value.games.is_none()
             && self.value.leagues.is_none()
             && self.value.temporal.is_none()
@@ -151,26 +155,26 @@ impl Stream {
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
-pub struct StreamValue {
+pub(crate) struct StreamValue {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub games: Option<Box<RawValue>>,
+    pub(crate) games: Option<Box<RawValue>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub leagues: Option<Box<RawValue>>,
+    pub(crate) leagues: Option<Box<RawValue>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub temporal: Option<Box<RawValue>>,
+    pub(crate) temporal: Option<Box<RawValue>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub fights: Option<Box<RawValue>>,
+    pub(crate) fights: Option<Box<RawValue>>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct PlayerNameId {
-    pub id: String,
-    pub name: String,
+pub(crate) struct PlayerNameId {
+    pub(crate) id: String,
+    pub(crate) name: String,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct OffseasonRecap {
-    pub season: i64,
+pub(crate) struct OffseasonRecap {
+    pub(crate) season: i64,
     // can't use RawValue here due to https://github.com/serde-rs/json/issues/599
     #[serde(flatten)]
     everything_else: HashMap<String, Value>,
@@ -178,29 +182,33 @@ pub struct OffseasonRecap {
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ChroniclerGame {
-    pub game_id: String,
-    pub start_time: DateTime<Utc>,
-    pub data: GameDay,
+pub(crate) struct ChroniclerGame {
+    pub(crate) game_id: String,
+    pub(crate) start_time: DateTime<Utc>,
+    pub(crate) data: GameDay,
 }
 
 // This is (ab)used by crate::time::DayMap::update, don't add fields to this :)
 #[derive(Debug, PartialEq, Eq, Hash, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct GameDay {
-    pub season: i64,
+pub(crate) struct GameDay {
+    pub(crate) season: i64,
     #[serde(default = "default_tournament")]
-    pub tournament: i64,
-    pub day: i64,
+    pub(crate) tournament: i64,
+    pub(crate) day: i64,
 }
 
-pub fn default_tournament() -> i64 {
+pub(crate) fn default_tournament() -> i64 {
     -1
 }
 
 // TODO either get `v2/entities` fixed for the Game type or add a working `before` param to
 // `v1/games/updates`
-pub async fn fetch_game(id: String, time: DateTime<Utc>) -> Result<Option<Box<RawValue>>> {
+pub(crate) async fn fetch_game(
+    config: &Config,
+    id: String,
+    time: DateTime<Utc>,
+) -> Result<Option<Box<RawValue>>> {
     #[derive(Deserialize)]
     struct Game {
         timestamp: DateTime<Utc>,
@@ -214,7 +222,7 @@ pub async fn fetch_game(id: String, time: DateTime<Utc>) -> Result<Option<Box<Ra
             .game(id)
             .order(Order::Desc)
             .count(1000)
-            .json::<Data<Game>>()
+            .json::<Data<Game>>(config)
             .await?
             .data
             .into_iter()

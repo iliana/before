@@ -9,9 +9,9 @@ use std::str::FromStr;
 use tokio_util::compat::FuturesAsyncReadCompatExt;
 
 #[derive(Debug)]
-pub struct Proxy {
-    pub response: reqwest::Response,
-    pub etag: Option<String>,
+pub(crate) struct Proxy {
+    pub(crate) response: reqwest::Response,
+    pub(crate) etag: Option<String>,
 }
 
 impl<'r> Responder<'r, 'static> for Proxy {

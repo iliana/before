@@ -8,12 +8,12 @@ use serde_json::{json, Value};
 use std::str::FromStr;
 
 #[get("/api/getActiveBets")]
-pub fn get_active_bets() -> Json<Vec<()>> {
+pub(crate) fn get_active_bets() -> Json<Vec<()>> {
     Json(vec![])
 }
 
 #[get("/api/getUser")]
-pub fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
+pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
     Json(json!({
         "id": "be457c4e-79e6-4016-94f5-76c6705741bb",
         "email": "before@sibr.dev",
@@ -74,35 +74,35 @@ pub fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
 }
 
 #[get("/api/getUserRewards")]
-pub fn get_user_rewards() -> Json<Option<()>> {
+pub(crate) fn get_user_rewards() -> Json<Option<()>> {
     Json(None)
 }
 
 #[get("/api/getUserNotifications")]
-pub fn get_user_notifications() -> Json<Option<()>> {
+pub(crate) fn get_user_notifications() -> Json<Option<()>> {
     Json(None)
 }
 
 #[post("/api/clearUserNotifications")]
-pub fn clear_user_notifications() -> Json<Option<()>> {
+pub(crate) fn clear_user_notifications() -> Json<Option<()>> {
     Json(None)
 }
 
 #[post("/api/buyUpdateFavoriteTeam")]
-pub fn buy_flute(cookies: &CookieJar<'_>) -> Json<Value> {
+pub(crate) fn buy_flute(cookies: &CookieJar<'_>) -> Json<Value> {
     cookies.add(crate::new_cookie("favorite_team", "_before_change_team"));
     Json(json!({"message": "Reload this page to choose a new team."}))
 }
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct FavoriteTeamUpdate {
+pub(crate) struct FavoriteTeamUpdate {
     #[serde(alias = "newTeamId")]
-    pub team_id: String,
+    pub(crate) team_id: String,
 }
 
 #[post("/api/updateFavoriteTeam", data = "<new_favorite>")]
-pub fn update_favourite_team(
+pub(crate) fn update_favourite_team(
     cookies: &CookieJar<'_>,
     new_favorite: Json<FavoriteTeamUpdate>,
 ) -> Json<Value> {
@@ -113,7 +113,7 @@ pub fn update_favourite_team(
     Json(json!({ "message": "You now remember the Before of a new team." }))
 }
 
-pub fn mocked_error_routes() -> Vec<Route> {
+pub(crate) fn mocked_error_routes() -> Vec<Route> {
     static ERROR_MESSAGES: &[&str] = &[
         "If you were meant to have that, you already would",
         "Monitor's on vacation, sorry",
@@ -123,7 +123,7 @@ pub fn mocked_error_routes() -> Vec<Route> {
     macro_rules! mock {
         ($uri:expr) => {{
             #[post($uri)]
-            pub fn mock_error() -> BadRequest<Json<Value>> {
+            pub(crate) fn mock_error() -> BadRequest<Json<Value>> {
                 let message = choose(ERROR_MESSAGES);
                 BadRequest(Some(Json(json!({
                     "error": message,
@@ -148,12 +148,12 @@ pub fn mocked_error_routes() -> Vec<Route> {
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Settings {
-    pub light_mode: bool,
+pub(crate) struct Settings {
+    pub(crate) light_mode: bool,
 }
 
 #[post("/api/updateSettings", data = "<settings>")]
-pub fn update_settings(cookies: &CookieJar<'_>, settings: Json<Settings>) -> Json<Value> {
+pub(crate) fn update_settings(cookies: &CookieJar<'_>, settings: Json<Settings>) -> Json<Value> {
     cookies.add(crate::new_cookie(
         "light_mode",
         settings.light_mode.to_string(),

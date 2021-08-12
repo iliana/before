@@ -15,45 +15,47 @@ mod time;
 use chrono::{Duration, DurationRound, Utc};
 use rand::seq::SliceRandom;
 use rand::thread_rng;
+use rocket::fairing::AdHoc;
 use rocket::figment::Figment;
 use rocket::fs::{relative, FileServer};
 use rocket::http::{Cookie, CookieJar, SameSite};
 use rocket::response::Redirect;
 use rocket::tokio::{self, time::Instant};
-use rocket::{catchers, get, routes, uri, Build, Rocket};
+use rocket::{catchers, get, routes, uri, Build, Orbit, Rocket};
 use serde::Deserialize;
 use std::borrow::Cow;
 use std::path::Path;
 use std::time::Duration as StdDuration;
 
-lazy_static::lazy_static! {
-    static ref FIGMENT: Figment = rocket::Config::figment();
-    static ref CONFIG: Config = FIGMENT.extract().unwrap();
-
-    static ref CLIENT: reqwest::Client = build_client().unwrap();
-}
-
-fn build_client() -> reqwest::Result<reqwest::Client> {
-    let mut builder = reqwest::Client::builder();
-    builder = builder.user_agent("Before/1.0 (https://github.com/iliana/before; iliana@sibr.dev)");
-
-    #[cfg(feature = "gzip")]
-    {
-        builder = builder.gzip(CONFIG.http_client_gzip);
-    }
-
-    builder.build()
-}
-
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 #[serde(default)]
-struct Config {
+pub(crate) struct Config {
     siesta_mode: bool,
     chronplete: bool,
     http_client_gzip: bool,
     chronicler_base_url: String,
     upnuts_base_url: String,
     static_dir: Cow<'static, Path>,
+
+    #[serde(skip)]
+    client: reqwest::Client,
+}
+
+impl Config {
+    fn finalize(&mut self) -> anyhow::Result<()> {
+        let mut builder = reqwest::Client::builder();
+        builder =
+            builder.user_agent("Before/1.0 (https://github.com/iliana/before; iliana@sibr.dev)");
+
+        #[cfg(feature = "gzip")]
+        {
+            builder = builder.gzip(self.http_client_gzip);
+        }
+
+        self.client = builder.build()?;
+
+        Ok(())
+    }
 }
 
 impl Default for Config {
@@ -61,10 +63,11 @@ impl Default for Config {
         Config {
             siesta_mode: false,
             chronplete: false,
-            http_client_gzip: true,
+            http_client_gzip: cfg!(feature = "gzip"),
             chronicler_base_url: "https://api.sibr.dev/chronicler/".to_string(),
             upnuts_base_url: "https://api.sibr.dev/upnuts/".to_string(),
             static_dir: Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static"))).into(),
+            client: reqwest::Client::default(),
         }
     }
 }
@@ -96,55 +99,77 @@ fn reset(cookies: &CookieJar<'_>) -> Redirect {
     Redirect::to(uri!(crate::site::index))
 }
 
-/// Builds a [`Rocket`] in the [`Build`] state for later launching.
-///
-/// This function must be called from the context of a Tokio runtime.
-pub fn build() -> anyhow::Result<Rocket<Build>> {
-    let rocket = rocket::custom(&*FIGMENT);
+async fn background_tasks(rocket: &Rocket<Orbit>) {
+    let config = rocket.state::<Config>().unwrap().clone();
 
-    log::warn!("config: {:?}", *CONFIG);
+    tokio::spawn(async move {
+        let update_cache = async {
+            if let Err(err) = site::update_cache(&config, Utc::now()).await {
+                log::error!("{:?}", err);
+            }
+        };
 
-    tokio::spawn(async {
-        if let Err(err) = site::update_cache(Utc::now()).await {
-            log::error!("{:?}", err);
-        }
-    });
-    tokio::spawn(async {
-        if let Err(err) = crate::time::DAY_MAP.write().await.update().await {
-            log::error!("{:?}", err);
-        }
-    });
-    tokio::spawn(async {
-        let mut interval = tokio::time::interval(StdDuration::from_secs(15 * 60));
-        loop {
-            interval.tick().await;
-            crate::events::remove_expired_sessions().await;
-        }
-    });
+        let update_day_map = async {
+            if let Err(err) = crate::time::DAY_MAP.write().await.update(&config).await {
+                log::error!("{:?}", err);
+            }
 
-    // Check for new games to add to the day map at 5 past the hour
-    if !CONFIG.siesta_mode {
-        let now = Utc::now();
-        let offset =
-            (now.duration_trunc(Duration::hours(1))? + Duration::minutes(65) - now).to_std()?;
-        tokio::spawn(async move {
-            let mut interval =
-                tokio::time::interval_at(Instant::now() + offset, StdDuration::from_secs(3600));
-            loop {
-                interval.tick().await;
-                if let Err(err) = crate::time::DAY_MAP.write().await.update().await {
-                    log::error!("{:?}", err);
+            // Check for new games to add to the day map at 5 past the hour
+            if !config.siesta_mode {
+                let now = Utc::now();
+                if let Ok(nowish) = now.duration_trunc(Duration::hours(1)) {
+                    if let Ok(offset) = (nowish + Duration::minutes(65) - now).to_std() {
+                        let mut interval = tokio::time::interval_at(
+                            Instant::now() + offset,
+                            StdDuration::from_secs(3600),
+                        );
+                        loop {
+                            interval.tick().await;
+                            if let Err(err) =
+                                crate::time::DAY_MAP.write().await.update(&config).await
+                            {
+                                log::error!("{:?}", err);
+                            }
+                        }
+                    }
                 }
             }
-        });
-    }
+        };
+
+        let remove_expired_sessions_timer = async {
+            let mut interval = tokio::time::interval(StdDuration::from_secs(15 * 60));
+            loop {
+                interval.tick().await;
+                crate::events::remove_expired_sessions().await;
+            }
+        };
+
+        tokio::join! {
+            update_cache,
+            update_day_map,
+            remove_expired_sessions_timer,
+        };
+    });
+}
+
+/// Builds a [`Rocket`] in the [`Build`] state for later launching.
+pub fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
+    let rocket = rocket::custom(figment);
+
+    let mut config: Config = figment.extract()?;
+    config.finalize()?;
+    log::warn!("config: {:?}", config);
 
     Ok(rocket
         .mount(
             "/static/media",
-            FileServer::from(CONFIG.static_dir.join("media")).rank(0),
+            FileServer::from(config.static_dir.join("media")).rank(0),
         )
-        .mount("/_before", FileServer::from(&CONFIG.static_dir))
+        .mount("/_before", FileServer::from(&config.static_dir))
+        .manage(config)
+        .attach(AdHoc::on_liftoff("Before background tasks", |r| {
+            Box::pin(background_tasks(r))
+        }))
         .mount("/", api::mocked_error_routes())
         .mount("/", database::entity_routes())
         .mount("/", events::extra_season_4_routes())

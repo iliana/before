@@ -10,7 +10,7 @@ use crate::chronicler::{
 use crate::database::{fetch, fix_id};
 use crate::postseason::{postseason, Postseason};
 use crate::time::{Offset, OffsetTime};
-use crate::Result;
+use crate::{Config, Result};
 use chrono::{DateTime, Duration, Utc};
 use either::{Either, Left, Right};
 use itertools::Itertools;
@@ -19,7 +19,7 @@ use rocket::futures::{future::try_join_all, FutureExt, Stream as StreamTrait, St
 use rocket::response::stream::{stream, Event, EventStream};
 use rocket::tokio::sync::Mutex;
 use rocket::tokio::{select, time::sleep, try_join};
-use rocket::{get, post, routes, Route, Shutdown};
+use rocket::{get, post, routes, Route, Shutdown, State};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, value::RawValue, Value};
 use std::borrow::Borrow;
@@ -35,6 +35,7 @@ lazy_static::lazy_static! {
 }
 
 async fn build_stream(
+    config: &Config,
     time: OffsetTime,
     offset: Offset,
     mut shutdown: Shutdown,
@@ -64,13 +65,13 @@ async fn build_stream(
             .before(time.0)
             .count(25)
             .order(Order::Desc)
-            .json(),
+            .json(config),
         RequestBuilder::new("v2/versions")
             .ty("Stream")
             .after(time.0)
             .count(25)
             .order(Order::Asc)
-            .json(),
+            .json(config),
     )?;
     let mut events = past.items;
     events.extend(future.items);
@@ -149,9 +150,9 @@ async fn build_stream(
         .partition(|event| event.valid_from <= time.0);
     let first = ValueWrapper {
         value: First {
-            games: first_games(&mut past, time.0).await?,
-            leagues: first_leagues(&mut past, time.0).await?,
-            temporal: first_temporal(&mut past, time.0).await?,
+            games: first_games(config, &mut past, time.0).await?,
+            leagues: first_leagues(config, &mut past, time.0).await?,
+            temporal: first_temporal(config, &mut past, time.0).await?,
             fights: first_fights(&mut past),
         },
     };
@@ -178,12 +179,13 @@ async fn next_event(version: Version<Stream>, offset: Offset, shutdown: &mut Shu
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
 #[get("/events/streamData")]
-pub async fn stream_data(
+pub(crate) async fn stream_data(
+    config: &State<Config>,
     time: OffsetTime,
     offset: Offset,
     shutdown: Shutdown,
 ) -> Result<EventStream![]> {
-    let mut stream = Box::pin(build_stream(time, offset, shutdown.clone()).await?);
+    let mut stream = Box::pin(build_stream(config, time, offset, shutdown.clone()).await?);
     Ok(EventStream! {
         while let Some(item) = stream.next().await {
             yield Event::json(&item);
@@ -208,7 +210,7 @@ enum MetaStream {
 // For part of Season 4, the frontend used separate endpoints for the different components of the
 // data stream. It also relied on the presence of a `lastUpdateTime` field which we just set to the
 // equivalent of `Date.now()`.
-pub fn extra_season_4_routes() -> Vec<Route> {
+pub(crate) fn extra_season_4_routes() -> Vec<Route> {
     fn add_last_update_time<T: Serialize>(data: T) -> Value {
         let mut value = serde_json::to_value(data).unwrap();
         if let Some(object) = value.as_object_mut() {
@@ -223,12 +225,14 @@ pub fn extra_season_4_routes() -> Vec<Route> {
     macro_rules! implnt {
         ($x:ident, $uri:expr) => {{
             #[get($uri)]
-            pub async fn stream_individual(
+            pub(crate) async fn stream_individual(
+                config: &State<Config>,
                 time: OffsetTime,
                 offset: Offset,
                 shutdown: Shutdown,
             ) -> Result<EventStream![]> {
-                let mut stream = Box::pin(build_stream(time, offset, shutdown.clone()).await?);
+                let mut stream =
+                    Box::pin(build_stream(config, time, offset, shutdown.clone()).await?);
                 Ok(EventStream! {
                     while let Some(item) = stream.next().await {
                         match item {
@@ -280,7 +284,7 @@ lazy_static::lazy_static! {
     static ref SESSIONS: Mutex<TimedCache<u64, Ozymandias>> = Mutex::new(TimedCache::new());
 }
 
-pub async fn remove_expired_sessions() {
+pub(crate) async fn remove_expired_sessions() {
     SESSIONS
         .lock()
         .await
@@ -313,7 +317,8 @@ impl MetaStream {
 }
 
 #[get("/socket.io?<sid>")]
-pub async fn socket_io(
+pub(crate) async fn socket_io(
+    config: &State<Config>,
     sid: Option<u64>,
     time: OffsetTime,
     offset: Offset,
@@ -326,7 +331,6 @@ pub async fn socket_io(
 
         if let Some((mut to_send, mut stream)) = value {
             let message = if let Some(send_me) = to_send.pop_front() {
-                log::warn!("{} branch 0", sid);
                 send_me
             } else {
                 match select! {
@@ -334,7 +338,6 @@ pub async fn socket_io(
                     _ = sleep(StdDuration::from_secs(15)) => None,
                 } {
                     Some(Some(v)) => {
-                        log::warn!("{} branch 1", sid);
                         to_send.extend(v.into_eio()?);
                         match to_send.pop_front() {
                             Some(v) => v,
@@ -342,14 +345,10 @@ pub async fn socket_io(
                         }
                     }
                     Some(None) => {
-                        log::warn!("{} branch 2", sid);
-                        stream = Box::pin(build_stream(time, offset, shutdown).await?);
+                        stream = Box::pin(build_stream(config, time, offset, shutdown).await?);
                         eio_payload(&())?
                     }
-                    None => {
-                        log::warn!("{} branch 3", sid);
-                        eio_payload(&())?
-                    }
+                    None => eio_payload(&())?,
                 }
             };
 
@@ -363,7 +362,7 @@ pub async fn socket_io(
         new_sid,
         (
             VecDeque::new(),
-            Box::pin(build_stream(time, offset, shutdown).await?),
+            Box::pin(build_stream(config, time, offset, shutdown).await?),
         ),
     );
     let payload = format!(
@@ -383,7 +382,7 @@ pub async fn socket_io(
 }
 
 #[post("/socket.io?<sid>", data = "<data>")]
-pub async fn socket_io_post(sid: Option<u64>, data: &[u8]) -> &'static str {
+pub(crate) async fn socket_io_post(sid: Option<u64>, data: &[u8]) -> &'static str {
     if data == b"1:1" {
         if let Some(sid) = sid {
             SESSIONS.lock().await.remove(&sid);
@@ -465,7 +464,11 @@ struct GamesInner {
     tournament: Option<Box<RawValue>>,
 }
 
-async fn first_games(past: &mut [Version<Stream>], time: DateTime<Utc>) -> anyhow::Result<Games> {
+async fn first_games(
+    config: &Config,
+    past: &mut [Version<Stream>],
+    time: DateTime<Utc>,
+) -> anyhow::Result<Games> {
     #[derive(Deserialize)]
     #[serde(rename_all = "camelCase")]
     struct Sim {
@@ -493,11 +496,16 @@ async fn first_games(past: &mut [Version<Stream>], time: DateTime<Utc>) -> anyho
         playoffs: String,
     }
 
-    async fn fetch_game_ids(season: i64, tournament: i64, day: i64) -> anyhow::Result<Vec<String>> {
+    async fn fetch_game_ids(
+        config: &Config,
+        season: i64,
+        tournament: i64,
+        day: i64,
+    ) -> anyhow::Result<Vec<String>> {
         Ok(RequestBuilder::new("v1/games")
             .season(if tournament == -1 { season } else { -1 })
             .day(day)
-            .json::<Data<ChroniclerGame>>()
+            .json::<Data<ChroniclerGame>>(config)
             .await?
             .data
             .into_iter()
@@ -520,7 +528,7 @@ async fn first_games(past: &mut [Version<Stream>], time: DateTime<Utc>) -> anyho
             Some(v) => Left(v),
             None => {
                 let mut games = GamesInner {
-                    sim: fetch("Sim", None, time).await?.next(),
+                    sim: fetch(config, "Sim", None, time).await?.next(),
                     ..Default::default()
                 };
                 let mut tournament_playoffs = None;
@@ -528,14 +536,14 @@ async fn first_games(past: &mut [Version<Stream>], time: DateTime<Utc>) -> anyho
                 if let Some(ref sim) = games.sim {
                     let sim: Sim = serde_json::from_str(sim.get())?;
 
-                    if !crate::CONFIG.chronplete {
+                    if !config.chronplete {
                         let (today_ids, tomorrow_ids) = try_join!(
-                            fetch_game_ids(sim.season, sim.tournament, sim.day),
-                            fetch_game_ids(sim.season, sim.tournament, sim.day + 1),
+                            fetch_game_ids(config, sim.season, sim.tournament, sim.day),
+                            fetch_game_ids(config, sim.season, sim.tournament, sim.day + 1),
                         )?;
                         let (today, tomorrow): (Vec<_>, Vec<_>) =
                             try_join_all(today_ids.iter().chain(&tomorrow_ids).map(|id| {
-                                fetch_game(id.clone(), time)
+                                fetch_game(config, id.clone(), time)
                                     .map(move |game| game.map(|game| (id, game)))
                             }))
                             .await?
@@ -549,35 +557,40 @@ async fn first_games(past: &mut [Version<Stream>], time: DateTime<Utc>) -> anyho
 
                     if sim.tournament != -1 {
                         games.tournament =
-                            fetch("Tournament", None, time).await?.find(|tournament| {
-                                if let Ok(tournament) =
-                                    serde_json::from_str::<Tournament>(tournament.get())
-                                {
-                                    if tournament.index == sim.tournament {
-                                        tournament_playoffs = Some(tournament.playoffs);
-                                        true
+                            fetch(config, "Tournament", None, time)
+                                .await?
+                                .find(|tournament| {
+                                    if let Ok(tournament) =
+                                        serde_json::from_str::<Tournament>(tournament.get())
+                                    {
+                                        if tournament.index == sim.tournament {
+                                            tournament_playoffs = Some(tournament.playoffs);
+                                            true
+                                        } else {
+                                            false
+                                        }
                                     } else {
                                         false
                                     }
-                                } else {
-                                    false
-                                }
-                            })
+                                })
                     }
 
                     if let Some(playoffs) = tournament_playoffs {
                         games.postseason =
-                            postseason(playoffs, sim.season, sim.tournament_round, time).await?;
+                            postseason(config, playoffs, sim.season, sim.tournament_round, time)
+                                .await?;
                     } else {
                         match sim.playoffs {
                             Left(id) => {
                                 games.postseason =
-                                    postseason(id, sim.season, sim.play_off_round, time).await?;
+                                    postseason(config, id, sim.season, sim.play_off_round, time)
+                                        .await?;
                             }
                             Right(ref ids) => {
                                 games.postseasons = Some(
                                     try_join_all(ids.iter().map(|id| {
                                         postseason(
+                                            config,
                                             id.to_string(),
                                             sim.season,
                                             sim.play_off_round,
@@ -593,13 +606,15 @@ async fn first_games(past: &mut [Version<Stream>], time: DateTime<Utc>) -> anyho
                         }
                     }
 
-                    games.season = fetch("Season", Some(sim.season_id), time).await?.next();
+                    games.season = fetch(config, "Season", Some(sim.season_id), time)
+                        .await?
+                        .next();
                 }
 
                 if let Some(ref season) = games.season {
                     let season: Season = serde_json::from_str(season.get())?;
 
-                    games.standings = fetch("Standings", Some(season.standings), time)
+                    games.standings = fetch(config, "Standings", Some(season.standings), time)
                         .await?
                         .next();
                 }
@@ -638,6 +653,7 @@ struct LeaguesStats {
 }
 
 async fn first_leagues(
+    config: &Config,
     past: &mut [Version<Stream>],
     time: DateTime<Utc>,
 ) -> anyhow::Result<Leagues> {
@@ -664,14 +680,29 @@ async fn first_leagues(
                     mut community_chest,
                     mut sunsun,
                 ) = try_join!(
-                    fetch("League", None, std::cmp::max(time, *LEAGUES_START)),
-                    fetch("Stadium", None, time),
-                    fetch("Subleague", None, std::cmp::max(time, *LEAGUES_START)),
-                    fetch("Division", None, std::cmp::max(time, *LEAGUES_START)),
-                    fetch("Team", None, time),
-                    fetch("Tiebreakers", None, std::cmp::max(time, *TIEBREAKERS_START)),
-                    fetch("CommunityChestProgress", None, time),
-                    fetch("SunSun", None, time),
+                    fetch(config, "League", None, std::cmp::max(time, *LEAGUES_START)),
+                    fetch(config, "Stadium", None, time),
+                    fetch(
+                        config,
+                        "Subleague",
+                        None,
+                        std::cmp::max(time, *LEAGUES_START)
+                    ),
+                    fetch(
+                        config,
+                        "Division",
+                        None,
+                        std::cmp::max(time, *LEAGUES_START)
+                    ),
+                    fetch(config, "Team", None, time),
+                    fetch(
+                        config,
+                        "Tiebreakers",
+                        None,
+                        std::cmp::max(time, *TIEBREAKERS_START)
+                    ),
+                    fetch(config, "CommunityChestProgress", None, time),
+                    fetch(config, "SunSun", None, time),
                 )?;
                 Right(LeaguesInner {
                     leagues: leagues
@@ -699,6 +730,7 @@ async fn first_leagues(
 }
 
 async fn first_temporal(
+    config: &Config,
     past: &mut [Version<Stream>],
     time: DateTime<Utc>,
 ) -> anyhow::Result<Box<RawValue>> {
@@ -719,7 +751,7 @@ async fn first_temporal(
         } else if let Some(version) = RequestBuilder::new("v2/entities")
             .ty("Temporal")
             .at(time)
-            .json::<Versions<Box<RawValue>>>()
+            .json::<Versions<Box<RawValue>>>(config)
             .await?
             .items
             .into_iter()

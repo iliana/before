@@ -5,7 +5,7 @@ use rocket::response::{Redirect as Redir, Responder, Result};
 use rocket::uri;
 
 #[derive(Debug)]
-pub struct Redirect(pub Option<String>);
+pub(crate) struct Redirect(pub(crate) Option<String>);
 
 impl<'r> Responder<'r, 'static> for Redirect {
     fn respond_to(self, req: &'r Request<'_>) -> Result<'static> {

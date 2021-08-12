@@ -1,6 +1,6 @@
 use crate::chronicler::{ChroniclerGame, Data, RequestBuilder};
 use crate::redirect::Redirect;
-use crate::Result;
+use crate::{Config, Result};
 use anyhow::anyhow;
 use chrono::{DateTime, Duration, DurationRound, Utc};
 use itertools::Itertools;
@@ -15,20 +15,20 @@ use std::collections::BTreeMap;
 use std::str::FromStr;
 
 lazy_static::lazy_static! {
-    pub static ref DAY_MAP: RwLock<DayMap> = RwLock::new(DayMap::default());
+    pub(crate) static ref DAY_MAP: RwLock<DayMap> = RwLock::new(DayMap::default());
 
     static ref DAY_MAP_START: DateTime<Utc> = "2020-08-01T13:00:00Z".parse().unwrap();
 }
 
 #[derive(Debug, Default, Deserialize, Serialize)]
-pub struct DayMap {
+pub(crate) struct DayMap {
     until: Option<DateTime<Utc>>,
     season: BTreeMap<(i64, i64), DateTime<Utc>>,
     tournament: BTreeMap<(i64, i64), DateTime<Utc>>,
 }
 
 impl DayMap {
-    pub async fn update(&mut self) -> anyhow::Result<()> {
+    pub(crate) async fn update(&mut self, config: &Config) -> anyhow::Result<()> {
         log::warn!("updating v1/games start_time cache");
         let after = self
             .until
@@ -37,7 +37,7 @@ impl DayMap {
         let times = RequestBuilder::new("v1/games")
             .after(after)
             .started(true)
-            .json::<Data<ChroniclerGame>>()
+            .json::<Data<ChroniclerGame>>(config)
             .await?
             .data
             .into_iter()
@@ -69,7 +69,7 @@ impl DayMap {
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
 #[get("/_before/jump?<redirect>&<start>&<team>&<jump_time..>")]
-pub async fn jump(
+pub(crate) async fn jump(
     cookies: &CookieJar<'_>,
     redirect: Option<String>,
     start: Option<&str>,
@@ -92,7 +92,7 @@ pub async fn jump(
 }
 
 #[derive(Debug, Clone, Copy, FromForm)]
-pub struct JumpTime<'a> {
+pub(crate) struct JumpTime<'a> {
     time: Option<&'a str>,
     season: Option<i64>,
     tournament: Option<i64>,
@@ -130,7 +130,7 @@ impl<'a> JumpTime<'a> {
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
 #[get("/_before/relative?<redirect>&<duration..>")]
-pub fn relative(
+pub(crate) fn relative(
     cookies: &CookieJar<'_>,
     offset: Offset,
     redirect: Option<String>,
@@ -141,7 +141,7 @@ pub fn relative(
 }
 
 #[derive(Debug, Clone, Copy, FromForm)]
-pub struct FormDuration {
+pub(crate) struct FormDuration {
     seconds: Option<i64>,
     minutes: Option<i64>,
     hours: Option<i64>,
@@ -176,7 +176,7 @@ fn set_offset(cookies: &CookieJar<'_>, duration: Duration) {
 }
 
 #[derive(Debug, Clone, Copy)]
-pub struct Offset(pub Duration);
+pub(crate) struct Offset(pub(crate) Duration);
 
 #[async_trait]
 impl<'r> FromRequest<'r> for Offset {
@@ -192,7 +192,7 @@ impl<'r> FromRequest<'r> for Offset {
 }
 
 #[derive(Debug, Clone, Copy)]
-pub struct OffsetTime(pub DateTime<Utc>);
+pub(crate) struct OffsetTime(pub(crate) DateTime<Utc>);
 
 #[async_trait]
 impl<'r> FromRequest<'r> for OffsetTime {

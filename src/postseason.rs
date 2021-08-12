@@ -1,5 +1,6 @@
 use crate::chronicler::{RequestBuilder, Versions};
 use crate::database::fetch;
+use crate::Config;
 use anyhow::{anyhow, Result};
 use chrono::{DateTime, Utc};
 use itertools::Itertools;
@@ -10,7 +11,7 @@ use std::convert::TryFrom;
 
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Postseason {
+pub(crate) struct Postseason {
     playoffs: Box<RawValue>,
     all_rounds: Vec<Box<RawValue>>,
     all_matchups: Vec<Box<RawValue>>,
@@ -33,13 +34,14 @@ struct Round {
     matchups: Vec<String>,
 }
 
-pub async fn postseason(
+pub(crate) async fn postseason(
+    config: &Config,
     id: String,
     season: i64,
     round: i64,
     time: DateTime<Utc>,
 ) -> Result<Option<Postseason>> {
-    let playoffs_raw = match fetch("Playoffs", Some(id), time).await?.next() {
+    let playoffs_raw = match fetch(config, "Playoffs", Some(id), time).await?.next() {
         Some(x) => x,
         None => return Ok(None),
     };
@@ -48,7 +50,7 @@ pub async fn postseason(
         return Ok(None);
     }
 
-    let rounds_raw = fetch_map("PlayoffRound", playoffs.rounds.join(","), time).await?;
+    let rounds_raw = fetch_map(config, "PlayoffRound", playoffs.rounds.join(","), time).await?;
     let rounds_raw_vec = playoffs
         .rounds
         .iter()
@@ -68,6 +70,7 @@ pub async fn postseason(
         .collect::<serde_json::Result<Vec<_>>>()?;
 
     let matchups_raw = fetch_map(
+        config,
         "PlayoffMatchup",
         rounds.iter().flat_map(|round| &round.matchups).join(","),
         time,
@@ -122,6 +125,7 @@ fn matchups_for_round(
 }
 
 async fn fetch_map(
+    config: &Config,
     ty: &'static str,
     ids: String,
     time: DateTime<Utc>,
@@ -130,7 +134,7 @@ async fn fetch_map(
         .ty(ty)
         .at(time)
         .id(ids)
-        .json::<Versions<Box<RawValue>>>()
+        .json::<Versions<Box<RawValue>>>(config)
         .await?
         .items
         .into_iter()

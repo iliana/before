@@ -1,7 +1,7 @@
 use crate::chronicler::{Data, Order, RequestBuilder, SiteUpdate};
 use crate::proxy::Proxy;
 use crate::time::OffsetTime;
-use crate::Result;
+use crate::{Config, Result};
 use anyhow::anyhow;
 use askama::Template;
 use chrono::{DateTime, Duration, DurationRound, Utc};
@@ -11,7 +11,7 @@ use rocket::http::{uri::Origin, Status};
 use rocket::request::FromRequest;
 use rocket::response::{content::Html, status::Custom, status::NotFound, Redirect};
 use rocket::tokio::{join, sync::RwLock};
-use rocket::{catch, get, uri, Request};
+use rocket::{catch, get, uri, Request, State};
 use serde::Deserialize;
 use std::collections::{BTreeMap, HashMap};
 
@@ -44,7 +44,7 @@ struct Cache {
     assets: HashMap<String, SiteUpdate>,
 }
 
-pub async fn update_cache(at: DateTime<Utc>) -> anyhow::Result<()> {
+pub(crate) async fn update_cache(config: &Config, at: DateTime<Utc>) -> anyhow::Result<()> {
     let mut request = RequestBuilder::new("v1/site/updates").order(Order::Asc);
     if let Some(until) = CACHE.read().await.until {
         if at <= until {
@@ -54,7 +54,7 @@ pub async fn update_cache(at: DateTime<Utc>) -> anyhow::Result<()> {
     }
     log::warn!("updating v1/site/updates cache");
 
-    let (response, mut cache) = join!(request.json::<Data<SiteUpdate>>(), CACHE.write());
+    let (response, mut cache) = join!(request.json::<Data<SiteUpdate>>(config), CACHE.write());
     for mut update in response?.data {
         // round down timestamps to the most recent minute so that we get consistent update sets
         update.timestamp = update.timestamp.duration_round(Duration::minutes(1))?;
@@ -81,22 +81,26 @@ pub async fn update_cache(at: DateTime<Utc>) -> anyhow::Result<()> {
 }
 
 impl SiteUpdate {
-    async fn fetch(&self) -> anyhow::Result<Response> {
+    async fn fetch(&self, config: &Config) -> anyhow::Result<Response> {
         Ok(RequestBuilder::new(format!("v1{}", self.download_url))
-            .send()
+            .send(config)
             .await?
             .error_for_status()?)
     }
 }
 
 #[get("/static/<_..>", rank = 1)]
-pub async fn site_static(origin: &Origin<'_>, time: OffsetTime) -> crate::Result<Option<Proxy>> {
-    update_cache(time.0).await?;
+pub(crate) async fn site_static(
+    origin: &Origin<'_>,
+    time: OffsetTime,
+    config: &State<Config>,
+) -> crate::Result<Option<Proxy>> {
+    update_cache(config, time.0).await?;
     let cache = CACHE.read().await;
 
     Ok(match cache.assets.get(origin.path().as_str()) {
         Some(update) => Some(Proxy {
-            response: update.fetch().await?,
+            response: update.fetch(config).await?,
             etag: Some(update.hash.clone()),
         }),
         None => None,
@@ -135,13 +139,16 @@ fn fetch_cache(
 }
 
 #[get("/")]
-pub async fn index(time: Option<OffsetTime>) -> Result<IndexResponse> {
+pub(crate) async fn index(
+    time: Option<OffsetTime>,
+    config: &State<Config>,
+) -> Result<IndexResponse> {
     let time = match time {
         Some(time) => time,
         None => return Ok(Either::Right(Redirect::to(uri!(crate::start::start)))),
     };
 
-    update_cache(time.0).await?;
+    update_cache(config, time.0).await?;
     let cache = CACHE.read().await;
 
     macro_rules! opt {
@@ -176,7 +183,9 @@ pub async fn index(time: Option<OffsetTime>) -> Result<IndexResponse> {
 // Blaseball returns the index page for any unknown route, so that the React frontend can display
 // the correct thing when the page loads.
 #[catch(404)]
-pub async fn index_default(req: &Request<'_>) -> Result<Either<IndexResponse, NotFound<()>>> {
+pub(crate) async fn index_default(
+    req: &Request<'_>,
+) -> Result<Either<IndexResponse, NotFound<()>>> {
     let path = req.uri().path();
     if [
         "/api",
@@ -193,5 +202,6 @@ pub async fn index_default(req: &Request<'_>) -> Result<Either<IndexResponse, No
     }
 
     let time: Option<OffsetTime> = FromRequest::from_request(req).await.unwrap();
-    Ok(Either::Left(index(time).await?))
+    let config: &State<Config> = FromRequest::from_request(req).await.unwrap();
+    Ok(Either::Left(index(time, config).await?))
 }

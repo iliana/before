@@ -135,7 +135,7 @@ async fn load_start() -> anyhow::Result<&'static StartData> {
 }
 
 #[get("/_before/start", rank = 1)]
-pub async fn start() -> Result<Html<String>> {
+pub(crate) async fn start() -> Result<Html<String>> {
     Ok(Html(
         load_start().await?.render().map_err(anyhow::Error::from)?,
     ))
