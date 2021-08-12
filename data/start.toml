@@ -1,14 +1,79 @@
+### SEASON 2 ### THE DISCIPLINE ERA ###
+
 [[eras]]
 title = "The Discipline Era"
 color = "#ff0000"
+days = "Season 2, July 27–August 2, 2020"
 
-#### SEASON 3 ### PEANUT PLAGUE ###
-#
-#[[eras.seasons]]
-#number = 3
-#title = "Peanut Plague"
-#color = "#c4aa70"
-#days = "August 3–9, 2020"
+[[eras.events]]
+title = "Postseason"
+season = 2
+day = 100
+
+[[eras.events]]
+title = "The Internet Series"
+season = 2
+day = 108
+
+[[eras.events]]
+title = "Election Results"
+time = "2020-08-02T19:15:00Z"
+redirect = "/offseason"
+
+### SEASON 3 ### PEANUT PLAGUE ###
+
+[[eras.seasons]]
+number = 3
+title = "Peanut Plague"
+color = "#c4aa70"
+days = "August 3–9, 2020"
+
+[[eras.seasons.events]]
+title = "Opening Day"
+day = 1
+
+[[eras.seasons.events]]
+title = "BLASPHEMY"
+being = "peanut"
+time = "2020-08-03T22:11:19Z"
+
+[[eras.seasons.events]]
+title = "The Grand Unslam"
+time = "2020-08-06T20:52:54Z"
+team = "878c1bf6-0d21-4659-bfee-916c8314d69c"
+
+[[eras.seasons.events]]
+title = "DID YOU TASTE THE INFINITE?"
+being = "peanut"
+time = "2020-08-06T21:47:14Z"
+
+[[eras.seasons.events]]
+title = "WHERE IS YOUR RESTRAINT?"
+being = "peanut"
+time = "2020-08-06T22:21:46Z"
+
+[[eras.seasons.events]]
+title = "Postseason"
+day = 100
+
+[[eras.seasons.events]]
+title = "YOU WILL LEARN DISCIPLINE"
+being = "peanut"
+time = "2020-08-08T21:33:36Z"
+
+[[eras.seasons.events]]
+title = "The Internet Series"
+day = 109
+
+[[eras.seasons.events]]
+title = "Landry Violence incinerated"
+time = "2020-08-09T00:16:56Z"
+team = "747b8e4a-7e50-4638-a973-ea7950a3e739"
+
+[[eras.seasons.events]]
+title = "Election Results"
+time = "2020-08-09T19:15:00Z"
+redirect = "/offseason"
 
 ### SEASON 4 ### FEEDBACK ###
 

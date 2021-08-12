@@ -39,6 +39,20 @@ pub async fn fetch(
         .map(|version| version.data))
 }
 
+pub fn fix_id(v: Box<RawValue>, time: DateTime<Utc>) -> anyhow::Result<Box<RawValue>> {
+    lazy_static::lazy_static! {
+        static ref ID_EPOCH: DateTime<Utc> = "2020-08-23T23:23:00Z".parse().unwrap();
+    }
+
+    Ok(if time < *ID_EPOCH && v.get().contains(r#""id":"#) {
+        RawValue::from_string(v.get().replace(r#""id":"#, r#""_id":"#))?
+    } else if time >= *ID_EPOCH && v.get().contains(r#""_id":"#) {
+        RawValue::from_string(v.get().replace(r#""_id":"#, r#""id":"#))?
+    } else {
+        v
+    })
+}
+
 pub fn entity_routes() -> Vec<Route> {
     macro_rules! route {
         ($uri:expr, $ty:expr) => {{

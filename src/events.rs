@@ -7,7 +7,7 @@
 use crate::chronicler::{
     fetch_game, ChroniclerGame, Data, Order, RequestBuilder, Stream, StreamValue, Version, Versions,
 };
-use crate::database::fetch;
+use crate::database::{fetch, fix_id};
 use crate::postseason::{postseason, Postseason};
 use crate::time::{Offset, OffsetTime};
 use crate::Result;
@@ -382,8 +382,13 @@ pub async fn socket_io(
     ))
 }
 
-#[post("/socket.io")]
-pub fn socket_io_post() -> &'static str {
+#[post("/socket.io?<sid>", data = "<data>")]
+pub async fn socket_io_post(sid: Option<u64>, data: &[u8]) -> &'static str {
+    if data == b"1:1" {
+        if let Some(sid) = sid {
+            SESSIONS.lock().await.remove(&sid);
+        }
+    }
     "ok"
 }
 
@@ -669,11 +674,19 @@ async fn first_leagues(
                     fetch("SunSun", None, time),
                 )?;
                 Right(LeaguesInner {
-                    leagues: leagues.collect(),
+                    leagues: leagues
+                        .map(|v| fix_id(v, time))
+                        .collect::<anyhow::Result<_>>()?,
                     stadiums: stadiums.collect(),
-                    subleagues: subleagues.collect(),
-                    divisions: divisions.collect(),
-                    teams: teams.collect(),
+                    subleagues: subleagues
+                        .map(|v| fix_id(v, time))
+                        .collect::<anyhow::Result<_>>()?,
+                    divisions: divisions
+                        .map(|v| fix_id(v, time))
+                        .collect::<anyhow::Result<_>>()?,
+                    teams: teams
+                        .map(|v| fix_id(v, time))
+                        .collect::<anyhow::Result<_>>()?,
                     tiebreakers: tiebreakers.collect(),
                     stats: LeaguesStats {
                         community_chest: community_chest.next(),
@@ -731,13 +744,15 @@ async fn first_temporal(
             inject
         } else {
             serde_json::from_value(json!({
-                "id": "whatistime",
-                "alpha": thread_rng().gen_range(-2..5),
-                "beta": 1,
-                "gamma": 500000000,
-                "delta": true,
-                "epsilon": false,
-                "zeta": ""
+                "doc": {
+                    "id": "whatistime",
+                    "alpha": thread_rng().gen_range(1..15),
+                    "beta": 1,
+                    "gamma": 500000000,
+                    "delta": true,
+                    "epsilon": false,
+                    "zeta": "",
+                }
             }))?
         },
     )
