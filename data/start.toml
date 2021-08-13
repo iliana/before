@@ -269,10 +269,10 @@ time = "2020-09-18T21:23:57Z"
 title = "Postseason"
 day = 100
 
-[[eras.seasons.events]]
-title = "Mexico City Wild Wings renamed ahead of Solar Eclipse game"
-time = "2020-09-19T19:53:00Z"
-team = "57ec08cc-0411-4643-b304-0e80dbc15ac7"
+#[[eras.seasons.events]]
+#title = "Mexico City Wild Wings renamed ahead of Solar Eclipse game"
+#time = "2020-09-19T19:53:00Z"
+#team = "57ec08cc-0411-4643-b304-0e80dbc15ac7"
 
 [[eras.seasons.events]]
 title = "The Internet Series"
