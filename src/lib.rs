@@ -5,6 +5,7 @@ mod api;
 mod chronicler;
 mod database;
 mod events;
+mod media;
 mod postseason;
 mod proxy;
 mod redirect;
@@ -12,20 +13,23 @@ mod site;
 mod start;
 mod time;
 
+use crate::media::ArcVec;
 use chrono::{Duration, DurationRound, Utc};
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use rocket::fairing::AdHoc;
 use rocket::figment::Figment;
-use rocket::fs::{relative, FileServer};
+use rocket::fs::relative;
 use rocket::http::{Cookie, CookieJar, SameSite};
 use rocket::response::Redirect;
-use rocket::tokio::{self, time::Instant};
+use rocket::tokio::{self, fs, time::Instant};
 use rocket::{catchers, get, routes, uri, Build, Orbit, Rocket};
 use serde::Deserialize;
 use std::borrow::Cow;
-use std::path::Path;
+use std::io::Cursor;
+use std::path::{Path, PathBuf};
 use std::time::Duration as StdDuration;
+use zip::read::ZipArchive;
 
 #[derive(Debug, Clone, Deserialize)]
 #[serde(default)]
@@ -36,25 +40,26 @@ pub(crate) struct Config {
     chronicler_base_url: String,
     upnuts_base_url: String,
     static_dir: Cow<'static, Path>,
+    static_zip_path: Option<PathBuf>,
 
     #[serde(flatten)]
     rocket_config: rocket::Config,
 
     #[serde(skip)]
     client: reqwest::Client,
+    #[serde(skip)]
+    static_zip: Option<ZipArchive<Cursor<ArcVec>>>,
 }
 
 impl Config {
-    fn finalize(&mut self) -> anyhow::Result<()> {
+    async fn finalize(&mut self) -> anyhow::Result<()> {
         let mut builder = reqwest::Client::builder();
         builder =
             builder.user_agent("Before/1.0 (https://github.com/iliana/before; iliana@sibr.dev)");
-
         #[cfg(feature = "gzip")]
         {
             builder = builder.gzip(self.http_client_gzip);
         }
-
         self.client = builder.build()?;
 
         let addr = format!(
@@ -70,6 +75,12 @@ impl Config {
         self.chronicler_base_url = self.chronicler_base_url.replace("{addr}", &addr);
         self.upnuts_base_url = self.upnuts_base_url.replace("{addr}", &addr);
 
+        if let Some(filename) = &self.static_zip_path {
+            self.static_zip = Some(ZipArchive::new(Cursor::new(ArcVec::from(
+                fs::read(filename).await?,
+            )))?);
+        }
+
         Ok(())
     }
 }
@@ -83,8 +94,10 @@ impl Default for Config {
             chronicler_base_url: "https://api.sibr.dev/chronicler/".to_string(),
             upnuts_base_url: "https://api.sibr.dev/upnuts/".to_string(),
             static_dir: Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static"))).into(),
+            static_zip_path: None,
             rocket_config: rocket::Config::default(),
             client: reqwest::Client::default(),
+            static_zip: None,
         }
     }
 }
@@ -170,18 +183,13 @@ async fn background_tasks(rocket: &Rocket<Orbit>) {
 }
 
 /// Builds a [`Rocket`] in the [`Build`] state for later launching.
-pub fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
+pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
     let rocket = rocket::custom(figment);
 
     let mut config: Config = figment.extract()?;
-    config.finalize()?;
+    config.finalize().await?;
 
     Ok(rocket
-        .mount(
-            "/static/media",
-            FileServer::from(config.static_dir.join("media")).rank(0),
-        )
-        .mount("/_before", FileServer::from(&config.static_dir))
         .manage(config)
         .attach(AdHoc::on_liftoff("Before background tasks", |r| {
             Box::pin(background_tasks(r))
@@ -214,6 +222,8 @@ pub fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 events::socket_io,
                 events::socket_io_post,
                 events::stream_data,
+                media::static_media,
+                media::static_root,
                 site::index,
                 site::site_static,
                 start::credits,
