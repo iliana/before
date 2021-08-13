@@ -175,7 +175,6 @@ pub fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
 
     let mut config: Config = figment.extract()?;
     config.finalize()?;
-    log::warn!("config: {:?}", config);
 
     Ok(rocket
         .mount(
