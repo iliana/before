@@ -11,6 +11,7 @@ gzip = ["reqwest/gzip"]
 tls = ["reqwest/default-tls"]
 
 [dependencies]
+anyhow = "1"
 askama = "0.10"
 derive_builder = "0.10"
 erased-serde = "0.3"
@@ -20,10 +21,6 @@ log = "0.4"
 rand = "0.8"
 serde_urlencoded = "0.7"
 toml = "0.5"
-
-[dependencies.anyhow]
-version = "1"
-features = ["backtrace"]
 
 [dependencies.chrono]
 version = "0.4"
