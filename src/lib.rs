@@ -33,14 +33,14 @@ use zip::read::ZipArchive;
 
 #[derive(Debug, Clone, Deserialize)]
 #[serde(default)]
-pub(crate) struct Config {
-    siesta_mode: bool,
-    chronplete: bool,
-    http_client_gzip: bool,
-    chronicler_base_url: String,
-    upnuts_base_url: String,
-    static_dir: Cow<'static, Path>,
-    static_zip_path: Option<PathBuf>,
+pub struct Config {
+    pub siesta_mode: bool,
+    pub chronplete: bool,
+    pub http_client_gzip: bool,
+    pub chronicler_base_url: String,
+    pub upnuts_base_url: String,
+    pub static_dir: Cow<'static, Path>,
+    pub static_zip_path: Option<PathBuf>,
 
     #[serde(flatten)]
     rocket_config: rocket::Config,
