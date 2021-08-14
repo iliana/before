@@ -159,6 +159,7 @@ dependencies = [
  "derive_builder",
  "either",
  "erased-serde",
+ "http-range",
  "itertools",
  "lazy_static",
  "log",
@@ -656,6 +657,12 @@ dependencies = [
  "http",
  "pin-project-lite",
 ]
+
+[[package]]
+name = "http-range"
+version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "eee9694f83d9b7c09682fdb32213682939507884e5bcf227be9aff5d644b90dc"
 
 [[package]]
 name = "httparse"
