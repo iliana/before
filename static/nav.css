@@ -62,6 +62,7 @@ body.theme-light #_before {
 
 ._before_svg svg {
     height: 1.25em;
+    width: 1.25em;
     color: white;
     fill: white;
 }
