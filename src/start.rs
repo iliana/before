@@ -1,7 +1,7 @@
-use crate::Result;
+use crate::{Config, Result};
 use askama::Template;
-use rocket::get;
 use rocket::response::content::Html;
+use rocket::{get, State};
 use serde::Deserialize;
 use std::collections::BTreeMap;
 use toml::Value;
@@ -143,11 +143,19 @@ pub(crate) async fn start() -> Result<Html<String>> {
 
 #[derive(Template)]
 #[template(path = "credits.html")]
-struct Credits;
+struct Credits<'a> {
+    extra_credits: &'a [String],
+}
 
 #[get("/_before/credits", rank = 1)]
-pub async fn credits() -> Result<Html<String>> {
-    Ok(Html(Credits.render().map_err(anyhow::Error::from)?))
+pub async fn credits(config: &State<Config>) -> Result<Html<String>> {
+    Ok(Html(
+        Credits {
+            extra_credits: &config.extra_credits,
+        }
+        .render()
+        .map_err(anyhow::Error::from)?,
+    ))
 }
 
 #[derive(Template)]

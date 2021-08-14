@@ -46,6 +46,9 @@
         <h2>Special Thanks</h2>
         <ul>
             <li>jan Sopi</li>
+            {% for credit in extra_credits %}
+            <li>{{ credit }}</li>
+            {% endfor %}
             <li>The Game Band</li>
             <li>Blaseball Wiki admins, historians, and contributors</li>
             <li>The SIBR Community</li>
