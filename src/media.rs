@@ -22,15 +22,13 @@ async fn fetch_static(config: &State<Config>, path: PathBuf) -> anyhow::Result<S
         {
             let mut v = Vec::with_capacity(usize::try_from(file.size())?);
             file.read_to_end(&mut v)?;
-            Ok(Some((ct, Left(v))))
-        } else {
-            Ok(None)
+            return Ok(Some((ct, Left(v))));
         }
-    } else if let Ok(file) = NamedFile::open(config.static_dir.join(path)).await {
-        Ok(Some((ct, Right(file))))
-    } else {
-        Ok(None)
     }
+    Ok(NamedFile::open(config.static_dir.join(path))
+        .await
+        .ok()
+        .map(|file| (ct, Right(file))))
 }
 
 #[get("/static/media/<path..>", rank = 0)]
