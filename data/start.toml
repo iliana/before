@@ -9,11 +9,13 @@ days = "Season 2, July 27–August 2, 2020"
 title = "Postseason"
 season = 2
 day = 100
+redirect = "/"
 
 [[eras.events]]
 title = "The Internet Series"
 season = 2
 day = 108
+redirect = "/"
 
 [[eras.events]]
 title = "Election Results"

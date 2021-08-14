@@ -219,6 +219,7 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 database::player_names_ids,
                 database::players,
                 database::renovations,
+                database::get_previous_champ,
                 events::socket_io,
                 events::socket_io_post,
                 events::stream_data,

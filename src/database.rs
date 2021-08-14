@@ -1,6 +1,7 @@
 use crate::chronicler::{OffseasonRecap, Order, PlayerNameId, RequestBuilder, Versions};
 use crate::time::OffsetTime;
 use crate::{Config, Result};
+use anyhow::anyhow;
 use chrono::{DateTime, Duration, Utc};
 use either::{Either, Left, Right};
 use itertools::Itertools;
@@ -8,7 +9,7 @@ use reqwest::Url;
 use rocket::futures::{future::try_join_all, TryStreamExt};
 use rocket::serde::json::Json;
 use rocket::{get, routes, Route, State};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use serde_json::value::RawValue;
 use std::borrow::Cow;
 use std::collections::{BTreeMap, HashMap};
@@ -477,4 +478,95 @@ pub(crate) fn renovations(ids: String) -> Json<Vec<&'static RawValue>> {
             .copied()
             .collect(),
     )
+}
+
+#[derive(Serialize)]
+#[serde(transparent)]
+pub(crate) struct PreviousChamp {
+    #[serde(with = "either::serde_untagged")]
+    value: Either<OverUnder, Option<Box<RawValue>>>,
+}
+
+#[derive(Serialize)]
+pub(crate) struct OverUnder {
+    over: Box<RawValue>,
+    under: Box<RawValue>,
+}
+
+#[get("/database/getPreviousChamp")]
+pub(crate) async fn get_previous_champ(
+    config: &State<Config>,
+    time: OffsetTime,
+) -> Result<Json<PreviousChamp>> {
+    #[derive(Deserialize)]
+    struct Sim {
+        season: i64,
+        phase: i64,
+    }
+
+    #[derive(Deserialize)]
+    struct Playoffs {
+        season: i64,
+        winner: String,
+        bracket: Option<i64>,
+    }
+
+    lazy_static::lazy_static! {
+        static ref UNDERCHAMP: DateTime<Utc> = "2021-07-19T14:50:00.000Z".parse().unwrap();
+    }
+
+    let sim = serde_json::from_str::<Sim>(
+        fetch(config, "Sim", None, time.0)
+            .await?
+            .next()
+            .ok_or_else(|| anyhow!("sim doesn't exist yet"))?
+            .get(),
+    )
+    .map_err(anyhow::Error::from)?;
+    let season = sim.season - if sim.phase == 0 { 0 } else { 1 };
+
+    let mut playoffs = fetch(config, "Playoffs", None, time.0)
+        .await?
+        .filter_map(
+            |value| match serde_json::from_str::<Playoffs>(value.get()) {
+                Ok(playoff) => {
+                    if playoff.season == season {
+                        Some(Ok(playoff))
+                    } else {
+                        None
+                    }
+                }
+                Err(err) => Some(Err(err.into())),
+            },
+        )
+        .collect::<anyhow::Result<Vec<_>>>()?;
+    playoffs.sort_by_key(|p| p.bracket);
+
+    Ok(Json(PreviousChamp {
+        value: if time.0 < *UNDERCHAMP {
+            match playoffs.into_iter().find(|p| {
+                if season == 21 {
+                    // ¡dale!
+                    p.bracket == Some(1)
+                } else {
+                    p.bracket != Some(1)
+                }
+            }) {
+                Some(p) => Right(fetch(config, "Team", Some(p.winner), time.0).await?.next()),
+                None => Right(None),
+            }
+        } else {
+            let mut iter = fetch(
+                config,
+                "Team",
+                Some(playoffs.iter().map(|p| &p.winner).join(",")),
+                time.0,
+            )
+            .await?;
+            Left(OverUnder {
+                over: iter.next().ok_or_else(|| anyhow!("missing over"))?,
+                under: iter.next().ok_or_else(|| anyhow!("missing under"))?,
+            })
+        },
+    }))
 }
