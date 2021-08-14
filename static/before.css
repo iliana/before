@@ -267,3 +267,7 @@ body.theme-light .bigdeal-5 {
     padding: 1.5em calc(50% - 384px) 0;
     font-size: 1.2em;
 }
+
+._before_info_page a {
+    text-decoration: underline;
+}
