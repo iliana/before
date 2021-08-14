@@ -227,6 +227,7 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 site::index,
                 site::site_static,
                 start::credits,
+                start::info,
                 start::start,
                 time::jump,
                 time::relative,

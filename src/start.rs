@@ -149,3 +149,12 @@ struct Credits;
 pub async fn credits() -> Result<Html<String>> {
     Ok(Html(Credits.render().map_err(anyhow::Error::from)?))
 }
+
+#[derive(Template)]
+#[template(path = "info.html")]
+struct Info;
+
+#[get("/_before/info", rank = 1)]
+pub async fn info() -> Result<Html<String>> {
+    Ok(Html(Info.render().map_err(anyhow::Error::from)?))
+}

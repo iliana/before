@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/static/media/favicon-32x32.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="&#x1FA78; Do you remember before? &#x1FA78;" />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>Before</title>
+    <link href="/_before/nav.css" rel="stylesheet">
+    <link href="/_before/before.css" rel="stylesheet">
+</head>
+
+<body class="_before_hide_controls _before_info_page">
+    {% include "nav.html" %}
+
+    <div class="Main">
+        <h1>More info</h1>
+        <p>
+            <strong>Before</strong> is a tool for replaying archived Blaseball data developed by the
+            Society for Internet Blaseball Research. It works by setting a browser cookie with a
+            time offset. It serves your browser a (mostly) unmodified copy of the Blaseball frontend
+            application from that time, then serves that application archived data by emulating the
+            application backend.
+        </p>
+        <p>
+            There are many imperfections to this system: there are data gaps in SIBR’s archives; and
+            data for certain objects is sometimes not granular enough. This is most notably seen
+            when a player is affected by a game event; clicking on the player will not show the
+            change until usually about a minute later. (Incinerations and Feedback swaps prior to
+            Season 5 are also impacted by this.)
+        </p>
+        <p>
+            Using Before for research and videos is welcomed; please cite before.sibr.dev, and don’t
+            take our archives as the only word of truth, especially in early seasons.
+        </p>
+        <p>
+            If you run into an issue with Before, you can <a href="https://discord.sibr.dev">join
+            the SIBR Discord server</a> and ask in either #help-desk or #before.
+            <a href="https://github.com/iliana/before">Before’s source code is available on
+            GitHub</a>.
+        </p>
+
+        <h2>Various tips</h2>
+        <ul>
+            <li>
+                You can flute to your favorite team to pin their games to the top of the Watch Live
+                tab. The most reliable way to do this is to jump to an Earlseason (Days 1–27) in the
+                Expansion Era, then click on a team and click “Favorite Team”.
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

@@ -262,3 +262,8 @@ body.theme-light .bigdeal-5 {
     list-style: none;
     margin-top: .5em;
 }
+
+._before_info_page .Main {
+    padding: 1.5em calc(50% - 384px) 0;
+    font-size: 1.2em;
+}
