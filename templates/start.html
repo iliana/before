@@ -59,7 +59,7 @@
                 <span class="days">Season {{ season.number }}, {{ season.days }}</span>
                 <ul class="events">
                     {% for event in season.events %}
-                    <li><a class="{{ event.class() }}" href="{{ event.season_jump(season) }}">{{ event.title }}</a></li>
+                    <li><a href="{{ event.season_jump(season) }}"><span class="{{ event.class() }}">{{ event.title }}</span>{% match event.butalso %}{% when Some with (butalso) %} — {{ butalso }}{% when None %}{% endmatch %}</a></li>
                     {% endfor %}
                 </ul>
             </div>

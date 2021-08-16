@@ -133,7 +133,7 @@ section.intro ul li:last-child:after, ul.events li:last-child:after {
     padding: 0;
 }
 
-section.intro ul a:hover, ul.events a:hover {
+section.intro ul a:hover, ul.events a:hover, ul.events a:hover span {
     text-decoration: underline;
 }
 

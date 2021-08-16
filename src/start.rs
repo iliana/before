@@ -61,6 +61,7 @@ struct ExtraTitle {
 #[derive(Deserialize)]
 struct Event {
     title: String,
+    butalso: Option<String>,
     being: Option<Being>,
     #[serde(flatten)]
     jump_args: BTreeMap<String, Value>,
