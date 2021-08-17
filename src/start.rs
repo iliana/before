@@ -38,10 +38,7 @@ struct Season {
 impl Season {
     fn jump(&self) -> String {
         let mut args = BTreeMap::new();
-        args.insert(
-            "redirect",
-            if self.number <= 11 { "/" } else { "/league" }.to_string(),
-        );
+        args.insert("redirect", "/".to_string());
         args.insert("season", self.number.to_string());
         args.insert("day", 1.to_string());
         format!(
