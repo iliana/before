@@ -9,7 +9,10 @@
     <meta name="description" content="&#x1FA78; Do you remember before? &#x1FA78;" />
     <link href="/_before/fonts.css" rel="stylesheet">
     <title>Before</title>
-    <link href="{{ css }}" rel="stylesheet">
+    <link href="{{ assets.css }}" rel="stylesheet">
+    {% if eyes_fix %}
+    <style>.Main { background-image: none; }</style>
+    {% endif %}
     <link href="/_before/nav.css" rel="stylesheet">
 </head>
 
@@ -43,9 +46,9 @@
                 }
 
                 const offset = parseInt(document.cookie
-                .split('; ')
-                .find(row => row.startsWith('offset_sec'))
-                .split('=')[1]);
+                    .split('; ')
+                    .find(row => row.startsWith('offset_sec'))
+                    .split('=')[1]);
 
                 var date = instantiate(CurrentDate,arguments);
                 date = instantiate(CurrentDate,[date.getTime() - offset * 1000]);
@@ -141,8 +144,8 @@
             r()
         }([])
     </script>
-    <script src="{{ js_2 }}"></script>
-    <script src="{{ js_main }}"></script>
+    <script src="{{ assets.js_2 }}"></script>
+    <script src="{{ assets.js_main }}"></script>
 </body>
 
 </html>

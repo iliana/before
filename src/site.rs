@@ -107,8 +107,7 @@ pub(crate) async fn site_static(
     })
 }
 
-#[derive(Deserialize, Clone, Copy, Template)]
-#[template(path = "game.html")]
+#[derive(Deserialize, Clone, Copy)]
 struct AssetSet<'a> {
     css: &'a str,
     js_main: &'a str,
@@ -138,6 +137,13 @@ fn fetch_cache(
         .map(|(_, update)| update)
 }
 
+#[derive(Template)]
+#[template(path = "game.html")]
+struct GameTemplate<'a> {
+    assets: AssetSet<'a>,
+    eyes_fix: bool,
+}
+
 #[get("/")]
 pub(crate) async fn index(
     time: Option<OffsetTime>,
@@ -157,7 +163,7 @@ pub(crate) async fn index(
         };
     }
 
-    let template = if time.0 >= *CHRONICLER_JS_EPOCH {
+    let assets = if time.0 >= *CHRONICLER_JS_EPOCH {
         AssetSet {
             css: &opt!(fetch_cache(
                 &cache.css,
@@ -172,6 +178,12 @@ pub(crate) async fn index(
         *template
     } else {
         return Ok(Either::Right(Redirect::to(uri!(crate::start::start))));
+    };
+
+    let template = GameTemplate {
+        assets,
+        // between "2020-10-19T17:40:00Z" and "2020-10-25T06:50:00Z"
+        eyes_fix: (1603129200000..1603608600000).contains(&time.0.timestamp_millis()),
     };
 
     Ok(Either::Left(Custom(
