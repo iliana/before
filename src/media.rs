@@ -47,10 +47,12 @@ async fn fetch_static(
         .unwrap_or(ContentType::Binary);
 
     if let Some(mut zip) = config.static_zip.as_ref().cloned() {
-        if let Some(mut file) = Path::new("static")
-            .join(&path)
-            .to_str()
-            .and_then(|f| zip.by_name(f).ok())
+        if let Some(mut file) = path
+            .iter()
+            .map(|segment| segment.to_str())
+            .collect::<Option<Vec<_>>>()
+            .map(|segments| segments.join("/"))
+            .and_then(|f| zip.by_name(&f).ok())
         {
             let mut v = Vec::with_capacity(usize::try_from(file.size())?);
             file.read_to_end(&mut v)?;
