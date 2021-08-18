@@ -745,7 +745,8 @@ title = "Earlsiesta"
 time = "2021-03-16T17:50:00Z"
 
 [[eras.seasons.events]]
-title = "Latesiesta (The Second Wyatt Masoning)"
+title = "Latesiesta"
+butalso = "The Second Wyatt Masoning"
 time = "2021-03-18T15:45:00Z"
 
 [[eras.seasons.events]]
