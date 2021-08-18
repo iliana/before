@@ -51,7 +51,7 @@ async fn fetch_static(
             .iter()
             .map(|segment| segment.to_str())
             .collect::<Option<Vec<_>>>()
-            .map(|segments| segments.join("/"))
+            .map(|segments| format!("static/{}", segments.join("/")))
             .and_then(|f| zip.by_name(&f).ok())
         {
             let mut v = Vec::with_capacity(usize::try_from(file.size())?);
