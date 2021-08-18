@@ -102,6 +102,7 @@ pub(crate) async fn site_static(
         Some(update) => Some(Proxy {
             response: update.fetch(config).await?,
             etag: Some(update.hash.clone()),
+            site_cache: config.site_cache,
         }),
         None => None,
     })

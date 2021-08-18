@@ -12,20 +12,24 @@ use tokio_util::compat::FuturesAsyncReadCompatExt;
 pub(crate) struct Proxy {
     pub(crate) response: reqwest::Response,
     pub(crate) etag: Option<String>,
+    pub(crate) site_cache: bool,
 }
 
 impl<'r> Responder<'r, 'static> for Proxy {
     fn respond_to(self, request: &'r Request<'_>) -> Result<'static> {
         let mut builder = Response::build();
-        if let Some(etag) = self.etag {
-            let etag = format!("\"{}\"", etag);
-            match request.headers().get_one(IF_NONE_MATCH.as_str()) {
-                Some(request_etag) if etag == request_etag => {
-                    return builder.status(Status::NotModified).ok();
-                }
-                _ => {
-                    builder.header(Header::new(CACHE_CONTROL.as_str(), "public, max-age=86400"));
-                    builder.header(Header::new(ETAG.as_str(), etag));
+        if self.site_cache {
+            if let Some(etag) = self.etag {
+                let etag = format!("\"{}\"", etag);
+                match request.headers().get_one(IF_NONE_MATCH.as_str()) {
+                    Some(request_etag) if etag == request_etag => {
+                        return builder.status(Status::NotModified).ok();
+                    }
+                    _ => {
+                        builder
+                            .header(Header::new(CACHE_CONTROL.as_str(), "public, max-age=86400"));
+                        builder.header(Header::new(ETAG.as_str(), etag));
+                    }
                 }
             }
         }

@@ -41,6 +41,7 @@ pub struct Config {
     pub upnuts_base_url: String,
     pub static_dir: Cow<'static, Path>,
     pub static_zip_path: Option<PathBuf>,
+    pub site_cache: bool,
     pub extra_credits: Vec<String>,
 
     #[serde(flatten)]
@@ -96,6 +97,7 @@ impl Default for Config {
             upnuts_base_url: "https://api.sibr.dev/upnuts/".to_string(),
             static_dir: Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static"))).into(),
             static_zip_path: None,
+            site_cache: true,
             extra_credits: Vec::new(),
             rocket_config: rocket::Config::default(),
             client: reqwest::Client::default(),
