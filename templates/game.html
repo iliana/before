@@ -19,6 +19,11 @@
 <body>
     {% include "nav.html" %}
     <script>
+        const _before_time = parseInt(document.cookie
+            .split('; ')
+            .find(row => row.startsWith('offset_sec'))
+            .split('=')[1]);
+
         const CurrentDate = Date;
 
         // cursed glue
@@ -45,16 +50,32 @@
                     return instantiate(CurrentDate,arguments);
                 }
 
-                const offset = parseInt(document.cookie
-                    .split('; ')
-                    .find(row => row.startsWith('offset_sec'))
-                    .split('=')[1]);
-
                 var date = instantiate(CurrentDate,arguments);
-                date = instantiate(CurrentDate,[date.getTime() - offset * 1000]);
+                date = instantiate(CurrentDate,[date.getTime() - _before_time * 1000]);
                 return date;
             }
         }(Date);
+
+        const _before_old_fetch = fetch.bind(window);
+        fetch = async function(url, options) {
+            if (options === undefined) {
+                options = {
+                    headers: {
+                        "X-Before-Time": _before_time
+                    }
+                };
+            } else {
+                if (options['headers'] != undefined) {
+                    options['headers']['X-Before-Time'] = _before_time;
+                } else {
+                    options['headers'] = {
+                        "X-Before-Time": _before_time
+                    };
+                }
+            }
+
+            return _before_old_fetch(url, options);
+        };
 
         function _before_set_time() {
             document.getElementById("_before_current").innerText = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'long' });
