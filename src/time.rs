@@ -183,7 +183,14 @@ impl<'r> FromRequest<'r> for Offset {
     type Error = anyhow::Error;
 
     async fn from_request(req: &'r Request<'_>) -> Outcome<Offset, anyhow::Error> {
-        if let Some(offset) = get_offset(req.cookies()) {
+        if let Some(offset) = req
+            .headers()
+            .get_one("X-Before-Time")
+            .and_then(|c| c.parse().ok())
+            .map(Duration::seconds)
+        {
+            Outcome::Success(Offset(offset))
+        } else if let Some(offset) = get_offset(req.cookies()) {
             Outcome::Success(Offset(offset))
         } else {
             Outcome::Failure((Status::BadRequest, anyhow!("offset not present")))
@@ -199,7 +206,14 @@ impl<'r> FromRequest<'r> for OffsetTime {
     type Error = anyhow::Error;
 
     async fn from_request(req: &'r Request<'_>) -> Outcome<OffsetTime, anyhow::Error> {
-        if let Some(offset) = get_offset(req.cookies()) {
+        if let Some(offset) = req
+            .headers()
+            .get_one("X-Before-Time")
+            .and_then(|c| c.parse().ok())
+            .map(Duration::seconds)
+        {
+            Outcome::Success(OffsetTime(Utc::now() - offset))
+        } else if let Some(offset) = get_offset(req.cookies()) {
             Outcome::Success(OffsetTime(Utc::now() - offset))
         } else {
             Outcome::Failure((Status::BadRequest, anyhow!("offset not present")))
