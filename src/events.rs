@@ -11,7 +11,7 @@ use crate::database::{fetch, fix_id};
 use crate::postseason::{postseason, Postseason};
 use crate::time::{Offset, OffsetTime};
 use crate::{Config, Result};
-use chrono::{DateTime, Duration, Utc};
+use chrono::{DateTime, Duration, DurationRound, Utc};
 use either::{Either, Left, Right};
 use itertools::Itertools;
 use rand::{thread_rng, Rng};
@@ -20,19 +20,22 @@ use rocket::response::stream::{stream, Event, EventStream};
 use rocket::tokio::sync::Mutex;
 use rocket::tokio::{select, time::sleep, try_join};
 use rocket::{get, post, routes, Route, Shutdown, State};
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize, Serializer};
 use serde_json::{json, value::RawValue, Value};
 use std::borrow::Borrow;
 use std::collections::hash_map::DefaultHasher;
 use std::collections::{BTreeMap, HashMap, HashSet, VecDeque};
 use std::hash::{Hash, Hasher};
 use std::pin::Pin;
+use std::sync::Arc;
 use std::time::{Duration as StdDuration, Instant};
 
 lazy_static::lazy_static! {
     static ref INJECT: BTreeMap<DateTime<Utc>, StreamValue> =
         serde_json::from_str(include_str!("../data/inject.json")).unwrap();
 }
+
+pub(crate) type StreamCacheValue = (First, Vec<Arc<Version<Stream>>>);
 
 async fn build_stream(
     config: &Config,
@@ -50,130 +53,177 @@ async fn build_stream(
         epsilon: bool,
     }
 
-    // A given `Stream` version does not necessarily have all the top-level fields present, but the
-    // frontend needs all fields present in the first event to be fully functional. We fetch the
-    // next and previous 25 events, so that we can construct a "first" event to send immediately.
-    //
-    // There is no need to fetch further than a minute out, because the frontend is hardcoded to
-    // close and reopen the stream every 40 seconds...
-    //
-    // `EventStream` cannot handle errors, so we start by making the two requests we need and
-    // propagating their errors before the stream starts.
-    let (past, future): (Versions<Stream>, Versions<Stream>) = try_join!(
-        RequestBuilder::new("v2/versions")
-            .ty("Stream")
-            .before(time.0)
-            .count(25)
-            .order(Order::Desc)
-            .json(config),
-        RequestBuilder::new("v2/versions")
-            .ty("Stream")
-            .after(time.0)
-            .count(25)
-            .order(Order::Asc)
-            .json(config),
-    )?;
-    let mut events = past.items;
-    events.extend(future.items);
+    let cache_time = time.0.duration_trunc(Duration::seconds(30))?;
+    let cached = if let Some(cache) = &config.stream_cache {
+        cache.lock().await.get(&cache_time).cloned()
+    } else {
+        None
+    };
 
-    // Inject events into the stream if defined in data/inject.json. Note that injected events are
-    // also checked when rebuilding the temporal object if missing
-    if let Some((min, mut max)) = events.iter().map(|v| v.valid_from).minmax().into_option() {
-        max = max + Duration::minutes(1);
-        events.extend(INJECT.range(min..=max).map(|(k, v)| Version {
-            valid_from: *k,
-            entity_id: String::new(),
-            data: Stream { value: v.clone() },
-        }));
-    }
+    let (first_orig, events) = if let Some(x) = cached {
+        log::warn!("using cache! woo");
+        x
+    } else {
+        // A given `Stream` version does not necessarily have all the top-level fields present, but the
+        // frontend needs all fields present in the first event to be fully functional. We fetch the
+        // next and previous 25 events, so that we can construct a "first" event to send immediately.
+        //
+        // There is no need to fetch further than a minute out, because the frontend is hardcoded to
+        // close and reopen the stream every 40 seconds...
+        //
+        // `EventStream` cannot handle errors, so we start by making the two requests we need and
+        // propagating their errors before the stream starts.
+        let (past, future): (Versions<Stream>, Versions<Stream>) = try_join!(
+            RequestBuilder::new("v2/versions")
+                .ty("Stream")
+                .before(cache_time)
+                .count(25)
+                .order(Order::Desc)
+                .json(config),
+            RequestBuilder::new("v2/versions")
+                .ty("Stream")
+                .after(cache_time)
+                .count(25)
+                .order(Order::Asc)
+                .json(config),
+        )?;
+        let mut events = past.items;
+        events.extend(future.items);
 
-    events.sort_by_key(|v| v.valid_from);
+        // Inject events into the stream if defined in data/inject.json. Note that injected events are
+        // also checked when rebuilding the temporal object if missing
+        if let Some((min, mut max)) = events.iter().map(|v| v.valid_from).minmax().into_option() {
+            max = max + Duration::minutes(1);
+            events.extend(INJECT.range(min..=max).map(|(k, v)| Version {
+                valid_from: *k,
+                entity_id: String::new(),
+                data: Stream { value: v.clone() },
+            }));
+        }
 
-    // Multiple data sources perceive events at different times, even with accurate clocks, due to
-    // the nature of blaseball.com's event stream. We can mostly mitigate this effect by deduping
-    // the individual components of the stream.
-    {
-        let mut seen = HashSet::new();
-        for event in &mut events {
-            macro_rules! dedup {
-                ($x:ident) => {{
-                    event.data.value.$x = if let Some(value) = event.data.value.$x.take() {
-                        let epsilon = if stringify!($x) == "temporal" {
-                            serde_json::from_str::<Temporal>(value.get())
-                                .ok()
-                                .map(|t| t.doc.epsilon)
+        events.sort_by_key(|v| v.valid_from);
+
+        // Multiple data sources perceive events at different times, even with accurate clocks, due to
+        // the nature of blaseball.com's event stream. We can mostly mitigate this effect by deduping
+        // the individual components of the stream.
+        {
+            let mut seen = HashSet::new();
+            for event in &mut events {
+                macro_rules! dedup {
+                    ($x:ident) => {{
+                        event.data.value.$x = if let Some(value) = event.data.value.$x.take() {
+                            let epsilon = if stringify!($x) == "temporal" {
+                                serde_json::from_str::<Temporal>(value.get())
+                                    .ok()
+                                    .map(|t| t.doc.epsilon)
+                            } else {
+                                None
+                            };
+
+                            // Sometimes we perceived empty top-level objects (other than fights)?
+                            // This most notably happened after Tillman swapped with Jaylen in Season
+                            // 10 (at 2020-10-16T20:06:42.130679Z). These crash frontend, so yank them
+                            // out of the stream with the worst hack you've ever seen
+                            if stringify!($x) != "fights" && value.get() == "{}" {
+                                None
+                            }
+                            // For "please wait..." messages, we can sometimes end up in a situation
+                            // where we perceive the message being set while epsilon is false, then
+                            // epsilon is set true, then set false again to hide. The last message
+                            // where epsilon is false will be deduped. As a workaround, don't dedupe
+                            // any message where epsilon is false.
+                            else if epsilon == Some(false) {
+                                Some(value)
+                            } else {
+                                let mut hasher = DefaultHasher::new();
+                                value.get().hash(&mut hasher);
+                                let key = (stringify!($x), hasher.finish());
+                                if seen.contains(&key) {
+                                    None
+                                } else {
+                                    seen.insert(key);
+                                    Some(value)
+                                }
+                            }
                         } else {
                             None
                         };
+                    }};
+                }
 
-                        // Sometimes we perceived empty top-level objects (other than fights)?
-                        // This most notably happened after Tillman swapped with Jaylen in Season
-                        // 10 (at 2020-10-16T20:06:42.130679Z). These crash frontend, so yank them
-                        // out of the stream with the worst hack you've ever seen
-                        if stringify!($x) != "fights" && value.get() == "{}" {
-                            None
-                        }
-                        // For "please wait..." messages, we can sometimes end up in a situation
-                        // where we perceive the message being set while epsilon is false, then
-                        // epsilon is set true, then set false again to hide. The last message
-                        // where epsilon is false will be deduped. As a workaround, don't dedupe
-                        // any message where epsilon is false.
-                        else if epsilon == Some(false) {
-                            Some(value)
-                        } else {
-                            let mut hasher = DefaultHasher::new();
-                            value.get().hash(&mut hasher);
-                            let key = (stringify!($x), hasher.finish());
-                            if seen.contains(&key) {
-                                None
-                            } else {
-                                seen.insert(key);
-                                Some(value)
-                            }
-                        }
-                    } else {
-                        None
-                    };
-                }};
+                dedup!(games);
+                dedup!(leagues);
+                dedup!(temporal);
+                dedup!(fights);
             }
-
-            dedup!(games);
-            dedup!(leagues);
-            dedup!(temporal);
-            dedup!(fights);
         }
-    }
 
-    let (mut past, future): (Vec<Version<Stream>>, Vec<Version<Stream>>) = events
+        let (mut past, future): (Vec<Version<Stream>>, Vec<Version<Stream>>) = events
+            .into_iter()
+            .filter(|event| !event.data.is_empty())
+            .partition(|event| event.valid_from <= cache_time);
+        let first = First {
+            games: Arc::new(first_games(config, &mut past, cache_time).await?),
+            leagues: Arc::new(first_leagues(config, &mut past, cache_time).await?),
+            temporal: first_temporal(config, &mut past, cache_time).await?,
+            fights: Arc::new(first_fights(&mut past)),
+        };
+
+        let value = (first, future.into_iter().map(Arc::new).collect());
+        if let Some(cache) = &config.stream_cache {
+            let mut guard = cache.lock().await;
+            if !guard.contains(&cache_time) {
+                guard.put(cache_time, value.clone());
+            }
+            drop(guard)
+        }
+        value
+    };
+
+    let (past, future): (Vec<_>, Vec<_>) = events
         .into_iter()
-        .filter(|event| !event.data.is_empty())
         .partition(|event| event.valid_from <= time.0);
     let first = ValueWrapper {
         value: First {
-            games: first_games(config, &mut past, time.0).await?,
-            leagues: first_leagues(config, &mut past, time.0).await?,
-            temporal: first_temporal(config, &mut past, time.0).await?,
-            fights: first_fights(&mut past),
+            games: past
+                .iter()
+                .rev()
+                .find_map(|v| v.data.value.games.as_ref().cloned())
+                .map(|v| Arc::new(Games { value: Left(v) }))
+                .unwrap_or_else(|| first_orig.games.clone()),
+            leagues: past
+                .iter()
+                .rev()
+                .find_map(|v| v.data.value.leagues.as_ref().cloned())
+                .map(|v| Arc::new(Leagues { value: Left(v) }))
+                .unwrap_or_else(|| first_orig.leagues.clone()),
+            temporal: past
+                .iter()
+                .rev()
+                .find_map(|v| v.data.value.temporal.as_ref().cloned())
+                .unwrap_or_else(|| first_orig.temporal.clone()),
+            fights: past
+                .iter()
+                .rev()
+                .find_map(|v| v.data.value.fights.as_ref().cloned())
+                .map(|v| Arc::new(Fights { value: Left(v) }))
+                .unwrap_or_else(|| first_orig.fights.clone()),
         },
     };
 
     Ok(stream! {
         yield MetaStream::First(first);
         for version in future {
-            yield MetaStream::Firsnt(next_event(version, offset, &mut shutdown).await);
+            let duration = (version.valid_from - (Utc::now() - offset.0))
+                .to_std()
+                .unwrap_or_else(|_| StdDuration::from_nanos(0));
+            select! {
+                _ = sleep(duration) => {},
+                _ = &mut shutdown => {},
+            }
+            yield MetaStream::Firsnt(version);
         }
     })
-}
-
-async fn next_event(version: Version<Stream>, offset: Offset, shutdown: &mut Shutdown) -> Stream {
-    let duration = (version.valid_from - (Utc::now() - offset.0))
-        .to_std()
-        .unwrap_or_else(|_| StdDuration::from_nanos(0));
-    select! {
-        _ = sleep(duration) => {},
-        _ = shutdown => {},
-    }
-    version.data
 }
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
@@ -200,18 +250,28 @@ pub(crate) async fn stream_data(
 }
 
 // i am being punished for my hubris
-#[derive(Serialize)]
-#[serde(untagged)]
 enum MetaStream {
     First(ValueWrapper<First>),
-    Firsnt(Stream),
+    Firsnt(Arc<Version<Stream>>),
+}
+
+impl Serialize for MetaStream {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        match self {
+            MetaStream::First(x) => x.serialize(serializer),
+            MetaStream::Firsnt(x) => x.data.serialize(serializer),
+        }
+    }
 }
 
 // For part of Season 4, the frontend used separate endpoints for the different components of the
 // data stream. It also relied on the presence of a `lastUpdateTime` field which we just set to the
 // equivalent of `Date.now()`.
 pub(crate) fn extra_season_4_routes() -> Vec<Route> {
-    fn add_last_update_time<T: Serialize>(data: T) -> Value {
+    fn add_last_update_time<T: Serialize>(data: &T) -> Value {
         let mut value = serde_json::to_value(data).unwrap();
         if let Some(object) = value.as_object_mut() {
             object.insert(
@@ -237,10 +297,10 @@ pub(crate) fn extra_season_4_routes() -> Vec<Route> {
                     while let Some(item) = stream.next().await {
                         match item {
                             MetaStream::First(v) => yield Event::json(&ValueWrapper {
-                                value: add_last_update_time(v.value.$x),
+                                value: add_last_update_time(&v.value.$x),
                             }),
                             MetaStream::Firsnt(v) => {
-                                if let Some(v) = v.value.$x {
+                                if let Some(v) = &v.data.value.$x {
                                     yield Event::json(&ValueWrapper {
                                         value: add_last_update_time(v),
                                     });
@@ -300,17 +360,17 @@ impl MetaStream {
     fn into_eio(self) -> anyhow::Result<Vec<String>> {
         match self {
             MetaStream::First(v) => Ok(vec![
-                eio_payload(&("gameDataUpdate", v.value.games))?,
-                eio_payload(&("leagueDataUpdate", v.value.leagues))?,
-                eio_payload(&("temporalDataUpdate", v.value.temporal))?,
+                eio_payload(&("gameDataUpdate", &v.value.games))?,
+                eio_payload(&("leagueDataUpdate", &v.value.leagues))?,
+                eio_payload(&("temporalDataUpdate", &v.value.temporal))?,
             ]),
             MetaStream::Firsnt(v) => vec![
-                ("gameDataUpdate", v.value.games),
-                ("leagueDataUpdate", v.value.leagues),
-                ("temporalDataUpdate", v.value.temporal),
+                ("gameDataUpdate", &v.data.value.games),
+                ("leagueDataUpdate", &v.data.value.leagues),
+                ("temporalDataUpdate", &v.data.value.temporal),
             ]
             .into_iter()
-            .filter_map(|(k, v)| v.map(|v| eio_payload(&(k, v))))
+            .filter_map(|(k, v)| v.as_ref().map(|v| eio_payload(&(k, v))))
             .collect(),
         }
     }
@@ -430,12 +490,12 @@ struct ValueWrapper<T> {
     value: T,
 }
 
-#[derive(Debug, Serialize)]
-struct First {
-    games: Games,
-    leagues: Leagues,
+#[derive(Debug, Clone, Serialize)]
+pub(crate) struct First {
+    games: Arc<Games>,
+    leagues: Arc<Leagues>,
     temporal: Box<RawValue>,
-    fights: Fights,
+    fights: Arc<Fights>,
 }
 
 #[derive(Debug, Serialize)]

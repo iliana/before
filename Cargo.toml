@@ -19,6 +19,7 @@ http-range = "0.1"
 itertools = "0.10"
 lazy_static = "1"
 log = "0.4"
+lru = "0.6"
 rand = "0.8"
 serde_urlencoded = "0.7"
 toml = "0.5"
@@ -43,7 +44,7 @@ features = ["json"]
 
 [dependencies.serde]
 version = "1"
-features = ["derive"]
+features = ["derive", "rc"]
 
 [dependencies.serde_json]
 version = "1"

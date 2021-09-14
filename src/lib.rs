@@ -3,6 +3,7 @@
 
 mod api;
 mod chronicler;
+mod config;
 mod database;
 mod events;
 mod media;
@@ -13,98 +14,19 @@ mod site;
 mod start;
 mod time;
 
-use crate::media::ArcVec;
+pub use crate::config::Config;
+
 use chrono::{Duration, DurationRound, Utc};
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use rocket::fairing::AdHoc;
 use rocket::figment::Figment;
-use rocket::fs::relative;
 use rocket::http::{Cookie, CookieJar, SameSite};
 use rocket::response::Redirect;
-use rocket::tokio::{self, fs, time::Instant};
+use rocket::tokio::{self, time::Instant};
 use rocket::{catchers, get, routes, uri, Build, Orbit, Rocket};
-use serde::Deserialize;
 use std::borrow::Cow;
-use std::io::Cursor;
-use std::path::{Path, PathBuf};
 use std::time::Duration as StdDuration;
-use zip::read::ZipArchive;
-
-#[derive(Debug, Clone, Deserialize)]
-#[serde(default)]
-pub struct Config {
-    pub siesta_mode: bool,
-    pub chronplete: bool,
-    pub http_client_gzip: bool,
-    pub chronicler_base_url: String,
-    pub upnuts_base_url: String,
-    pub static_dir: Cow<'static, Path>,
-    pub static_zip_path: Option<PathBuf>,
-    pub site_cache: bool,
-    pub extra_credits: Vec<String>,
-
-    #[serde(flatten)]
-    rocket_config: rocket::Config,
-
-    #[serde(skip)]
-    client: reqwest::Client,
-    #[serde(skip)]
-    static_zip: Option<ZipArchive<Cursor<ArcVec>>>,
-}
-
-impl Config {
-    async fn finalize(&mut self) -> anyhow::Result<()> {
-        let mut builder = reqwest::Client::builder();
-        builder =
-            builder.user_agent("Before/1.0 (https://github.com/iliana/before; iliana@sibr.dev)");
-        #[cfg(feature = "gzip")]
-        {
-            builder = builder.gzip(self.http_client_gzip);
-        }
-        self.client = builder.build()?;
-
-        let addr = format!(
-            "{}://{}:{}",
-            if self.rocket_config.tls_enabled() {
-                "https"
-            } else {
-                "http"
-            },
-            self.rocket_config.address,
-            self.rocket_config.port,
-        );
-        self.chronicler_base_url = self.chronicler_base_url.replace("{addr}", &addr);
-        self.upnuts_base_url = self.upnuts_base_url.replace("{addr}", &addr);
-
-        if let Some(filename) = &self.static_zip_path {
-            self.static_zip = Some(ZipArchive::new(Cursor::new(ArcVec::from(
-                fs::read(filename).await?,
-            )))?);
-        }
-
-        Ok(())
-    }
-}
-
-impl Default for Config {
-    fn default() -> Config {
-        Config {
-            siesta_mode: false,
-            chronplete: false,
-            http_client_gzip: cfg!(feature = "gzip"),
-            chronicler_base_url: "https://api.sibr.dev/chronicler/".to_string(),
-            upnuts_base_url: "https://api.sibr.dev/upnuts/".to_string(),
-            static_dir: Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static"))).into(),
-            static_zip_path: None,
-            site_cache: true,
-            extra_credits: Vec::new(),
-            rocket_config: rocket::Config::default(),
-            client: reqwest::Client::default(),
-            static_zip: None,
-        }
-    }
-}
 
 type Result<T> = std::result::Result<T, rocket::response::Debug<anyhow::Error>>;
 
@@ -134,7 +56,7 @@ fn reset(cookies: &CookieJar<'_>) -> Redirect {
 }
 
 async fn background_tasks(rocket: &Rocket<Orbit>) {
-    let config = rocket.state::<Config>().unwrap().clone();
+    let config = rocket.state::<Config>().unwrap().private_clone();
 
     tokio::spawn(async move {
         let update_cache = async {
