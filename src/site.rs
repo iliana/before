@@ -57,7 +57,7 @@ pub(crate) async fn update_cache(config: &Config, at: DateTime<Utc>) -> anyhow::
     let (response, mut cache) = join!(request.json::<Data<SiteUpdate>>(config), CACHE.write());
     for mut update in response?.data {
         // round down timestamps to the most recent minute so that we get consistent update sets
-        update.timestamp = update.timestamp.duration_round(Duration::minutes(1))?;
+        update.timestamp = update.timestamp.duration_trunc(Duration::minutes(1))?;
         if update.path == "/" {
             cache.index.insert(update.timestamp, update);
         } else {
