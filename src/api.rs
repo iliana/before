@@ -53,8 +53,8 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
         "unlockedShop": true,
         "unlockedElection": true,
         "spread": cookies.get_pending("tarot_spread")
-                    .and_then(|t| t.value().split(",").map(|t| t.parse::<i32>().ok()).collect::<Option<Vec<i32>>>())
-                    .unwrap_or(gen_tarot()),
+                    .and_then(|t| t.value().split(',').map(|t| t.parse::<i32>().ok()).collect::<Option<Vec<i32>>>())
+                    .unwrap_or_else(gen_tarot),
         "snacks": {
             "Forbidden_Knowledge_Access": 1,
             "Stadium_Access": 1,
