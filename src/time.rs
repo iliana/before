@@ -213,6 +213,18 @@ impl<'r> FromRequest<'r> for OffsetTime {
             .map(Duration::seconds)
         {
             Outcome::Success(OffsetTime(Utc::now() - offset))
+        } else if let Some(offset) = req.uri().query().and_then(|q| {
+            q.segments()
+                .find_map(|(k, v)| {
+                    if k == "_before_offset_time" {
+                        v.parse().ok()
+                    } else {
+                        None
+                    }
+                })
+                .map(Duration::seconds)
+        }) {
+            Outcome::Success(OffsetTime(Utc::now() - offset))
         } else if let Some(offset) = get_offset(req.cookies()) {
             Outcome::Success(OffsetTime(Utc::now() - offset))
         } else {

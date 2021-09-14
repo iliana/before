@@ -56,6 +56,24 @@
             }
         }(Date);
 
+        const TrueSource = EventSource;
+    
+        EventSource = function(EventSource) {
+            for (var n of Object.getOwnPropertyNames(EventSource)) {
+                if (n in TrickSource) continue;
+
+                let desc = Object.getOwnPropertyDescriptor(EventSource,n);
+                Object.defineProperty(TrickSource,n,desc);
+            }
+
+            return TrickSource;
+
+            function TrickSource(url, options) {
+                return instantiate(TrueSource, [`${url}?_before_offset_time=${_before_time}`, options]);
+            }
+        }(EventSource);
+
+
         const _before_old_fetch = fetch.bind(window);
         fetch = async function(url, options) {
             if (options === undefined) {
