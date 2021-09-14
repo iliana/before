@@ -143,6 +143,7 @@ fn fetch_cache(
 struct GameTemplate<'a> {
     assets: AssetSet<'a>,
     eyes_fix: bool,
+    matomo: Option<(&'a str, i64)>,
 }
 
 #[get("/")]
@@ -185,6 +186,10 @@ pub(crate) async fn index(
         assets,
         // between "2020-10-19T17:40:00Z" and "2020-10-25T06:50:00Z"
         eyes_fix: (1603129200000..1603608600000).contains(&time.0.timestamp_millis()),
+        matomo: match (config.matomo_base_url.as_ref(), config.matomo_site_id) {
+            (Some(base_url), Some(site_id)) => Some((base_url, site_id)),
+            _ => None,
+        },
     };
 
     Ok(Either::Left(Custom(

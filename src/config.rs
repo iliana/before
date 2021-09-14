@@ -26,6 +26,8 @@ pub struct Config {
     // Controls the size of an LRU cache storing stream data. Expect each entry to be about
     // 5 MB in size.
     pub stream_cache_size: Option<usize>,
+    pub matomo_base_url: Option<String>,
+    pub matomo_site_id: Option<i64>,
 
     #[serde(flatten)]
     rocket_config: rocket::Config,
@@ -88,6 +90,8 @@ impl Config {
             site_cache: self.site_cache,
             extra_credits: self.extra_credits.clone(),
             stream_cache_size: self.stream_cache_size,
+            matomo_base_url: self.matomo_base_url.clone(),
+            matomo_site_id: self.matomo_site_id,
 
             rocket_config: self.rocket_config.clone(),
             client: self.client.clone(),
@@ -110,6 +114,8 @@ impl Default for Config {
             site_cache: true,
             extra_credits: Vec::new(),
             stream_cache_size: None,
+            matomo_base_url: None,
+            matomo_site_id: None,
 
             rocket_config: rocket::Config::default(),
             client: reqwest::Client::default(),
