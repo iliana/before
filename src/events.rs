@@ -165,7 +165,7 @@ async fn build_stream(
         let first = First {
             games: Arc::new(first_games(config, &mut past, cache_time).await?),
             leagues: Arc::new(first_leagues(config, &mut past, cache_time).await?),
-            temporal: first_temporal(config, &mut past, cache_time).await?,
+            temporal: Arc::from(first_temporal(config, &mut past, cache_time).await?),
             fights: Arc::new(first_fights(&mut past)),
         };
 
@@ -201,6 +201,7 @@ async fn build_stream(
                 .iter()
                 .rev()
                 .find_map(|v| v.data.value.temporal.as_ref().cloned())
+                .map(Arc::from)
                 .unwrap_or_else(|| first_orig.temporal.clone()),
             fights: past
                 .iter()
@@ -494,7 +495,7 @@ struct ValueWrapper<T> {
 pub(crate) struct First {
     games: Arc<Games>,
     leagues: Arc<Leagues>,
-    temporal: Box<RawValue>,
+    temporal: Arc<RawValue>,
     fights: Arc<Fights>,
 }
 
