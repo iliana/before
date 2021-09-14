@@ -63,12 +63,13 @@ async fn build_stream(
     let (first_orig, events) = if let Some(x) = cached {
         x
     } else {
-        // A given `Stream` version does not necessarily have all the top-level fields present, but the
-        // frontend needs all fields present in the first event to be fully functional. We fetch the
-        // next and previous 25 events, so that we can construct a "first" event to send immediately.
+        // A given `Stream` version does not necessarily have all the top-level fields present, but
+        // the frontend needs all fields present in the first event to be fully functional. We
+        // fetch the next and previous 25 events, so that we can construct a "first" event to send
+        // immediately.
         //
-        // There is no need to fetch further than a minute out, because the frontend is hardcoded to
-        // close and reopen the stream every 40 seconds...
+        // There is no need to fetch further than a minute out, because the frontend is hardcoded
+        // to close and reopen the stream every 40 seconds...
         //
         // `EventStream` cannot handle errors, so we start by making the two requests we need and
         // propagating their errors before the stream starts.
@@ -89,8 +90,8 @@ async fn build_stream(
         let mut events = past.items;
         events.extend(future.items);
 
-        // Inject events into the stream if defined in data/inject.json. Note that injected events are
-        // also checked when rebuilding the temporal object if missing
+        // Inject events into the stream if defined in data/inject.json. Note that injected events
+        // are also checked when rebuilding the temporal object if missing
         if let Some((min, mut max)) = events.iter().map(|v| v.valid_from).minmax().into_option() {
             max = max + Duration::minutes(1);
             events.extend(INJECT.range(min..=max).map(|(k, v)| Version {
@@ -102,9 +103,9 @@ async fn build_stream(
 
         events.sort_by_key(|v| v.valid_from);
 
-        // Multiple data sources perceive events at different times, even with accurate clocks, due to
-        // the nature of blaseball.com's event stream. We can mostly mitigate this effect by deduping
-        // the individual components of the stream.
+        // Multiple data sources perceive events at different times, even with accurate clocks, due
+        // to the nature of blaseball.com's event stream. We can mostly mitigate this effect by
+        // deduping the individual components of the stream.
         {
             let mut seen = HashSet::new();
             for event in &mut events {
@@ -120,17 +121,17 @@ async fn build_stream(
                             };
 
                             // Sometimes we perceived empty top-level objects (other than fights)?
-                            // This most notably happened after Tillman swapped with Jaylen in Season
-                            // 10 (at 2020-10-16T20:06:42.130679Z). These crash frontend, so yank them
-                            // out of the stream with the worst hack you've ever seen
+                            // This most notably happened after Tillman swapped with Jaylen in
+                            // Season 10 (at 2020-10-16T20:06:42.130679Z). These crash frontend, so
+                            // yank them out of the stream with the worst hack you've ever seen
                             if stringify!($x) != "fights" && value.get() == "{}" {
                                 None
                             }
-                            // For "please wait..." messages, we can sometimes end up in a situation
-                            // where we perceive the message being set while epsilon is false, then
-                            // epsilon is set true, then set false again to hide. The last message
-                            // where epsilon is false will be deduped. As a workaround, don't dedupe
-                            // any message where epsilon is false.
+                            // For "please wait..." messages, we can sometimes end up in a
+                            // situation where we perceive the message being set while epsilon is
+                            // false, then epsilon is set true, then set false again to hide. The
+                            // last message where epsilon is false will be deduped. As a
+                            // workaround, don't dedupe any message where epsilon is false.
                             else if epsilon == Some(false) {
                                 Some(value)
                             } else {
