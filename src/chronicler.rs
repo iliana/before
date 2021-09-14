@@ -202,8 +202,6 @@ pub(crate) fn default_tournament() -> i64 {
     -1
 }
 
-// TODO either get `v2/entities` fixed for the Game type or add a working `before` param to
-// `v1/games/updates`
 pub(crate) async fn fetch_game(
     config: &Config,
     id: String,
@@ -211,7 +209,6 @@ pub(crate) async fn fetch_game(
 ) -> Result<Option<Box<RawValue>>> {
     #[derive(Deserialize)]
     struct Game {
-        timestamp: DateTime<Utc>,
         data: Box<RawValue>,
     }
 
@@ -221,18 +218,13 @@ pub(crate) async fn fetch_game(
         RequestBuilder::new("v1/games/updates")
             .game(id)
             .order(Order::Desc)
-            .count(1000)
+            .before(time)
+            .count(1)
             .json::<Data<Game>>(config)
             .await?
             .data
             .into_iter()
-            .filter_map(|item| {
-                if item.timestamp < time {
-                    Some(item.data)
-                } else {
-                    None
-                }
-            })
             .next()
+            .map(|item| item.data)
     })
 }
