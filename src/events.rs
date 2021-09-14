@@ -250,24 +250,6 @@ pub(crate) async fn stream_data(
     })
 }
 
-// i am being punished for my hubris
-enum MetaStream {
-    First(ValueWrapper<First>),
-    Firsnt(Arc<Version<Stream>>),
-}
-
-impl Serialize for MetaStream {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        match self {
-            MetaStream::First(x) => x.serialize(serializer),
-            MetaStream::Firsnt(x) => x.data.serialize(serializer),
-        }
-    }
-}
-
 // For part of Season 4, the frontend used separate endpoints for the different components of the
 // data stream. It also relied on the presence of a `lastUpdateTime` field which we just set to the
 // equivalent of `Date.now()`.
@@ -486,6 +468,24 @@ impl<K: Eq + Hash, V> TimedCache<K, V> {
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
+// i am being punished for my hubris
+enum MetaStream {
+    First(ValueWrapper<First>),
+    Firsnt(Arc<Version<Stream>>),
+}
+
+impl Serialize for MetaStream {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        match self {
+            MetaStream::First(x) => x.serialize(serializer),
+            MetaStream::Firsnt(x) => x.data.serialize(serializer),
+        }
+    }
+}
+
 #[derive(Debug, Serialize)]
 struct ValueWrapper<T> {
     value: T,
@@ -498,6 +498,8 @@ pub(crate) struct First {
     temporal: Arc<RawValue>,
     fights: Arc<Fights>,
 }
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
 #[derive(Debug, Serialize)]
 #[serde(transparent)]
