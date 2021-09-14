@@ -134,6 +134,8 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 api::get_user_rewards,
                 api::update_favourite_team,
                 api::update_settings,
+                api::deal_cards,
+                api::reorder_cards,
                 database::bonus_results,
                 database::decree_results,
                 database::event_results,
