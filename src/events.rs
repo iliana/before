@@ -61,7 +61,6 @@ async fn build_stream(
     };
 
     let (first_orig, events) = if let Some(x) = cached {
-        log::warn!("using cache! woo");
         x
     } else {
         // A given `Stream` version does not necessarily have all the top-level fields present, but the
