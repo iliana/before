@@ -42,11 +42,11 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
         "idol": choose(IDOL_CHOICES),
         "favoriteTeam": cookies.get_pending("favorite_team")
             .map(|s| {
-                let s = s.value().to_owned();
+                let s = s.value();
                 if s == "_before_change_team" {
                     Value::Null
                 } else {
-                    Value::String(s)
+                    Value::String(s.to_owned())
                 }
             })
             .unwrap_or_else(|| Value::String(choose(TEAM_CHOICES).to_owned())),
