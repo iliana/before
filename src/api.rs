@@ -1,4 +1,6 @@
 use crate::choose;
+use itertools::Itertools;
+use rand::Rng;
 use rocket::http::CookieJar;
 use rocket::response::status::BadRequest;
 use rocket::serde::json::Json;
@@ -6,6 +8,19 @@ use rocket::{get, post, routes, Route};
 use serde::Deserialize;
 use serde_json::{json, Value};
 use std::str::FromStr;
+
+fn gen_tarot() -> Vec<i32> {
+    let mut rng = rand::thread_rng();
+    let mut res: Vec<i32> = Vec::with_capacity(3);
+    while res.len() < 3 {
+        let n = rng.gen_range(-1..20);
+        if !res.contains(&n) {
+            res.push(n);
+        }
+    }
+
+    res
+}
 
 #[get("/api/getActiveBets")]
 pub(crate) fn get_active_bets() -> Json<Vec<()>> {
@@ -23,7 +38,7 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
             .and_then(|s| bool::from_str(s.value()).ok())
             .unwrap_or(false),
         "verified": true,
-        "coins": 0,
+        "coins": "Infinity",
         "idol": choose(IDOL_CHOICES),
         "favoriteTeam": cookies.get_pending("favorite_team")
             .map(|s| {
@@ -37,19 +52,22 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
             .unwrap_or_else(|| Value::String(choose(TEAM_CHOICES).to_owned())),
         "unlockedShop": true,
         "unlockedElection": true,
-        "spread": [],
+        "spread": cookies.get_pending("tarot_spread")
+                    .and_then(|t| t.value().split(",").map(|t| t.parse::<i32>().ok()).collect::<Option<Vec<i32>>>())
+                    .unwrap_or(gen_tarot()),
         "snacks": {
             "Forbidden_Knowledge_Access": 1,
             "Stadium_Access": 1,
             "Wills_Access": 1,
             "Flutes": 1,
+            "Tarot_Reroll": 1
         },
         "snackOrder": [
             "Forbidden_Knowledge_Access",
             "Stadium_Access",
             "Wills_Access",
             "Flutes",
-            "E",
+            "Tarot_Reroll",
             "E",
             "E",
             "E",
@@ -86,6 +104,33 @@ pub(crate) fn get_user_notifications() -> Json<Option<()>> {
 #[post("/api/clearUserNotifications")]
 pub(crate) fn clear_user_notifications() -> Json<Option<()>> {
     Json(None)
+}
+
+#[derive(Deserialize)]
+pub(crate) struct CardOrderUpdate {
+    spread: Vec<i32>,
+}
+
+#[post("/api/reorderCards", data = "<order_update>")]
+pub(crate) fn reorder_cards(
+    cookies: &CookieJar<'_>,
+    order_update: Json<CardOrderUpdate>,
+) -> Json<Value> {
+    cookies.add(crate::new_cookie(
+        "tarot_spread",
+        order_update.spread.iter().map(|i| i.to_string()).join(","),
+    ));
+    Json(json!({"message": "New Spread preserved"}))
+}
+
+#[post("/api/dealCards")]
+pub(crate) fn deal_cards(cookies: &CookieJar<'_>) -> Json<Value> {
+    let spread = gen_tarot();
+    cookies.add(crate::new_cookie(
+        "tarot_spread",
+        spread.iter().map(|i| i.to_string()).join(","),
+    ));
+    Json(json!({"spread": spread, "message": "New Spread preserved"}))
 }
 
 #[post("/api/buyUpdateFavoriteTeam")]
@@ -142,6 +187,13 @@ pub(crate) fn mocked_error_routes() -> Vec<Route> {
         mock!("/api/reorderSnacks"),
         mock!("/api/sellSlot"),
         mock!("/api/sellSnack"),
+        mock!("/api/buyIncreaseMaxBet"),
+        mock!("/api/buyIncreaseDailyCoins"),
+        mock!("/api/buyADangSquirrel"),
+        mock!("/api/buyRelic"),
+        mock!("/api/buyUnlockShop"),
+        mock!("/api/buyVote"),
+        mock!("/api/buyADangPeanut"),
     ]
     .concat()
 }
