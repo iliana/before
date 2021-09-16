@@ -164,8 +164,7 @@ pub(crate) fn buy_snack(
         (
             Status::Ok,
             Json(json!({
-                "message": format!("You receive 1000 peanuts. You now have {} peanuts", peanuts)
-                // not sure this message is accurate for expansion era?
+                "message": "Peanuts purchased"
             })),
         )
     } else {
