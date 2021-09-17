@@ -127,6 +127,10 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
             "/",
             routes![
                 api::buy_flute,
+                api::buy_snack,
+                api::eat_a_dang_peanut,
+                api::buy_a_dang_peanut,
+                api::buy_a_dang_squirrel,
                 api::clear_user_notifications,
                 api::get_active_bets,
                 api::get_user,

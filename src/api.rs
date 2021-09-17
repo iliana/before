@@ -1,13 +1,19 @@
 use crate::choose;
 use itertools::Itertools;
 use rand::Rng;
-use rocket::http::CookieJar;
+use rocket::http::{CookieJar, Status};
 use rocket::response::status::BadRequest;
 use rocket::serde::json::Json;
 use rocket::{get, post, routes, Route};
 use serde::Deserialize;
 use serde_json::{json, Value};
 use std::str::FromStr;
+
+static ERROR_MESSAGES: &[&str] = &[
+    "If you were meant to have that, you already would",
+    "Monitor's on vacation, sorry",
+    "You can't get ye flask!",
+];
 
 fn gen_tarot() -> Vec<i32> {
     let mut rng = rand::thread_rng();
@@ -39,6 +45,8 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
             .unwrap_or(false),
         "verified": true,
         "coins": "Infinity",
+        "peanuts": cookies.get_pending("peanuts").and_then(|t| t.value().parse::<i32>().ok()).unwrap_or(0),
+        "squirrels": cookies.get_pending("squirrels").and_then(|t| t.value().parse::<i32>().ok()).unwrap_or(0),
         "idol": choose(IDOL_CHOICES),
         "favoriteTeam": cookies.get_pending("favorite_team")
             .map(|s| {
@@ -60,7 +68,8 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
             "Stadium_Access": 1,
             "Wills_Access": 1,
             "Flutes": 1,
-            "Tarot_Reroll": 1
+            "Tarot_Reroll": 1,
+            "Peanuts": cookies.get_pending("peanuts").and_then(|t| t.value().parse::<i32>().ok()).unwrap_or(0),
         },
         "snackOrder": [
             "Forbidden_Knowledge_Access",
@@ -68,7 +77,7 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
             "Wills_Access",
             "Flutes",
             "Tarot_Reroll",
-            "E",
+            "Peanuts",
             "E",
             "E",
         ],
@@ -133,6 +142,93 @@ pub(crate) fn deal_cards(cookies: &CookieJar<'_>) -> Json<Value> {
     Json(json!({"spread": spread, "message": "New Spread preserved"}))
 }
 
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub(crate) struct SnackPurchase {
+    pub(crate) snack_id: String,
+}
+
+#[post("/api/buySnackNoUpgrade", data = "<purchase>")]
+pub(crate) fn buy_snack(
+    cookies: &CookieJar<'_>,
+    purchase: Json<SnackPurchase>,
+) -> (Status, Json<Value>) {
+    if purchase.snack_id == "Peanuts" {
+        let peanuts = cookies
+            .get_pending("peanuts")
+            .and_then(|t| t.value().parse::<i32>().ok())
+            .unwrap_or(0)
+            + 1000;
+
+        cookies.add(crate::new_cookie("peanuts", peanuts.to_string()));
+        (
+            Status::Ok,
+            Json(json!({
+                "message": "Peanuts purchased"
+            })),
+        )
+    } else {
+        let message = choose(ERROR_MESSAGES);
+        (
+            Status::BadRequest,
+            Json(json!({
+                "error": message,
+                "message": message,
+            })),
+        )
+    }
+}
+
+#[post("/api/buyADangSquirrel")]
+pub(crate) fn buy_a_dang_squirrel(cookies: &CookieJar<'_>) -> Json<Value> {
+    cookies.add(crate::new_cookie(
+        "squirrels",
+        (cookies
+            .get_pending("squirrels")
+            .and_then(|t| t.value().parse::<i32>().ok())
+            .unwrap_or(0)
+            + 1)
+        .to_string(),
+    ));
+    Json(json!({"message": "Bought a squirrel."}))
+}
+
+#[derive(Deserialize)]
+pub(crate) struct EatADangPeanut {
+    pub(crate) amount: i32,
+}
+
+#[post("/api/eatADangPeanut", data = "<dang_peanut>")]
+pub(crate) fn eat_a_dang_peanut(
+    cookies: &CookieJar<'_>,
+    dang_peanut: Json<EatADangPeanut>,
+) -> Json<Value> {
+    cookies.add(crate::new_cookie(
+        "peanuts",
+        (cookies
+            .get_pending("peanuts")
+            .and_then(|t| t.value().parse::<i32>().ok())
+            .unwrap_or(0)
+            - dang_peanut.amount)
+            .to_string(),
+    ));
+    Json(json!({}))
+}
+
+#[post("/api/buyADangPeanut")]
+pub(crate) fn buy_a_dang_peanut(cookies: &CookieJar<'_>) -> Json<Value> {
+    let peanuts = cookies
+        .get_pending("peanuts")
+        .and_then(|t| t.value().parse::<i32>().ok())
+        .unwrap_or(0)
+        + 1000;
+
+    cookies.add(crate::new_cookie("peanuts", peanuts.to_string()));
+    Json(json!({
+        "message": format!("You receive 1000 peanuts. You now have {} peanuts", peanuts)
+    }))
+}
+
 #[post("/api/buyUpdateFavoriteTeam")]
 pub(crate) fn buy_flute(cookies: &CookieJar<'_>) -> Json<Value> {
     cookies.add(crate::new_cookie("favorite_team", "_before_change_team"));
@@ -159,12 +255,6 @@ pub(crate) fn update_favourite_team(
 }
 
 pub(crate) fn mocked_error_routes() -> Vec<Route> {
-    static ERROR_MESSAGES: &[&str] = &[
-        "If you were meant to have that, you already would",
-        "Monitor's on vacation, sorry",
-        "You can't get ye flask!",
-    ];
-
     macro_rules! mock {
         ($uri:expr) => {{
             #[post($uri)]
@@ -182,18 +272,15 @@ pub(crate) fn mocked_error_routes() -> Vec<Route> {
     vec![
         mock!("/api/buySlot"),
         mock!("/api/buySnack"),
-        mock!("/api/buySnackNoUpgrade"),
         mock!("/api/logBeg"),
         mock!("/api/reorderSnacks"),
         mock!("/api/sellSlot"),
         mock!("/api/sellSnack"),
         mock!("/api/buyIncreaseMaxBet"),
         mock!("/api/buyIncreaseDailyCoins"),
-        mock!("/api/buyADangSquirrel"),
         mock!("/api/buyRelic"),
         mock!("/api/buyUnlockShop"),
         mock!("/api/buyVote"),
-        mock!("/api/buyADangPeanut"),
     ]
     .concat()
 }
