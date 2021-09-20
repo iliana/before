@@ -1,0 +1,4 @@
+.Shop-Item-Icon {
+    /* older versions of Safari don't support the fit-content value, instead naming it 'intrinsic'. */
+    height: intrinsic; 
+}
