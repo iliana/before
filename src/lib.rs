@@ -4,9 +4,13 @@
 mod api;
 mod chronicler;
 mod config;
+mod cookies;
 mod database;
+mod day_map;
 mod events;
+mod jump;
 mod media;
+mod offset;
 mod postseason;
 mod proxy;
 mod redirect;
@@ -16,7 +20,7 @@ mod time;
 
 pub use crate::config::Config;
 
-use chrono::{Duration, DurationRound, Utc};
+use crate::time::{DateTime, Duration};
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use rocket::fairing::AdHoc;
@@ -26,6 +30,7 @@ use rocket::response::Redirect;
 use rocket::tokio::{self, time::Instant};
 use rocket::{catchers, get, routes, uri, Build, Orbit, Rocket};
 use std::borrow::Cow;
+use std::convert::TryFrom;
 use std::time::Duration as StdDuration;
 
 type Result<T> = std::result::Result<T, rocket::response::Debug<anyhow::Error>>;
@@ -60,21 +65,22 @@ async fn background_tasks(rocket: &Rocket<Orbit>) {
 
     tokio::spawn(async move {
         let update_cache = async {
-            if let Err(err) = site::update_cache(&config, Utc::now()).await {
+            if let Err(err) = site::update_cache(&config, DateTime::now()).await {
                 log::error!("{:?}", err);
             }
         };
 
         let update_day_map = async {
-            if let Err(err) = crate::time::DAY_MAP.write().await.update(&config).await {
+            if let Err(err) = crate::day_map::DAY_MAP.write().await.update(&config).await {
                 log::error!("{:?}", err);
             }
 
             // Check for new games to add to the day map at 5 past the hour
             if !config.siesta_mode {
-                let now = Utc::now();
-                if let Ok(nowish) = now.duration_trunc(Duration::hours(1)) {
-                    if let Ok(offset) = (nowish + Duration::minutes(65) - now).to_std() {
+                let now = DateTime::now();
+                if let Ok(nowish) = now.trunc(Duration::hours(1)) {
+                    if let Ok(offset) = StdDuration::try_from(nowish + Duration::minutes(65) - now)
+                    {
                         let mut interval = tokio::time::interval_at(
                             Instant::now() + offset,
                             StdDuration::from_secs(3600),
@@ -82,7 +88,7 @@ async fn background_tasks(rocket: &Rocket<Orbit>) {
                         loop {
                             interval.tick().await;
                             if let Err(err) =
-                                crate::time::DAY_MAP.write().await.update(&config).await
+                                crate::day_map::DAY_MAP.write().await.update(&config).await
                             {
                                 log::error!("{:?}", err);
                             }
@@ -155,6 +161,8 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 events::socket_io,
                 events::socket_io_post,
                 events::stream_data,
+                jump::jump,
+                jump::relative,
                 media::static_media,
                 media::static_root,
                 site::index,
@@ -162,8 +170,6 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 start::credits,
                 start::info,
                 start::start,
-                time::jump,
-                time::relative,
                 reset,
             ],
         )

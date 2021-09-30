@@ -1,8 +1,8 @@
 use crate::chronicler::{RequestBuilder, Versions};
 use crate::database::fetch;
+use crate::time::DateTime;
 use crate::Config;
 use anyhow::{anyhow, Result};
-use chrono::{DateTime, Utc};
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 use serde_json::value::RawValue;
@@ -39,7 +39,7 @@ pub(crate) async fn postseason(
     id: String,
     season: i64,
     round: i64,
-    time: DateTime<Utc>,
+    time: DateTime,
 ) -> Result<Option<Postseason>> {
     let playoffs_raw = match fetch(config, "Playoffs", Some(id), time).await?.next() {
         Some(x) => x,
@@ -128,7 +128,7 @@ async fn fetch_map(
     config: &Config,
     ty: &'static str,
     ids: String,
-    time: DateTime<Utc>,
+    time: DateTime,
 ) -> Result<HashMap<String, Box<RawValue>>> {
     Ok(RequestBuilder::new("v2/entities")
         .ty(ty)

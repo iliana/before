@@ -1,10 +1,10 @@
 use crate::chronicler::{Data, Order, RequestBuilder, SiteUpdate};
+use crate::offset::OffsetTime;
 use crate::proxy::Proxy;
-use crate::time::OffsetTime;
+use crate::time::{datetime, DateTime, Duration};
 use crate::{Config, Result};
 use anyhow::anyhow;
 use askama::Template;
-use chrono::{DateTime, Duration, DurationRound, Utc};
 use either::Either;
 use reqwest::Response;
 use rocket::http::{uri::Origin, Status};
@@ -14,15 +14,16 @@ use rocket::tokio::{join, sync::RwLock};
 use rocket::{catch, get, uri, Request, State};
 use serde::Deserialize;
 use std::collections::{BTreeMap, HashMap};
+use std::ops::Range;
+
+/// After this point, Chronicler fetched main.js and 2.js.
+const CHRONICLER_JS_EPOCH: DateTime = datetime!(2020-09-07 23:29:00 UTC);
+
+/// After this point, Chronicler fetched main.css in addition to the JS assets.
+const CHRONICLER_CSS_EPOCH: DateTime = datetime!(2020-09-11 16:58:00 UTC);
 
 lazy_static::lazy_static! {
-    /// After this point, Chronicler fetched main.js and 2.js.
-    static ref CHRONICLER_JS_EPOCH: DateTime<Utc> = "2020-09-07T23:29:00Z".parse().unwrap();
-
-    /// After this point, Chronicler fetched main.css in addition to the JS assets.
-    static ref CHRONICLER_CSS_EPOCH: DateTime<Utc> = "2020-09-11T16:58:00Z".parse().unwrap();
-
-    static ref EARLY_ASSETS: BTreeMap<DateTime<Utc>, AssetSet<'static>> =
+    static ref EARLY_ASSETS: BTreeMap<DateTime, AssetSet<'static>> =
         toml::from_str(include_str!("../data/assets.toml")).unwrap();
 
     static ref CACHE: RwLock<Cache> = RwLock::new(Cache::default());
@@ -31,20 +32,20 @@ lazy_static::lazy_static! {
 #[derive(Default)]
 struct Cache {
     /// The last time we fetched `v1/site/updates`, used to determine if we need to fetch again.
-    until: Option<DateTime<Utc>>,
+    until: Option<DateTime>,
     /// `/`
-    index: BTreeMap<DateTime<Utc>, SiteUpdate>,
+    index: BTreeMap<DateTime, SiteUpdate>,
     /// `main.{}.chunk.css`
-    css: BTreeMap<DateTime<Utc>, SiteUpdate>,
+    css: BTreeMap<DateTime, SiteUpdate>,
     /// `main.{}.chunk.js`
-    js_main: BTreeMap<DateTime<Utc>, SiteUpdate>,
+    js_main: BTreeMap<DateTime, SiteUpdate>,
     /// `2.{}.chunk.js`
-    js_2: BTreeMap<DateTime<Utc>, SiteUpdate>,
+    js_2: BTreeMap<DateTime, SiteUpdate>,
     /// Assets (non `/` paths)
     assets: HashMap<String, SiteUpdate>,
 }
 
-pub(crate) async fn update_cache(config: &Config, at: DateTime<Utc>) -> anyhow::Result<()> {
+pub(crate) async fn update_cache(config: &Config, at: DateTime) -> anyhow::Result<()> {
     let mut request = RequestBuilder::new("v1/site/updates").order(Order::Asc);
     if let Some(until) = CACHE.read().await.until {
         if at <= until {
@@ -57,7 +58,7 @@ pub(crate) async fn update_cache(config: &Config, at: DateTime<Utc>) -> anyhow::
     let (response, mut cache) = join!(request.json::<Data<SiteUpdate>>(config), CACHE.write());
     for mut update in response?.data {
         // round down timestamps to the most recent minute so that we get consistent update sets
-        update.timestamp = update.timestamp.duration_trunc(Duration::minutes(1))?;
+        update.timestamp = update.timestamp.trunc(Duration::minutes(1))?;
         if update.path == "/" {
             cache.index.insert(update.timestamp, update);
         } else {
@@ -76,7 +77,7 @@ pub(crate) async fn update_cache(config: &Config, at: DateTime<Utc>) -> anyhow::
             }
         }
     }
-    cache.until = Some(Utc::now());
+    cache.until = Some(DateTime::now());
     Ok(())
 }
 
@@ -118,8 +119,8 @@ struct AssetSet<'a> {
 type IndexResponse = Either<Custom<Html<String>>, Redirect>;
 
 fn fetch_cache(
-    cache: &BTreeMap<DateTime<Utc>, SiteUpdate>,
-    time: DateTime<Utc>,
+    cache: &BTreeMap<DateTime, SiteUpdate>,
+    time: DateTime,
     rev: bool,
 ) -> Option<&SiteUpdate> {
     let update = if rev {
@@ -165,12 +166,12 @@ pub(crate) async fn index(
         };
     }
 
-    let assets = if time.0 >= *CHRONICLER_JS_EPOCH {
+    let assets = if time.0 >= CHRONICLER_JS_EPOCH {
         AssetSet {
             css: &opt!(fetch_cache(
                 &cache.css,
                 time.0,
-                time.0 >= *CHRONICLER_CSS_EPOCH
+                time.0 >= CHRONICLER_CSS_EPOCH
             ))?
             .path,
             js_main: &opt!(fetch_cache(&cache.js_main, time.0, true))?.path,
@@ -182,10 +183,12 @@ pub(crate) async fn index(
         return Ok(Either::Right(Redirect::to(uri!(crate::start::start))));
     };
 
+    const EYES_FIX_RANGE: Range<DateTime> =
+        datetime!(2020-10-19 17:40:00 UTC)..datetime!(2020-10-25 06:50:00 UTC);
+
     let template = GameTemplate {
         assets,
-        // between "2020-10-19T17:40:00Z" and "2020-10-25T06:50:00Z"
-        eyes_fix: (1603129200000..1603608600000).contains(&time.0.timestamp_millis()),
+        eyes_fix: EYES_FIX_RANGE.contains(&time.0),
         matomo: match (config.matomo_base_url.as_ref(), config.matomo_site_id) {
             (Some(base_url), Some(site_id)) => Some((base_url, site_id)),
             _ => None,

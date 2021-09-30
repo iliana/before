@@ -8,10 +8,10 @@ use crate::chronicler::{
     fetch_game, ChroniclerGame, Data, Order, RequestBuilder, Stream, StreamValue, Version, Versions,
 };
 use crate::database::{fetch, fix_id};
+use crate::offset::{Offset, OffsetTime};
 use crate::postseason::{postseason, Postseason};
-use crate::time::{Offset, OffsetTime};
+use crate::time::{datetime, DateTime, Duration};
 use crate::{Config, Result};
-use chrono::{DateTime, Duration, DurationRound, Utc};
 use either::{Either, Left, Right};
 use itertools::Itertools;
 use rand::{thread_rng, Rng};
@@ -25,13 +25,14 @@ use serde_json::{json, value::RawValue, Value};
 use std::borrow::Borrow;
 use std::collections::hash_map::DefaultHasher;
 use std::collections::{BTreeMap, HashMap, HashSet, VecDeque};
+use std::convert::TryFrom;
 use std::hash::{Hash, Hasher};
 use std::pin::Pin;
 use std::sync::Arc;
 use std::time::{Duration as StdDuration, Instant};
 
 lazy_static::lazy_static! {
-    static ref INJECT: BTreeMap<DateTime<Utc>, StreamValue> =
+    static ref INJECT: BTreeMap<DateTime, StreamValue> =
         serde_json::from_str(include_str!("../data/inject.json")).unwrap();
 }
 
@@ -53,7 +54,7 @@ async fn build_stream(
         epsilon: bool,
     }
 
-    let cache_time = time.0.duration_trunc(Duration::seconds(30))?;
+    let cache_time = time.0.trunc(Duration::seconds(30))?;
     let cached = if let Some(cache) = &config.stream_cache {
         cache.lock().await.get(&cache_time).cloned()
     } else {
@@ -93,7 +94,7 @@ async fn build_stream(
         // Inject events into the stream if defined in data/inject.json. Note that injected events
         // are also checked when rebuilding the temporal object if missing
         if let Some((min, mut max)) = events.iter().map(|v| v.valid_from).minmax().into_option() {
-            max = max + Duration::minutes(1);
+            max += Duration::minutes(1);
             events.extend(INJECT.range(min..=max).map(|(k, v)| Version {
                 valid_from: *k,
                 entity_id: String::new(),
@@ -215,8 +216,7 @@ async fn build_stream(
     Ok(stream! {
         yield MetaStream::First(first);
         for version in future {
-            let duration = (version.valid_from - (Utc::now() - offset.0))
-                .to_std()
+            let duration = StdDuration::try_from(version.valid_from - (DateTime::now() - offset.0))
                 .unwrap_or_else(|_| StdDuration::from_nanos(0));
             select! {
                 _ = sleep(duration) => {},
@@ -259,7 +259,7 @@ pub(crate) fn extra_season_4_routes() -> Vec<Route> {
         if let Some(object) = value.as_object_mut() {
             object.insert(
                 "lastUpdateTime".to_string(),
-                Utc::now().timestamp_millis().into(),
+                i64::try_from(DateTime::now().millis()).unwrap().into(),
             );
         }
         value
@@ -530,7 +530,7 @@ struct GamesInner {
 async fn first_games(
     config: &Config,
     past: &mut [Version<Stream>],
-    time: DateTime<Utc>,
+    time: DateTime,
 ) -> anyhow::Result<Games> {
     #[derive(Deserialize)]
     #[serde(rename_all = "camelCase")]
@@ -718,12 +718,10 @@ struct LeaguesStats {
 async fn first_leagues(
     config: &Config,
     past: &mut [Version<Stream>],
-    time: DateTime<Utc>,
+    time: DateTime,
 ) -> anyhow::Result<Leagues> {
-    lazy_static::lazy_static! {
-        static ref LEAGUES_START: DateTime<Utc> = "2020-09-03T21:40:38.266Z".parse().unwrap();
-        static ref TIEBREAKERS_START: DateTime<Utc> = "2020-09-10T17:51:30.577Z".parse().unwrap();
-    }
+    const LEAGUES_START: DateTime = datetime!(2020-09-03 21:40:38.266 UTC);
+    const TIEBREAKERS_START: DateTime = datetime!(2020-09-10 17:51:30.577 UTC);
 
     Ok(Leagues {
         value: match past
@@ -743,26 +741,21 @@ async fn first_leagues(
                     mut community_chest,
                     mut sunsun,
                 ) = try_join!(
-                    fetch(config, "League", None, std::cmp::max(time, *LEAGUES_START)),
+                    fetch(config, "League", None, std::cmp::max(time, LEAGUES_START)),
                     fetch(config, "Stadium", None, time),
                     fetch(
                         config,
                         "Subleague",
                         None,
-                        std::cmp::max(time, *LEAGUES_START)
+                        std::cmp::max(time, LEAGUES_START)
                     ),
-                    fetch(
-                        config,
-                        "Division",
-                        None,
-                        std::cmp::max(time, *LEAGUES_START)
-                    ),
+                    fetch(config, "Division", None, std::cmp::max(time, LEAGUES_START)),
                     fetch(config, "Team", None, time),
                     fetch(
                         config,
                         "Tiebreakers",
                         None,
-                        std::cmp::max(time, *TIEBREAKERS_START)
+                        std::cmp::max(time, TIEBREAKERS_START)
                     ),
                     fetch(config, "CommunityChestProgress", None, time),
                     fetch(config, "SunSun", None, time),
@@ -795,15 +788,8 @@ async fn first_leagues(
 async fn first_temporal(
     config: &Config,
     past: &mut [Version<Stream>],
-    time: DateTime<Utc>,
+    time: DateTime,
 ) -> anyhow::Result<Box<RawValue>> {
-    lazy_static::lazy_static! {
-        static ref UNCERTAINTY: DateTime<Utc> = "2020-08-03T22:11:18.931Z".parse().unwrap();
-        static ref GET_YOUR_PEANUTS: DateTime<Utc> = "2020-08-08T21:36:03.844Z".parse().unwrap();
-        static ref CHRONICLER_TEMPORAL_START: DateTime<Utc> =
-            "2020-09-03T21:40:38.266Z".parse().unwrap();
-    }
-
     Ok(
         if let Some(version) = past
             .iter_mut()

@@ -1,8 +1,8 @@
 use crate::chronicler::{OffseasonRecap, Order, PlayerNameId, RequestBuilder, Versions};
-use crate::time::OffsetTime;
+use crate::offset::OffsetTime;
+use crate::time::{datetime, DateTime, Duration};
 use crate::{Config, Result};
 use anyhow::anyhow;
-use chrono::{DateTime, Duration, Utc};
 use either::{Either, Left, Right};
 use itertools::Itertools;
 use reqwest::Url;
@@ -18,7 +18,7 @@ use std::convert::TryFrom;
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 enum Nudge {
-    Forward(DateTime<Utc>),
+    Forward(DateTime),
     Replace(serde_json::Value),
 }
 
@@ -26,7 +26,7 @@ pub(crate) async fn fetch(
     config: &Config,
     ty: &'static str,
     ids: Option<String>,
-    time: DateTime<Utc>,
+    time: DateTime,
 ) -> anyhow::Result<impl Iterator<Item = Box<RawValue>>> {
     let mut builder = RequestBuilder::new("v2/entities").ty(ty).at(time);
     if let Some(ids) = ids {
@@ -41,14 +41,12 @@ pub(crate) async fn fetch(
         .map(|version| version.data))
 }
 
-pub(crate) fn fix_id(v: Box<RawValue>, time: DateTime<Utc>) -> anyhow::Result<Box<RawValue>> {
-    lazy_static::lazy_static! {
-        static ref ID_EPOCH: DateTime<Utc> = "2020-08-23T23:23:00Z".parse().unwrap();
-    }
+pub(crate) fn fix_id(v: Box<RawValue>, time: DateTime) -> anyhow::Result<Box<RawValue>> {
+    const ID_EPOCH: DateTime = datetime!(2020-08-23 23:23:00 UTC);
 
-    Ok(if time < *ID_EPOCH && v.get().contains(r#""id":"#) {
+    Ok(if time < ID_EPOCH && v.get().contains(r#""id":"#) {
         RawValue::from_string(v.get().replace(r#""id":"#, r#""_id":"#))?
-    } else if time >= *ID_EPOCH && v.get().contains(r#""_id":"#) {
+    } else if time >= ID_EPOCH && v.get().contains(r#""_id":"#) {
         RawValue::from_string(v.get().replace(r#""_id":"#, r#""id":"#))?
     } else {
         v
@@ -162,16 +160,17 @@ pub(crate) async fn players(
     ids: &str,
     time: OffsetTime,
 ) -> Result<Json<Vec<Box<RawValue>>>> {
+    const HALL_REVEALED: DateTime = datetime!(2020-09-20 19:18:00 UTC);
+    const HALL_FIXED: DateTime = datetime!(2020-09-23 12:00:00 UTC);
+
     if ids.is_empty() || ids == "placeholder-idol" {
         return Ok(Json(Vec::new()));
     }
 
     // Filter out players with nudges and handle those requests separately
     lazy_static::lazy_static! {
-        static ref NUDGES: HashMap<String, BTreeMap<DateTime<Utc>, Option<Nudge>>> =
+        static ref NUDGES: HashMap<String, BTreeMap<DateTime, Option<Nudge>>> =
             serde_json::from_str(include_str!("../data/playernudge.json")).unwrap();
-        static ref HALL_REVEALED: DateTime<Utc> = "2020-09-20T19:18:00Z".parse().unwrap();
-        static ref HALL_FIXED: DateTime<Utc> = "2020-09-23T12:00:00Z".parse().unwrap();
     }
     let mut nudges = Vec::new();
     let remaining_ids = ids
@@ -221,10 +220,10 @@ pub(crate) async fn players(
                 .at(
                     // heuristically detect a query for hall of flame players with missing
                     // attributes
-                    if time.0 > *HALL_REVEALED
+                    if time.0 > HALL_REVEALED
                         && ids.contains("d74a2473-1f29-40fa-a41e-66fa2281dfca")
                     {
-                        std::cmp::max(*HALL_FIXED, time.0)
+                        std::cmp::max(HALL_FIXED, time.0)
                     } else {
                         time.0
                     },
@@ -399,7 +398,6 @@ pub(crate) async fn feed(
     limit: Option<&str>,
     time: OffsetTime,
 ) -> Result<Json<Box<RawValue>>> {
-    let time = time.0.timestamp_millis().to_string();
     let url = Url::parse_with_params(
         &format!("{}feed/{}", config.upnuts_base_url, kind),
         vec![
@@ -407,7 +405,7 @@ pub(crate) async fn feed(
                 "one_of_providers",
                 Some("7fcb63bc-11f2-40b9-b465-f1d458692a63"),
             ),
-            ("time", Some(time.as_str())),
+            ("time", Some(time.0.millis().to_string().as_str())),
             ("id", id),
             ("start", start),
             ("category", category),
@@ -443,7 +441,7 @@ pub(crate) async fn feedbyphase(
         &format!("{}/feed/global", config.upnuts_base_url),
         &[
             ("one_of_providers", "7fcb63bc-11f2-40b9-b465-f1d458692a63"),
-            ("time", time.0.timestamp_millis().to_string().as_str()),
+            ("time", time.0.millis().to_string().as_str()),
             ("sort", "1"),
             ("limit", "1000"),
             ("phase", phase),
@@ -511,9 +509,7 @@ pub(crate) async fn get_previous_champ(
         bracket: Option<i64>,
     }
 
-    lazy_static::lazy_static! {
-        static ref UNDERCHAMP: DateTime<Utc> = "2021-07-19T14:50:00.000Z".parse().unwrap();
-    }
+    const UNDERCHAMP: DateTime = datetime!(2021-07-19 14:50:00 UTC);
 
     let sim = serde_json::from_str::<Sim>(
         fetch(config, "Sim", None, time.0)
@@ -543,7 +539,7 @@ pub(crate) async fn get_previous_champ(
     playoffs.sort_by_key(|p| p.bracket);
 
     Ok(Json(PreviousChamp {
-        value: if time.0 < *UNDERCHAMP {
+        value: if time.0 < UNDERCHAMP {
             match playoffs.into_iter().find(|p| {
                 if season == 21 {
                     // ¡dale!

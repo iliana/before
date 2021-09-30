@@ -1,6 +1,6 @@
+use crate::time::DateTime;
 use crate::Config;
 use anyhow::Result;
-use chrono::{DateTime, Utc};
 use derive_builder::Builder;
 use reqwest::Response;
 use rocket::futures::stream::Stream as StreamTrait;
@@ -32,13 +32,13 @@ pub(crate) struct Request {
     id: Option<String>,
     #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
-    at: Option<DateTime<Utc>>,
+    at: Option<DateTime>,
     #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
-    after: Option<DateTime<Utc>>,
+    after: Option<DateTime>,
     #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
-    before: Option<DateTime<Utc>>,
+    before: Option<DateTime>,
     #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
     started: Option<bool>,
@@ -119,7 +119,7 @@ pub(crate) struct Data<T> {
 #[derive(Debug, Clone, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct SiteUpdate {
-    pub(crate) timestamp: DateTime<Utc>,
+    pub(crate) timestamp: DateTime,
     pub(crate) path: String,
     pub(crate) hash: String,
     pub(crate) download_url: String,
@@ -135,7 +135,7 @@ pub(crate) struct Versions<T> {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Version<T> {
-    pub(crate) valid_from: DateTime<Utc>,
+    pub(crate) valid_from: DateTime,
     pub(crate) entity_id: String,
     pub(crate) data: T,
 }
@@ -184,11 +184,11 @@ pub(crate) struct OffseasonRecap {
 #[serde(rename_all = "camelCase")]
 pub(crate) struct ChroniclerGame {
     pub(crate) game_id: String,
-    pub(crate) start_time: DateTime<Utc>,
+    pub(crate) start_time: DateTime,
     pub(crate) data: GameDay,
 }
 
-// This is (ab)used by crate::time::DayMap::update, don't add fields to this :)
+// This is (ab)used by crate::old_time::DayMap::update, don't add fields to this :)
 #[derive(Debug, PartialEq, Eq, Hash, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct GameDay {
@@ -205,7 +205,7 @@ pub(crate) fn default_tournament() -> i64 {
 pub(crate) async fn fetch_game(
     config: &Config,
     id: String,
-    time: DateTime<Utc>,
+    time: DateTime,
 ) -> Result<Option<Box<RawValue>>> {
     #[derive(Deserialize)]
     struct Game {

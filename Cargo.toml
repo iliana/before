@@ -1,6 +1,6 @@
 [package]
 name = "before"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["iliana etaoin <iliana@buttslol.net>"]
 edition = "2018"
 publish = false
@@ -21,13 +21,9 @@ lazy_static = "1"
 log = "0.4"
 lru = "0.6"
 rand = "0.8"
+serde_plain = "1"
 serde_urlencoded = "0.7"
 toml = "0.5"
-
-[dependencies.chrono]
-version = "0.4"
-default-features = false
-features = ["clock", "serde", "std"]
 
 [dependencies.either]
 version = "1"
@@ -49,6 +45,10 @@ features = ["derive", "rc"]
 [dependencies.serde_json]
 version = "1"
 features = ["raw_value"]
+
+[dependencies.time]
+version = "0.3"
+features = ["macros", "formatting", "parsing"]
 
 [dependencies.tokio-util]
 version = "0.6"

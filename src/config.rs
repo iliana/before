@@ -1,6 +1,6 @@
 use crate::events::StreamCacheValue;
 use crate::media::ArcVec;
-use chrono::{DateTime, Utc};
+use crate::time::DateTime;
 use lru::LruCache;
 use rocket::fs::relative;
 use rocket::tokio::fs;
@@ -37,7 +37,7 @@ pub struct Config {
     #[serde(skip)]
     pub(crate) static_zip: Option<ZipArchive<Cursor<ArcVec>>>,
     #[serde(skip)]
-    pub(crate) stream_cache: Option<Mutex<LruCache<DateTime<Utc>, StreamCacheValue>>>,
+    pub(crate) stream_cache: Option<Mutex<LruCache<DateTime, StreamCacheValue>>>,
 }
 
 impl Config {
