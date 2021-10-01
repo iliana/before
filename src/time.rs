@@ -9,6 +9,10 @@ use std::str::FromStr;
 use time::format_description::well_known::Rfc3339;
 use time::OffsetDateTime;
 
+/// Wrapper type for [`OffsetDateTime`].
+///
+/// This wrapper type is probably the most convenient way to consistently serialize/deserialize a
+/// timestamp as an RFC 3339 string.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub(crate) struct DateTime(OffsetDateTime);
 
@@ -21,7 +25,7 @@ impl DateTime {
         DateTime(OffsetDateTime::now_utc())
     }
 
-    pub(crate) fn millis(&self) -> i128 {
+    pub(crate) fn unix_timestamp_millis(&self) -> i128 {
         self.0.unix_timestamp_nanos() / 1_000_000
     }
 

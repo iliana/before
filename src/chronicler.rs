@@ -141,11 +141,11 @@ pub(crate) struct Version<T> {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub(crate) struct Stream {
+pub(crate) struct StreamEvent {
     pub(crate) value: StreamValue,
 }
 
-impl Stream {
+impl StreamEvent {
     pub(crate) fn is_empty(&self) -> bool {
         self.value.games.is_none()
             && self.value.leagues.is_none()

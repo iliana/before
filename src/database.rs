@@ -405,7 +405,10 @@ pub(crate) async fn feed(
                 "one_of_providers",
                 Some("7fcb63bc-11f2-40b9-b465-f1d458692a63"),
             ),
-            ("time", Some(time.0.millis().to_string().as_str())),
+            (
+                "time",
+                Some(time.0.unix_timestamp_millis().to_string().as_str()),
+            ),
             ("id", id),
             ("start", start),
             ("category", category),
@@ -441,7 +444,7 @@ pub(crate) async fn feedbyphase(
         &format!("{}/feed/global", config.upnuts_base_url),
         &[
             ("one_of_providers", "7fcb63bc-11f2-40b9-b465-f1d458692a63"),
-            ("time", time.0.millis().to_string().as_str()),
+            ("time", time.0.unix_timestamp_millis().to_string().as_str()),
             ("sort", "1"),
             ("limit", "1000"),
             ("phase", phase),

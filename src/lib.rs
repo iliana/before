@@ -11,11 +11,12 @@ mod events;
 mod jump;
 mod media;
 mod offset;
-mod postseason;
 mod proxy;
 mod redirect;
 mod site;
+mod socket_io;
 mod start;
+mod stream;
 mod time;
 
 pub use crate::config::Config;
@@ -102,7 +103,7 @@ async fn background_tasks(rocket: &Rocket<Orbit>) {
             let mut interval = tokio::time::interval(StdDuration::from_secs(15 * 60));
             loop {
                 interval.tick().await;
-                crate::events::remove_expired_sessions().await;
+                crate::socket_io::remove_expired_sessions().await;
             }
         };
 
@@ -158,8 +159,6 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 database::players,
                 database::renovations,
                 database::get_previous_champ,
-                events::socket_io,
-                events::socket_io_post,
                 events::stream_data,
                 jump::jump,
                 jump::relative,
@@ -167,6 +166,8 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 media::static_root,
                 site::index,
                 site::site_static,
+                socket_io::socket_io,
+                socket_io::socket_io_post,
                 start::credits,
                 start::info,
                 start::start,
