@@ -482,16 +482,13 @@ pub(crate) fn renovations(ids: String) -> Json<Vec<&'static RawValue>> {
 }
 
 #[derive(Serialize)]
-#[serde(transparent)]
-pub(crate) struct PreviousChamp {
-    #[serde(with = "either::serde_untagged")]
-    value: Either<OverUnder, Option<Box<RawValue>>>,
-}
-
-#[derive(Serialize)]
-pub(crate) struct OverUnder {
-    over: Box<RawValue>,
-    under: Box<RawValue>,
+#[serde(untagged)]
+pub(crate) enum PreviousChamp {
+    OverUnder {
+        over: Box<RawValue>,
+        under: Box<RawValue>,
+    },
+    Raw(Option<Box<RawValue>>),
 }
 
 #[get("/database/getPreviousChamp")]
@@ -541,31 +538,31 @@ pub(crate) async fn get_previous_champ(
         .collect::<anyhow::Result<Vec<_>>>()?;
     playoffs.sort_by_key(|p| p.bracket);
 
-    Ok(Json(PreviousChamp {
-        value: if time.0 < UNDERCHAMP {
-            match playoffs.into_iter().find(|p| {
-                if season == 21 {
-                    // ¡dale!
-                    p.bracket == Some(1)
-                } else {
-                    p.bracket != Some(1)
-                }
-            }) {
-                Some(p) => Right(fetch(config, "Team", Some(p.winner), time.0).await?.next()),
-                None => Right(None),
+    Ok(Json(if time.0 < UNDERCHAMP {
+        match playoffs.into_iter().find(|p| {
+            if season == 21 {
+                // ¡dale!
+                p.bracket == Some(1)
+            } else {
+                p.bracket != Some(1)
             }
-        } else {
-            let mut iter = fetch(
-                config,
-                "Team",
-                Some(playoffs.iter().map(|p| &p.winner).join(",")),
-                time.0,
-            )
-            .await?;
-            Left(OverUnder {
-                over: iter.next().ok_or_else(|| anyhow!("missing over"))?,
-                under: iter.next().ok_or_else(|| anyhow!("missing under"))?,
-            })
-        },
+        }) {
+            Some(p) => {
+                PreviousChamp::Raw(fetch(config, "Team", Some(p.winner), time.0).await?.next())
+            }
+            None => PreviousChamp::Raw(None),
+        }
+    } else {
+        let mut iter = fetch(
+            config,
+            "Team",
+            Some(playoffs.iter().map(|p| &p.winner).join(",")),
+            time.0,
+        )
+        .await?;
+        PreviousChamp::OverUnder {
+            over: iter.next().ok_or_else(|| anyhow!("missing over"))?,
+            under: iter.next().ok_or_else(|| anyhow!("missing under"))?,
+        }
     }))
 }
