@@ -1,6 +1,6 @@
 use crate::choose;
-use itertools::Itertools;
-use rand::Rng;
+use crate::cookies::CookieJarExt;
+use crate::tarot::Spread;
 use rocket::http::{CookieJar, Status};
 use rocket::response::status::BadRequest;
 use rocket::serde::json::Json;
@@ -14,19 +14,6 @@ static ERROR_MESSAGES: &[&str] = &[
     "Monitor's on vacation, sorry",
     "You can't get ye flask!",
 ];
-
-fn gen_tarot() -> Vec<i32> {
-    let mut rng = rand::thread_rng();
-    let mut res: Vec<i32> = Vec::with_capacity(3);
-    while res.len() < 3 {
-        let n = rng.gen_range(-1..20);
-        if !res.contains(&n) {
-            res.push(n);
-        }
-    }
-
-    res
-}
 
 #[get("/api/getActiveBets")]
 pub(crate) fn get_active_bets() -> Json<Vec<()>> {
@@ -60,9 +47,7 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
             .unwrap_or_else(|| Value::String(choose(TEAM_CHOICES).to_owned())),
         "unlockedShop": true,
         "unlockedElection": true,
-        "spread": cookies.get_pending("tarot_spread")
-                    .and_then(|t| t.value().split(',').map(|t| t.parse::<i32>().ok()).collect::<Option<Vec<i32>>>())
-                    .unwrap_or_else(gen_tarot),
+        "spread": cookies.load::<Spread>().unwrap_or_else(Spread::generate),
         "snacks": {
             "Forbidden_Knowledge_Access": 1,
             "Stadium_Access": 1,
@@ -117,7 +102,7 @@ pub(crate) fn clear_user_notifications() -> Json<Option<()>> {
 
 #[derive(Deserialize)]
 pub(crate) struct CardOrderUpdate {
-    spread: Vec<i32>,
+    spread: Spread,
 }
 
 #[post("/api/reorderCards", data = "<order_update>")]
@@ -125,20 +110,14 @@ pub(crate) fn reorder_cards(
     cookies: &CookieJar<'_>,
     order_update: Json<CardOrderUpdate>,
 ) -> Json<Value> {
-    cookies.add(crate::new_cookie(
-        "tarot_spread",
-        order_update.spread.iter().map(|i| i.to_string()).join(","),
-    ));
+    cookies.store(&order_update.spread);
     Json(json!({"message": "New Spread preserved"}))
 }
 
 #[post("/api/dealCards")]
 pub(crate) fn deal_cards(cookies: &CookieJar<'_>) -> Json<Value> {
-    let spread = gen_tarot();
-    cookies.add(crate::new_cookie(
-        "tarot_spread",
-        spread.iter().map(|i| i.to_string()).join(","),
-    ));
+    let spread = Spread::generate();
+    cookies.store(&spread);
     Json(json!({"spread": spread, "message": "New Spread preserved"}))
 }
 

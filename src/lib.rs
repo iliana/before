@@ -17,6 +17,7 @@ mod site;
 mod socket_io;
 mod start;
 mod stream;
+mod tarot;
 mod time;
 
 pub use crate::config::Config;
