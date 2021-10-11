@@ -102,7 +102,7 @@ impl RequestBuilder {
     }
 }
 
-#[derive(Debug, Copy, Clone, Serialize)]
+#[derive(Debug, Clone, Copy, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub(crate) enum Order {
     Asc,

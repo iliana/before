@@ -3,8 +3,9 @@
 pub(crate) use time::Duration;
 
 use anyhow::{Context, Result};
+use derive_more::{From, Into};
 use serde::ser::{Error as _, Serialize, Serializer};
-use std::ops::{Add, AddAssign, Deref, DerefMut, Sub, SubAssign};
+use std::ops::{Add, AddAssign, Sub, SubAssign};
 use std::str::FromStr;
 use time::format_description::well_known::Rfc3339;
 use time::OffsetDateTime;
@@ -13,7 +14,7 @@ use time::OffsetDateTime;
 ///
 /// This wrapper type is probably the most convenient way to consistently serialize/deserialize a
 /// timestamp as an RFC 3339 string.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, From, Into)]
 pub(crate) struct DateTime(OffsetDateTime);
 
 impl DateTime {
@@ -30,25 +31,13 @@ impl DateTime {
     }
 
     pub(crate) fn trunc(&self, duration: Duration) -> Result<DateTime> {
-        let time = self.unix_timestamp_nanos();
+        let time = self.0.unix_timestamp_nanos();
         let delta = time
             .checked_rem(duration.whole_nanoseconds())
             .context("divide by zero")?;
         Ok(DateTime(OffsetDateTime::from_unix_timestamp_nanos(
             time - delta,
         )?))
-    }
-}
-
-impl From<DateTime> for OffsetDateTime {
-    fn from(x: DateTime) -> OffsetDateTime {
-        x.0
-    }
-}
-
-impl From<OffsetDateTime> for DateTime {
-    fn from(x: OffsetDateTime) -> DateTime {
-        DateTime(x)
     }
 }
 
@@ -85,20 +74,6 @@ impl Sub<DateTime> for DateTime {
 
     fn sub(self, rhs: DateTime) -> Duration {
         self.0 - rhs.0
-    }
-}
-
-impl Deref for DateTime {
-    type Target = OffsetDateTime;
-
-    fn deref(&self) -> &OffsetDateTime {
-        &self.0
-    }
-}
-
-impl DerefMut for DateTime {
-    fn deref_mut(&mut self) -> &mut OffsetDateTime {
-        &mut self.0
     }
 }
 

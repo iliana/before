@@ -33,7 +33,7 @@ pub(crate) async fn jump(
     })
 }
 
-#[derive(Debug, Clone, Copy, FromForm)]
+#[derive(Debug, FromForm)]
 pub(crate) struct JumpTime<'a> {
     time: Option<&'a str>,
     season: Option<i64>,
@@ -42,7 +42,7 @@ pub(crate) struct JumpTime<'a> {
 }
 
 impl<'a> JumpTime<'a> {
-    async fn to_time(self) -> anyhow::Result<Option<DateTime>> {
+    async fn to_time(&self) -> anyhow::Result<Option<DateTime>> {
         Ok(if let Some(time) = self.time {
             Some(DateTime::from_str(time)?)
         } else if let Some(day) = self.day {
@@ -82,7 +82,7 @@ pub(crate) fn relative(
     Redirect(redirect)
 }
 
-#[derive(Debug, Clone, Copy, FromForm)]
+#[derive(Debug, FromForm)]
 pub(crate) struct FormDuration {
     seconds: Option<i64>,
     minutes: Option<i64>,
@@ -92,7 +92,7 @@ pub(crate) struct FormDuration {
 }
 
 impl FormDuration {
-    fn to_duration(self) -> Duration {
+    fn to_duration(&self) -> Duration {
         Duration::seconds(self.seconds.unwrap_or(0))
             + Duration::minutes(self.minutes.unwrap_or(0))
             + Duration::hours(self.hours.unwrap_or(0))
