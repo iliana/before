@@ -1,5 +1,6 @@
 use crate::cookies::CookieJarExt;
 use crate::day_map::DAY_MAP;
+use crate::favorite_team::FavoriteTeam;
 use crate::offset::Offset;
 use crate::redirect::Redirect;
 use crate::time::{DateTime, Duration};
@@ -15,12 +16,15 @@ pub(crate) async fn jump(
     cookies: &CookieJar<'_>,
     redirect: Option<String>,
     start: Option<&str>,
-    team: Option<&str>,
+    team: Option<String>,
     jump_time: JumpTime<'_>,
 ) -> Result<Either<Redirect, NotFound<()>>> {
     if let Some(team) = team {
-        cookies.add(crate::new_cookie("favorite_team", team.to_string()));
+        cookies.store(&FavoriteTeam::new(team));
+    } else if cookies.load::<FavoriteTeam>().is_none() {
+        cookies.store(&FavoriteTeam::random());
     }
+
     let start_offset = match start {
         Some(start) => DateTime::from_str(start).map_err(anyhow::Error::from)? - DateTime::now(),
         None => Duration::ZERO,

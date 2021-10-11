@@ -8,6 +8,7 @@ mod cookies;
 mod database;
 mod day_map;
 mod events;
+mod favorite_team;
 mod jump;
 mod media;
 mod offset;
@@ -137,7 +138,6 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
             routes![
                 api::buy_a_dang_peanut,
                 api::buy_a_dang_squirrel,
-                api::buy_flute,
                 api::buy_snack,
                 api::clear_user_notifications,
                 api::eat_a_dang_peanut,
@@ -145,7 +145,6 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 api::get_user,
                 api::get_user_notifications,
                 api::get_user_rewards,
-                api::update_favourite_team,
                 database::bonus_results,
                 database::decree_results,
                 database::event_results,
@@ -159,6 +158,8 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 database::players,
                 database::renovations,
                 events::stream_data,
+                favorite_team::update_favorite_team,
+                favorite_team::buy_flute,
                 jump::jump,
                 jump::relative,
                 media::static_media,

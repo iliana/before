@@ -1,5 +1,6 @@
 use crate::choose;
 use crate::cookies::CookieJarExt;
+use crate::favorite_team::FavoriteTeam;
 use crate::settings::{DisableMotion, LightMode};
 use crate::tarot::Spread;
 use rocket::http::{CookieJar, Status};
@@ -34,16 +35,7 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
         "peanuts": cookies.get_pending("peanuts").and_then(|t| t.value().parse::<i32>().ok()).unwrap_or(0),
         "squirrels": cookies.get_pending("squirrels").and_then(|t| t.value().parse::<i32>().ok()).unwrap_or(0),
         "idol": choose(IDOL_CHOICES),
-        "favoriteTeam": cookies.get_pending("favorite_team")
-            .map(|s| {
-                let s = s.value();
-                if s == "_before_change_team" {
-                    Value::Null
-                } else {
-                    Value::String(s.to_owned())
-                }
-            })
-            .unwrap_or_else(|| Value::String(choose(TEAM_CHOICES).to_owned())),
+        "favoriteTeam": cookies.load::<FavoriteTeam>(),
         "unlockedShop": true,
         "unlockedElection": true,
         "spread": cookies.load::<Spread>().unwrap_or_else(Spread::generate),
@@ -186,31 +178,6 @@ pub(crate) fn buy_a_dang_peanut(cookies: &CookieJar<'_>) -> Json<Value> {
     }))
 }
 
-#[post("/api/buyUpdateFavoriteTeam")]
-pub(crate) fn buy_flute(cookies: &CookieJar<'_>) -> Json<Value> {
-    cookies.add(crate::new_cookie("favorite_team", "_before_change_team"));
-    Json(json!({"message": "Reload this page to choose a new team."}))
-}
-
-#[derive(Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub(crate) struct FavoriteTeamUpdate {
-    #[serde(alias = "newTeamId")]
-    pub(crate) team_id: String,
-}
-
-#[post("/api/updateFavoriteTeam", data = "<new_favorite>")]
-pub(crate) fn update_favourite_team(
-    cookies: &CookieJar<'_>,
-    new_favorite: Json<FavoriteTeamUpdate>,
-) -> Json<Value> {
-    cookies.add(crate::new_cookie(
-        "favorite_team",
-        new_favorite.team_id.to_string(),
-    ));
-    Json(json!({ "message": "You now remember the Before of a new team." }))
-}
-
 pub(crate) fn mocked_error_routes() -> Vec<Route> {
     macro_rules! mock {
         ($uri:expr) => {{
@@ -258,28 +225,4 @@ static IDOL_CHOICES: &[&str] = &[
     "d4a10c2a-0c28-466a-9213-38ba3339b65e", // Richmond Harrison
     "f2a27a7e-bf04-4d31-86f5-16bfa3addbe7", // Winnie Hess
     "f70dd57b-55c4-4a62-a5ea-7cc4bf9d8ac1", // Tillman Henderson
-];
-
-// All 20 original Season 1 teams, no Breach/Lift
-static TEAM_CHOICES: &[&str] = &[
-    "105bc3ff-1320-4e37-8ef0-8d595cb95dd0", // Garages
-    "23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7", // Pies
-    "36569151-a2fb-43c1-9df7-2df512424c82", // Millennials
-    "3f8bbb15-61c0-4e3f-8e4a-907a5fb1565e", // Flowers
-    "57ec08cc-0411-4643-b304-0e80dbc15ac7", // Wild Wings
-    "747b8e4a-7e50-4638-a973-ea7950a3e739", // Tigers
-    "7966eb04-efcc-499b-8f03-d13916330531", // Magic
-    "878c1bf6-0d21-4659-bfee-916c8314d69c", // Tacos
-    "8d87c468-699a-47a8-b40d-cfb73a5660ad", // Crabs
-    "979aee4a-6d80-4863-bf1c-ee1a78e06024", // Fridays
-    "9debc64f-74b7-4ae1-a4d6-fce0144b6ea5", // Spies
-    "a37f9158-7f82-46bc-908c-c9e2dda7c33b", // Jazz Hands
-    "adc5b394-8f76-416d-9ce9-813706877b84", // The Breath Mints.
-    "b024e975-1c4a-4575-8936-a3754a08806a", // Steaks
-    "b63be8c2-576a-4d6e-8daf-814f8bcea96f", // Dale
-    "b72f3061-f573-40d7-832a-5ad475bd7909", // Lovers
-    "bfd38797-8404-4b38-8b82-341da28b1f83", // Shoe Thieves
-    "ca3f1c8c-c025-4d8e-8eef-5be6accbeb16", // Firefighters
-    "eb67ae5e-c4bf-46ca-bbbc-425cd34182ff", // Moist Talkers
-    "f02aeae2-5e6a-4098-9842-02d2273f25c7", // Sunbeams
 ];
