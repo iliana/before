@@ -13,6 +13,7 @@ mod media;
 mod offset;
 mod proxy;
 mod redirect;
+mod settings;
 mod site;
 mod socket_io;
 mod start;
@@ -145,7 +146,6 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 api::get_user_notifications,
                 api::get_user_rewards,
                 api::update_favourite_team,
-                api::update_settings,
                 database::bonus_results,
                 database::decree_results,
                 database::event_results,
@@ -163,6 +163,7 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 jump::relative,
                 media::static_media,
                 media::static_root,
+                settings::update_settings,
                 site::index,
                 site::site_static,
                 socket_io::socket_io,

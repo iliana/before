@@ -1,5 +1,6 @@
 use crate::choose;
 use crate::cookies::CookieJarExt;
+use crate::settings::{DisableMotion, LightMode};
 use crate::tarot::Spread;
 use rocket::http::{CookieJar, Status};
 use rocket::response::status::BadRequest;
@@ -7,7 +8,6 @@ use rocket::serde::json::Json;
 use rocket::{get, post, routes, Route};
 use serde::Deserialize;
 use serde_json::{json, Value};
-use std::str::FromStr;
 
 static ERROR_MESSAGES: &[&str] = &[
     "If you were meant to have that, you already would",
@@ -27,10 +27,9 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
         "email": "before@sibr.dev",
         // disable ability to change email on frontend
         "appleId": "what's umpdog",
-        "lightMode": cookies.get_pending("light_mode")
-            .and_then(|s| bool::from_str(s.value()).ok())
-            .unwrap_or(false),
         "verified": true,
+        "motion": cookies.load::<DisableMotion>().unwrap_or_default(),
+        "lightMode": cookies.load::<LightMode>().unwrap_or_default(),
         "coins": "Infinity",
         "peanuts": cookies.get_pending("peanuts").and_then(|t| t.value().parse::<i32>().ok()).unwrap_or(0),
         "squirrels": cookies.get_pending("squirrels").and_then(|t| t.value().parse::<i32>().ok()).unwrap_or(0),
@@ -241,21 +240,6 @@ pub(crate) fn mocked_error_routes() -> Vec<Route> {
         mock!("/api/buyVote"),
     ]
     .concat()
-}
-
-#[derive(Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub(crate) struct Settings {
-    pub(crate) light_mode: bool,
-}
-
-#[post("/api/updateSettings", data = "<settings>")]
-pub(crate) fn update_settings(cookies: &CookieJar<'_>, settings: Json<Settings>) -> Json<Value> {
-    cookies.add(crate::new_cookie(
-        "light_mode",
-        settings.light_mode.to_string(),
-    ));
-    Json(json!({ "message": "Settings updated" }))
 }
 
 // Should be a list of players that have been around (in the database) since Season 1
