@@ -1,8 +1,12 @@
-use crate::cookies::AsCookie;
+use crate::cookies::{AsCookie, CookieJarExt};
 use anyhow::{Context, Error, Result};
 use itertools::Itertools;
 use rand::Rng;
+use rocket::http::CookieJar;
+use rocket::post;
+use rocket::serde::json::Json;
 use serde::{Deserialize, Serialize};
+use serde_json::{json, Value};
 use std::fmt::{self, Display};
 use std::str::FromStr;
 
@@ -49,4 +53,25 @@ impl FromStr for Spread {
 
 impl AsCookie for Spread {
     const NAME: &'static str = "tarot_spread";
+}
+
+#[derive(Deserialize)]
+pub(crate) struct CardOrderUpdate {
+    spread: Spread,
+}
+
+#[post("/api/dealCards")]
+pub(crate) fn deal_cards(cookies: &CookieJar<'_>) -> Json<Value> {
+    let spread = Spread::generate();
+    cookies.store(&spread);
+    Json(json!({"spread": spread, "message": "New Spread preserved"}))
+}
+
+#[post("/api/reorderCards", data = "<order_update>")]
+pub(crate) fn reorder_cards(
+    cookies: &CookieJar<'_>,
+    order_update: Json<CardOrderUpdate>,
+) -> Json<Value> {
+    cookies.store(&order_update.spread);
+    Json(json!({"message": "New Spread preserved"}))
 }

@@ -101,27 +101,6 @@ pub(crate) fn clear_user_notifications() -> Json<Option<()>> {
 }
 
 #[derive(Deserialize)]
-pub(crate) struct CardOrderUpdate {
-    spread: Spread,
-}
-
-#[post("/api/reorderCards", data = "<order_update>")]
-pub(crate) fn reorder_cards(
-    cookies: &CookieJar<'_>,
-    order_update: Json<CardOrderUpdate>,
-) -> Json<Value> {
-    cookies.store(&order_update.spread);
-    Json(json!({"message": "New Spread preserved"}))
-}
-
-#[post("/api/dealCards")]
-pub(crate) fn deal_cards(cookies: &CookieJar<'_>) -> Json<Value> {
-    let spread = Spread::generate();
-    cookies.store(&spread);
-    Json(json!({"spread": spread, "message": "New Spread preserved"}))
-}
-
-#[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct SnackPurchase {
     pub(crate) snack_id: String,
