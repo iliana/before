@@ -45,7 +45,9 @@ features = ["derive", "rc"]
 
 [dependencies.serde_json]
 version = "1"
-features = ["raw_value"]
+# arbitrary_precision is load-bearing, see `INFINITY` in src/api.rs
+# (but given we don't directly deal in floating point values, this probably makes Before faster??)
+features = ["arbitrary_precision", "raw_value"]
 
 [dependencies.time]
 version = "0.3"

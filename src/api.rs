@@ -18,6 +18,21 @@ pub(crate) fn get_active_bets() -> Json<Vec<()>> {
 
 #[get("/api/getUser")]
 pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
+    lazy_static::lazy_static! {
+        /// Infinity is not representable in JSON, but JavaScript will treat double-precision
+        /// floating point overflows as infinity. `1e1000` is sufficient to do this, but requires
+        /// the `arbitrary_precision` feature of serde_json.
+        ///
+        /// ```text
+        /// $ node
+        /// Welcome to Node.js v14.18.0.
+        /// Type ".help" for more information.
+        /// > JSON.parse("1e1000")
+        /// Infinity
+        /// ```
+        static ref INFINITY: Value = serde_json::from_str::<Value>("1e1000").unwrap();
+    }
+
     let snacks = cookies.load::<SnackPack>().unwrap_or_default();
 
     Json(json!({
@@ -38,7 +53,7 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
 
         "squirrels": cookies.load::<Squirrels>().unwrap_or_default(),
 
-        "coins": "Infinity",
+        "coins": *INFINITY,
         "votes": snacks.get(Snack::Votes).unwrap_or_default(),
         "peanuts": snacks.get(Snack::Peanuts).unwrap_or_default(),
         "spread": cookies.load::<Spread>().unwrap_or_else(Spread::generate),
