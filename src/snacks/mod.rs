@@ -4,6 +4,7 @@ pub use routes::*;
 
 use crate::cookies::AsCookie;
 use crate::snacks::Slot::{Occupied, Vacant};
+use crate::time::{datetime, DateTime};
 use anyhow::{Context, Error, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -57,7 +58,21 @@ impl SnackPack {
         })
     }
 
-    pub(crate) fn adjust(&mut self, snack: Snack, adjustment: i64) -> Option<i64> {
+    /// Returns `true` if the item was present.
+    fn remove(&mut self, snack: Snack) -> bool {
+        if let Some(slot) = self
+            .0
+            .iter_mut()
+            .find(|slot| matches!(slot, Occupied(s, _) if *s == snack))
+        {
+            *slot = Vacant;
+            true
+        } else {
+            false
+        }
+    }
+
+    fn adjust(&mut self, snack: Snack, adjustment: i64) -> Option<i64> {
         if let Some(slot) = self
             .0
             .iter_mut()
@@ -191,6 +206,49 @@ pub(crate) enum Snack {
     TarotReroll,
     #[serde(rename = "Red_Herring")]
     RedHerring,
+}
+
+impl Snack {
+    fn name(self, time: DateTime) -> &'static str {
+        use Snack::*;
+
+        match self {
+            IdolHits => "Sunflower Seeds",
+            IdolHomers => "Hot Dog",
+            IdolStrikeouts => "Chips",
+            IdolShutouts => "Burger",
+            TeamWin => "Popcorn",
+            MaxBet => "Snake Oil",
+            TeamLoss => "Stale Popcorn",
+            TeamSlush => "Slushie",
+            BlackHole => "Wet Pretzel",
+            IdolSteal => "Pickles",
+            IdolPitcherWin => "Hot Fries",
+            IdolPitcherLoss => "Cold Fries",
+            IdolHomerAllowed => "Meatball",
+            TeamShamed => "Lemonade",
+            TeamShaming => "Taffy",
+            Breakfast => "Breakfast",
+            Sun2 => "Doughnut",
+            Incineration => {
+                if time >= datetime!(2021-07-25 17:50:00 UTC) {
+                    "Melted Sundae"
+                } else {
+                    "Sundae"
+                }
+            }
+            ConsumerAttacks => "Chum",
+            Votes => "Votes",
+            Flutes => "Flute",
+            StadiumAccess => "Pizza",
+            WillsAccess => "Cheese Board",
+            ForbiddenKnowledgeAccess => "Apple",
+            Beg => "Bread Crumbs",
+            Peanuts => "Peanuts",
+            TarotReroll => "Tarot Spread",
+            RedHerring => "Red Herring",
+        }
+    }
 }
 
 serde_plain::derive_display_from_serialize!(Snack);

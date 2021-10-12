@@ -62,6 +62,7 @@ pub(crate) struct CardOrderUpdate {
 
 #[post("/api/dealCards")]
 pub(crate) fn deal_cards(cookies: &CookieJar<'_>) -> Json<Value> {
+    // FIXME modify snack pack
     let spread = Spread::generate();
     cookies.store(&spread);
     Json(json!({"spread": spread, "message": "New Spread preserved"}))
