@@ -1,6 +1,7 @@
 use crate::choose;
 use crate::cookies::CookieJarExt;
 use crate::favorite_team::FavoriteTeam;
+use crate::idol::Idol;
 use crate::settings::{DisableMotion, LightMode};
 use crate::tarot::Spread;
 use rocket::http::{CookieJar, Status};
@@ -34,7 +35,7 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
         "coins": "Infinity",
         "peanuts": cookies.get_pending("peanuts").and_then(|t| t.value().parse::<i32>().ok()).unwrap_or(0),
         "squirrels": cookies.get_pending("squirrels").and_then(|t| t.value().parse::<i32>().ok()).unwrap_or(0),
-        "idol": choose(IDOL_CHOICES),
+        "idol": cookies.load::<Idol>(),
         "favoriteTeam": cookies.load::<FavoriteTeam>(),
         "unlockedShop": true,
         "unlockedElection": true,
@@ -208,21 +209,3 @@ pub(crate) fn mocked_error_routes() -> Vec<Route> {
     ]
     .concat()
 }
-
-// Should be a list of players that have been around (in the database) since Season 1
-static IDOL_CHOICES: &[&str] = &[
-    "04e14d7b-5021-4250-a3cd-932ba8e0a889", // Jaylen Hotdogfingers
-    "083d09d4-7ed3-4100-b021-8fbe30dd43e8", // Jessica Telephone
-    "1f159bab-923a-4811-b6fa-02bfde50925a", // NaN
-    "20be1c34-071d-40c6-8824-dde2af184b4d", // Qais Dogwalker
-    "20fd71e7-4fa0-4132-9f47-06a314ed539a", // Lars Taylor
-    "338694b7-6256-4724-86b6-3884299a5d9e", // PolkaDot Patterson
-    "493a83de-6bcf-41a1-97dd-cc5e150548a3", // Boyfriend Monreal
-    "53e701c7-e3c8-4e18-ba05-9b41b4b64cda", // Marquez Clark
-    "a3947fbc-50ec-45a4-bca4-49ffebb77dbe", // Chorby Short
-    "c675fcdf-6117-49a6-ac32-99a89a3a88aa", // Valentine Games
-    "c6a277c3-d2b5-4363-839b-950896a5ec5e", // Mike Townsend
-    "d4a10c2a-0c28-466a-9213-38ba3339b65e", // Richmond Harrison
-    "f2a27a7e-bf04-4d31-86f5-16bfa3addbe7", // Winnie Hess
-    "f70dd57b-55c4-4a62-a5ea-7cc4bf9d8ac1", // Tillman Henderson
-];

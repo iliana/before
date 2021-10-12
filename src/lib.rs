@@ -9,6 +9,7 @@ mod database;
 mod day_map;
 mod events;
 mod favorite_team;
+mod idol;
 mod jump;
 mod media;
 mod offset;
@@ -158,8 +159,9 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 database::players,
                 database::renovations,
                 events::stream_data,
-                favorite_team::update_favorite_team,
                 favorite_team::buy_flute,
+                favorite_team::update_favorite_team,
+                idol::choose_idol,
                 jump::jump,
                 jump::relative,
                 media::static_media,
