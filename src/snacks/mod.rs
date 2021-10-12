@@ -1,3 +1,7 @@
+mod routes;
+
+pub use routes::*;
+
 use crate::cookies::AsCookie;
 use crate::snacks::Slot::{Occupied, Vacant};
 use anyhow::{Context, Error, Result};
@@ -51,6 +55,30 @@ impl SnackPack {
             Occupied(s, amount) if *s == snack => Some(*amount),
             _ => None,
         })
+    }
+
+    pub(crate) fn adjust(&mut self, snack: Snack, adjustment: i64) -> Option<i64> {
+        if let Some(slot) = self
+            .0
+            .iter_mut()
+            .find(|slot| matches!(slot, Occupied(s, _) if *s == snack))
+        {
+            let amount_ref = match slot {
+                Occupied(_, ref mut amount) => amount,
+                _ => unreachable!(),
+            };
+            *amount_ref += adjustment;
+            let amount = *amount_ref;
+            if amount == 0 {
+                *slot = Vacant;
+            }
+            Some(amount)
+        } else if let Some(slot) = self.0.iter_mut().find(|slot| matches!(slot, Vacant)) {
+            *slot = Occupied(snack, adjustment);
+            Some(adjustment)
+        } else {
+            None
+        }
     }
 
     pub(crate) fn len(&self) -> usize {
@@ -194,5 +222,16 @@ mod tests {
             SnackPack::default().order(),
             vec!["Votes", "E", "E", "E", "E", "E", "E", "E"]
         );
+
+        let mut snacks = SnackPack::default();
+        snacks.adjust(Snack::Votes, 100);
+        assert_eq!(snacks.get(Snack::Votes), Some(101));
+        assert_eq!(snacks.get(Snack::Peanuts), None);
+        snacks.adjust(Snack::Peanuts, 1000);
+        assert_eq!(snacks.get(Snack::Peanuts), Some(1000));
+        assert_eq!(snacks.to_string(), "Votes:101,Peanuts:1000,E,E,E,E,E,E");
+        snacks.adjust(Snack::Votes, -101);
+        assert_eq!(snacks.get(Snack::Votes), None);
+        assert_eq!(snacks.to_string(), "E,Peanuts:1000,E,E,E,E,E,E");
     }
 }

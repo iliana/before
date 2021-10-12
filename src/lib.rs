@@ -19,6 +19,7 @@ mod settings;
 mod site;
 mod snacks;
 mod socket_io;
+mod squirrels;
 mod start;
 mod stream;
 mod tarot;
@@ -132,15 +133,12 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
         .attach(AdHoc::on_liftoff("Before background tasks", |r| {
             Box::pin(background_tasks(r))
         }))
-        .mount("/", api::mocked_error_routes())
         .mount("/", database::entity_routes())
         .mount("/", events::extra_season_4_routes())
         .mount(
             "/",
             routes![
                 api::buy_a_dang_peanut,
-                api::buy_a_dang_squirrel,
-                api::buy_snack,
                 api::clear_user_notifications,
                 api::eat_a_dang_peanut,
                 api::get_active_bets,
@@ -170,8 +168,11 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 settings::update_settings,
                 site::index,
                 site::site_static,
+                snacks::buy_snack_no_upgrade,
+                snacks::buy_vote,
                 socket_io::socket_io,
                 socket_io::socket_io_post,
+                squirrels::buy_a_dang_squirrel,
                 start::credits,
                 start::info,
                 start::start,
