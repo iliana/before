@@ -3,6 +3,7 @@ use crate::cookies::CookieJarExt;
 use crate::favorite_team::FavoriteTeam;
 use crate::idol::Idol;
 use crate::settings::{DisableMotion, LightMode};
+use crate::snacks::{Snack, SnackPack};
 use crate::tarot::Spread;
 use rocket::http::{CookieJar, Status};
 use rocket::response::status::BadRequest;
@@ -24,6 +25,8 @@ pub(crate) fn get_active_bets() -> Json<Vec<()>> {
 
 #[get("/api/getUser")]
 pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
+    let snacks = cookies.load::<SnackPack>().unwrap_or_default();
+
     Json(json!({
         "id": "be457c4e-79e6-4016-94f5-76c6705741bb",
         "email": "before@sibr.dev",
@@ -33,32 +36,16 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
         "motion": cookies.load::<DisableMotion>().unwrap_or_default(),
         "lightMode": cookies.load::<LightMode>().unwrap_or_default(),
         "coins": "Infinity",
-        "peanuts": cookies.get_pending("peanuts").and_then(|t| t.value().parse::<i32>().ok()).unwrap_or(0),
+        "peanuts": snacks.get(Snack::Peanuts).unwrap_or_default(),
         "squirrels": cookies.get_pending("squirrels").and_then(|t| t.value().parse::<i32>().ok()).unwrap_or(0),
         "idol": cookies.load::<Idol>(),
         "favoriteTeam": cookies.load::<FavoriteTeam>(),
         "unlockedShop": true,
         "unlockedElection": true,
         "spread": cookies.load::<Spread>().unwrap_or_else(Spread::generate),
-        "snacks": {
-            "Forbidden_Knowledge_Access": 1,
-            "Stadium_Access": 1,
-            "Wills_Access": 1,
-            "Flutes": 1,
-            "Tarot_Reroll": 1,
-            "Peanuts": cookies.get_pending("peanuts").and_then(|t| t.value().parse::<i32>().ok()).unwrap_or(0),
-        },
-        "snackOrder": [
-            "Forbidden_Knowledge_Access",
-            "Stadium_Access",
-            "Wills_Access",
-            "Flutes",
-            "Tarot_Reroll",
-            "Peanuts",
-            "E",
-            "E",
-        ],
-        "packSize": 8,
+        "snacks": snacks.amounts(),
+        "snackOrder": snacks.order(),
+        "packSize": snacks.len(),
         // set all these to reasonably high values to avoid rendering the "what to do next" actions
         // in the bulletin
         "trackers": {
@@ -69,10 +56,10 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
             "SNACK_UPGRADES": 3,
         },
         "relics": {
-            "Idol_Strikeouts": 0,
-            "Idol_Shutouts": 0,
-            "Idol_Homers": 0,
-            "Idol_Hits": 0,
+            "Idol_Strikeouts": snacks.get(Snack::IdolStrikeouts).unwrap_or_default(),
+            "Idol_Shutouts": snacks.get(Snack::IdolShutouts).unwrap_or_default(),
+            "Idol_Homers": snacks.get(Snack::IdolHomers).unwrap_or_default(),
+            "Idol_Hits": snacks.get(Snack::IdolHits).unwrap_or_default(),
         },
     }))
 }

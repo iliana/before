@@ -17,6 +17,7 @@ mod proxy;
 mod redirect;
 mod settings;
 mod site;
+mod snacks;
 mod socket_io;
 mod start;
 mod stream;
