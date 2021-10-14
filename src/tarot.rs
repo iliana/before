@@ -1,8 +1,9 @@
 use crate::cookies::{AsCookie, CookieJarExt};
+use crate::snacks::{Snack, SnackPack};
 use anyhow::{Context, Error, Result};
 use itertools::Itertools;
 use rand::Rng;
-use rocket::http::CookieJar;
+use rocket::http::{CookieJar, Status};
 use rocket::post;
 use rocket::serde::json::Json;
 use serde::{Deserialize, Serialize};
@@ -29,6 +30,36 @@ impl Spread {
             }
         }
         Spread(spread)
+    }
+
+    fn card_names(self) -> String {
+        self.0
+            .iter()
+            .map(|n| match n + 1 {
+                0 => " Fool",
+                1 => "I The Magician",
+                2 => "II The High Priestess",
+                3 => "III The Empress",
+                4 => "IIII The Emperor",
+                5 => "V The Hierophant",
+                6 => "VI The Lover",
+                7 => "VII The Chariot",
+                8 => "VIII Justice",
+                9 => "VIIII The Hermit",
+                10 => "X The Wheel of Fortune",
+                11 => "XI Strength",
+                12 => "XII The Hanged Man",
+                13 => "XIII ",
+                14 => "XIIII Temperance",
+                15 => "XV The Devil",
+                16 => "XVI The Tower",
+                17 => "XVII The Star",
+                18 => "XVIII The Moon",
+                19 => "XVIIII The Sun",
+                20 => "XX Judgment",
+                _ => " ----",
+            })
+            .join(", ")
     }
 }
 
@@ -61,11 +92,24 @@ pub(crate) struct CardOrderUpdate {
 }
 
 #[post("/api/dealCards")]
-pub(crate) fn deal_cards(cookies: &CookieJar<'_>) -> Json<Value> {
-    // FIXME modify snack pack
+pub(crate) fn deal_cards(cookies: &CookieJar<'_>) -> (Status, Json<Value>) {
+    let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
+    if snacks.get(Snack::TarotReroll).is_none() && snacks.adjust(Snack::TarotReroll, 1).is_none() {
+        return (
+            Status::BadRequest,
+            Json(json!({
+                "message": "Snack pack full",
+                "error": "Snack pack full",
+            })),
+        );
+    }
+    cookies.store(&snacks);
     let spread = Spread::generate();
     cookies.store(&spread);
-    Json(json!({"spread": spread, "message": "New Spread preserved"}))
+    (
+        Status::Ok,
+        Json(json!({"spread": spread, "message": format!("READING: {}", spread.card_names())})),
+    )
 }
 
 #[post("/api/reorderCards", data = "<order_update>")]

@@ -72,7 +72,7 @@ impl SnackPack {
         }
     }
 
-    fn adjust(&mut self, snack: Snack, adjustment: i64) -> Option<i64> {
+    pub(crate) fn adjust(&mut self, snack: Snack, adjustment: i64) -> Option<i64> {
         if let Some(slot) = self
             .0
             .iter_mut()
