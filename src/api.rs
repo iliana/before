@@ -1,15 +1,20 @@
 use crate::cookies::CookieJarExt;
 use crate::favorite_team::FavoriteTeam;
 use crate::idol::Idol;
+use crate::offset::OffsetTime;
 use crate::settings::{DisableMotion, LightMode};
 use crate::snacks::{Snack, SnackPack};
 use crate::squirrels::Squirrels;
 use crate::tarot::Spread;
+use crate::time::{datetime, DateTime};
 use rocket::http::CookieJar;
 use rocket::serde::json::Json;
 use rocket::{get, post};
 use serde::Deserialize;
 use serde_json::{json, Value};
+use std::ops::Deref;
+
+const SIM_NO_COIN: DateTime = datetime!(2021-07-30 03:00:15.845649 UTC);
 
 #[get("/api/getActiveBets")]
 pub(crate) fn get_active_bets() -> Json<Vec<()>> {
@@ -17,7 +22,7 @@ pub(crate) fn get_active_bets() -> Json<Vec<()>> {
 }
 
 #[get("/api/getUser")]
-pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
+pub(crate) fn get_user(cookies: &CookieJar<'_>, time: OffsetTime) -> Json<Value> {
     lazy_static::lazy_static! {
         /// Infinity is not representable in JSON, but JavaScript will treat double-precision
         /// floating point overflows as infinity. `1e1000` is sufficient to do this, but requires
@@ -31,7 +36,16 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
         /// Infinity
         /// ```
         static ref INFINITY: Value = serde_json::from_str::<Value>("1e1000").unwrap();
+
+        /// Allocates due to `arbitrary_precision`, so let's only do this once.
+        static ref ZERO: Value = Value::from(0);
     }
+
+    let coins = if time.0 >= SIM_NO_COIN {
+        ZERO.deref()
+    } else {
+        INFINITY.deref()
+    };
 
     let snacks = cookies.load::<SnackPack>().unwrap_or_default();
 
@@ -53,7 +67,7 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>) -> Json<Value> {
 
         "squirrels": cookies.load::<Squirrels>().unwrap_or_default(),
 
-        "coins": *INFINITY,
+        "coins": coins,
         "votes": snacks.get(Snack::Votes).unwrap_or_default(),
         "peanuts": snacks.get(Snack::Peanuts).unwrap_or_default(),
         "spread": cookies.load::<Spread>().unwrap_or_else(Spread::generate),
