@@ -19,6 +19,7 @@ pub struct Config {
     pub http_client_gzip: bool,
     pub chronicler_base_url: String,
     pub upnuts_base_url: String,
+    pub content_security_policy: String,
     pub static_dir: Cow<'static, Path>,
     pub static_zip_path: Option<PathBuf>,
     pub site_cache: bool,
@@ -64,6 +65,11 @@ impl Config {
         self.chronicler_base_url = self.chronicler_base_url.replace("{addr}", &addr);
         self.upnuts_base_url = self.upnuts_base_url.replace("{addr}", &addr);
 
+        self.content_security_policy = self.content_security_policy.replace(
+            "{matomo_base_url}",
+            self.matomo_base_url.as_deref().unwrap_or_default(),
+        );
+
         if let Some(filename) = &self.static_zip_path {
             self.static_zip = Some(ZipArchive::new(Cursor::new(ArcVec::from(
                 fs::read(filename).await?,
@@ -85,6 +91,7 @@ impl Config {
             http_client_gzip: self.http_client_gzip,
             chronicler_base_url: self.chronicler_base_url.clone(),
             upnuts_base_url: self.upnuts_base_url.clone(),
+            content_security_policy: self.content_security_policy.clone(),
             static_dir: self.static_dir.clone(),
             static_zip_path: self.static_zip_path.clone(),
             site_cache: self.site_cache,
@@ -109,6 +116,7 @@ impl Default for Config {
             http_client_gzip: cfg!(feature = "gzip"),
             chronicler_base_url: "https://api.sibr.dev/chronicler/".to_string(),
             upnuts_base_url: "https://api.sibr.dev/upnuts/".to_string(),
+            content_security_policy: "upgrade-insecure-requests; default-src 'self'; script-src 'self' https://platform.twitter.com 'unsafe-inline' 'nonce-{nonce}'; img-src 'self' {matomo_base_url} https://d35iw2jmbg6ut8.cloudfront.net data:; connect-src 'self' {matomo_base_url}; object-src 'none'; frame-src https://platform.twitter.com https://www.youtube.com 'self'; base-uri 'none'; require-trusted-types-for 'script';".to_string(),
             static_dir: Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static"))).into(),
             static_zip_path: None,
             site_cache: true,

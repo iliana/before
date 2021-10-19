@@ -95,6 +95,13 @@ impl Event {
             serde_urlencoded::to_string(&args).unwrap()
         )
     }
+
+    fn butalso(&self) -> String {
+        match &self.butalso {
+            Some(butalso) => format!(" — {}", butalso),
+            None => String::new(),
+        }
+    }
 }
 
 #[derive(Deserialize, Clone, Copy)]

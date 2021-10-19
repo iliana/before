@@ -2,19 +2,20 @@ use crate::chronicler::{Data, Order, RequestBuilder, SiteUpdate};
 use crate::offset::OffsetTime;
 use crate::proxy::Proxy;
 use crate::time::{datetime, DateTime, Duration};
-use crate::{Config, Result};
-use anyhow::anyhow;
-use askama::Template;
-use either::Either;
+use crate::Config;
 use reqwest::Response;
-use rocket::http::{uri::Origin, Status};
-use rocket::request::FromRequest;
-use rocket::response::{content::Html, status::Custom, status::NotFound, Redirect};
+use rocket::http::uri::Origin;
 use rocket::tokio::{join, sync::RwLock};
-use rocket::{catch, get, uri, Request, State};
+use rocket::{get, State};
 use serde::Deserialize;
 use std::collections::{BTreeMap, HashMap};
-use std::ops::Range;
+
+lazy_static::lazy_static! {
+    static ref EARLY_ASSETS: BTreeMap<DateTime, AssetSet<'static>> =
+        toml::from_str(include_str!("../data/assets.toml")).unwrap();
+
+    pub(crate) static ref CACHE: RwLock<Cache> = RwLock::new(Cache::default());
+}
 
 /// After this point, Chronicler fetched main.js and 2.js.
 const CHRONICLER_JS_EPOCH: DateTime = datetime!(2020-09-07 23:29:00 UTC);
@@ -22,15 +23,17 @@ const CHRONICLER_JS_EPOCH: DateTime = datetime!(2020-09-07 23:29:00 UTC);
 /// After this point, Chronicler fetched main.css in addition to the JS assets.
 const CHRONICLER_CSS_EPOCH: DateTime = datetime!(2020-09-11 16:58:00 UTC);
 
-lazy_static::lazy_static! {
-    static ref EARLY_ASSETS: BTreeMap<DateTime, AssetSet<'static>> =
-        toml::from_str(include_str!("../data/assets.toml")).unwrap();
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
-    static ref CACHE: RwLock<Cache> = RwLock::new(Cache::default());
+#[derive(Deserialize, Clone, Copy)]
+pub(crate) struct AssetSet<'a> {
+    pub(crate) css: &'a str,
+    pub(crate) js_main: &'a str,
+    pub(crate) js_2: &'a str,
 }
 
 #[derive(Default)]
-struct Cache {
+pub(crate) struct Cache {
     /// The last time we fetched `v1/site/updates`, used to determine if we need to fetch again.
     until: Option<DateTime>,
     /// `/`
@@ -43,6 +46,46 @@ struct Cache {
     js_2: BTreeMap<DateTime, SiteUpdate>,
     /// Assets (non `/` paths)
     assets: HashMap<String, SiteUpdate>,
+}
+
+impl Cache {
+    pub(crate) fn assets(&self, time: DateTime) -> Option<AssetSet<'_>> {
+        if time >= CHRONICLER_JS_EPOCH {
+            Some(AssetSet {
+                css: &fetch_cache(&self.css, time, time >= CHRONICLER_CSS_EPOCH)?.path,
+                js_main: &fetch_cache(&self.js_main, time, true)?.path,
+                js_2: &fetch_cache(&self.js_2, time, true)?.path,
+            })
+        } else {
+            EARLY_ASSETS
+                .range(..time)
+                .map(|(_, v)| v)
+                .rev()
+                .next()
+                .copied()
+        }
+    }
+}
+
+fn fetch_cache(
+    cache: &BTreeMap<DateTime, SiteUpdate>,
+    time: DateTime,
+    rev: bool,
+) -> Option<&SiteUpdate> {
+    let update = if rev {
+        cache.range(..=time).rev().next()
+    } else {
+        cache.range(time..).next()
+    };
+    update
+        .or_else(|| {
+            if rev {
+                cache.iter().next()
+            } else {
+                cache.iter().rev().next()
+            }
+        })
+        .map(|(_, update)| update)
 }
 
 pub(crate) async fn update_cache(config: &Config, at: DateTime) -> anyhow::Result<()> {
@@ -81,6 +124,8 @@ pub(crate) async fn update_cache(config: &Config, at: DateTime) -> anyhow::Resul
     Ok(())
 }
 
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
 impl SiteUpdate {
     async fn fetch(&self, config: &Config) -> anyhow::Result<Response> {
         Ok(RequestBuilder::new(format!("v1{}", self.download_url))
@@ -107,122 +152,4 @@ pub(crate) async fn site_static(
         }),
         None => None,
     })
-}
-
-#[derive(Deserialize, Clone, Copy)]
-struct AssetSet<'a> {
-    css: &'a str,
-    js_main: &'a str,
-    js_2: &'a str,
-}
-
-type IndexResponse = Either<Custom<Html<String>>, Redirect>;
-
-fn fetch_cache(
-    cache: &BTreeMap<DateTime, SiteUpdate>,
-    time: DateTime,
-    rev: bool,
-) -> Option<&SiteUpdate> {
-    let update = if rev {
-        cache.range(..=time).rev().next()
-    } else {
-        cache.range(time..).next()
-    };
-    update
-        .or_else(|| {
-            if rev {
-                cache.iter().next()
-            } else {
-                cache.iter().rev().next()
-            }
-        })
-        .map(|(_, update)| update)
-}
-
-#[derive(Template)]
-#[template(path = "game.html")]
-struct GameTemplate<'a> {
-    assets: AssetSet<'a>,
-    eyes_fix: bool,
-    matomo: Option<(&'a str, i64)>,
-}
-
-#[get("/")]
-pub(crate) async fn index(
-    time: Option<OffsetTime>,
-    config: &State<Config>,
-) -> Result<IndexResponse> {
-    let time = match time {
-        Some(time) => time,
-        None => return Ok(Either::Right(Redirect::to(uri!(crate::start::start)))),
-    };
-
-    update_cache(config, time.0).await?;
-    let cache = CACHE.read().await;
-
-    macro_rules! opt {
-        ($x:expr) => {
-            $x.ok_or_else(|| anyhow!("cache was empty"))
-        };
-    }
-
-    let assets = if time.0 >= CHRONICLER_JS_EPOCH {
-        AssetSet {
-            css: &opt!(fetch_cache(
-                &cache.css,
-                time.0,
-                time.0 >= CHRONICLER_CSS_EPOCH
-            ))?
-            .path,
-            js_main: &opt!(fetch_cache(&cache.js_main, time.0, true))?.path,
-            js_2: &opt!(fetch_cache(&cache.js_2, time.0, true))?.path,
-        }
-    } else if let Some(template) = EARLY_ASSETS.range(..time.0).map(|(_, v)| v).rev().next() {
-        *template
-    } else {
-        return Ok(Either::Right(Redirect::to(uri!(crate::start::start))));
-    };
-
-    const EYES_FIX_RANGE: Range<DateTime> =
-        datetime!(2020-10-19 17:40:00 UTC)..datetime!(2020-10-25 06:50:00 UTC);
-
-    let template = GameTemplate {
-        assets,
-        eyes_fix: EYES_FIX_RANGE.contains(&time.0),
-        matomo: match (config.matomo_base_url.as_ref(), config.matomo_site_id) {
-            (Some(base_url), Some(site_id)) => Some((base_url, site_id)),
-            _ => None,
-        },
-    };
-
-    Ok(Either::Left(Custom(
-        Status::Ok,
-        Html(template.render().map_err(anyhow::Error::from)?),
-    )))
-}
-
-// Blaseball returns the index page for any unknown route, so that the React frontend can display
-// the correct thing when the page loads.
-#[catch(404)]
-pub(crate) async fn index_default(
-    req: &Request<'_>,
-) -> Result<Either<IndexResponse, NotFound<()>>> {
-    let path = req.uri().path();
-    if [
-        "/api",
-        "/auth",
-        "/database",
-        "/events",
-        "/static",
-        "/_before",
-    ]
-    .iter()
-    .any(|p| path.starts_with(p))
-    {
-        return Ok(Either::Right(NotFound(())));
-    }
-
-    let time: Option<OffsetTime> = FromRequest::from_request(req).await.unwrap();
-    let config: &State<Config> = FromRequest::from_request(req).await.unwrap();
-    Ok(Either::Left(index(time, config).await?))
 }

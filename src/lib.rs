@@ -9,6 +9,7 @@ mod database;
 mod day_map;
 mod events;
 mod favorite_team;
+mod game;
 mod idol;
 mod jump;
 mod media;
@@ -54,7 +55,7 @@ fn reset(cookies: &CookieJar<'_>) -> Redirect {
         c.make_removal();
         cookies.add(c);
     });
-    Redirect::to(uri!(crate::site::index))
+    Redirect::to(uri!(crate::game::index))
 }
 
 async fn background_tasks(rocket: &Rocket<Orbit>) {
@@ -147,13 +148,13 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 events::stream_data,
                 favorite_team::buy_flute,
                 favorite_team::update_favorite_team,
+                game::index,
                 idol::choose_idol,
                 jump::jump,
                 jump::relative,
                 media::static_media,
                 media::static_root,
                 settings::update_settings,
-                site::index,
                 site::site_static,
                 snacks::buy_a_dang_peanut,
                 snacks::buy_relic,
@@ -177,5 +178,5 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 reset,
             ],
         )
-        .register("/", catchers![site::index_default]))
+        .register("/", catchers![game::index_default]))
 }
