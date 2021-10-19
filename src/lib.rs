@@ -24,6 +24,7 @@ mod start;
 mod stream;
 mod tarot;
 mod time;
+mod user;
 
 pub use crate::config::Config;
 
@@ -129,7 +130,6 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
             routes![
                 api::clear_user_notifications,
                 api::get_active_bets,
-                api::get_user,
                 api::get_user_notifications,
                 api::get_user_rewards,
                 database::bonus_results,
@@ -170,6 +170,7 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 start::start,
                 tarot::deal_cards,
                 tarot::reorder_cards,
+                user::get_user,
                 reset,
             ],
         )
