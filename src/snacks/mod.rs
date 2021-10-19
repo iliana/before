@@ -51,6 +51,16 @@ impl AsCookie for SnackPack {
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
 impl SnackPack {
+    fn find_snack_mut(&mut self, snack: Snack) -> Option<&mut Slot> {
+        self.0
+            .iter_mut()
+            .find(|slot| matches!(slot, Occupied(s, _) if *s == snack))
+    }
+
+    fn find_empty_mut(&mut self) -> Option<&mut Slot> {
+        self.0.iter_mut().find(|slot| matches!(slot, Vacant))
+    }
+
     pub(crate) fn get(&self, snack: Snack) -> Option<i64> {
         self.0.iter().find_map(|slot| match slot {
             Occupied(s, amount) if *s == snack => Some(*amount),
@@ -58,8 +68,21 @@ impl SnackPack {
         })
     }
 
+    /// Returns the new amount, or `None` if an empty slot was required but none was available.
+    pub(crate) fn set(&mut self, snack: Snack, amount: i64) -> Option<i64> {
+        if let Some(slot) = self.find_snack_mut(snack) {
+            *slot = Occupied(snack, amount);
+            Some(amount)
+        } else if let Some(slot) = self.find_empty_mut() {
+            *slot = Occupied(snack, amount);
+            Some(amount)
+        } else {
+            None
+        }
+    }
+
     /// Returns `true` if the item was present.
-    fn remove(&mut self, snack: Snack) -> bool {
+    pub(crate) fn remove(&mut self, snack: Snack) -> bool {
         if let Some(slot) = self
             .0
             .iter_mut()
@@ -72,28 +95,8 @@ impl SnackPack {
         }
     }
 
-    pub(crate) fn adjust(&mut self, snack: Snack, adjustment: i64) -> Option<i64> {
-        if let Some(slot) = self
-            .0
-            .iter_mut()
-            .find(|slot| matches!(slot, Occupied(s, _) if *s == snack))
-        {
-            let amount_ref = match slot {
-                Occupied(_, ref mut amount) => amount,
-                _ => unreachable!(),
-            };
-            *amount_ref += adjustment;
-            let amount = *amount_ref;
-            if amount == 0 {
-                *slot = Vacant;
-            }
-            Some(amount)
-        } else if let Some(slot) = self.0.iter_mut().find(|slot| matches!(slot, Vacant)) {
-            *slot = Occupied(snack, adjustment);
-            Some(adjustment)
-        } else {
-            None
-        }
+    fn add_slot(&mut self) {
+        self.0.push(Vacant);
     }
 
     pub(crate) fn len(&self) -> usize {
@@ -247,6 +250,18 @@ impl Snack {
             Peanuts => "Peanuts",
             TarotReroll => "Tarot Spread",
             RedHerring => "Red Herring",
+        }
+    }
+
+    fn min(self) -> i64 {
+        use Snack::*;
+
+        match self {
+            MaxBet | TeamWin | IdolHits | IdolHomers | IdolStrikeouts | IdolShutouts | TeamLoss
+            | IdolSteal | BlackHole | TeamSlush | IdolHomerAllowed | Breakfast | Sun2
+            | IdolPitcherWin | IdolPitcherLoss | TeamShamed | TeamShaming | Incineration
+            | ConsumerAttacks => 0,
+            _ => 1,
         }
     }
 }

@@ -1,3 +1,4 @@
+use crate::api::ApiResult;
 use crate::choose;
 use crate::cookies::AsCookie;
 use crate::cookies::CookieJarExt;
@@ -5,7 +6,6 @@ use rocket::http::CookieJar;
 use rocket::post;
 use rocket::serde::json::Json;
 use serde::{Deserialize, Serialize};
-use serde_json::{json, Value};
 use std::convert::Infallible;
 use std::fmt::{self, Display};
 use std::str::FromStr;
@@ -75,9 +75,9 @@ impl AsCookie for FavoriteTeam {
 }
 
 #[post("/api/buyUpdateFavoriteTeam")]
-pub(crate) fn buy_flute(cookies: &CookieJar<'_>) -> Json<Value> {
+pub(crate) fn buy_flute(cookies: &CookieJar<'_>) -> ApiResult<&'static str> {
     cookies.store(&FavoriteTeam(None));
-    Json(json!({"message": "Reload this page to choose a new team."}))
+    ApiResult::Ok("Reload this page to choose a new team.")
 }
 
 #[derive(Deserialize)]
@@ -91,7 +91,7 @@ pub(crate) struct FavoriteTeamUpdate {
 pub(crate) fn update_favorite_team(
     cookies: &CookieJar<'_>,
     new_favorite: Json<FavoriteTeamUpdate>,
-) -> Json<Value> {
+) -> ApiResult<&'static str> {
     cookies.store(&FavoriteTeam(Some(new_favorite.into_inner().team_id)));
-    Json(json!({ "message": "You now remember the Before of a new team." }))
+    ApiResult::Ok("You now remember the Before of a new team.")
 }

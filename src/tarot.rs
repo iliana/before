@@ -1,3 +1,4 @@
+use crate::api::ApiResult;
 use crate::cookies::{AsCookie, CookieJarExt};
 use crate::snacks::{Snack, SnackPack};
 use anyhow::{Context, Error, Result};
@@ -92,23 +93,17 @@ pub(crate) struct CardOrderUpdate {
 }
 
 #[post("/api/dealCards")]
-pub(crate) fn deal_cards(cookies: &CookieJar<'_>) -> (Status, Json<Value>) {
+pub(crate) fn deal_cards(cookies: &CookieJar<'_>) -> (Status, Value) {
     let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
-    if snacks.get(Snack::TarotReroll).is_none() && snacks.adjust(Snack::TarotReroll, 1).is_none() {
-        return (
-            Status::BadRequest,
-            Json(json!({
-                "message": "Snack pack full",
-                "error": "Snack pack full",
-            })),
-        );
+    if snacks.set(Snack::TarotReroll, 1).is_none() {
+        return ApiResult::Err("Snack pack full").into();
     }
     cookies.store(&snacks);
     let spread = Spread::generate();
     cookies.store(&spread);
     (
         Status::Ok,
-        Json(json!({"spread": spread, "message": format!("READING: {}", spread.card_names())})),
+        json!({"spread": spread, "message": format!("READING: {}", spread.card_names())}),
     )
 }
 
@@ -116,7 +111,7 @@ pub(crate) fn deal_cards(cookies: &CookieJar<'_>) -> (Status, Json<Value>) {
 pub(crate) fn reorder_cards(
     cookies: &CookieJar<'_>,
     order_update: Json<CardOrderUpdate>,
-) -> Json<Value> {
+) -> ApiResult<&'static str> {
     cookies.store(&order_update.spread);
-    Json(json!({"message": "New Spread preserved"}))
+    ApiResult::Ok("New Spread preserved")
 }

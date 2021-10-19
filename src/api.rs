@@ -8,13 +8,41 @@ use crate::squirrels::Squirrels;
 use crate::tarot::Spread;
 use crate::time::{datetime, DateTime};
 use rocket::http::CookieJar;
+use rocket::http::Status;
+use rocket::request::Request;
+use rocket::response::{self, Responder};
 use rocket::serde::json::Json;
 use rocket::{get, post};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
+use std::collections::HashMap;
 use std::ops::Deref;
 
 const SIM_NO_COIN: DateTime = datetime!(2021-07-30 03:00:15.845649 UTC);
+
+pub(crate) enum ApiResult<T> {
+    Ok(T),
+    Err(T),
+}
+
+impl<T: Serialize> From<ApiResult<T>> for (Status, Value) {
+    fn from(res: ApiResult<T>) -> (Status, Value) {
+        match res {
+            ApiResult::Ok(message) => (Status::Ok, json!({ "message": message })),
+            ApiResult::Err(message) => (
+                Status::BadRequest,
+                json!({ "message": message, "error": message }),
+            ),
+        }
+    }
+}
+
+impl<'r, 'o: 'r, T: Serialize + 'o> Responder<'r, 'o> for ApiResult<T> {
+    fn respond_to(self, request: &'r Request<'_>) -> response::Result<'o> {
+        let responder: (Status, Value) = self.into();
+        responder.respond_to(request)
+    }
+}
 
 #[get("/api/getActiveBets")]
 pub(crate) fn get_active_bets() -> Json<Vec<()>> {
@@ -22,7 +50,19 @@ pub(crate) fn get_active_bets() -> Json<Vec<()>> {
 }
 
 #[get("/api/getUser")]
-pub(crate) fn get_user(cookies: &CookieJar<'_>, time: OffsetTime) -> Json<Value> {
+pub(crate) fn get_user(cookies: &CookieJar<'_>, time: OffsetTime) -> Value {
+    #[derive(Serialize)]
+    struct Relics {
+        #[serde(rename = "Idol_Hits", skip_serializing_if = "Option::is_none")]
+        hits: Option<i64>,
+        #[serde(rename = "Idol_Strikeouts", skip_serializing_if = "Option::is_none")]
+        strikeouts: Option<i64>,
+        #[serde(rename = "Idol_Homers", skip_serializing_if = "Option::is_none")]
+        homers: Option<i64>,
+        #[serde(rename = "Idol_Shutouts", skip_serializing_if = "Option::is_none")]
+        shutouts: Option<i64>,
+    }
+
     lazy_static::lazy_static! {
         /// Infinity is not representable in JSON, but JavaScript will treat double-precision
         /// floating point overflows as infinity. `1e1000` is sufficient to do this, but requires
@@ -49,7 +89,7 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>, time: OffsetTime) -> Json<Value>
 
     let snacks = cookies.load::<SnackPack>().unwrap_or_default();
 
-    Json(json!({
+    json!({
         "id": "be457c4e-79e6-4016-94f5-76c6705741bb",
         "email": "before@sibr.dev",
         // disable ability to change email on frontend
@@ -71,11 +111,11 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>, time: OffsetTime) -> Json<Value>
         "votes": snacks.get(Snack::Votes).unwrap_or_default(),
         "peanuts": snacks.get(Snack::Peanuts).unwrap_or_default(),
         "spread": cookies.load::<Spread>().unwrap_or_else(Spread::generate),
-        "relics": {
-            "Idol_Strikeouts": snacks.get(Snack::IdolStrikeouts).unwrap_or_default(),
-            "Idol_Shutouts": snacks.get(Snack::IdolShutouts).unwrap_or_default(),
-            "Idol_Homers": snacks.get(Snack::IdolHomers).unwrap_or_default(),
-            "Idol_Hits": snacks.get(Snack::IdolHits).unwrap_or_default(),
+        "relics": Relics {
+            hits: snacks.get(Snack::IdolHits),
+            strikeouts: snacks.get(Snack::IdolStrikeouts),
+            homers: snacks.get(Snack::IdolHomers),
+            shutouts: snacks.get(Snack::IdolShutouts),
         },
 
         "snacks": snacks.amounts(),
@@ -91,7 +131,7 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>, time: OffsetTime) -> Json<Value>
             "SNACKS_BOUGHT": 2,
             "SNACK_UPGRADES": 3,
         },
-    }))
+    })
 }
 
 #[get("/api/getUserRewards")]
@@ -118,7 +158,7 @@ pub(crate) struct EatADangPeanut {
 pub(crate) fn eat_a_dang_peanut(
     cookies: &CookieJar<'_>,
     dang_peanut: Json<EatADangPeanut>,
-) -> Json<Value> {
+) -> Json<HashMap<&'static str, Value>> {
     cookies.add(crate::new_cookie(
         "peanuts",
         (cookies
@@ -128,11 +168,11 @@ pub(crate) fn eat_a_dang_peanut(
             - dang_peanut.amount)
             .to_string(),
     ));
-    Json(json!({}))
+    Json(HashMap::new())
 }
 
 #[post("/api/buyADangPeanut")]
-pub(crate) fn buy_a_dang_peanut(cookies: &CookieJar<'_>) -> Json<Value> {
+pub(crate) fn buy_a_dang_peanut(cookies: &CookieJar<'_>) -> ApiResult<String> {
     let peanuts = cookies
         .get_pending("peanuts")
         .and_then(|t| t.value().parse::<i32>().ok())
@@ -140,7 +180,8 @@ pub(crate) fn buy_a_dang_peanut(cookies: &CookieJar<'_>) -> Json<Value> {
         + 1000;
 
     cookies.add(crate::new_cookie("peanuts", peanuts.to_string()));
-    Json(json!({
-        "message": format!("You receive 1000 peanuts. You now have {} peanuts", peanuts)
-    }))
+    ApiResult::Ok(format!(
+        "You receive 1000 peanuts. You now have {} peanuts",
+        peanuts
+    ))
 }
