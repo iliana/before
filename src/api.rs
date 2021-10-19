@@ -13,9 +13,8 @@ use rocket::request::Request;
 use rocket::response::{self, Responder};
 use rocket::serde::json::Json;
 use rocket::{get, post};
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 use serde_json::{json, Value};
-use std::collections::HashMap;
 use std::ops::Deref;
 
 const SIM_NO_COIN: DateTime = datetime!(2021-07-30 03:00:15.845649 UTC);
@@ -147,41 +146,4 @@ pub(crate) fn get_user_notifications() -> Json<Option<()>> {
 #[post("/api/clearUserNotifications")]
 pub(crate) fn clear_user_notifications() -> Json<Option<()>> {
     Json(None)
-}
-
-#[derive(Deserialize)]
-pub(crate) struct EatADangPeanut {
-    pub(crate) amount: i32,
-}
-
-#[post("/api/eatADangPeanut", data = "<dang_peanut>")]
-pub(crate) fn eat_a_dang_peanut(
-    cookies: &CookieJar<'_>,
-    dang_peanut: Json<EatADangPeanut>,
-) -> Json<HashMap<&'static str, Value>> {
-    cookies.add(crate::new_cookie(
-        "peanuts",
-        (cookies
-            .get_pending("peanuts")
-            .and_then(|t| t.value().parse::<i32>().ok())
-            .unwrap_or(0)
-            - dang_peanut.amount)
-            .to_string(),
-    ));
-    Json(HashMap::new())
-}
-
-#[post("/api/buyADangPeanut")]
-pub(crate) fn buy_a_dang_peanut(cookies: &CookieJar<'_>) -> ApiResult<String> {
-    let peanuts = cookies
-        .get_pending("peanuts")
-        .and_then(|t| t.value().parse::<i32>().ok())
-        .unwrap_or(0)
-        + 1000;
-
-    cookies.add(crate::new_cookie("peanuts", peanuts.to_string()));
-    ApiResult::Ok(format!(
-        "You receive 1000 peanuts. You now have {} peanuts",
-        peanuts
-    ))
 }

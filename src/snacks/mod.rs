@@ -81,6 +81,17 @@ impl SnackPack {
         }
     }
 
+    /// Adds a new slot if necessary. Returns the new amount.
+    pub(crate) fn set_force(&mut self, snack: Snack, amount: i64) -> i64 {
+        match self.set(snack, amount) {
+            Some(amount) => amount,
+            None => {
+                self.0.push(Occupied(snack, amount));
+                amount
+            }
+        }
+    }
+
     /// Returns `true` if the item was present.
     pub(crate) fn remove(&mut self, snack: Snack) -> bool {
         if let Some(slot) = self
@@ -93,10 +104,6 @@ impl SnackPack {
         } else {
             false
         }
-    }
-
-    fn add_slot(&mut self) {
-        self.0.push(Vacant);
     }
 
     pub(crate) fn len(&self) -> usize {

@@ -37,6 +37,43 @@ pub(crate) struct VotePurchase {
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
+#[derive(Deserialize)]
+pub(crate) struct EatADangPeanut {
+    pub(crate) amount: i64,
+}
+
+#[post("/api/eatADangPeanut", data = "<dang_peanut>")]
+pub(crate) fn eat_a_dang_peanut(
+    cookies: &CookieJar<'_>,
+    dang_peanut: Json<EatADangPeanut>,
+) -> ApiResult<()> {
+    let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
+    let amount = snacks.get(Snack::Peanuts).unwrap_or_default() - dang_peanut.amount;
+    if amount.is_negative() {
+        ApiResult::Err(())
+    } else {
+        snacks.set(Snack::Peanuts, amount);
+        cookies.store(&snacks);
+        ApiResult::Ok(())
+    }
+}
+
+#[post("/api/buyADangPeanut")]
+pub(crate) fn buy_a_dang_peanut(cookies: &CookieJar<'_>) -> ApiResult<String> {
+    let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
+    let peanuts = snacks.set_force(
+        Snack::Peanuts,
+        snacks.get(Snack::Peanuts).unwrap_or_default() + 1000,
+    );
+    cookies.store(&snacks);
+    ApiResult::Ok(format!(
+        "You receive 1000 peanuts. You now have {} peanuts",
+        peanuts
+    ))
+}
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
 #[post("/api/buySnack", data = "<purchase>")]
 pub(crate) fn buy_snack(
     cookies: &CookieJar<'_>,
@@ -69,10 +106,7 @@ pub(crate) fn buy_relic(
         Some(current) => current + 1,
         None => purchase.snack_id.min(),
     };
-    if snacks.set(purchase.snack_id, amount).is_none() {
-        snacks.add_slot();
-        snacks.set(purchase.snack_id, amount);
-    }
+    snacks.set_force(purchase.snack_id, amount);
     cookies.store(&snacks);
     ApiResult::Ok("Bought relic") // FIXME use actual messages found in frontend
 }

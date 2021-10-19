@@ -32,11 +32,10 @@ use rand::seq::SliceRandom;
 use rand::thread_rng;
 use rocket::fairing::AdHoc;
 use rocket::figment::Figment;
-use rocket::http::{Cookie, CookieJar, SameSite};
+use rocket::http::CookieJar;
 use rocket::response::Redirect;
 use rocket::tokio::{self, time::Instant};
 use rocket::{catchers, get, routes, uri, Build, Orbit, Rocket};
-use std::borrow::Cow;
 use std::convert::TryFrom;
 use std::time::Duration as StdDuration;
 
@@ -45,16 +44,6 @@ type Result<T> = std::result::Result<T, rocket::response::Debug<anyhow::Error>>;
 fn choose<'a>(x: &[&'a str]) -> &'a str {
     debug_assert!(!x.is_empty());
     x.choose(&mut thread_rng()).cloned().unwrap_or_default()
-}
-
-fn new_cookie<N, V>(name: N, value: V) -> Cookie<'static>
-where
-    N: Into<Cow<'static, str>>,
-    V: Into<Cow<'static, str>>,
-{
-    let mut cookie = Cookie::new(name, value);
-    cookie.set_same_site(SameSite::Lax);
-    cookie
 }
 
 #[get("/auth/logout")]
@@ -138,9 +127,7 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
         .mount(
             "/",
             routes![
-                api::buy_a_dang_peanut,
                 api::clear_user_notifications,
-                api::eat_a_dang_peanut,
                 api::get_active_bets,
                 api::get_user,
                 api::get_user_notifications,
@@ -168,10 +155,12 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 settings::update_settings,
                 site::index,
                 site::site_static,
+                snacks::buy_a_dang_peanut,
                 snacks::buy_relic,
                 snacks::buy_snack,
                 snacks::buy_snack_no_upgrade,
                 snacks::buy_vote,
+                snacks::eat_a_dang_peanut,
                 snacks::sell_snack,
                 socket_io::socket_io,
                 socket_io::socket_io_post,
