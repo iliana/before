@@ -5,8 +5,8 @@ pub use routes::*;
 use crate::cookies::AsCookie;
 use crate::snacks::Slot::{Occupied, Vacant};
 use crate::time::{datetime, DateTime};
-use anyhow::{Context, Error, Result};
-use serde::{Deserialize, Serialize};
+use anyhow::{bail, ensure, Context, Error, Result};
+use serde::{de::Error as _, Deserialize, Deserializer, Serialize};
 use std::collections::HashMap;
 use std::fmt::{self, Display};
 use std::str::FromStr;
@@ -106,6 +106,23 @@ impl SnackPack {
         }
     }
 
+    fn reorder(&mut self, order: &[SlotContents]) -> Result<()> {
+        ensure!(self.0.len() == order.len(), "order length does not match");
+        for (i, contents) in order.iter().enumerate() {
+            if let Some(position) = self
+                .0
+                .iter()
+                .skip(i)
+                .position(|slot| slot.contents() == *contents)
+            {
+                self.0.swap(i, position + i);
+            } else {
+                bail!("item not found");
+            }
+        }
+        Ok(())
+    }
+
     pub(crate) fn len(&self) -> usize {
         self.0.len()
     }
@@ -141,6 +158,15 @@ enum Slot {
     Occupied(Snack, i64),
 }
 
+impl Slot {
+    fn contents(self) -> SlotContents {
+        match self {
+            Vacant => SlotContents::Empty,
+            Occupied(snack, _) => SlotContents::Snack(snack),
+        }
+    }
+}
+
 impl Display for Slot {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
@@ -159,6 +185,31 @@ impl FromStr for Slot {
         }
         let (snack, amount) = s.split_once(':').context("invalid format")?;
         Ok(Occupied(snack.parse()?, amount.parse()?))
+    }
+}
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum SlotContents {
+    Empty,
+    Snack(Snack),
+}
+
+impl<'de> Deserialize<'de> for SlotContents {
+    fn deserialize<D>(deserializer: D) -> Result<SlotContents, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let s = <&str>::deserialize(deserializer)?;
+        if s == "E" {
+            Ok(SlotContents::Empty)
+        } else {
+            match Snack::from_str(s) {
+                Ok(snack) => Ok(SlotContents::Snack(snack)),
+                Err(err) => Err(D::Error::custom(err)),
+            }
+        }
     }
 }
 
@@ -280,7 +331,7 @@ serde_plain::derive_fromstr_from_deserialize!(Snack);
 
 #[cfg(test)]
 mod tests {
-    use super::{Snack, SnackPack};
+    use super::{SlotContents, Snack, SnackPack};
     use maplit::hashmap;
     use std::str::FromStr;
 
@@ -304,14 +355,36 @@ mod tests {
         );
 
         let mut snacks = SnackPack::default();
-        snacks.adjust(Snack::Votes, 100);
+        snacks.set(Snack::Votes, 101);
         assert_eq!(snacks.get(Snack::Votes), Some(101));
         assert_eq!(snacks.get(Snack::Peanuts), None);
-        snacks.adjust(Snack::Peanuts, 1000);
+        snacks.set(Snack::Peanuts, 1000);
         assert_eq!(snacks.get(Snack::Peanuts), Some(1000));
         assert_eq!(snacks.to_string(), "Votes:101,Peanuts:1000,E,E,E,E,E,E");
-        snacks.adjust(Snack::Votes, -101);
+
+        snacks
+            .reorder(&[
+                SlotContents::Empty,
+                SlotContents::Snack(Snack::Votes),
+                SlotContents::Empty,
+                SlotContents::Snack(Snack::Peanuts),
+                SlotContents::Empty,
+                SlotContents::Empty,
+                SlotContents::Empty,
+                SlotContents::Empty,
+            ])
+            .unwrap();
+        assert_eq!(snacks.to_string(), "E,Votes:101,E,Peanuts:1000,E,E,E,E");
+
+        snacks.remove(Snack::Votes);
         assert_eq!(snacks.get(Snack::Votes), None);
-        assert_eq!(snacks.to_string(), "E,Peanuts:1000,E,E,E,E,E,E");
+        assert_eq!(snacks.to_string(), "E,E,E,Peanuts:1000,E,E,E,E");
+
+        assert_eq!(SlotContents::Empty, serde_json::from_str("\"E\"").unwrap());
+        assert_eq!(
+            SlotContents::Snack(Snack::Peanuts),
+            serde_json::from_str("\"Peanuts\"").unwrap()
+        );
+        assert!(serde_json::from_str::<SlotContents>("\"fhqwhgads\"").is_err());
     }
 }

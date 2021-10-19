@@ -1,7 +1,7 @@
 use crate::api::ApiResult;
 use crate::cookies::CookieJarExt;
 use crate::offset::OffsetTime;
-use crate::snacks::{Snack, SnackPack};
+use crate::snacks::{Slot, SlotContents, Snack, SnackPack};
 use rocket::http::CookieJar;
 use rocket::post;
 use rocket::serde::json::Json;
@@ -168,4 +168,58 @@ pub(crate) struct SnackPurchase {
     #[serde(alias = "relicId")]
     snack_id: Snack,
     amount: Option<i64>,
+}
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
+#[post("/api/buySlot")]
+pub(crate) fn buy_slot(cookies: &CookieJar<'_>) -> ApiResult<&'static str> {
+    let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
+    snacks.0.push(Slot::Vacant);
+    cookies.store(&snacks);
+    ApiResult::Ok("You bought the Snack Slot.")
+}
+
+#[post("/api/sellSlot", data = "<sell_slot>")]
+pub(crate) fn sell_slot(
+    cookies: &CookieJar<'_>,
+    sell_slot: Json<SellSlot>,
+) -> ApiResult<&'static str> {
+    let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
+    if sell_slot.slot_index < snacks.len() {
+        snacks.0.remove(sell_slot.slot_index);
+        cookies.store(&snacks);
+        ApiResult::Ok("You discarded the Snack Slot.")
+    } else {
+        ApiResult::Err("Invalid request")
+    }
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub(crate) struct SellSlot {
+    slot_index: usize,
+}
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
+#[post("/api/reorderSnacks", data = "<reorder>")]
+pub(crate) fn reorder_snacks(
+    cookies: &CookieJar<'_>,
+    reorder: Json<ReorderSnacks>,
+) -> ApiResult<&'static str> {
+    let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
+    match snacks.reorder(&reorder.snack_order) {
+        Ok(()) => {
+            cookies.store(&snacks);
+            ApiResult::Ok("Snacks reordered")
+        }
+        Err(_) => ApiResult::Err("Invalid request"),
+    }
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub(crate) struct ReorderSnacks {
+    snack_order: Vec<SlotContents>,
 }
