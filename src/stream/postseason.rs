@@ -1,5 +1,3 @@
-use crate::chronicler::{RequestBuilder, Versions};
-use crate::database::fetch;
 use crate::time::DateTime;
 use crate::Config;
 use anyhow::{anyhow, Result};
@@ -7,7 +5,6 @@ use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 use serde_json::value::RawValue;
 use std::collections::HashMap;
-use std::convert::TryFrom;
 
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -29,7 +26,7 @@ impl Postseason {
         round: i64,
         time: DateTime,
     ) -> Result<Option<Postseason>> {
-        let playoffs_raw = match fetch(config, "Playoffs", Some(id), time).await?.next() {
+        let playoffs_raw = match config.fetch("Playoffs", Some(id), time).await?.next() {
             Some(x) => x,
             None => return Ok(None),
         };
@@ -38,7 +35,9 @@ impl Postseason {
             return Ok(None);
         }
 
-        let rounds_raw = fetch_map(config, "PlayoffRound", playoffs.rounds.join(","), time).await?;
+        let rounds_raw = config
+            .fetch_map("PlayoffRound", Some(playoffs.rounds.join(",")), time)
+            .await?;
         let rounds_raw_vec = playoffs
             .rounds
             .iter()
@@ -57,13 +56,13 @@ impl Postseason {
             .map(|round| serde_json::from_str::<Round>(round.get()))
             .collect::<serde_json::Result<Vec<_>>>()?;
 
-        let matchups_raw = fetch_map(
-            config,
-            "PlayoffMatchup",
-            rounds.iter().flat_map(|round| &round.matchups).join(","),
-            time,
-        )
-        .await?;
+        let matchups_raw = config
+            .fetch_map(
+                "PlayoffMatchup",
+                Some(rounds.iter().flat_map(|round| &round.matchups).join(",")),
+                time,
+            )
+            .await?;
 
         let (today_round, today_matchups) =
             matchups_for_round(&rounds_raw_vec, &rounds_vec, round, &matchups_raw)?;
@@ -99,7 +98,7 @@ struct Round {
     matchups: Vec<String>,
 }
 
-#[allow(clippy::borrowed_box)]
+#[allow(clippy::borrowed_box, clippy::similar_names)]
 fn matchups_for_round(
     rounds_raw: &[&Box<RawValue>],
     rounds: &[Round],
@@ -124,22 +123,4 @@ fn matchups_for_round(
         .collect::<Result<Vec<_>>>()?;
 
     Ok(((*round_raw).clone(), today_matchups))
-}
-
-async fn fetch_map(
-    config: &Config,
-    ty: &'static str,
-    ids: String,
-    time: DateTime,
-) -> Result<HashMap<String, Box<RawValue>>> {
-    Ok(RequestBuilder::new("v2/entities")
-        .ty(ty)
-        .at(time)
-        .id(ids)
-        .json::<Versions<Box<RawValue>>>(config)
-        .await?
-        .items
-        .into_iter()
-        .map(|version| (version.entity_id, version.data))
-        .collect::<HashMap<_, _>>())
 }

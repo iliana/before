@@ -34,6 +34,7 @@ pub(crate) fn update_settings(
     cookies: &CookieJar<'_>,
     settings: Json<Settings>,
 ) -> ApiResult<&'static str> {
+    let settings = settings.into_inner();
     if let Some(light_mode) = settings.light_mode {
         cookies.store(&LightMode(light_mode));
     }

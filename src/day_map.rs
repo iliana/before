@@ -1,13 +1,14 @@
-use crate::chronicler::{ChroniclerGame, Data, RequestBuilder};
+use crate::chronicler::{default_tournament, RequestBuilder};
 use crate::config::Config;
 use crate::time::{datetime, DateTime, Duration};
 use anyhow::Result;
 use itertools::Itertools;
 use rocket::tokio::sync::RwLock;
+use serde::Deserialize;
 use std::collections::BTreeMap;
 
 lazy_static::lazy_static! {
-    pub(crate) static ref DAY_MAP: RwLock<DayMap> = Default::default();
+    pub(crate) static ref DAY_MAP: RwLock<DayMap> = RwLock::default();
 }
 
 static DAY_MAP_START: DateTime = datetime!(2020-08-01 13:00:00 UTC);
@@ -21,19 +22,34 @@ pub(crate) struct DayMap {
 
 impl DayMap {
     pub(crate) async fn update(&mut self, config: &Config) -> Result<()> {
+        #[derive(Debug, Deserialize)]
+        #[serde(rename_all = "camelCase")]
+        struct Game {
+            start_time: DateTime,
+            data: GameData,
+        }
+
+        #[derive(Debug, PartialEq, Eq, Hash, Deserialize)]
+        struct GameData {
+            season: i64,
+            #[serde(default = "default_tournament")]
+            tournament: i64,
+            day: i64,
+        }
+
         log::warn!("updating v1/games start_time cache");
         let after = self
             .until
             .unwrap_or(DAY_MAP_START)
             .trunc(Duration::hours(1))?;
-        let times = RequestBuilder::new("v1/games")
+        let times = RequestBuilder::v1("games")
             .after(after)
             .started(true)
-            .json::<Data<ChroniclerGame>>(config)
+            .json(config)
             .await?
             .data
             .into_iter()
-            .map(|game| (game.data, game.start_time))
+            .map(|game: Game| (game.data, game.start_time))
             .into_grouping_map()
             .min();
         let start = self.season.len() + self.tournament.len();

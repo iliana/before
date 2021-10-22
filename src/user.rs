@@ -11,7 +11,6 @@ use rocket::get;
 use rocket::http::CookieJar;
 use serde::Serialize;
 use serde_json::{json, Value};
-use std::ops::Deref;
 
 const SIM_NO_COIN: DateTime = datetime!(2021-07-30 03:00:15.845649 UTC);
 
@@ -48,9 +47,9 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>, time: OffsetTime) -> Value {
     }
 
     let coins = if time.0 >= SIM_NO_COIN {
-        ZERO.deref()
+        &*ZERO
     } else {
-        INFINITY.deref()
+        &*INFINITY
     };
 
     let snacks = cookies.load::<SnackPack>().unwrap_or_default();

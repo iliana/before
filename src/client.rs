@@ -17,10 +17,13 @@ const EYES_FIX_RANGE: Range<DateTime> =
     datetime!(2020-10-19 17:40:00 UTC)..datetime!(2020-10-25 06:50:00 UTC);
 
 #[get("/")]
-pub(crate) async fn index(time: Option<OffsetTime>, config: &State<Config>) -> Result<Game<'_>> {
+pub(crate) async fn index(
+    time: Option<OffsetTime>,
+    config: &State<Config>,
+) -> Result<Response<'_>> {
     let time = match time {
         Some(time) => time,
-        None => return Ok(Game::Redirect(Redirect::to(uri!(crate::start::start)))),
+        None => return Ok(Response::Redirect(Redirect::to(uri!(crate::start::start)))),
     };
 
     crate::site::update_cache(config, time.0).await?;
@@ -44,14 +47,14 @@ pub(crate) async fn index(time: Option<OffsetTime>, config: &State<Config>) -> R
         .assets(time.0)
         .ok_or_else(|| anyhow!("cache was empty"))?;
 
-    let template = GameTemplate {
+    let template = Client {
         nonce: &nonce,
         assets,
         body_class,
         matomo,
     };
 
-    Ok(Game::Html {
+    Ok(Response::Html {
         data: template.render().map_err(anyhow::Error::from)?,
         csp: ContentSecurityPolicy {
             template: &config.content_security_policy,
@@ -64,7 +67,7 @@ pub(crate) async fn index(time: Option<OffsetTime>, config: &State<Config>) -> R
 // the correct thing when the page loads.
 #[allow(clippy::needless_lifetimes)] // false positive?
 #[catch(404)]
-pub(crate) async fn index_default<'a>(req: &'a Request<'_>) -> Result<Game<'a>> {
+pub(crate) async fn index_default<'a>(req: &'a Request<'_>) -> Result<Response<'a>> {
     let path = req.uri().path();
     if [
         "/api",
@@ -77,7 +80,7 @@ pub(crate) async fn index_default<'a>(req: &'a Request<'_>) -> Result<Game<'a>> 
     .iter()
     .any(|p| path.starts_with(p))
     {
-        Ok(Game::NotFound(()))
+        Ok(Response::NotFound(()))
     } else {
         index(
             <Option<OffsetTime>>::from_request(req).await.unwrap(),
@@ -91,7 +94,7 @@ pub(crate) async fn index_default<'a>(req: &'a Request<'_>) -> Result<Game<'a>> 
 
 #[allow(clippy::large_enum_variant)]
 #[derive(Responder)]
-pub(crate) enum Game<'a> {
+pub(crate) enum Response<'a> {
     #[response(status = 200, content_type = "html")]
     Html {
         data: String,
@@ -119,8 +122,8 @@ impl<'a> From<ContentSecurityPolicy<'a>> for Header<'static> {
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
 #[derive(Template)]
-#[template(path = "game.html")]
-struct GameTemplate<'a> {
+#[template(path = "client.html")]
+struct Client<'a> {
     nonce: &'a TextNonce,
     assets: AssetSet<'a>,
     body_class: &'static str,

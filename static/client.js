@@ -1,5 +1,5 @@
 (function () {
-  const _before_time = parseInt(
+  window._before_time = parseInt(
     document.cookie
       .split("; ")
       .find((row) => row.startsWith("offset_sec"))
@@ -31,7 +31,9 @@
       }
 
       var date = instantiate(CurrentDate, arguments);
-      date = instantiate(CurrentDate, [date.getTime() - _before_time * 1000]);
+      date = instantiate(CurrentDate, [
+        date.getTime() - window._before_time * 1000,
+      ]);
       return date;
     }
   })(Date);
@@ -49,7 +51,7 @@
 
     function TrickSource(url, options) {
       return instantiate(TrueSource, [
-        `${url}?_before_offset_time=${_before_time}`,
+        `${url}?_before_offset_time=${window._before_time}`,
         options,
       ]);
     }
@@ -60,15 +62,15 @@
     if (options === undefined) {
       options = {
         headers: {
-          "X-Before-Time": _before_time,
+          "X-Before-Time": window._before_time,
         },
       };
     } else {
       if (options["headers"] != undefined) {
-        options["headers"]["X-Before-Time"] = _before_time;
+        options["headers"]["X-Before-Time"] = window._before_time;
       } else {
         options["headers"] = {
-          "X-Before-Time": _before_time,
+          "X-Before-Time": window._before_time,
         };
       }
     }

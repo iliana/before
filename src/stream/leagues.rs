@@ -1,6 +1,6 @@
-use crate::chronicler::{StreamEvent, Version};
+use crate::chronicler::{fix_id, Version};
 use crate::config::Config;
-use crate::database::{fetch, fix_id};
+use crate::stream::StreamEvent;
 use crate::time::{datetime, DateTime};
 use anyhow::Result;
 use rocket::tokio::try_join;
@@ -41,54 +41,43 @@ impl Leagues {
         time: DateTime,
     ) -> Result<Leagues> {
         Ok(
-            match past
+            if let Some(v) = past
                 .iter_mut()
                 .rev()
                 .find_map(|v| v.data.value.leagues.take())
             {
-                Some(v) => Leagues::Value(v),
-                None => {
-                    let (
-                        leagues,
-                        stadiums,
-                        subleagues,
-                        divisions,
-                        teams,
-                        tiebreakers,
-                        mut community_chest,
-                        mut sunsun,
-                    ) = try_join!(
-                        fetch(config, "League", None, std::cmp::max(time, LEAGUES_START)),
-                        fetch(config, "Stadium", None, time),
-                        fetch(
-                            config,
-                            "Subleague",
-                            None,
-                            std::cmp::max(time, LEAGUES_START)
-                        ),
-                        fetch(config, "Division", None, std::cmp::max(time, LEAGUES_START)),
-                        fetch(config, "Team", None, time),
-                        fetch(
-                            config,
-                            "Tiebreakers",
-                            None,
-                            std::cmp::max(time, TIEBREAKERS_START)
-                        ),
-                        fetch(config, "CommunityChestProgress", None, time),
-                        fetch(config, "SunSun", None, time),
-                    )?;
-                    Leagues::Constructed {
-                        leagues: leagues.map(|v| fix_id(v, time)).collect::<Result<_>>()?,
-                        stadiums: stadiums.collect(),
-                        subleagues: subleagues.map(|v| fix_id(v, time)).collect::<Result<_>>()?,
-                        divisions: divisions.map(|v| fix_id(v, time)).collect::<Result<_>>()?,
-                        teams: teams.map(|v| fix_id(v, time)).collect::<Result<_>>()?,
-                        tiebreakers: tiebreakers.collect(),
-                        stats: LeaguesStats {
-                            community_chest: community_chest.next(),
-                            sunsun: sunsun.next(),
-                        },
-                    }
+                Leagues::Value(v)
+            } else {
+                let (
+                    leagues,
+                    stadiums,
+                    subleagues,
+                    divisions,
+                    teams,
+                    tiebreakers,
+                    mut community_chest,
+                    mut sunsun,
+                ) = try_join!(
+                    config.fetch("League", None, std::cmp::max(time, LEAGUES_START)),
+                    config.fetch("Stadium", None, time),
+                    config.fetch("Subleague", None, std::cmp::max(time, LEAGUES_START)),
+                    config.fetch("Division", None, std::cmp::max(time, LEAGUES_START)),
+                    config.fetch("Team", None, time),
+                    config.fetch("Tiebreakers", None, std::cmp::max(time, TIEBREAKERS_START)),
+                    config.fetch("CommunityChestProgress", None, time),
+                    config.fetch("SunSun", None, time),
+                )?;
+                Leagues::Constructed {
+                    leagues: leagues.map(|v| fix_id(v, time)).collect::<Result<_>>()?,
+                    stadiums: stadiums.collect(),
+                    subleagues: subleagues.map(|v| fix_id(v, time)).collect::<Result<_>>()?,
+                    divisions: divisions.map(|v| fix_id(v, time)).collect::<Result<_>>()?,
+                    teams: teams.map(|v| fix_id(v, time)).collect::<Result<_>>()?,
+                    tiebreakers: tiebreakers.collect(),
+                    stats: LeaguesStats {
+                        community_chest: community_chest.next(),
+                        sunsun: sunsun.next(),
+                    },
                 }
             },
         )

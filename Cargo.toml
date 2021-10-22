@@ -2,7 +2,8 @@
 name = "before"
 version = "0.2.0"
 authors = ["iliana etaoin <iliana@buttslol.net>"]
-edition = "2018"
+edition = "2021"
+rust-version = "1.56"
 publish = false
 
 [features]
@@ -26,10 +27,6 @@ serde_plain = "1"
 serde_urlencoded = "0.7"
 textnonce = "1"
 toml = "0.5"
-
-[dependencies.either]
-version = "1"
-features = ["serde"]
 
 [dependencies.reqwest]
 version = "0.11"

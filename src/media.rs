@@ -7,7 +7,7 @@ use rocket::request::{FromRequest, Outcome, Request};
 use rocket::tokio::fs::File;
 use rocket::tokio::io::{AsyncReadExt, AsyncSeekExt};
 use rocket::{get, Responder, State};
-use std::convert::TryFrom;
+use std::ffi::OsStr;
 use std::io::{Read, SeekFrom};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
@@ -49,7 +49,7 @@ async fn fetch_static(
     if let Some(mut zip) = config.static_zip.as_ref().cloned() {
         if let Some(mut file) = path
             .iter()
-            .map(|segment| segment.to_str())
+            .map(OsStr::to_str)
             .collect::<Option<Vec<_>>>()
             .map(|segments| format!("static/{}", segments.join("/")))
             .and_then(|f| zip.by_name(&f).ok())
@@ -62,34 +62,31 @@ async fn fetch_static(
 
     if let Ok(mut file) = File::open(config.static_dir.join(path)).await {
         let len = file.metadata().await?.len();
-        Ok(match range {
-            Some(Range(s)) => {
-                let mut ranges = HttpRange::parse(s, len).map_err(|e| anyhow!("{:?}", e))?;
-                ensure!(ranges.len() == 1, "too many ranges");
-                let range = ranges.pop().unwrap();
-                let mut v = vec![0; usize::try_from(range.length)?];
-                file.seek(SeekFrom::Start(range.start)).await?;
-                file.read_exact(&mut v).await?;
-                Static::Range(
-                    v,
-                    ct,
-                    Header {
-                        name: CONTENT_RANGE.as_str().into(),
-                        value: format!(
-                            "bytes {}-{}/{}",
-                            range.start,
-                            range.length - range.start - 1,
-                            len
-                        )
-                        .into(),
-                    },
-                )
-            }
-            None => {
-                let mut v = Vec::with_capacity(usize::try_from(len)?);
-                file.read_to_end(&mut v).await?;
-                Static::Data(v, ct)
-            }
+        Ok(if let Some(Range(s)) = range {
+            let mut ranges = HttpRange::parse(s, len).map_err(|e| anyhow!("{:?}", e))?;
+            ensure!(ranges.len() == 1, "too many ranges");
+            let range = ranges.pop().unwrap();
+            let mut v = vec![0; usize::try_from(range.length)?];
+            file.seek(SeekFrom::Start(range.start)).await?;
+            file.read_exact(&mut v).await?;
+            Static::Range(
+                v,
+                ct,
+                Header {
+                    name: CONTENT_RANGE.as_str().into(),
+                    value: format!(
+                        "bytes {}-{}/{}",
+                        range.start,
+                        range.length - range.start - 1,
+                        len
+                    )
+                    .into(),
+                },
+            )
+        } else {
+            let mut v = Vec::with_capacity(usize::try_from(len)?);
+            file.read_to_end(&mut v).await?;
+            Static::Data(v, ct)
         })
     } else {
         Ok(Static::NotFound(()))

@@ -6,9 +6,8 @@ use crate::redirect::Redirect;
 use crate::time::{DateTime, Duration};
 use crate::Result;
 use rocket::form::FromForm;
+use rocket::get;
 use rocket::http::CookieJar;
-use rocket::response::status::NotFound;
-use rocket::{get, Either};
 use std::str::FromStr;
 
 #[get("/_before/jump?<redirect>&<start>&<team>&<jump_time..>")]
@@ -18,7 +17,7 @@ pub(crate) async fn jump(
     start: Option<&str>,
     team: Option<String>,
     jump_time: JumpTime<'_>,
-) -> Result<Either<Redirect, NotFound<()>>> {
+) -> Result<Option<Redirect>> {
     if let Some(team) = team {
         cookies.store(&FavoriteTeam::new(team));
     } else if cookies.load::<FavoriteTeam>().is_none() {
@@ -29,12 +28,10 @@ pub(crate) async fn jump(
         Some(start) => DateTime::from_str(start).map_err(anyhow::Error::from)? - DateTime::now(),
         None => Duration::ZERO,
     };
-    Ok(if let Some(time) = jump_time.to_time().await? {
+    Ok(jump_time.to_time().await?.map(|time| {
         cookies.store(&Offset(DateTime::now() + start_offset - time));
-        Either::Left(Redirect(redirect))
-    } else {
-        Either::Right(NotFound(()))
-    })
+        Redirect(redirect)
+    }))
 }
 
 #[derive(Debug, FromForm)]
@@ -82,7 +79,7 @@ pub(crate) fn relative(
     redirect: Option<String>,
     duration: FormDuration,
 ) -> Redirect {
-    cookies.store(&Offset(offset.0 - duration.to_duration()));
+    cookies.store(&Offset(offset.0 - duration.into_duration()));
     Redirect(redirect)
 }
 
@@ -96,7 +93,7 @@ pub(crate) struct FormDuration {
 }
 
 impl FormDuration {
-    fn to_duration(&self) -> Duration {
+    fn into_duration(self) -> Duration {
         Duration::seconds(self.seconds.unwrap_or(0))
             + Duration::minutes(self.minutes.unwrap_or(0))
             + Duration::hours(self.hours.unwrap_or(0))

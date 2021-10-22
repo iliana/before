@@ -1,3 +1,5 @@
+#![allow(clippy::enum_glob_use)]
+
 mod routes;
 
 pub use routes::*;
@@ -39,7 +41,7 @@ impl FromStr for SnackPack {
 
     fn from_str(s: &str) -> Result<SnackPack> {
         Ok(SnackPack(
-            s.split(',').map(|s| s.parse()).collect::<Result<_>>()?,
+            s.split(',').map(str::parse).collect::<Result<_>>()?,
         ))
     }
 }
@@ -83,26 +85,24 @@ impl SnackPack {
 
     /// Adds a new slot if necessary. Returns the new amount.
     pub(crate) fn set_force(&mut self, snack: Snack, amount: i64) -> i64 {
-        match self.set(snack, amount) {
-            Some(amount) => amount,
-            None => {
-                self.0.push(Occupied(snack, amount));
-                amount
-            }
-        }
+        self.set(snack, amount).unwrap_or_else(|| {
+            self.0.push(Occupied(snack, amount));
+            amount
+        })
     }
 
     /// Returns `true` if the item was present.
     pub(crate) fn remove(&mut self, snack: Snack) -> bool {
-        if let Some(slot) = self
+        match self
             .0
             .iter_mut()
             .find(|slot| matches!(slot, Occupied(s, _) if *s == snack))
         {
-            *slot = Vacant;
-            true
-        } else {
-            false
+            Some(slot) => {
+                *slot = Vacant;
+                true
+            }
+            None => false,
         }
     }
 

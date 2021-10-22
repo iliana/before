@@ -112,6 +112,6 @@ pub(crate) fn reorder_cards(
     cookies: &CookieJar<'_>,
     order_update: Json<CardOrderUpdate>,
 ) -> ApiResult<&'static str> {
-    cookies.store(&order_update.spread);
+    cookies.store(&order_update.into_inner().spread);
     ApiResult::Ok("New Spread preserved")
 }

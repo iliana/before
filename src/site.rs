@@ -1,11 +1,13 @@
-use crate::chronicler::{Data, Order, RequestBuilder, SiteUpdate};
+#![allow(clippy::case_sensitive_file_extension_comparisons)]
+
+use crate::chronicler::{Data, Order, RequestBuilder};
 use crate::offset::OffsetTime;
 use crate::proxy::Proxy;
 use crate::time::{datetime, DateTime, Duration};
 use crate::Config;
 use reqwest::Response;
 use rocket::http::uri::Origin;
-use rocket::tokio::{join, sync::RwLock};
+use rocket::tokio::sync::RwLock;
 use rocket::{get, State};
 use serde::Deserialize;
 use std::collections::{BTreeMap, HashMap};
@@ -23,14 +25,37 @@ const CHRONICLER_JS_EPOCH: DateTime = datetime!(2020-09-07 23:29:00 UTC);
 /// After this point, Chronicler fetched main.css in addition to the JS assets.
 const CHRONICLER_CSS_EPOCH: DateTime = datetime!(2020-09-11 16:58:00 UTC);
 
-// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
-
-#[derive(Deserialize, Clone, Copy)]
+#[derive(Clone, Copy, Deserialize)]
 pub(crate) struct AssetSet<'a> {
     pub(crate) css: &'a str,
     pub(crate) js_main: &'a str,
     pub(crate) js_2: &'a str,
 }
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct SiteUpdate {
+    timestamp: DateTime,
+    path: String,
+    hash: String,
+    download_url: String,
+}
+
+impl SiteUpdate {
+    async fn fetch(&self, config: &Config) -> anyhow::Result<Response> {
+        Ok(config
+            .client
+            .get(format!(
+                "{}v1{}",
+                config.chronicler_base_url, self.download_url
+            ))
+            .send()
+            .await?
+            .error_for_status()?)
+    }
+}
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
 #[derive(Default)]
 pub(crate) struct Cache {
@@ -89,7 +114,7 @@ fn fetch_cache(
 }
 
 pub(crate) async fn update_cache(config: &Config, at: DateTime) -> anyhow::Result<()> {
-    let mut request = RequestBuilder::new("v1/site/updates").order(Order::Asc);
+    let mut request = RequestBuilder::v1("site/updates").order(Order::Asc);
     if let Some(until) = CACHE.read().await.until {
         if at <= until {
             return Ok(());
@@ -98,42 +123,36 @@ pub(crate) async fn update_cache(config: &Config, at: DateTime) -> anyhow::Resul
     }
     log::warn!("updating v1/site/updates cache");
 
-    let (response, mut cache) = join!(request.json::<Data<SiteUpdate>>(config), CACHE.write());
-    for mut update in response?.data {
-        // round down timestamps to the most recent minute so that we get consistent update sets
-        update.timestamp = update.timestamp.trunc(Duration::minutes(1))?;
-        if update.path == "/" {
-            cache.index.insert(update.timestamp, update);
-        } else {
-            cache.assets.insert(update.path.clone(), update.clone());
-            match update.path.rsplitn(2, '/').next() {
-                Some(x) if x.starts_with("main.") && x.ends_with(".css") => {
-                    cache.css.insert(update.timestamp, update);
+    let response: Data<SiteUpdate> = request.json(config).await?;
+    if !response.data.is_empty() {
+        let mut cache = CACHE.write().await;
+        for mut update in response.data {
+            // round down timestamps to the most recent minute so that we get consistent update sets
+            update.timestamp = update.timestamp.trunc(Duration::minutes(1))?;
+            if update.path == "/" {
+                cache.index.insert(update.timestamp, update);
+            } else {
+                cache.assets.insert(update.path.clone(), update.clone());
+                match update.path.rsplitn(2, '/').next() {
+                    Some(x) if x.starts_with("main.") && x.ends_with(".css") => {
+                        cache.css.insert(update.timestamp, update);
+                    }
+                    Some(x) if x.starts_with("main.") && x.ends_with(".js") => {
+                        cache.js_main.insert(update.timestamp, update);
+                    }
+                    Some(x) if x.starts_with("2.") && x.ends_with(".js") => {
+                        cache.js_2.insert(update.timestamp, update);
+                    }
+                    _ => {}
                 }
-                Some(x) if x.starts_with("main.") && x.ends_with(".js") => {
-                    cache.js_main.insert(update.timestamp, update);
-                }
-                Some(x) if x.starts_with("2.") && x.ends_with(".js") => {
-                    cache.js_2.insert(update.timestamp, update);
-                }
-                _ => {}
             }
         }
+        cache.until = Some(DateTime::now());
     }
-    cache.until = Some(DateTime::now());
     Ok(())
 }
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
-
-impl SiteUpdate {
-    async fn fetch(&self, config: &Config) -> anyhow::Result<Response> {
-        Ok(RequestBuilder::new(format!("v1{}", self.download_url))
-            .send(config)
-            .await?
-            .error_for_status()?)
-    }
-}
 
 #[get("/static/<_..>", rank = 1)]
 pub(crate) async fn site_static(
@@ -147,8 +166,7 @@ pub(crate) async fn site_static(
     Ok(match cache.assets.get(origin.path().as_str()) {
         Some(update) => Some(Proxy {
             response: update.fetch(config).await?,
-            etag: Some(update.hash.clone()),
-            site_cache: config.site_cache,
+            etag: config.site_cache.then(|| update.hash.clone()),
         }),
         None => None,
     })

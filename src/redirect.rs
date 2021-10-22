@@ -18,12 +18,12 @@ impl<'r> Responder<'r, 'static> for Redirect {
         {
             let referer = referer.path().as_str();
             if referer.starts_with("/_before") {
-                Redir::to(uri!(crate::game::index))
+                Redir::to(uri!(crate::client::index))
             } else {
                 Redir::to(referer.to_owned())
             }
         } else {
-            Redir::to(uri!(crate::game::index))
+            Redir::to(uri!(crate::client::index))
         }
         .respond_to(req)
     }

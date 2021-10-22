@@ -98,7 +98,7 @@ impl Event {
 
     fn butalso(&self) -> String {
         match &self.butalso {
-            Some(butalso) => format!(" — {}", butalso),
+            Some(butalso) => format!(" \u{2014} {}", butalso),
             None => String::new(),
         }
     }
@@ -146,6 +146,8 @@ pub(crate) async fn start() -> Result<Html<String>> {
     ))
 }
 
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
 #[derive(Template)]
 #[template(path = "credits.html")]
 struct Credits<'a> {
@@ -153,7 +155,7 @@ struct Credits<'a> {
 }
 
 #[get("/_before/credits", rank = 1)]
-pub async fn credits(config: &State<Config>) -> Result<Html<String>> {
+pub fn credits(config: &State<Config>) -> Result<Html<String>> {
     Ok(Html(
         Credits {
             extra_credits: &config.extra_credits,
@@ -168,6 +170,6 @@ pub async fn credits(config: &State<Config>) -> Result<Html<String>> {
 struct Info;
 
 #[get("/_before/info", rank = 1)]
-pub async fn info() -> Result<Html<String>> {
+pub fn info() -> Result<Html<String>> {
     Ok(Html(Info.render().map_err(anyhow::Error::from)?))
 }

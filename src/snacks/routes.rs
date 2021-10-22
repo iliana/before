@@ -12,7 +12,7 @@ pub(crate) fn buy_vote(
     cookies: &CookieJar<'_>,
     purchase: Json<VotePurchase>,
 ) -> ApiResult<&'static str> {
-    let amount = purchase.amount.unwrap_or(1);
+    let amount = purchase.into_inner().amount.unwrap_or(1);
     if !amount.is_positive() {
         return ApiResult::Err("Invalid request");
     }
@@ -48,7 +48,7 @@ pub(crate) fn eat_a_dang_peanut(
     dang_peanut: Json<EatADangPeanut>,
 ) -> ApiResult<()> {
     let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
-    let amount = snacks.get(Snack::Peanuts).unwrap_or_default() - dang_peanut.amount;
+    let amount = snacks.get(Snack::Peanuts).unwrap_or_default() - dang_peanut.into_inner().amount;
     if amount.is_negative() {
         ApiResult::Err(())
     } else {
@@ -80,20 +80,17 @@ pub(crate) fn buy_snack(
     purchase: Json<SnackPurchase>,
     time: OffsetTime,
 ) -> ApiResult<String> {
+    let snack_id = purchase.into_inner().snack_id;
     let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
-    let (amount, what) = match snacks.get(purchase.snack_id) {
+    let (amount, what) = match snacks.get(snack_id) {
         Some(current) => (current + 1, "upgraded"),
-        None => (purchase.snack_id.min(), "bought"),
+        None => (snack_id.min(), "bought"),
     };
-    if snacks.set(purchase.snack_id, amount).is_none() {
+    if snacks.set(snack_id, amount).is_none() {
         return ApiResult::Err("Snack pack full".to_string());
     }
     cookies.store(&snacks);
-    ApiResult::Ok(format!(
-        "You {} the {}.",
-        what,
-        purchase.snack_id.name(time.0)
-    ))
+    ApiResult::Ok(format!("You {} the {}.", what, snack_id.name(time.0)))
 }
 
 #[post("/api/buyRelic", data = "<purchase>")]
@@ -101,12 +98,13 @@ pub(crate) fn buy_relic(
     cookies: &CookieJar<'_>,
     purchase: Json<SnackPurchase>,
 ) -> ApiResult<&'static str> {
+    let snack_id = purchase.into_inner().snack_id;
     let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
-    let amount = match snacks.get(purchase.snack_id) {
+    let amount = match snacks.get(snack_id) {
         Some(current) => current + 1,
-        None => purchase.snack_id.min(),
+        None => snack_id.min(),
     };
-    snacks.set_force(purchase.snack_id, amount);
+    snacks.set_force(snack_id, amount);
     cookies.store(&snacks);
     ApiResult::Ok("Bought relic") // FIXME use actual messages found in frontend
 }
@@ -117,25 +115,20 @@ pub(crate) fn buy_snack_no_upgrade(
     purchase: Json<SnackPurchase>,
     time: OffsetTime,
 ) -> ApiResult<String> {
+    let snack_id = purchase.into_inner().snack_id;
     let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
-    let amount = match purchase.snack_id {
+    let amount = match snack_id {
         Snack::Peanuts => 1000,
-        _ => purchase.snack_id.min(),
+        _ => snack_id.min(),
     };
     if snacks
-        .set(
-            purchase.snack_id,
-            snacks.get(purchase.snack_id).unwrap_or_default() + amount,
-        )
+        .set(snack_id, snacks.get(snack_id).unwrap_or_default() + amount)
         .is_none()
     {
         return ApiResult::Err("Snack pack full".to_string());
     }
     cookies.store(&snacks);
-    ApiResult::Ok(format!(
-        "You bought the {}.",
-        purchase.snack_id.name(time.0)
-    ))
+    ApiResult::Ok(format!("You bought the {}.", snack_id.name(time.0)))
 }
 
 #[post("/api/sellSnack", data = "<purchase>")]
@@ -144,6 +137,7 @@ pub(crate) fn sell_snack(
     purchase: Json<SnackPurchase>,
     time: OffsetTime,
 ) -> ApiResult<String> {
+    let purchase = purchase.into_inner();
     let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
     if let Some(amount) = purchase.amount {
         if let Some(current) = snacks.get(purchase.snack_id) {
@@ -185,9 +179,10 @@ pub(crate) fn sell_slot(
     cookies: &CookieJar<'_>,
     sell_slot: Json<SellSlot>,
 ) -> ApiResult<&'static str> {
+    let index = sell_slot.into_inner().slot_index;
     let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
-    if sell_slot.slot_index < snacks.len() {
-        snacks.0.remove(sell_slot.slot_index);
+    if index < snacks.len() {
+        snacks.0.remove(index);
         cookies.store(&snacks);
         ApiResult::Ok("You discarded the Snack Slot.")
     } else {
@@ -209,7 +204,7 @@ pub(crate) fn reorder_snacks(
     reorder: Json<ReorderSnacks>,
 ) -> ApiResult<&'static str> {
     let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
-    match snacks.reorder(&reorder.snack_order) {
+    match snacks.reorder(&reorder.into_inner().snack_order) {
         Ok(()) => {
             cookies.store(&snacks);
             ApiResult::Ok("Snacks reordered")
