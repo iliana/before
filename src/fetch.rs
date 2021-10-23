@@ -7,12 +7,15 @@ use serde_json::value::RawValue;
 use std::collections::HashMap;
 
 impl Config {
-    async fn fetch_inner(
+    async fn fetch_inner<T>(
         &self,
         ty: &'static str,
         ids: Option<String>,
         time: DateTime,
-    ) -> Result<impl Iterator<Item = Version<Box<RawValue>>>> {
+    ) -> Result<impl Iterator<Item = Version<T>>>
+    where
+        for<'de> T: Deserialize<'de>,
+    {
         let mut builder = RequestBuilder::v2("entities").ty(ty).at(time);
         if let Some(ids) = ids {
             builder = builder.id(ids);
@@ -21,24 +24,30 @@ impl Config {
         Ok(builder.json(self).await?.items.into_iter())
     }
 
-    pub(crate) async fn fetch(
+    pub(crate) async fn fetch<T>(
         &self,
         ty: &'static str,
         ids: Option<String>,
         time: DateTime,
-    ) -> Result<impl Iterator<Item = Box<RawValue>>> {
+    ) -> Result<impl Iterator<Item = T>>
+    where
+        for<'de> T: Deserialize<'de>,
+    {
         Ok(self
             .fetch_inner(ty, ids, time)
             .await?
             .map(|version| version.data))
     }
 
-    pub(crate) async fn fetch_map(
+    pub(crate) async fn fetch_map<T>(
         &self,
         ty: &'static str,
         ids: Option<String>,
         time: DateTime,
-    ) -> Result<HashMap<String, Box<RawValue>>> {
+    ) -> Result<HashMap<String, T>>
+    where
+        for<'de> T: Deserialize<'de>,
+    {
         Ok(self
             .fetch_inner(ty, ids, time)
             .await?

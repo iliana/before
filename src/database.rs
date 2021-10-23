@@ -159,32 +159,23 @@ pub(crate) async fn get_previous_champ(
 
     const UNDERCHAMP: DateTime = datetime!(2021-07-19 14:50:00 UTC);
 
-    let sim = serde_json::from_str::<Sim>(
-        config
-            .fetch("Sim", None, time.0)
-            .await?
-            .next()
-            .ok_or_else(|| anyhow!("sim doesn't exist yet"))?
-            .get(),
-    )
-    .map_err(anyhow::Error::from)?;
+    let sim: Sim = config
+        .fetch("Sim", None, time.0)
+        .await?
+        .next()
+        .ok_or_else(|| anyhow!("sim doesn't exist yet"))?;
     let season = sim.season - if sim.phase == 0 { 0 } else { 1 };
 
     let mut playoffs = config
         .fetch("Playoffs", None, time.0)
         .await?
-        .filter_map(
-            |value| match serde_json::from_str::<Playoffs>(value.get()) {
-                Ok(playoff) => {
-                    if playoff.season == season {
-                        Some(Ok(playoff))
-                    } else {
-                        None
-                    }
-                }
-                Err(err) => Some(Err(err.into())),
-            },
-        )
+        .filter_map(|value: Playoffs| {
+            if value.season == season {
+                Some(Ok(value))
+            } else {
+                None
+            }
+        })
         .collect::<anyhow::Result<Vec<_>>>()?;
     playoffs.sort_by_key(|p| p.bracket);
 

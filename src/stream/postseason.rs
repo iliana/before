@@ -26,7 +26,11 @@ impl Postseason {
         round: i64,
         time: DateTime,
     ) -> Result<Option<Postseason>> {
-        let playoffs_raw = match config.fetch("Playoffs", Some(id), time).await?.next() {
+        let playoffs_raw = match config
+            .fetch::<Box<RawValue>>("Playoffs", Some(id), time)
+            .await?
+            .next()
+        {
             Some(x) => x,
             None => return Ok(None),
         };
@@ -36,7 +40,7 @@ impl Postseason {
         }
 
         let rounds_raw = config
-            .fetch_map("PlayoffRound", Some(playoffs.rounds.join(",")), time)
+            .fetch_map::<Box<RawValue>>("PlayoffRound", Some(playoffs.rounds.join(",")), time)
             .await?;
         let rounds_raw_vec = playoffs
             .rounds

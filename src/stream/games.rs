@@ -33,6 +33,7 @@ pub(crate) enum Games {
 }
 
 impl Games {
+    #[allow(clippy::too_many_lines)]
     pub(crate) async fn first(
         config: &Config,
         past: &mut [Version<StreamEvent>],
@@ -50,7 +51,10 @@ impl Games {
 
         let mut schedule = Vec::new();
         let mut tomorrow_schedule = Vec::new();
-        let sim = config.fetch("Sim", None, time).await?.next();
+        let sim = config
+            .fetch::<Box<RawValue>>("Sim", None, time)
+            .await?
+            .next();
         let mut season = None;
         let mut standings = None;
         let mut postseason = None;
@@ -81,7 +85,7 @@ impl Games {
 
             if sim.tournament != -1 {
                 tournament = config
-                    .fetch("Tournament", None, time)
+                    .fetch::<Box<RawValue>>("Tournament", None, time)
                     .await?
                     .find(|tournament| {
                         match serde_json::from_str::<Tournament>(tournament.get()) {
@@ -120,7 +124,7 @@ impl Games {
             }
 
             season = config
-                .fetch("Season", Some(sim.season_id), time)
+                .fetch::<Box<RawValue>>("Season", Some(sim.season_id), time)
                 .await?
                 .next();
         }

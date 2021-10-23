@@ -2,6 +2,7 @@
 #![warn(clippy::pedantic)]
 
 mod api;
+mod bet;
 mod chronicler;
 mod client;
 mod config;
@@ -33,7 +34,7 @@ mod user;
 
 pub use crate::config::Config;
 
-use crate::time::{DateTime, Duration};
+use crate::time::{datetime, DateTime, Duration};
 use rocket::fairing::AdHoc;
 use rocket::figment::Figment;
 use rocket::http::CookieJar;
@@ -41,6 +42,8 @@ use rocket::response::Redirect;
 use rocket::tokio::{self, time::Instant};
 use rocket::{catchers, get, routes, uri, Build, Orbit, Rocket};
 use std::time::Duration as StdDuration;
+
+const EXPANSION: DateTime = datetime!(2021-03-01 04:10:00 UTC);
 
 type Result<T> = std::result::Result<T, rocket::response::Debug<anyhow::Error>>;
 
@@ -129,10 +132,8 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
         .mount(
             "/",
             routes![
-                api::clear_user_notifications,
-                api::get_active_bets,
-                api::get_user_notifications,
-                api::get_user_rewards,
+                bet::bet,
+                bet::get_active_bets,
                 client::index,
                 database::game_by_id,
                 database::get_previous_champ,
@@ -174,7 +175,10 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 start::start,
                 tarot::deal_cards,
                 tarot::reorder_cards,
+                user::clear_user_notifications,
                 user::get_user,
+                user::get_user_notifications,
+                user::get_user_rewards,
                 reset,
             ],
         )

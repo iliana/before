@@ -1,8 +1,6 @@
 use rocket::http::Status;
 use rocket::request::Request;
 use rocket::response::{self, Responder};
-use rocket::serde::json::Json;
-use rocket::{get, post};
 use serde::Serialize;
 use serde_json::{json, Value};
 
@@ -28,24 +26,4 @@ impl<'r, 'o: 'r, T: Serialize + 'o> Responder<'r, 'o> for ApiResult<T> {
         let responder: (Status, Value) = self.into();
         responder.respond_to(request)
     }
-}
-
-#[get("/api/getActiveBets")]
-pub(crate) fn get_active_bets() -> Json<Vec<()>> {
-    Json(vec![])
-}
-
-#[get("/api/getUserRewards")]
-pub(crate) fn get_user_rewards() -> Json<Option<()>> {
-    Json(None)
-}
-
-#[get("/api/getUserNotifications")]
-pub(crate) fn get_user_notifications() -> Json<Option<()>> {
-    Json(None)
-}
-
-#[post("/api/clearUserNotifications")]
-pub(crate) fn clear_user_notifications() -> Json<Option<()>> {
-    Json(None)
 }
