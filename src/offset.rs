@@ -16,7 +16,7 @@ use crate::cookies::{AsCookie, CookieJarExt};
 use crate::time::DateTime;
 use anyhow::{anyhow, Error};
 use rocket::async_trait;
-use rocket::http::Status;
+use rocket::http::{CookieJar, Status};
 use rocket::request::{FromRequest, Outcome, Request};
 use std::fmt::{self, Display};
 use std::num::ParseIntError;
@@ -75,6 +75,14 @@ impl<'r> FromRequest<'r> for Offset {
 
 #[derive(Debug, Clone, Copy)]
 pub(crate) struct OffsetTime(pub(crate) DateTime);
+
+impl OffsetTime {
+    pub(crate) fn from_cookies(cookies: &CookieJar<'_>) -> Option<OffsetTime> {
+        cookies
+            .load::<Offset>()
+            .map(|offset| OffsetTime(DateTime::new(OffsetDateTime::now_utc() - offset.0)))
+    }
+}
 
 #[async_trait]
 impl<'r> FromRequest<'r> for OffsetTime {

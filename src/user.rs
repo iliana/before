@@ -6,7 +6,7 @@ use crate::offset::OffsetTime;
 use crate::settings::{DisableMotion, LightMode};
 use crate::snacks::{Snack, SnackPack};
 use crate::squirrels::Squirrels;
-use crate::tarot::Spread;
+use crate::tarot::SpreadCookie;
 use crate::time::{datetime, DateTime};
 use crate::Result;
 use rocket::http::CookieJar;
@@ -91,7 +91,7 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>, time: OffsetTime) -> Value {
         "peanuts": snacks.get(Snack::Peanuts).unwrap_or_default(),
         "maxBetTier": max_bet_tier,
         "dailyCoinsTier": daily_coins_tier,
-        "spread": cookies.load::<Spread>().unwrap_or_else(Spread::generate),
+        "spread": cookies.load::<SpreadCookie>().unwrap_or_default().cards(),
         "relics": Relics {
             hits: snacks.get(Snack::IdolHits),
             strikeouts: snacks.get(Snack::IdolStrikeouts),

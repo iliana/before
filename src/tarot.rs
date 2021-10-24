@@ -1,42 +1,98 @@
 use crate::api::ApiResult;
 use crate::cookies::{AsCookie, CookieJarExt};
+use crate::offset::OffsetTime;
 use crate::snacks::{Snack, SnackPack};
-use anyhow::{Context, Error, Result};
+use crate::time::{datetime, DateTime};
 use itertools::Itertools;
-use rand::Rng;
+use rand::prelude::*;
 use rocket::http::{CookieJar, Status};
 use rocket::post;
 use rocket::serde::json::Json;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use std::fmt::{self, Display};
+use std::ops::Range;
 use std::str::FromStr;
 
-#[derive(Debug, Clone, Copy, Deserialize, Serialize)]
-#[serde(transparent)]
-pub(crate) struct Spread([i8; 3]);
+struct TarotSeason {
+    range: Range<DateTime>,
+    champ_card: i8,
+}
+
+fn get_season(time: DateTime) -> &'static TarotSeason {
+    &SEASONS[std::cmp::min(
+        match SEASONS.binary_search_by_key(&time, |season| season.range.start) {
+            Ok(pos) => pos,
+            Err(pos) => std::cmp::max(pos, 1) - 1,
+        },
+        SEASONS.len() - 1,
+    )]
+}
+
+const SEASONS: &[TarotSeason] = &[
+    TarotSeason {
+        range: crate::EXPANSION..datetime!(2021-03-02 18:36:01 UTC),
+        champ_card: 11,
+    },
+    TarotSeason {
+        range: datetime!(2021-03-07 19:00:00 UTC)..datetime!(2021-03-09 18:42:55 UTC),
+        champ_card: 14,
+    },
+    TarotSeason {
+        range: datetime!(2021-03-14 19:00:00 UTC)..datetime!(2021-03-16 17:35:25 UTC),
+        champ_card: -1,
+    },
+    TarotSeason {
+        range: datetime!(2021-03-21 18:00:00 UTC)..datetime!(2021-04-06 17:39:12 UTC),
+        champ_card: 4,
+    },
+    TarotSeason {
+        range: datetime!(2021-04-11 18:15:00 UTC)..datetime!(2021-04-13 18:44:03 UTC),
+        champ_card: 4,
+    },
+    TarotSeason {
+        range: datetime!(2021-04-18 18:00:00 UTC)..datetime!(2021-04-20 17:32:53 UTC),
+        champ_card: 3,
+    },
+    TarotSeason {
+        range: datetime!(2021-04-11 18:15:00 UTC)..datetime!(2021-05-11 18:35:15 UTC),
+        champ_card: 6,
+    },
+];
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
+#[derive(Debug, Deserialize, Serialize)]
+pub(crate) struct Spread {
+    valid: Range<DateTime>,
+    cards: [i8; 3],
+}
 
 impl Spread {
-    pub(crate) fn generate() -> Spread {
-        // FIXME: use the actual game logic of always including the previous champ
-        let mut spread = [0; 3];
+    fn generate(time: DateTime) -> Spread {
+        let season = get_season(time);
+        let mut cards = [season.champ_card, 0, 0];
         let mut rng = rand::thread_rng();
-        for i in 0..3 {
+        for i in 1..3 {
             loop {
-                let x = rng.gen_range(-1..20);
-                if !spread[0..i].contains(&x) {
-                    spread[i] = x;
+                let x = rng.gen_range(0..20);
+                if !cards[0..i].contains(&x) {
+                    cards[i] = x;
                     break;
                 }
             }
         }
-        Spread(spread)
+        cards.shuffle(&mut rng);
+        Spread {
+            valid: season.range.clone(),
+            cards,
+        }
     }
 
-    fn card_names(self) -> String {
-        self.0
+    fn card_names(&self) -> String {
+        self.cards
             .iter()
-            .map(|n| match n + 1 {
+            .map(|n| match *n + 1 {
                 0 => " Fool",
                 1 => "I The Magician",
                 2 => "II The High Priestess",
@@ -64,47 +120,70 @@ impl Spread {
     }
 }
 
-impl Display for Spread {
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
+#[derive(Debug, Default, Deserialize, Serialize)]
+#[serde(transparent)]
+pub(crate) struct SpreadCookie(Option<Spread>);
+
+impl SpreadCookie {
+    pub(crate) fn cards(&self) -> &[i8] {
+        match &self.0 {
+            Some(spread) => &spread.cards,
+            None => &[],
+        }
+    }
+}
+
+impl Display for SpreadCookie {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{},{},{}", self.0[0], self.0[1], self.0[2])
+        write!(
+            f,
+            "{}",
+            serde_json::to_string(self).map_err(|_| fmt::Error)?
+        )
     }
 }
 
-impl FromStr for Spread {
-    type Err = Error;
+impl FromStr for SpreadCookie {
+    type Err = serde_json::Error;
 
-    fn from_str(s: &str) -> Result<Spread> {
-        let (a, b, c) = s
-            .split(',')
-            .filter_map(|s| s.parse().ok())
-            .collect_tuple()
-            .context("failed to parse tarot_spread")?;
-        Ok(Spread([a, b, c]))
+    fn from_str(s: &str) -> serde_json::Result<SpreadCookie> {
+        serde_json::from_str(s)
     }
 }
 
-impl AsCookie for Spread {
+impl AsCookie for SpreadCookie {
     const NAME: &'static str = "tarot_spread";
+
+    fn modify_on_load(&mut self, time: DateTime) {
+        if let Some(spread) = self.0.take() {
+            if spread.valid.contains(&time) {
+                self.0 = Some(spread);
+            }
+        }
+    }
 }
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
 #[derive(Deserialize)]
 pub(crate) struct CardOrderUpdate {
-    spread: Spread,
+    spread: [i8; 3],
 }
 
 #[post("/api/dealCards")]
-pub(crate) fn deal_cards(cookies: &CookieJar<'_>) -> (Status, Value) {
+pub(crate) fn deal_cards(cookies: &CookieJar<'_>, time: OffsetTime) -> (Status, Value) {
     let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
     if snacks.set(Snack::TarotReroll, 1).is_none() {
         return ApiResult::Err("Snack pack full").into();
     }
     cookies.store(&snacks);
-    let spread = Spread::generate();
-    cookies.store(&spread);
-    (
-        Status::Ok,
-        json!({"spread": spread, "message": format!("READING: {}", spread.card_names())}),
-    )
+    let spread = Spread::generate(time.0);
+    let cards = spread.cards;
+    let message = format!("READING: {}", spread.card_names());
+    cookies.store(&SpreadCookie(Some(spread)));
+    (Status::Ok, json!({"spread": cards, "message": message}))
 }
 
 #[post("/api/reorderCards", data = "<order_update>")]
@@ -112,6 +191,11 @@ pub(crate) fn reorder_cards(
     cookies: &CookieJar<'_>,
     order_update: Json<CardOrderUpdate>,
 ) -> ApiResult<&'static str> {
-    cookies.store(&order_update.into_inner().spread);
-    ApiResult::Ok("New Spread preserved")
+    if let SpreadCookie(Some(mut spread)) = cookies.load::<SpreadCookie>().unwrap_or_default() {
+        spread.cards = order_update.into_inner().spread;
+        cookies.store(&SpreadCookie(Some(spread)));
+        ApiResult::Ok("New Spread preserved")
+    } else {
+        ApiResult::Err("Invalid request")
+    }
 }
