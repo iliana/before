@@ -6,42 +6,79 @@ use rocket::http::CookieJar;
 use rocket::post;
 use rocket::serde::json::Json;
 use serde::Deserialize;
+use std::cmp::Ordering;
 
-#[post("/api/buyVote", data = "<purchase>")]
+#[post("/api/buyVote", data = "<amount>")]
 pub(crate) fn buy_vote(
-    purchase: Json<VotePurchase>,
+    amount: Option<Json<Amount>>,
     cookies: &CookieJar<'_>,
     time: OffsetTime,
 ) -> ApiResult<&'static str> {
-    let amount = purchase.into_inner().amount.unwrap_or(1);
+    let amount = amount
+        .map(Json::into_inner)
+        .unwrap_or_default()
+        .amount
+        .unwrap_or(1);
     if !amount.is_positive() {
         return ApiResult::Err("Invalid request");
     }
     let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
     if time.0 < crate::EXPANSION {
-        if snacks
-            .set(
-                Snack::Votes,
-                snacks.get(Snack::Votes).unwrap_or_default() + amount,
-            )
-            .is_none()
-        {
-            return ApiResult::Err("Snack pack full");
-        }
-    } else {
         snacks.set_force(
             Snack::Votes,
             snacks.get(Snack::Votes).unwrap_or_default() + amount,
         );
+    } else if snacks
+        .set(
+            Snack::Votes,
+            snacks.get(Snack::Votes).unwrap_or_default() + amount,
+        )
+        .is_none()
+    {
+        return ApiResult::Err("Snack pack full");
     }
     cookies.store(&snacks);
     ApiResult::Ok("Vote Bought")
 }
 
-#[derive(Deserialize)]
-pub(crate) struct VotePurchase {
+#[post("/api/increaseVotes")]
+pub(crate) fn increase_votes(cookies: &CookieJar<'_>) -> ApiResult<&'static str> {
+    let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
+    snacks.set_force(
+        Snack::Votes,
+        snacks.get(Snack::Votes).unwrap_or_default() + 1,
+    );
+    cookies.store(&snacks);
+    ApiResult::Ok("Vote Bought")
+}
+
+#[post("/api/vote", data = "<amount>")]
+pub(crate) fn vote(amount: Json<Amount>, cookies: &CookieJar<'_>) -> ApiResult<&'static str> {
+    let amount = amount.into_inner().amount.unwrap_or(1);
+    if !amount.is_positive() {
+        return ApiResult::Err("Invalid request");
+    }
+    let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
+    let votes = snacks.get(Snack::Votes).unwrap_or_default();
+    match amount.cmp(&votes) {
+        Ordering::Greater => return ApiResult::Err("Not enough votes"),
+        Ordering::Equal => {
+            snacks.remove(Snack::Votes);
+        }
+        Ordering::Less => {
+            snacks.set_force(Snack::Votes, votes - amount);
+        }
+    }
+    cookies.store(&snacks);
+    ApiResult::Ok("Vote Placed")
+}
+
+#[derive(Deserialize, Default)]
+pub(crate) struct Amount {
     amount: Option<i64>,
 }
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
 #[post("/api/buyIncreaseMaxBet")]
 pub(crate) fn buy_increase_max_bet(cookies: &CookieJar<'_>) -> ApiResult<&'static str> {
