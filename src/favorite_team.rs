@@ -1,6 +1,8 @@
 use crate::api::ApiResult;
 use crate::cookies::AsCookie;
 use crate::cookies::CookieJarExt;
+use crate::offset::OffsetTime;
+use crate::snacks::{Snack, SnackPack};
 use rand::{seq::SliceRandom, thread_rng};
 use rocket::http::CookieJar;
 use rocket::post;
@@ -88,9 +90,20 @@ pub(crate) struct FavoriteTeamUpdate {
 
 #[post("/api/updateFavoriteTeam", data = "<new_favorite>")]
 pub(crate) fn update_favorite_team(
+    time: OffsetTime,
     cookies: &CookieJar<'_>,
     new_favorite: Json<FavoriteTeamUpdate>,
 ) -> ApiResult<&'static str> {
+    if time.0 >= crate::EXPANSION {
+        let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
+        let flutes = snacks.get(Snack::Flutes).unwrap_or_default();
+        if flutes > 1 {
+            snacks.set_force(Snack::Flutes, flutes - 1);
+        } else {
+            snacks.remove(Snack::Flutes);
+        }
+        cookies.store(&snacks);
+    }
     cookies.store(&FavoriteTeam(Some(new_favorite.into_inner().team_id)));
     ApiResult::Ok("You now remember the Before of a new team.")
 }
