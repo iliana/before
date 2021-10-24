@@ -1,5 +1,5 @@
 use crate::api::ApiResult;
-use crate::chronicler::{Order, RequestBuilder};
+use crate::chronicler::{default_tournament, Order, RequestBuilder};
 use crate::config::Config;
 use crate::cookies::{AsCookie, CookieJarExt};
 use crate::offset::OffsetTime;
@@ -52,8 +52,10 @@ impl FromStr for ActiveBets {
     type Err = anyhow::Error;
 
     fn from_str(s: &str) -> anyhow::Result<ActiveBets> {
-        Ok(DefaultOptions::new()
-            .deserialize(&base64::decode_config(s, base64::URL_SAFE_NO_PAD)?)?)
+        let data = DefaultOptions::new()
+            .deserialize(&base64::decode_config(s, base64::URL_SAFE_NO_PAD)?)?;
+        println!("{:?}", data);
+        Ok(data)
     }
 }
 
@@ -66,13 +68,18 @@ struct ActiveBet {
     game_id: Uuid,
     team_id: Uuid,
     amount: i32,
-    payout: i32,
-    end_time_from_epoch: Duration,
+    odds: f64,
+    correct: bool,
+    end_time_from_epoch: i64,
 }
 
 impl ActiveBet {
     fn end_time(&self) -> DateTime {
-        EPOCH + self.end_time_from_epoch
+        EPOCH + Duration::seconds(self.end_time_from_epoch)
+    }
+
+    fn payout(&self) -> i32 {
+        payout(self.end_time(), self.odds, self.amount)
     }
 }
 
@@ -87,11 +94,15 @@ pub(crate) enum Bet {
         amount: Number,
         entity_id: Uuid,
         game_id: Uuid,
+        #[serde(skip_deserializing, skip_serializing_if = "Option::is_none")]
+        odds: Option<f64>,
     },
     New {
         amount: Number,
         // [team_id, game_id]
         targets: [Uuid; 2],
+        #[serde(skip_deserializing, skip_serializing_if = "Option::is_none")]
+        payout: Option<i32>,
     },
 }
 
@@ -130,20 +141,22 @@ pub(crate) struct BetResponse {
 
 #[post("/api/bet", data = "<bet>")]
 pub(crate) async fn bet(
-    time: OffsetTime,
     config: &State<Config>,
     cookies: &CookieJar<'_>,
     bet: Json<Bet>,
 ) -> Result<BetResult> {
     #[derive(Deserialize)]
     struct Game {
-        timestamp: DateTime,
         data: GameData,
     }
 
     #[derive(Deserialize)]
     #[serde(rename_all = "camelCase")]
     struct GameData {
+        season: i64,
+        #[serde(default = "default_tournament")]
+        tournament: i64,
+        day: i64,
         game_complete: bool,
         away_team: Uuid,
         away_odds: f64,
@@ -164,20 +177,16 @@ pub(crate) async fn bet(
     let game: Game = match RequestBuilder::v1("games/updates")
         .game(bet.game_id().to_string())
         .order(Order::Desc)
-        .count(1)
+        .count(10)
         .json(config)
         .await?
         .data
         .into_iter()
-        .next()
+        .find(|game: &Game| game.data.game_complete)
     {
         Some(game) => game,
         None => return Ok(BetResult::Err(ApiResult::Err("Game not found"))),
     };
-
-    if !game.data.game_complete {
-        return Ok(BetResult::Err(ApiResult::Err("Game not found")));
-    }
 
     // figure out the winner
     let (winner, odds) = if game.data.home_score > game.data.away_score {
@@ -186,19 +195,28 @@ pub(crate) async fn bet(
         (game.data.away_team, game.data.away_odds)
     };
 
-    // if the bet predicted the winner, calculate the payout
-    let payout = if bet.team_id() == winner {
-        payout(time.0, odds, amount)
-    } else {
-        0
+    let end_time = {
+        let guard = crate::day_map::DAY_MAP.read().await;
+        match guard.end_time.get(&bet.game_id()).copied().or_else(|| {
+            if game.data.tournament == -1 {
+                guard.season.get(&(game.data.season, game.data.day))
+            } else {
+                guard.tournament.get(&(game.data.tournament, game.data.day))
+            }
+            .map(|time| *time + Duration::hours(1))
+        }) {
+            Some(time) => time,
+            None => return Ok(BetResult::Err(ApiResult::Err("End time not found"))),
+        }
     };
 
     bets.push(ActiveBet {
         game_id: bet.game_id(),
         team_id: bet.team_id(),
         amount,
-        payout,
-        end_time_from_epoch: game.timestamp - EPOCH,
+        correct: bet.team_id() == winner,
+        odds,
+        end_time_from_epoch: (end_time - EPOCH).whole_seconds(),
     });
     cookies.store(&ActiveBets::V1(bets));
 
@@ -282,6 +300,7 @@ pub(crate) fn get_active_bets(cookies: &CookieJar<'_>, time: OffsetTime) -> Json
                 amount: bet.amount.into(),
                 entity_id: bet.team_id,
                 game_id: bet.game_id,
+                odds: Some(bet.odds),
             })
             .collect()
     } else {
@@ -289,6 +308,7 @@ pub(crate) fn get_active_bets(cookies: &CookieJar<'_>, time: OffsetTime) -> Json
             .map(|bet| Bet::New {
                 amount: bet.amount.into(),
                 targets: [bet.team_id, bet.game_id],
+                payout: Some(bet.payout()),
             })
             .collect()
     })
@@ -332,10 +352,10 @@ pub(crate) async fn generate_toasts(
                     teams
                         .get(&bet.team_id.to_string())
                         .map_or("???", |team| team.nickname.as_str()),
-                    if bet.payout == 0 {
-                        "lost".to_owned()
+                    if bet.correct {
+                        format!("won {} coins", bet.payout())
                     } else {
-                        format!("won {} coins", bet.payout)
+                        "lost".to_owned()
                     }
                 )
             })
