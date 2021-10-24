@@ -217,13 +217,13 @@ fn payout(time: DateTime, odds: f64, amount: i32) -> i32 {
         * if odds == 0.5 {
             2.0
         } else if odds < 0.5 {
-            if time < datetime!(2021-03-01 04:10:00 UTC) {
+            if time < crate::EXPANSION {
                 2.0 + 555e-6 * (100.0 * (0.5 - odds)).powf(2.4135)
             } else {
                 2.0 + 0.0015 * (100.0 * (0.5 - odds)).powf(2.2)
             }
         } else {
-            if time < datetime!(2021-03-01 04:10:00 UTC) {
+            if time < crate::EXPANSION {
                 2.0 - 335e-6 * (100.0 * (odds - 0.5)).powf(2.045)
             } else if time < datetime!(2021-03-07 15:50:00 UTC) {
                 0.571 + 1.429 / (1.0 + (3.0 * (odds - 0.5)).powf(0.77))
@@ -276,7 +276,7 @@ fn test_payout() {
 #[get("/api/getActiveBets")]
 pub(crate) fn get_active_bets(cookies: &CookieJar<'_>, time: OffsetTime) -> Json<Vec<Bet>> {
     let ActiveBets::V1(bets) = cookies.load::<ActiveBets>().unwrap_or_default();
-    Json(if time.0 < datetime!(2021-03-01 04:10:00 UTC) {
+    Json(if time.0 < crate::EXPANSION {
         bets.into_iter()
             .map(|bet| Bet::Old {
                 amount: bet.amount.into(),
