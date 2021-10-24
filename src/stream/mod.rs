@@ -60,11 +60,12 @@ lazy_static::lazy_static! {
 async fn start_cold(config: &Config, cache_time: DateTime) -> Result<StreamCacheValue> {
     // A given `StreamEvent` version does not necessarily have all the top-level fields present,
     // but the frontend needs all fields present in the first event to be fully functional. We
-    // fetch the next and previous 25 events, so that we can construct a "first" event to send
-    // immediately.
+    // fetch the previous 25 events, so that we can construct a "first" event to send immediately.
     //
-    // There is no need to fetch further than a minute out, because the frontend (in nearly all
-    // season) is hardcoded to close and reopen the stream every 40 seconds...
+    // We fetch the next 35 events. There is no need to fetch further than a minute (plus the 15
+    // second cache bucket window) out, because the frontend (in nearly all season) is hardcoded to
+    // close and reopen the stream every 40 seconds... but in particularly contrived cases we might
+    // get updates more often than the usual 4 second interval.
     let (past, future): (Versions<StreamEvent>, Versions<StreamEvent>) = try_join!(
         RequestBuilder::v2("versions")
             .ty("Stream")
@@ -75,7 +76,7 @@ async fn start_cold(config: &Config, cache_time: DateTime) -> Result<StreamCache
         RequestBuilder::v2("versions")
             .ty("Stream")
             .after(cache_time)
-            .count(25)
+            .count(35)
             .order(Order::Asc)
             .json(config),
     )?;
@@ -171,7 +172,7 @@ pub(crate) async fn start(
     offset: Offset,
     mut shutdown: Shutdown,
 ) -> Result<impl Stream<Item = Item> + Send + Sync> {
-    let cache_time = time.0.trunc(Duration::seconds(30))?;
+    let cache_time = time.0.trunc(Duration::seconds(15))?;
     let cached = if let Some(cache) = &config.stream_cache {
         cache.lock().await.get(&cache_time).cloned()
     } else {

@@ -4,10 +4,8 @@ use crate::time::DateTime;
 use crate::{Config, Result};
 use rocket::futures::StreamExt;
 use rocket::response::stream::{Event, EventStream};
-use rocket::tokio::{select, time::sleep};
 use rocket::{get, routes, Route, Shutdown, State};
 use serde::Serialize;
-use std::time::Duration as StdDuration;
 
 #[get("/events/streamData")]
 pub(crate) async fn stream_data(
@@ -20,12 +18,6 @@ pub(crate) async fn stream_data(
     Ok(EventStream! {
         while let Some(item) = stream.next().await {
             yield Event::json(&item);
-        }
-        // We can potentially run out of elements if they're all duplicates. Sleep it off so the
-        // client doesn't reconnect.
-        select! {
-            _ = sleep(StdDuration::from_secs(40)) => {},
-            _ = shutdown => {},
         }
     })
 }
@@ -55,12 +47,6 @@ pub(crate) fn extra_season_4_routes() -> Vec<Route> {
                                 }
                             }
                         }
-                    }
-                    // We can potentially run out of elements if they're all duplicates. Sleep it
-                    // off so the client doesn't reconnect.
-                    select! {
-                        _ = sleep(StdDuration::from_secs(40)) => {},
-                        _ = shutdown => {},
                     }
                 })
             }
