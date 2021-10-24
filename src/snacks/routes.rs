@@ -9,22 +9,30 @@ use serde::Deserialize;
 
 #[post("/api/buyVote", data = "<purchase>")]
 pub(crate) fn buy_vote(
-    cookies: &CookieJar<'_>,
     purchase: Json<VotePurchase>,
+    cookies: &CookieJar<'_>,
+    time: OffsetTime,
 ) -> ApiResult<&'static str> {
     let amount = purchase.into_inner().amount.unwrap_or(1);
     if !amount.is_positive() {
         return ApiResult::Err("Invalid request");
     }
     let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
-    if snacks
-        .set(
+    if time.0 < crate::EXPANSION {
+        if snacks
+            .set(
+                Snack::Votes,
+                snacks.get(Snack::Votes).unwrap_or_default() + amount,
+            )
+            .is_none()
+        {
+            return ApiResult::Err("Snack pack full");
+        }
+    } else {
+        snacks.set_force(
             Snack::Votes,
             snacks.get(Snack::Votes).unwrap_or_default() + amount,
-        )
-        .is_none()
-    {
-        return ApiResult::Err("Snack pack full");
+        );
     }
     cookies.store(&snacks);
     ApiResult::Ok("Vote Bought")
@@ -33,6 +41,28 @@ pub(crate) fn buy_vote(
 #[derive(Deserialize)]
 pub(crate) struct VotePurchase {
     amount: Option<i64>,
+}
+
+#[post("/api/buyIncreaseMaxBet")]
+pub(crate) fn buy_increase_max_bet(cookies: &CookieJar<'_>) -> ApiResult<&'static str> {
+    let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
+    snacks.set_force(
+        Snack::MaxBet,
+        snacks.get(Snack::MaxBet).unwrap_or_default() + 1,
+    );
+    cookies.store(&snacks);
+    ApiResult::Ok("Increased max bet")
+}
+
+#[post("/api/buyIncreaseDailyCoins")]
+pub(crate) fn buy_increase_daily_coins(cookies: &CookieJar<'_>) -> ApiResult<&'static str> {
+    let mut snacks = cookies.load::<SnackPack>().unwrap_or_default();
+    snacks.set_force(
+        Snack::TeamWin,
+        snacks.get(Snack::TeamWin).unwrap_or_default() + 1,
+    );
+    cookies.store(&snacks);
+    ApiResult::Ok("Increased coins per win")
 }
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=

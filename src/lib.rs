@@ -158,6 +158,8 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 settings::update_settings,
                 site::site_static,
                 snacks::buy_a_dang_peanut,
+                snacks::buy_increase_daily_coins,
+                snacks::buy_increase_max_bet,
                 snacks::buy_relic,
                 snacks::buy_slot,
                 snacks::buy_snack,
