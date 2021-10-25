@@ -106,7 +106,7 @@ pub(crate) fn get_user(cookies: &CookieJar<'_>, time: OffsetTime) -> Value {
         // set all these to reasonably high values to avoid rendering the "what to do next" actions
         // in the bulletin
         "trackers": {
-            "BEGS": 3,
+            "BEGS": 0,
             "BETS": 10,
             "VOTES_CAST": 1,
             "SNACKS_BOUGHT": 2,
