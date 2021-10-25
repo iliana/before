@@ -117,7 +117,7 @@ impl Default for Config {
             http_client_gzip: cfg!(feature = "gzip"),
             chronicler_base_url: "https://api.sibr.dev/chronicler/".to_string(),
             upnuts_base_url: "https://api.sibr.dev/upnuts/".to_string(),
-            content_security_policy: "upgrade-insecure-requests; default-src 'self'; script-src 'self' https://platform.twitter.com 'unsafe-inline' 'nonce-{nonce}'; style-src 'self' 'unsafe-inline'; img-src 'self' {matomo_base_url} https://d35iw2jmbg6ut8.cloudfront.net data:; connect-src 'self' {matomo_base_url}; object-src 'none'; frame-src https://platform.twitter.com https://www.youtube.com 'self'; base-uri 'none'; require-trusted-types-for 'script';".to_string(),
+            content_security_policy: "upgrade-insecure-requests; default-src 'self'; script-src 'self' https://platform.twitter.com 'unsafe-inline' 'nonce-{nonce}'; style-src 'self' 'unsafe-inline'; img-src 'self' {matomo_base_url} https://d35iw2jmbg6ut8.cloudfront.net data:; connect-src 'self' {matomo_base_url}; object-src 'none'; frame-src https://platform.twitter.com https://www.youtube.com 'self'; base-uri 'none';".to_string(),
             static_dir: Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static"))).into(),
             static_zip_path: None,
             site_cache: true,
