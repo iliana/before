@@ -1,4 +1,24 @@
 (function () {
+  // TODO: make this a template variable?
+  const replace_urls = {
+    "api.blaseball.com": "",
+    "blaseball-configs.s3.us-west-2.amazonaws.com": "/s3-bucket"
+  };
+
+  function replace_request_url(url) {
+    if (typeof url === "string") {
+      url = new URL(url, location);
+      let replace = replace_urls[url.hostname];
+      if (replace !== undefined) {
+        url.pathname = replace + url.pathname;
+        url.host = location.host;
+        url.protocol = location.protocol;
+      }
+    }
+
+    return url;
+  }
+
   window._before_time = parseInt(
     document.cookie
       .split("; ")
@@ -50,6 +70,7 @@
     return TrickSource;
 
     function TrickSource(url, options) {
+      url = replace_request_url(url).toString();
       return instantiate(TrueSource, [
         `${url}?_before_offset_time=${window._before_time}`,
         options,
@@ -59,6 +80,8 @@
 
   const _before_old_fetch = fetch.bind(window);
   fetch = async function (url, options) {
+    url = replace_request_url(url);
+
     if (options === undefined) {
       options = {
         headers: {
