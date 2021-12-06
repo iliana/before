@@ -80,15 +80,18 @@ pub(crate) fn entity_routes() -> Vec<Route> {
         route_id!("/database/team?<id>", "Team"),
         route_id!("/database/teamElectionStats?<id>", "TeamElectionStats"),
         // s3-stored configs
-        route!("/s3-bucket/attributes.json", "Attributes"),
-        route!("/s3-bucket/fanart.json", "Fanart"),
-        route!("/s3-bucket/glossary_words.json", "GlossaryWords"),
-        route!("/s3-bucket/library.json", "Library"),
-        route!("/s3-bucket/sponsor_data.json", "SponsorData"),
-        route!("/s3-bucket/stadium_prefabs.json", "StadiumPrefabs"),
-        route!("/s3-bucket/feed_season_list.json", "FeedSeasonList"),
-        route!("/s3-bucket/the_beat.json", "TheBeat"),
-        route!("/s3-bucket/the_book.json", "TheBook"),
+        route!("/_before/s3-configs/attributes.json", "Attributes"),
+        route!("/_before/s3-configs/fanart.json", "Fanart"),
+        route!("/_before/s3-configs/glossary_words.json", "GlossaryWords"),
+        route!("/_before/s3-configs/library.json", "Library"),
+        route!("/_before/s3-configs/sponsor_data.json", "SponsorData"),
+        route!("/_before/s3-configs/stadium_prefabs.json", "StadiumPrefabs"),
+        route!(
+            "/_before/s3-configs/feed_season_list.json",
+            "FeedSeasonList"
+        ),
+        route!("/_before/s3-configs/the_beat.json", "TheBeat"),
+        route!("/_before/s3-configs/the_book.json", "TheBook"),
     ]
     .concat()
 }

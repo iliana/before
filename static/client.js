@@ -2,7 +2,8 @@
   // TODO: make this a template variable?
   const replace_urls = {
     "api.blaseball.com": "",
-    "blaseball-configs.s3.us-west-2.amazonaws.com": "/s3-bucket"
+    "blaseball-configs.s3.us-west-2.amazonaws.com": "/_before/s3-configs",
+    "blaseball-configs-qa.s3.us-west-2.amazonaws.com": "/_before/s3-configs"
   };
 
   function replace_request_url(url) {
