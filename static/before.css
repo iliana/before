@@ -238,6 +238,10 @@ body.theme-light .bigdeal-5 {
   div.season span {
     display: block;
   }
+
+  ul.events span {
+    display: inline-block;
+  }
 }
 
 ._before_credits .Main {
