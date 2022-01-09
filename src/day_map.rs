@@ -41,7 +41,7 @@ impl DayMap {
             day: i64,
         }
 
-        log::warn!("updating v1/games start_time cache");
+        log::debug!("updating v1/games start_time cache");
         let after = self
             .until
             .unwrap_or(DAY_MAP_START)
@@ -75,7 +75,7 @@ impl DayMap {
                 .filter(|(date, _)| date.tournament > -1)
                 .map(|(date, start)| ((date.tournament, date.day), *start)),
         );
-        log::warn!(
+        log::debug!(
             "added {} entries to day map",
             self.season.len() + self.tournament.len() - start
         );

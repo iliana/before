@@ -126,7 +126,7 @@ pub(crate) async fn update_cache(config: &Config, at: DateTime) -> anyhow::Resul
         }
         request = request.after(until);
     }
-    log::warn!("updating v1/site/updates cache");
+    log::debug!("updating v1/site/updates cache");
 
     let response: Data<SiteUpdate> = request.json(config).await?;
     if !response.data.is_empty() {
