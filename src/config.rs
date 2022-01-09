@@ -11,7 +11,7 @@ use std::io::Cursor;
 use std::path::{Path, PathBuf};
 use zip::read::ZipArchive;
 
-#[allow(clippy::struct_excessive_bools)]
+#[allow(clippy::struct_excessive_bools)] // ceci n'est pas une state machine
 #[derive(Debug, Deserialize)]
 #[serde(default)]
 pub struct Config {

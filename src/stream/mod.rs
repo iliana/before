@@ -153,7 +153,7 @@ async fn start_cold(config: &Config, cache_time: DateTime) -> Result<StreamCache
         games: Arc::new(Games::first(config, &mut past, cache_time).await?),
         leagues: Arc::new(Leagues::first(config, &mut past, cache_time).await?),
         temporal: Arc::from(first_temporal(config, &mut past, cache_time).await?),
-        fights: first_fights(&mut past).map(|v| v.into()),
+        fights: first_fights(&mut past).map(Arc::from),
     };
 
     let value = (first, future.into_iter().map(Arc::new).collect());

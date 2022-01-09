@@ -65,7 +65,7 @@ pub(crate) async fn index(
 
 // Blaseball returns the index page for any unknown route, so that the React frontend can display
 // the correct thing when the page loads.
-#[allow(clippy::needless_lifetimes)] // false positive?
+#[allow(clippy::needless_lifetimes)] // false positive
 #[catch(404)]
 pub(crate) async fn index_default<'a>(req: &'a Request<'_>) -> Result<Response<'a>> {
     let path = req.uri().path();

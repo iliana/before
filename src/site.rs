@@ -1,5 +1,3 @@
-#![allow(clippy::case_sensitive_file_extension_comparisons)]
-
 use crate::chronicler::{Data, Order, RequestBuilder};
 use crate::offset::OffsetTime;
 use crate::proxy::Proxy;
@@ -113,6 +111,7 @@ fn fetch_cache(
         .map(|(_, update)| update)
 }
 
+#[allow(clippy::case_sensitive_file_extension_comparisons)]
 pub(crate) async fn update_cache(config: &Config, at: DateTime) -> anyhow::Result<()> {
     let mut request = RequestBuilder::v1("site/updates").order(Order::Asc);
     if let Some(until) = CACHE.read().await.until {
@@ -133,7 +132,7 @@ pub(crate) async fn update_cache(config: &Config, at: DateTime) -> anyhow::Resul
                 cache.index.insert(update.timestamp, update);
             } else {
                 cache.assets.insert(update.path.clone(), update.clone());
-                match update.path.rsplitn(2, '/').next() {
+                match update.path.rsplit_once('/').map(|x| x.1) {
                     Some(x) if x.starts_with("main.") && x.ends_with(".css") => {
                         cache.css.insert(update.timestamp, update);
                     }

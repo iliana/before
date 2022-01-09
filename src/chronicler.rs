@@ -137,14 +137,12 @@ impl<T> RequestBuilder<V2<T>> {
         RequestBuilder::default().route(route).count(1000)
     }
 
-    #[allow(clippy::type_repetition_in_bounds)] // false positive
     pub(crate) fn paged_json<'a>(
         self,
         config: &'a Config,
     ) -> impl StreamTrait<Item = Result<Version<T>>> + 'a
     where
-        T: 'a,
-        for<'de> T: Deserialize<'de>,
+        for<'de> T: Deserialize<'de> + 'a,
     {
         stream! {
             let response = self.clone().json(config).await?;
@@ -176,7 +174,6 @@ pub(crate) enum Order {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Data<T> {
-    pub(crate) next_page: Option<String>,
     pub(crate) data: Vec<T>,
 }
 

@@ -25,6 +25,7 @@ pub(crate) async fn stream_data(
 // For part of Season 4, the frontend used separate endpoints for the different components of the
 // data stream. It also relied on the presence of a `lastUpdateTime` field which we just set to the
 // equivalent of `Date.now()`.
+#[allow(clippy::semicolon_if_nothing_returned)] // false positive
 pub(crate) fn extra_season_4_routes() -> Vec<Route> {
     macro_rules! implnt {
         ($x:ident, $uri:expr) => {{
