@@ -23,6 +23,12 @@ const CHRONICLER_JS_EPOCH: DateTime = datetime!(2020-09-07 23:29:00 UTC);
 /// After this point, Chronicler fetched main.css in addition to the JS assets.
 const CHRONICLER_CSS_EPOCH: DateTime = datetime!(2020-09-11 16:58:00 UTC);
 
+#[cfg(test)]
+#[test]
+fn check_early_assets() {
+    assert!(!EARLY_ASSETS.is_empty());
+}
+
 #[derive(Clone, Copy, Deserialize)]
 pub(crate) struct AssetSet<'a> {
     pub(crate) css: &'a str,

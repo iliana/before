@@ -2,7 +2,7 @@ FROM rust:1.57-buster as builder
 ENV STATIC_DIR=/var/www/before
 WORKDIR /usr/src/before
 COPY . .
-RUN cargo install --path .
+RUN cargo test && cargo install --path .
 RUN objcopy --compress-debug-sections /usr/local/cargo/bin/before
 
 FROM debian:buster-slim

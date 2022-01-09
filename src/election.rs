@@ -9,6 +9,26 @@ use serde_json::value::RawValue;
 use std::borrow::Cow;
 use std::collections::HashMap;
 
+lazy_static::lazy_static! {
+    static ref OFFSEASON_RECAP: Vec<&'static RawValue> =
+        serde_json::from_str(include_str!("../data/offseasonrecap.json")).unwrap();
+    static ref BONUS_RESULTS: HashMap<&'static str, &'static RawValue> =
+        serde_json::from_str(include_str!("../data/bonusresults.json")).unwrap();
+    static ref DECREE_RESULTS: HashMap<&'static str, &'static RawValue> =
+        serde_json::from_str(include_str!("../data/decreeresults.json")).unwrap();
+    static ref EVENT_RESULTS: HashMap<&'static str, &'static RawValue> =
+        serde_json::from_str(include_str!("../data/eventresults.json")).unwrap();
+}
+
+#[cfg(test)]
+#[test]
+fn check_data() {
+    assert!(!OFFSEASON_RECAP.is_empty());
+    assert!(!BONUS_RESULTS.is_empty());
+    assert!(!DECREE_RESULTS.is_empty());
+    assert!(!EVENT_RESULTS.is_empty());
+}
+
 #[get("/database/offseasonRecap?<season>")]
 pub(crate) async fn offseason_recap(
     config: &State<Config>,
@@ -20,13 +40,9 @@ pub(crate) async fn offseason_recap(
         season: i64,
     }
 
-    lazy_static::lazy_static! {
-        static ref DATA: Vec<&'static RawValue> =
-            serde_json::from_str(include_str!("../data/offseasonrecap.json")).unwrap();
-    }
-
     Ok(if season < 11 {
-        DATA.get(usize::try_from(season).map_err(anyhow::Error::from)?)
+        OFFSEASON_RECAP
+            .get(usize::try_from(season).map_err(anyhow::Error::from)?)
             .copied()
             .map(|value| Json(Cow::Borrowed(value)))
     } else {
@@ -80,12 +96,7 @@ pub(crate) async fn bonus_results(
     ids: &str,
     time: OffsetTime,
 ) -> Result<Json<Vec<Cow<'static, RawValue>>>> {
-    lazy_static::lazy_static! {
-        static ref DATA: HashMap<&'static str, &'static RawValue> =
-            serde_json::from_str(include_str!("../data/bonusresults.json")).unwrap();
-    }
-
-    locally_patched(config, ids, time, "BonusResult", &DATA).await
+    locally_patched(config, ids, time, "BonusResult", &BONUS_RESULTS).await
 }
 
 #[get("/database/decreeResults?<ids>")]
@@ -94,12 +105,7 @@ pub(crate) async fn decree_results(
     ids: &str,
     time: OffsetTime,
 ) -> Result<Json<Vec<Cow<'static, RawValue>>>> {
-    lazy_static::lazy_static! {
-        static ref DATA: HashMap<&'static str, &'static RawValue> =
-            serde_json::from_str(include_str!("../data/decreeresults.json")).unwrap();
-    }
-
-    locally_patched(config, ids, time, "DecreeResult", &DATA).await
+    locally_patched(config, ids, time, "DecreeResult", &DECREE_RESULTS).await
 }
 
 #[get("/database/eventResults?<ids>")]
@@ -108,10 +114,5 @@ pub(crate) async fn event_results(
     ids: &str,
     time: OffsetTime,
 ) -> Result<Json<Vec<Cow<'static, RawValue>>>> {
-    lazy_static::lazy_static! {
-        static ref DATA: HashMap<&'static str, &'static RawValue> =
-            serde_json::from_str(include_str!("../data/eventresults.json")).unwrap();
-    }
-
-    locally_patched(config, ids, time, "EventResult", &DATA).await
+    locally_patched(config, ids, time, "EventResult", &EVENT_RESULTS).await
 }

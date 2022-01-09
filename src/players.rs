@@ -16,6 +16,12 @@ lazy_static::lazy_static! {
         serde_json::from_str(include_str!("../data/playernudge.json")).unwrap();
 }
 
+#[cfg(test)]
+#[test]
+fn check_nudges() {
+    assert!(!NUDGES.is_empty());
+}
+
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 enum Nudge {

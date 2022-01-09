@@ -57,6 +57,12 @@ lazy_static::lazy_static! {
         serde_json::from_str(include_str!("../../data/inject.json")).unwrap();
 }
 
+#[cfg(test)]
+#[test]
+fn check_inject() {
+    assert!(!INJECT.is_empty());
+}
+
 async fn start_cold(config: &Config, cache_time: DateTime) -> Result<StreamCacheValue> {
     // A given `StreamEvent` version does not necessarily have all the top-level fields present,
     // but the frontend needs all fields present in the first event to be fully functional. We

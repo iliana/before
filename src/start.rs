@@ -130,13 +130,19 @@ async fn load_start() -> anyhow::Result<StartData> {
     )?)
 }
 
+lazy_static::lazy_static! {
+    static ref START_DATA: StartData = toml::from_str(include_str!("../data/start.toml")).unwrap();
+}
+
+#[cfg(test)]
+#[test]
+fn check_start_data() {
+    assert!(!START_DATA.eras.is_empty());
+}
+
 #[cfg(not(debug_assertions))] // release mode
 async fn load_start() -> anyhow::Result<&'static StartData> {
-    lazy_static::lazy_static! {
-        static ref DATA: StartData = toml::from_str(include_str!("../data/start.toml")).unwrap();
-    }
-
-    Ok(&DATA)
+    Ok(&START_DATA)
 }
 
 #[get("/_before/start", rank = 1)]

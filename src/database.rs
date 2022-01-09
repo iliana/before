@@ -112,13 +112,19 @@ pub(crate) async fn items(
     }))
 }
 
+lazy_static::lazy_static! {
+    static ref RENOS: HashMap<&'static str, &'static RawValue> =
+        serde_json::from_str(include_str!("../data/renos.json")).unwrap();
+}
+
+#[cfg(test)]
+#[test]
+fn check_renos() {
+    assert!(!RENOS.is_empty());
+}
+
 #[get("/database/renovations?<ids>")]
 pub(crate) fn renovations(ids: &str) -> Json<Vec<&'static RawValue>> {
-    lazy_static::lazy_static! {
-        static ref RENOS: HashMap<&'static str, &'static RawValue> =
-            serde_json::from_str(include_str!("../data/renos.json")).unwrap();
-    }
-
     Json(
         ids.split(',')
             .filter_map(|id| RENOS.get(id))
