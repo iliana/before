@@ -13,6 +13,8 @@ lazy_static::lazy_static! {
 }
 
 static DAY_MAP_START: DateTime = datetime!(2020-08-01 13:00:00 UTC);
+// temporary until we start working on Gamma
+static DAY_MAP_END: DateTime = datetime!(2021-08-01 13:00:00 UTC);
 
 #[derive(Debug, Default)]
 pub(crate) struct DayMap {
@@ -48,6 +50,7 @@ impl DayMap {
             .trunc(Duration::hours(1))?;
         let games = RequestBuilder::v1("games")
             .after(after)
+            .before(DAY_MAP_END)
             .started(true)
             .json(config)
             .await?

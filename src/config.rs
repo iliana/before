@@ -112,7 +112,7 @@ impl Config {
 impl Default for Config {
     fn default() -> Config {
         Config {
-            siesta_mode: false,
+            siesta_mode: true,
             chronplete: false,
             http_client_gzip: cfg!(feature = "gzip"),
             chronicler_base_url: "https://api.sibr.dev/chronicler/".to_string(),
