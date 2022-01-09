@@ -54,7 +54,6 @@ impl FromStr for ActiveBets {
     fn from_str(s: &str) -> anyhow::Result<ActiveBets> {
         let data = DefaultOptions::new()
             .deserialize(&base64::decode_config(s, base64::URL_SAFE_NO_PAD)?)?;
-        println!("{:?}", data);
         Ok(data)
     }
 }
