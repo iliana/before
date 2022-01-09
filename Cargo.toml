@@ -3,7 +3,7 @@ name = "before"
 version = "0.2.0"
 authors = ["iliana etaoin <iliana@buttslol.net>"]
 edition = "2021"
-rust-version = "1.56"
+rust-version = "1.57"
 publish = false
 
 [features]
@@ -13,7 +13,6 @@ tls = ["reqwest/default-tls"]
 
 [dependencies]
 anyhow = "1"
-askama = "0.10"
 base64 = "0.13"
 bincode = "1"
 derive_builder = "0.10"
@@ -29,6 +28,10 @@ serde_plain = "1"
 serde_urlencoded = "0.7"
 textnonce = "1"
 toml = "0.5"
+
+[dependencies.askama]
+version = "0.11"
+default-features = false
 
 [dependencies.reqwest]
 version = "0.11"
