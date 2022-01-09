@@ -2,89 +2,37 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="/static/media/favicon-32x32.png" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="&#x1FA78; Do you remember before? &#x1FA78;"
-    />
-    <link href="/_before/fonts.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
     <title>Before</title>
-    <link href="/_before/nav.css" rel="stylesheet" />
-    <link href="/_before/before.css" rel="stylesheet" />
+    <meta name="description" content="&#x1FA78; Do you remember before? &#x1FA78;" />
+    <link rel="stylesheet" href="../static/fonts.css" />
+    <link rel="stylesheet" href="../static/styles.css" />
+    <link rel="icon" href="../static/media/favicon-32x32.png" />
+    <meta name="theme-color" content="#000000" />
   </head>
 
-  <body class="_before_hide_controls">
-    {% include "nav.html" %}
+  <body class="tw-bg-black">
+    <!-- nav bar -->
+    <div class="tw-bg-neutral-900 tw-text-white tw-border-b tw-border-neutral-800 tw-font-serif tw-antialiased tw-py-2">
+      <div class="tw-container tw-max-w-screen-lg tw-mx-auto">
+        <a href="/_before/start" class="tw-font-bold tw-no-underline hover:tw-underline">Before</a>
+      </div>
+    </div>
 
-    <div class="Main">
-      <div class="Header-Links">
-        <div class="Header-Logo">
-          <h1 class="Header-Title"><a href="/">Blaseball</a></h1>
-          <div class="Header-Logo-Tag">BETA</div>
+    <!-- content -->
+    <div class="tw-container tw-max-w-screen-lg tw-text-white tw-font-serif tw-antialiased tw-mx-auto">
+      <div class="tw-flex tw-items-end tw-font-bold tw-mt-2.5 tw-mb-5">
+        <h1 class="tw-text-6xl tw-leading-[1.2] tw-uppercase">Blaseball</h1>
+        <div
+          class="tw-text-sm tw-leading-[1.5] tw-font-sans tw-m-2.5 tw-p-[5px] tw-rounded-[3px] tw-bg-[#656565]/[.65]"
+        >
+          BETA
         </div>
       </div>
 
-      <section class="intro">
-        <p>
-          <strong>Before</strong> replays Blaseball from any moment recorded by
-          the SIBR archives.
-        </p>
-        <ul>
-          <li><a href="/_before/info">More info</a></li>
-          <li><a href="/_before/credits">Credits</a></li>
-        </ul>
-      </section>
-
-      {% for era in eras %}
-      <section>
-        <h2 class="Header-Logo-Era" style="color: {{era.color}}">
-          {{era.title}}
-        </h2>
-        {% match era.days %}{% when Some with (days) %}
-        <span class="days">{{days}}</span>
-        {% when None %}{% endmatch %}{% if !era.events.is_empty() %}
-        <ul class="events era">
-          {% for event in era.events %}
-          <li>
-            <a class="{{event.class()}}" href="{{event.jump()}}"
-              >{{event.title}}</a
-            >
-          </li>
-          {% endfor %}
-        </ul>
-        {% endif %}{% for season in era.seasons %}
-        <div class="season">
-          <a href="{{season.jump()}}"
-            ><span class="Header-Logo-SubEra" style="color: {{season.color}}"
-              >{{season.title}}</span
-            ></a
-          >
-          {% match season.extra_title %}{% when Some with (extra_title) %}
-          <br /><a href="{{season.jump()}}"
-            ><span
-              class="Header-Logo-SubEra"
-              style="color: {{extra_title.color}}"
-              >{{extra_title.title}}</span
-            ></a
-          >
-          {% when None %}{% endmatch %}
-          <span class="days">Season {{season.number}}, {{season.days}}</span>
-          <ul class="events">
-            {% for event in season.events %}
-            <li>
-              <a href="{{event.season_jump(season)}}"
-                ><span class="{{event.class()}}">{{event.title}}</span
-                >{{event.butalso()}}</a
-              >
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-        {% endfor %}
-      </section>
-      {% endfor %}
+      <p class="tw-text-center tw-text-lg tw-italic">
+        <strong>Before</strong> replays Blaseball from any moment recorded by the SIBR archives.
+      </p>
     </div>
   </body>
 </html>
