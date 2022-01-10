@@ -65,10 +65,10 @@ struct Event {
 }
 
 impl Event {
-    fn class(&self) -> String {
+    fn class(&self) -> &'static str {
         match self.being.as_ref() {
-            Some(being) => format!("bigdeal bigdeal-{}", *being as i8),
-            None => String::new(),
+            Some(Being::Coin) => "tw-font-serif tw-font-medium tw-text-[#ffbe00]",
+            _ => "",
         }
     }
 

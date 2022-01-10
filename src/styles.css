@@ -28,18 +28,28 @@
     @apply tw-hidden;
   }
 
-  details > dl {
-    dt {
-      @apply tw-inline tw-font-bold tw-pr-3;
-    }
+  details > dl dt {
+    @apply tw-inline tw-font-bold tw-pr-3;
+  }
 
-    dd {
-      @apply tw-inline;
-    }
+  details > dl dd {
+    @apply tw-inline;
+  }
+}
 
-    ul {
-      @apply tw-inline-flex tw-gap-3;
-    }
+@layer components {
+  .tw-before-list li {
+    @apply tw-inline;
+  }
+
+  .tw-before-list li:before {
+    @apply tw-px-1.5;
+    content: "• ";
+  }
+
+  .tw-before-list li:first-child:before {
+    @apply tw-px-0;
+    content: "";
   }
 }
 

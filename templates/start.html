@@ -10,10 +10,10 @@
     <meta name="theme-color" content="#000000" />
   </head>
 
-  <body class="tw-bg-black tw-font-serif">
+  <body class="tw-bg-black tw-text-white tw-font-serif tw-text-sm lg:tw-text-base">
     <!-- nav bar -->
     <div
-      class="tw-before-scope tw-text-sm lg:tw-text-base tw-bg-gray-900 tw-text-white tw-border-b tw-border-gray-800 tw-font-serif tw-z-[9999]"
+      class="tw-before-scope tw-text-sm lg:tw-text-base tw-bg-gray-900 tw-border-b tw-border-gray-800 tw-font-serif tw-z-[9999]"
     >
       <div class="tw-relative tw-container tw-py-1.5 lg:tw-py-2">
         <details open>
@@ -30,7 +30,7 @@
           <dl class="tw-font-sans tw-pt-1">
             <dt>Meta</dt>
             <dd>
-              <ul role="list">
+              <ul role="list" class="tw-before-list tw-inline">
                 <li><a href="/_before/info">More info</a></li>
                 <li><a href="/_before/credits">Credits</a></li>
               </ul>
@@ -64,7 +64,7 @@
       </div>
     </div>
 
-    <div class="tw-container tw-text-white">
+    <div class="tw-container">
       <div class="tw-flex tw-items-start lg:tw-items-end tw-font-bold tw-mt-2.5 tw-mb-5">
         <h1 class="tw-text-xl lg:tw-text-6xl tw-leading-[1.2] lg:tw-leading-[1.2] tw-uppercase">Blaseball</h1>
         <div
@@ -74,18 +74,37 @@
         </div>
       </div>
 
-      <p class="tw-text-center lg:tw-text-xl tw-italic">
+      <p class="tw-text-center tw-text-base lg:tw-text-xl tw-italic">
         <strong>Before</strong> replays Blaseball from any moment recorded by the SIBR archives.
       </p>
     </div>
 
     {% for era in eras %}
     <h2
-      class="tw-text-xl lg:tw-text-3xl tw-text-center tw-font-bold tw-mt-6 lg:tw-mt-8 tw-uppercase tw-relative before:tw-absolute before:tw-left-0 before:tw-top-1/2 before:tw-w-full before:tw-h-px before:tw-bg-gray-700"
+      class="tw-text-xl tw-leading-normal lg:tw-text-3xl lg:tw-leading-normal tw-text-center tw-font-bold tw-mt-6 lg:tw-mt-8 tw-uppercase tw-relative before:tw-absolute before:tw-left-0 before:tw-top-1/2 before:tw-w-full before:tw-h-px before:tw-bg-gray-700"
       style="color: {{era.color}}"
     >
       <span class="tw-inline-block tw-relative tw-bg-black tw-px-4 lg:tw-px-5">{{era.title}}</span>
     </h2>
+
+    <div class="tw-container tw-text-center">
+      <!-- prettier-ignore -->
+      {% match era.days %}
+      {% when Some with (days) %}
+      <p>{{days}}</p>
+      <!-- prettier-ignore -->
+      {% when None %}
+      {% endmatch %}
+
+      {% if !era.events.is_empty() %}
+      <ul role="list" class="tw-font-sans tw-pt-3 lg:tw-pt-4 tw-before-list">
+        {% for event in era.events %}
+        <li><a class="{{event.class()}}" href="{{event.jump()}}">{{event.title}}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
     {% endfor %}
   </body>
 </html>
