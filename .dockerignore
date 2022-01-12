@@ -3,4 +3,7 @@
 /.github
 /.gitignore
 /Dockerfile
+/node_modules
+/static.zip
+/static/styles.css
 /target

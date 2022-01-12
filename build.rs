@@ -19,8 +19,8 @@ fn main() {
         .arg("-o")
         .arg("static/styles.css")
         .status()
-        .unwrap()
-        .success()
+        .ok()
+        .map_or(false, |s| s.success())
     {
         println!("cargo:warning=failed to run postcss");
     }
