@@ -31,9 +31,7 @@
       }
 
       var date = instantiate(CurrentDate, arguments);
-      date = instantiate(CurrentDate, [
-        date.getTime() - window._before_time * 1000,
-      ]);
+      date = instantiate(CurrentDate, [date.getTime() - window._before_time * 1000]);
       return date;
     }
   })(Date);
@@ -50,10 +48,7 @@
     return TrickSource;
 
     function TrickSource(url, options) {
-      return instantiate(TrueSource, [
-        `${url}?_before_offset_time=${window._before_time}`,
-        options,
-      ]);
+      return instantiate(TrueSource, [`${url}?_before_offset_time=${window._before_time}`, options]);
     }
   })(EventSource);
 
@@ -79,11 +74,10 @@
   };
 
   function _before_set_time() {
-    document.getElementById("_before_current").innerText =
-      new Date().toLocaleString(undefined, {
-        dateStyle: "medium",
-        timeStyle: "long",
-      });
+    document.getElementById("_before_current").innerText = new Date().toLocaleString(undefined, {
+      dateStyle: "medium",
+      timeStyle: "long",
+    });
   }
   _before_set_time();
   window.setInterval(_before_set_time, 1000);

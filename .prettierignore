@@ -1,5 +1,6 @@
-/target
-/static.zip
 /data
+/static.zip
 /static/patched
 /static/players
+/static/styles.css
+/target
