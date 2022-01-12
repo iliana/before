@@ -1,23 +1,25 @@
-### SEASON 2 ### THE DISCIPLINE ERA ###
-
 [[eras]]
 title = "The Discipline Era"
 color = "#ff0000"
-days = "Season 2 — July 27–August 2, 2020"
 
-[[eras.events]]
+### SEASON 2 ### THE DISCIPLINE ERA ###
+
+[[eras.seasons]]
+number = 2
+title = "The Discipline Era"
+color = "#ff0000"
+days = "July 27–August 2, 2020"
+collapse = true
+
+[[eras.seasons.events]]
 title = "Postseason"
-season = 2
 day = 100
-redirect = "/"
 
-[[eras.events]]
+[[eras.seasons.events]]
 title = "The Internet Series"
-season = 2
 day = 108
-redirect = "/"
 
-[[eras.events]]
+[[eras.seasons.events]]
 title = "Election Results"
 time = "2020-08-02T19:15:00Z"
 redirect = "/offseason"
@@ -29,6 +31,10 @@ number = 3
 title = "Peanut Plague"
 color = "#c4aa70"
 days = "August 3–9, 2020"
+
+[eras.seasons.extra_title]
+title = "Uncertainty"
+color = "#c4aa70"
 
 [[eras.seasons.events]]
 title = "Opening Day"
@@ -553,7 +559,7 @@ day = 14
 redirect = "/"
 
 [[eras.events]]
-title = "We are all love Coffee, aren't we?"
+title = "We are all love Coffee, aren’t we?"
 being = "coin"
 time = "2020-12-09T00:27:47Z"
 redirect = "/"

@@ -6,7 +6,14 @@ fn main() {
     println!("cargo:rerun-if-changed=templates/");
 
     if !std::process::Command::new("npx")
-        .env("NODE_ENV", "production")
+        .env(
+            "NODE_ENV",
+            if std::env::var("PROFILE").unwrap() == "release" {
+                "production"
+            } else {
+                ""
+            },
+        )
         .arg("postcss")
         .arg("src/styles.css")
         .arg("-o")

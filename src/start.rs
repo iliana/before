@@ -19,7 +19,8 @@ struct Era {
     title: String,
     color: String,
     seasons: Vec<Season>,
-    days: Option<String>,
+    #[serde(default)]
+    days: String,
     #[serde(default)]
     events: Vec<Event>,
 }
@@ -31,6 +32,8 @@ struct Season {
     extra_title: Option<ExtraTitle>,
     color: String,
     days: String,
+    #[serde(default)]
+    collapse: bool,
     #[serde(default)]
     events: Vec<Event>,
 }
@@ -67,23 +70,20 @@ struct Event {
 impl Event {
     fn class(&self) -> &'static str {
         match self.being.as_ref() {
-            Some(Being::Coin) => "tw-font-serif tw-font-medium tw-text-[#ffbe00]",
-            _ => "",
+            Some(Being::Alert) => "tw-being tw-being-alert",
+            Some(Being::Peanut) => "tw-being tw-being-peanut",
+            Some(Being::Monitor) => "tw-being tw-being-monitor",
+            Some(Being::Coin) => "tw-being tw-being-coin",
+            Some(Being::Reader) => "tw-being tw-being-reader",
+            Some(Being::Parker) => "tw-being tw-being-parker",
+            Some(Being::Microphone) => "tw-being tw-being-microphone",
+            Some(Being::Lootcrates) => "tw-being tw-being-lootcrates",
+            Some(Being::Namerifeht) => "tw-being tw-being-namerifeht",
+            None => "",
         }
     }
 
-    fn jump(&self) -> String {
-        let mut args = self.jump_args.clone();
-        args.entry("redirect".to_string())
-            .or_insert_with(|| Value::from("/league"));
-        format!(
-            "{}?{}",
-            JUMP_BASE,
-            serde_urlencoded::to_string(&args).unwrap()
-        )
-    }
-
-    fn season_jump(&self, season: &Season) -> String {
+    fn jump(&self, season: &Season) -> String {
         let mut args = self.jump_args.clone();
         args.entry("redirect".to_string())
             .or_insert_with(|| Value::from(if season.number <= 11 { "/" } else { "/league" }));
@@ -94,6 +94,10 @@ impl Event {
             JUMP_BASE,
             serde_urlencoded::to_string(&args).unwrap()
         )
+    }
+
+    fn era_jump(&self) -> String {
+        self.jump(&Season::default())
     }
 
     fn butalso(&self) -> String {
@@ -107,15 +111,15 @@ impl Event {
 #[derive(Deserialize, Clone, Copy)]
 #[serde(rename_all = "lowercase")]
 enum Being {
-    Microphone = -99, // special case for Hi Friends / It is Wyatt / I have a plan
-    Alert = -1,
-    Peanut = 0,
-    Monitor = 1,
-    Coin = 2,
-    Reader = 3,
-    Parker = 4,
-    Lootcrates = 5,
-    Namerifeht = 6,
+    Alert,
+    Peanut,
+    Monitor,
+    Coin,
+    Reader,
+    Parker,
+    Microphone, // special case for Hi Friends / It is Wyatt / I have a plan
+    Lootcrates,
+    Namerifeht,
 }
 
 #[cfg(debug_assertions)] // debug mode

@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#000000" />
   </head>
 
-  <body class="tw-bg-black tw-text-white tw-font-serif tw-text-sm lg:tw-text-base">
+  <body class="tw-bg-black tw-text-white tw-text-sm lg:tw-text-base">
     <!-- nav bar -->
     <div
       class="tw-before-scope tw-text-sm lg:tw-text-base tw-bg-gray-900 tw-border-b tw-border-gray-800 tw-font-serif tw-z-[9999]"
@@ -25,7 +25,7 @@
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg
-            ><span class="group-hover:tw-underline">Before</span>
+            ><span class="tw-italic group-hover:tw-underline">Before</span>
           </summary>
           <dl class="tw-font-sans tw-pt-1">
             <dt>Meta</dt>
@@ -87,22 +87,49 @@
       <span class="tw-inline-block tw-relative tw-bg-black tw-px-4 lg:tw-px-5">{{era.title}}</span>
     </h2>
 
-    <div class="tw-container tw-text-center">
-      <!-- prettier-ignore -->
-      {% match era.days %}
-      {% when Some with (days) %}
-      <p>{{days}}</p>
-      <!-- prettier-ignore -->
-      {% when None %}
-      {% endmatch %}
-
+    <div class="tw-container tw-text-center tw-mb-6 lg:tw-mb-8">
       {% if !era.events.is_empty() %}
-      <ul role="list" class="tw-font-sans tw-pt-3 lg:tw-pt-4 tw-before-list">
+      <p>{{era.days}}</p>
+      <ul role="list" class="tw-font-sans tw-mt-1 lg:tw-mt-1.5 tw-mb-4 lg:tw-mb-5 tw-before-list">
         {% for event in era.events %}
-        <li><a class="{{event.class()}}" href="{{event.jump()}}">{{event.title}}</a></li>
+        <li>
+          <a class="lg:tw-whitespace-nowrap hover:tw-no-underline" href="{{event.era_jump()}}"
+            ><span class="{{event.class()}}">{{event.title}}</span><span>{{event.butalso()}}</span></a
+          >
+        </li>
         {% endfor %}
       </ul>
       {% endif %}
+
+      <!-- prettier-ignore -->
+      {% for season in era.seasons %}
+      {% if !season.collapse %}
+      {% let title_class = "tw-text-base tw-leading-normal lg:tw-text-xl lg:tw-leading-normal tw-font-bold tw-uppercase" %}
+      <h3 class="tw-text-base tw-leading-normal lg:tw-text-xl lg:tw-leading-normal tw-font-bold tw-uppercase">
+        <a href="{{season.jump()}}" class="hover:tw-no-underline">
+          <span style="color: {{season.color}}">{{season.title}}</span>
+          <!-- prettier-ignore -->
+          {% match season.extra_title %}
+          {% when Some with (extra_title) %}
+          — <span style="color: {{extra_title.color}}">{{extra_title.title}}</span>
+          <!-- prettier-ignore -->
+          {% when None %}
+          {% endmatch %}
+        </a>
+      </h3>
+      {% endif %}
+      <p>Season {{season.number}}, {{season.days}}</p>
+
+      <ul role="list" class="tw-font-sans tw-mt-1 lg:tw-mt-1.5 tw-mb-4 lg:tw-mb-5 tw-before-list">
+        {% for event in season.events %}
+        <li>
+          <a class="lg:tw-whitespace-nowrap hover:tw-no-underline" href="{{event.jump(season)}}"
+            ><span class="{{event.class()}}">{{event.title}}</span><span>{{event.butalso()}}</span></a
+          >
+        </li>
+        {% endfor %}
+      </ul>
+      {% endfor %}
     </div>
 
     {% endfor %}

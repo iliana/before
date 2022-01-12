@@ -18,7 +18,8 @@ module.exports = {
       },
     },
     fontFamily: {
-      serif: ["Lora", "Courier New", "monospace", "serif"],
+      serif: ["Lora Before", "serif"],
+      "client-serif": ["Lora", "Courier New", "monospace", "serif"],
       sans: ["Open Sans", "Helvetica Neue", "sans-serif"],
     },
     screens: {

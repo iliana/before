@@ -2,7 +2,7 @@
 
 /* latin-ext */
 @font-face {
-  font-family: "Lora";
+  font-family: "Lora Italic";
   font-style: italic;
   font-weight: 400;
   font-display: swap;
@@ -11,7 +11,7 @@
 }
 /* latin */
 @font-face {
-  font-family: "Lora";
+  font-family: "Lora Italic";
   font-style: italic;
   font-weight: 400;
   font-display: swap;
@@ -21,7 +21,7 @@
 }
 /* latin-ext */
 @font-face {
-  font-family: "Lora";
+  font-family: "Lora Italic";
   font-style: italic;
   font-weight: 500;
   font-display: swap;
@@ -30,7 +30,7 @@
 }
 /* latin */
 @font-face {
-  font-family: "Lora";
+  font-family: "Lora Italic";
   font-style: italic;
   font-weight: 500;
   font-display: swap;
@@ -40,7 +40,7 @@
 }
 /* latin-ext */
 @font-face {
-  font-family: "Lora";
+  font-family: "Lora Italic";
   font-style: italic;
   font-weight: 700;
   font-display: swap;
@@ -49,7 +49,7 @@
 }
 /* latin */
 @font-face {
-  font-family: "Lora";
+  font-family: "Lora Italic";
   font-style: italic;
   font-weight: 700;
   font-display: swap;
