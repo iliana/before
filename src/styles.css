@@ -56,7 +56,7 @@
   .tw-being,
   .tw-being:before,
   .tw-being:after {
-    @apply tw-font-client-serif tw-font-medium;
+    @apply tw-font-client-serif tw-font-medium tw-inline-block;
   }
 
   .tw-being:before {
@@ -106,7 +106,16 @@
   }
 
   .tw-being-namerifeht {
+    @apply tw-inline-block;
     color: #ea5b23;
+    transform: rotateY(180deg);
+    unicode-bidi: bidi-override;
+    direction: rtl;
+  }
+
+  .tw-being-namerifeht:before,
+  .tw-being-namerifeht:after {
+    transform: rotateY(180deg);
   }
 }
 
