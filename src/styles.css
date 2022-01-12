@@ -108,14 +108,14 @@
   .tw-being-namerifeht {
     @apply tw-inline-block;
     color: #ea5b23;
-    transform: rotateY(180deg);
+    transform: scaleX(-1);
     unicode-bidi: bidi-override;
     direction: rtl;
   }
 
   .tw-being-namerifeht:before,
   .tw-being-namerifeht:after {
-    transform: rotateY(180deg);
+    transform: scaleX(-1);
   }
 }
 
