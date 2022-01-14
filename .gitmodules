@@ -1,4 +1,4 @@
 [submodule "blaseball-player-list"]
-	path = blaseball-player-list
+	path = ext/blaseball-player-list
 	url = https://github.com/alisww/blaseball-player-list
 	branch = before

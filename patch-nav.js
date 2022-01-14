@@ -4,7 +4,7 @@
  */
 
 const { JSDOM } = require("jsdom");
-const { stdout } = require('process');
+const { stdout } = require("process");
 
 JSDOM.fromFile("src/nav.html").then((dom) => {
   const document = dom.window.document;
