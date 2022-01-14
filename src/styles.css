@@ -117,6 +117,14 @@
   .tw-being-namerifeht:after {
     transform: scaleX(-1);
   }
+
+  .tw-before-credits h2 {
+    @apply tw-font-bold tw-text-lg lg:tw-text-xl tw-mb-1 lg:tw-mb-1.5;
+  }
+
+  .tw-before-credits ul {
+    @apply tw-mb-3.5 lg:tw-mb-4;
+  }
 }
 
 .Shop-Item-Icon {

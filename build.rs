@@ -11,6 +11,7 @@ fn main() -> Result<()> {
         println!("cargo:rerun-if-changed=package-lock.json");
         println!("cargo:rerun-if-changed=postcss.config.js");
         println!("cargo:rerun-if-changed=src/");
+        println!("cargo:rerun-if-changed=static/fragments/");
         println!("cargo:rerun-if-changed=tailwind.config.js");
         println!("cargo:rerun-if-changed=templates/");
 

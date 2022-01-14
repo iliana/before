@@ -11,6 +11,8 @@
   </head>
 
   <body class="tw-bg-black tw-text-white tw-text-sm lg:tw-text-base">
-    {{nav|safe}}{% block content %}{{content|safe}}{% endblock %}
+    {{nav|safe}}{% block content %}
+    <div class="tw-container tw-py-4">{{content|safe}}</div>
+    {% endblock %}
   </body>
 </html>
