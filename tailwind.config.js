@@ -3,7 +3,7 @@ const colors = require("tailwindcss/colors");
 module.exports = {
   important: ".tw-before-scope",
   prefix: "tw-",
-  content: ["./templates/*.{html,js,svg}", "./src/**/*.rs"],
+  content: ["./templates/*.{html,js,svg}", "./src/**/*.{html,rs}"],
   theme: {
     extend: {
       colors: {

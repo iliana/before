@@ -1,5 +1,6 @@
 #![deny(rust_2018_idioms)]
 #![warn(clippy::pedantic)]
+#![allow(clippy::no_effect_underscore_binding)]
 
 mod api;
 mod bet;
@@ -151,6 +152,8 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 idol::choose_idol,
                 jump::jump,
                 jump::relative,
+                media::credits,
+                media::info,
                 media::static_media,
                 media::static_root,
                 players::player_names_ids,
@@ -174,8 +177,6 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 socket_io::socket_io,
                 socket_io::socket_io_post,
                 squirrels::buy_a_dang_squirrel,
-                start::credits,
-                start::info,
                 start::start,
                 tarot::deal_cards,
                 tarot::reorder_cards,

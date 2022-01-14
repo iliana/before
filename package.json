@@ -2,6 +2,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.0",
     "cssnano": "^5.0.10",
+    "jsdom": "^19.0.0",
     "postcss": "^8.4.4",
     "postcss-cli": "^9.0.2",
     "postcss-import": "^14.0.2",

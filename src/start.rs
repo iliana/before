@@ -1,4 +1,4 @@
-use crate::{Config, Result};
+use crate::{media, Config, Result};
 use askama::Template;
 use rocket::response::content::Html;
 use rocket::{get, State};
@@ -8,8 +8,14 @@ use toml::Value;
 
 const JUMP_BASE: &str = "/_before/jump";
 
-#[derive(Deserialize, Template)]
+#[derive(Template)]
 #[template(path = "start.html")]
+struct Start {
+    data: &'static StartData,
+    nav: &'static str,
+}
+
+#[derive(Deserialize)]
 struct StartData {
     eras: Vec<Era>,
 }
@@ -61,7 +67,8 @@ struct ExtraTitle {
 #[derive(Deserialize)]
 struct Event {
     title: String,
-    butalso: Option<String>,
+    #[serde(default)]
+    butalso: String,
     being: Option<Being>,
     #[serde(flatten)]
     jump_args: BTreeMap<String, Value>,
@@ -99,13 +106,6 @@ impl Event {
     fn era_jump(&self) -> String {
         self.jump(&Season::default())
     }
-
-    fn butalso(&self) -> String {
-        match &self.butalso {
-            Some(butalso) => format!(" \u{2014} {}", butalso),
-            None => String::new(),
-        }
-    }
 }
 
 #[derive(Deserialize, Clone, Copy)]
@@ -122,18 +122,6 @@ enum Being {
     Namerifeht,
 }
 
-#[cfg(debug_assertions)] // debug mode
-async fn load_start() -> anyhow::Result<StartData> {
-    Ok(toml::from_str(
-        &rocket::tokio::fs::read_to_string(
-            std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-                .join("data")
-                .join("start.toml"),
-        )
-        .await?,
-    )?)
-}
-
 lazy_static::lazy_static! {
     static ref START_DATA: StartData = toml::from_str(include_str!("../data/start.toml")).unwrap();
 }
@@ -144,42 +132,14 @@ fn check_start_data() {
     assert!(!START_DATA.eras.is_empty());
 }
 
-#[cfg(not(debug_assertions))] // release mode
-async fn load_start() -> anyhow::Result<&'static StartData> {
-    Ok(&START_DATA)
-}
-
 #[get("/_before/start", rank = 1)]
-pub(crate) async fn start() -> Result<Html<String>> {
+pub(crate) async fn start(config: &State<Config>) -> Result<Html<String>> {
     Ok(Html(
-        load_start().await?.render().map_err(anyhow::Error::from)?,
-    ))
-}
-
-// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
-
-#[derive(Template)]
-#[template(path = "credits.html")]
-struct Credits<'a> {
-    extra_credits: &'a [String],
-}
-
-#[get("/_before/credits", rank = 1)]
-pub fn credits(config: &State<Config>) -> Result<Html<String>> {
-    Ok(Html(
-        Credits {
-            extra_credits: &config.extra_credits,
+        Start {
+            data: &START_DATA,
+            nav: media::load_nav_meta(config).await?,
         }
         .render()
         .map_err(anyhow::Error::from)?,
     ))
-}
-
-#[derive(Template)]
-#[template(path = "info.html")]
-struct Info;
-
-#[get("/_before/info", rank = 1)]
-pub fn info() -> Result<Html<String>> {
-    Ok(Html(Info.render().map_err(anyhow::Error::from)?))
 }

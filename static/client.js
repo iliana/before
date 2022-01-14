@@ -74,7 +74,7 @@
   };
 
   function _before_set_time() {
-    document.getElementById("_before_current").innerText = new Date().toLocaleString(undefined, {
+    document.getElementById("tw-before-current-time").innerText = new Date().toLocaleString(undefined, {
       dateStyle: "medium",
       timeStyle: "long",
     });

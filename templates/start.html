@@ -1,137 +1,75 @@
-<!DOCTYPE html>
-<html class="tw-before-scope">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Before</title>
-    <meta name="description" content="&#x1FA78; Do you remember before? &#x1FA78;" />
-    <link rel="stylesheet" href="/_before/styles.css" />
-    <link rel="icon" href="/static/media/favicon-32x32.png" />
-    <meta name="theme-color" content="#000000" />
-  </head>
-
-  <body class="tw-bg-black tw-text-white tw-text-sm lg:tw-text-base">
-    <!-- nav bar -->
+<!-- prettier-ignore -->
+{% extends "base.html" %}
+{% block content %}
+<div class="tw-container">
+  <div class="tw-flex tw-items-start lg:tw-items-end tw-font-bold tw-mt-2.5 tw-mb-5">
+    <h1 class="tw-text-xl lg:tw-text-6xl tw-leading-[1.2] lg:tw-leading-[1.2] tw-uppercase">Blaseball</h1>
     <div
-      class="tw-before-scope tw-text-sm lg:tw-text-base tw-bg-gray-900 tw-border-b tw-border-gray-800 tw-font-serif tw-z-[9999]"
+      class="tw-text-[12px] lg:tw-text-sm tw-leading-[1.5] lg:tw-leading-[1.5] tw-font-sans tw-mx-[5px] lg:tw-m-2.5 tw-p-[5px] tw-pb-[2px] lg:tw-pb-[5px] tw-rounded-[3px] tw-bg-[#656565]/[.65]"
     >
-      <div class="tw-relative tw-container tw-py-1.5 lg:tw-py-2">
-        <details open>
-          <summary class="tw-group tw-space-x-1.5 tw-inline-block tw-font-bold tw-cursor-pointer">
-            <svg
-              class="tw-inline tw-h-4 tw-w-3 tw-stroke-0 tw-fill-gray-100"
-              viewBox="3 3 21 21"
-              preserveAspectRatio="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg
-            ><span class="tw-italic group-hover:tw-underline">Before</span>
-          </summary>
-          <dl class="tw-font-sans tw-pt-1">
-            <dt>Meta</dt>
-            <dd>
-              <ul role="list" class="tw-before-list tw-inline">
-                <li><a href="/_before/info">More info</a></li>
-                <li><a href="/_before/credits">Credits</a></li>
-              </ul>
-            </dd>
-          </dl>
-        </details>
-
-        <div class="tw-absolute tw-top-1.5 lg:tw-top-2 tw-right-5 lg:tw-right-7 tw-flex tw-items-center">
-          <form
-            action="/_before/jump"
-            method="get"
-            class="tw-font-sans tw-flex tw-items-center tw-gap-0.5 lg:tw-gap-1.5 tw-text-sm"
-          >
-            <input
-              class="tw-bg-black tw-border tw-border-gray-800 tw-text-center tw-w-10 lg:tw-w-14 tw-rounded tw-py-px"
-              name="season"
-              placeholder="Season"
-            />
-            <input
-              class="tw-bg-black tw-border tw-border-gray-800 tw-text-center tw-w-10 lg:tw-w-14 tw-rounded tw-py-px"
-              name="day"
-              placeholder="Day"
-            />
-            <input
-              class="tw-bg-gray-700 tw-text-center tw-font-bold tw-rounded-full tw-hidden lg:tw-block tw-px-2.5 tw-py-px"
-              type="submit"
-              value="Go"
-            />
-          </form>
-        </div>
-      </div>
+      BETA
     </div>
+  </div>
 
-    <div class="tw-container">
-      <div class="tw-flex tw-items-start lg:tw-items-end tw-font-bold tw-mt-2.5 tw-mb-5">
-        <h1 class="tw-text-xl lg:tw-text-6xl tw-leading-[1.2] lg:tw-leading-[1.2] tw-uppercase">Blaseball</h1>
-        <div
-          class="tw-text-[12px] lg:tw-text-sm tw-leading-[1.5] lg:tw-leading-[1.5] tw-font-sans tw-mx-[5px] lg:tw-m-2.5 tw-p-[5px] tw-pb-[2px] lg:tw-pb-[5px] tw-rounded-[3px] tw-bg-[#656565]/[.65]"
-        >
-          BETA
-        </div>
-      </div>
+  <p class="tw-text-center tw-text-base lg:tw-text-xl tw-italic">
+    <strong>Before</strong> replays Blaseball from any moment recorded by the SIBR archives.
+  </p>
+</div>
 
-      <p class="tw-text-center tw-text-base lg:tw-text-xl tw-italic">
-        <strong>Before</strong> replays Blaseball from any moment recorded by the SIBR archives.
-      </p>
-    </div>
+{% for era in data.eras %}
+<h2
+  class="tw-text-xl tw-leading-normal lg:tw-text-3xl lg:tw-leading-normal tw-text-center tw-font-bold tw-mt-6 lg:tw-mt-8 tw-uppercase tw-relative before:tw-absolute before:tw-left-0 before:tw-top-1/2 before:tw-w-full before:tw-h-px before:tw-bg-gray-700"
+  style="color: {{era.color}}"
+>
+  <span class="tw-inline-block tw-relative tw-bg-black tw-px-4 lg:tw-px-5">{{era.title}}</span>
+</h2>
 
-    {% for era in eras %}
-    <h2
-      class="tw-text-xl tw-leading-normal lg:tw-text-3xl lg:tw-leading-normal tw-text-center tw-font-bold tw-mt-6 lg:tw-mt-8 tw-uppercase tw-relative before:tw-absolute before:tw-left-0 before:tw-top-1/2 before:tw-w-full before:tw-h-px before:tw-bg-gray-700"
-      style="color: {{era.color}}"
-    >
-      <span class="tw-inline-block tw-relative tw-bg-black tw-px-4 lg:tw-px-5">{{era.title}}</span>
-    </h2>
-
-    <div class="tw-container tw-text-center tw-mb-6 lg:tw-mb-8">
-      {% if !era.events.is_empty() %}
-      <p>{{era.days}}</p>
-      <ul role="list" class="tw-font-sans tw-mt-1 lg:tw-mt-1.5 tw-mb-4 lg:tw-mb-5 tw-before-list">
-        {% for event in era.events %}
-        <li>
-          <a class="lg:tw-whitespace-nowrap hover:tw-no-underline" href="{{event.era_jump()}}"
-            ><span class="{{event.class()}}">{{event.title}}</span><span>{{event.butalso()}}</span></a
-          >
-        </li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-
-      <!-- prettier-ignore -->
-      {% for season in era.seasons %}
-      {% if !season.collapse %}
-      {% let title_class = "tw-text-base tw-leading-normal lg:tw-text-xl lg:tw-leading-normal tw-font-bold tw-uppercase" %}
-      <h3 class="tw-text-base tw-leading-normal lg:tw-text-xl lg:tw-leading-normal tw-font-bold tw-uppercase">
-        <a href="{{season.jump()}}" class="hover:tw-no-underline">
-          <span style="color: {{season.color}}">{{season.title}}</span>
-          <!-- prettier-ignore -->
-          {% match season.extra_title %}
-          {% when Some with (extra_title) %}
-          — <span style="color: {{extra_title.color}}">{{extra_title.title}}</span>
-          <!-- prettier-ignore -->
-          {% when None %}
-          {% endmatch %}
-        </a>
-      </h3>
-      {% endif %}
-      <p>Season {{season.number}}, {{season.days}}</p>
-
-      <ul role="list" class="tw-font-sans tw-mt-1 lg:tw-mt-1.5 tw-mb-4 lg:tw-mb-5 tw-before-list">
-        {% for event in season.events %}
-        <li>
-          <a class="lg:tw-whitespace-nowrap hover:tw-no-underline" href="{{event.jump(season)}}"
-            ><span class="{{event.class()}}">{{event.title}}</span><span>{{event.butalso()}}</span></a
-          >
-        </li>
-        {% endfor %}
-      </ul>
-      {% endfor %}
-    </div>
-
+<div class="tw-container tw-text-center tw-mb-6 lg:tw-mb-8">
+  {% if !era.events.is_empty() %}
+  <p>{{era.days}}</p>
+  <ul role="list" class="tw-font-sans tw-mt-1 lg:tw-mt-1.5 tw-mb-4 lg:tw-mb-5 tw-before-list">
+    {% for event in era.events %}
+    <li>
+      <a class="lg:tw-whitespace-nowrap hover:tw-no-underline" href="{{event.era_jump()}}"
+        ><span class="{{event.class()}}">{{event.title}}</span></a
+      >
+    </li>
     {% endfor %}
-  </body>
-</html>
+  </ul>
+  {% endif %}
+
+  <!-- prettier-ignore -->
+  {% for season in era.seasons %}
+  {% if !season.collapse %}
+  {% let title_class = "tw-text-base tw-leading-normal lg:tw-text-xl lg:tw-leading-normal tw-font-bold tw-uppercase" %}
+  <h3 class="tw-text-base tw-leading-normal lg:tw-text-xl lg:tw-leading-normal tw-font-bold tw-uppercase">
+    <a href="{{season.jump()}}" class="hover:tw-no-underline">
+      <span style="color: {{season.color}}">{{season.title}}</span>
+      <!-- prettier-ignore -->
+      {% match season.extra_title %}
+      {% when Some with (extra_title) %}
+      — <span style="color: {{extra_title.color}}">{{extra_title.title}}</span>
+      <!-- prettier-ignore -->
+      {% when None %}
+      {% endmatch %}
+    </a>
+  </h3>
+  {% endif %}
+  <p>Season {{season.number}}, {{season.days}}</p>
+
+  <ul role="list" class="tw-font-sans tw-mt-1 lg:tw-mt-1.5 tw-mb-4 lg:tw-mb-5 tw-before-list">
+    {% for event in season.events %}
+    <li>
+      <a class="lg:tw-whitespace-nowrap hover:tw-no-underline" href="{{event.jump(season)}}"
+        ><span class="{{event.class()}}">{{event.title}}</span>{% if !event.butalso.is_empty() %} —
+        <span>{{event.butalso}}</span>{% endif %}</a
+      >
+    </li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+</div>
+{% endfor %}
+
+<!-- prettier-ignore -->
+{% endblock %}

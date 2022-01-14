@@ -56,6 +56,10 @@ features = ["arbitrary_precision", "raw_value"]
 version = "0.3"
 features = ["macros", "formatting", "parsing", "serde"]
 
+[dependencies.tokio]
+version = "1"
+features = ["parking_lot"]
+
 [dependencies.tokio-util]
 version = "0.6"
 features = ["compat"]
@@ -68,6 +72,10 @@ features = ["serde"]
 version = "0.5"
 default-features = false
 features = ["deflate"]
+
+[build-dependencies]
+anyhow = "1"
+cmd_lib = "1"
 
 [dev-dependencies]
 maplit = "1"

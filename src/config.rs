@@ -24,7 +24,6 @@ pub struct Config {
     pub static_dir: Cow<'static, Path>,
     pub static_zip_path: Option<PathBuf>,
     pub site_cache: bool,
-    pub extra_credits: Vec<String>,
     // Controls the size of an LRU cache storing stream data. Expect each entry to be about
     // 5 MB in size.
     pub stream_cache_size: Option<usize>,
@@ -96,7 +95,6 @@ impl Config {
             static_dir: self.static_dir.clone(),
             static_zip_path: self.static_zip_path.clone(),
             site_cache: self.site_cache,
-            extra_credits: self.extra_credits.clone(),
             stream_cache_size: self.stream_cache_size,
             matomo_base_url: self.matomo_base_url.clone(),
             matomo_site_id: self.matomo_site_id,
@@ -121,7 +119,6 @@ impl Default for Config {
             static_dir: Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static"))).into(),
             static_zip_path: None,
             site_cache: true,
-            extra_credits: Vec::new(),
             stream_cache_size: None,
             matomo_base_url: None,
             matomo_site_id: None,

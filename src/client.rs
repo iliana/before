@@ -1,4 +1,5 @@
 use crate::config::Config;
+use crate::media;
 use crate::offset::OffsetTime;
 use crate::site::AssetSet;
 use crate::time::{datetime, DateTime};
@@ -30,7 +31,7 @@ pub(crate) async fn index(
 
     let nonce = TextNonce::sized_urlsafe(24).map_err(|err| anyhow!(err))?;
     let body_class = if EYES_FIX_RANGE.contains(&time.0) {
-        "eyes-fix"
+        "tw-before-eyes-fix"
     } else {
         ""
     };
@@ -48,6 +49,7 @@ pub(crate) async fn index(
         .ok_or_else(|| anyhow!("cache was empty"))?;
 
     let template = Client {
+        nav: media::load!("assets/nav.html", config).await?,
         nonce: &nonce,
         assets,
         body_class,
@@ -124,6 +126,7 @@ impl<'a> From<ContentSecurityPolicy<'a>> for Header<'static> {
 #[derive(Template)]
 #[template(path = "client.html")]
 struct Client<'a> {
+    nav: &'static str,
     nonce: &'a TextNonce,
     assets: AssetSet<'a>,
     body_class: &'static str,
