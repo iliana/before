@@ -49,7 +49,7 @@ pub(crate) async fn index(
         .ok_or_else(|| anyhow!("cache was empty"))?;
 
     let template = Client {
-        nav: media::load!("assets/nav.html", config).await?,
+        nav: media::fetch_static_str(config, "assets/nav.html").await?,
         nonce: &nonce,
         assets,
         body_class,
@@ -126,7 +126,7 @@ impl<'a> From<ContentSecurityPolicy<'a>> for Header<'static> {
 #[derive(Template)]
 #[template(path = "client.html")]
 struct Client<'a> {
-    nav: &'static str,
+    nav: String,
     nonce: &'a TextNonce,
     assets: AssetSet<'a>,
     body_class: &'static str,

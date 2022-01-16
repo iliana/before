@@ -1,5 +1,5 @@
 use crate::{Config, Result};
-use anyhow::{anyhow, ensure};
+use anyhow::{anyhow, ensure, Context};
 use askama::Template;
 use http_range::{HttpRange, HttpRangeParseError};
 use rocket::http::hyper::header::{CONTENT_RANGE, RANGE};
@@ -45,6 +45,14 @@ pub(crate) async fn fetch_static(
         .extension()
         .and_then(|ext| ContentType::from_extension(&ext.to_string_lossy()))
         .unwrap_or(ContentType::Binary);
+
+    // range header handling is here for Voyager, which ships patched client bundles that redirect
+    // youtube iframes to an endpoint served by blaseball.vcr that loads namerifeht's video sigil
+    // from the disc. safari refuses to play any video without range headers being supported (even
+    // if the video is small enough that it will just fetch the whole thing anyway).
+    //
+    // because we don't include that video in Voyager's static.zip, we don't bother handling range
+    // headers in that part of the code.
 
     if let Some(mut zip) = config.static_zip.as_ref().cloned() {
         if let Some(mut file) = path
@@ -93,6 +101,26 @@ pub(crate) async fn fetch_static(
     }
 }
 
+pub(crate) async fn fetch_static_str(config: &State<Config>, path: &str) -> anyhow::Result<String> {
+    // we used to have code to cache this in a `OnceCell`, but that's unnecessary:
+    // - when using a zip file, the data is already stored in-memory and is effectively never
+    //   blocking on IO. zlib decompression is extremely fast.
+    // - when reading from disk, OSes will cache recently-read files in memory anyway. if the OS is
+    //   under memory pressure, it can drop those file caches. greedily holding onto it in our
+    //   program's memory space isn't helpful. (caching it would save us a few syscalls and copying
+    //   the full data into memory but it's probably not worth all the extra code.)
+
+    Ok(
+        match fetch_static(config, Path::new(path), None)
+            .await?
+            .context("file not found")?
+        {
+            Static::Data(data, _) => String::from_utf8(data)?,
+            Static::Range(_, _, _) => unreachable!("did not request range"),
+        },
+    )
+}
+
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
 #[get("/static/media/<path..>", rank = 0)]
@@ -115,45 +143,11 @@ pub(crate) async fn static_root(
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
-#[macro_export]
-macro_rules! load {
-    ($path:expr, $config:expr) => {
-        async {
-            use crate::media::{fetch_static, Static};
-            use anyhow::Context as _;
-            use std::path::Path;
-            use tokio::sync::OnceCell;
-
-            static CELL: OnceCell<String> = OnceCell::const_new();
-
-            CELL.get_or_try_init::<anyhow::Error, _, _>(|| async {
-                match fetch_static($config, Path::new($path), None)
-                    .await?
-                    .context("not found")?
-                {
-                    Static::Data(v, _) => Ok(String::from_utf8(v)?),
-                    Static::Range(_, _, _) => unreachable!(),
-                }
-            })
-            .await
-            .map(String::as_str)
-        }
-    };
-}
-
-pub use load;
-
-pub(crate) async fn load_nav_meta(config: &State<Config>) -> anyhow::Result<&'static str> {
-    load!("assets/nav-meta.html", config).await
-}
-
-// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
-
 #[derive(Template)]
 #[template(path = "base.html")]
 struct Base {
-    nav: &'static str,
-    content: &'static str,
+    nav: String,
+    content: String,
 }
 
 macro_rules! fragment {
@@ -162,8 +156,8 @@ macro_rules! fragment {
         pub(crate) async fn $name(config: &State<Config>) -> Result<Html<String>> {
             Ok(Html(
                 Base {
-                    nav: load_nav_meta(config).await?,
-                    content: load!($path, config).await?,
+                    nav: fetch_static_str(config, "assets/nav-meta.html").await?,
+                    content: fetch_static_str(config, $path).await?,
                 }
                 .render()
                 .map_err(anyhow::Error::from)?,

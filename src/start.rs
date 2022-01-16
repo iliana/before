@@ -12,7 +12,7 @@ const JUMP_BASE: &str = "/_before/jump";
 #[template(path = "start.html")]
 struct Start {
     data: &'static StartData,
-    nav: &'static str,
+    nav: String,
 }
 
 #[derive(Deserialize)]
@@ -137,7 +137,7 @@ pub(crate) async fn start(config: &State<Config>) -> Result<Html<String>> {
     Ok(Html(
         Start {
             data: &START_DATA,
-            nav: media::load_nav_meta(config).await?,
+            nav: media::fetch_static_str(config, "assets/nav-meta.html").await?,
         }
         .render()
         .map_err(anyhow::Error::from)?,
