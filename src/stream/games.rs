@@ -5,9 +5,9 @@ use crate::stream::StreamEvent;
 use crate::time::DateTime;
 use anyhow::Result;
 use rocket::futures::future::{try_join_all, FutureExt};
-use rocket::tokio::try_join;
 use serde::{Deserialize, Serialize};
 use serde_json::value::RawValue;
+use tokio::try_join;
 
 #[allow(clippy::large_enum_variant)]
 #[derive(Debug, Serialize)]

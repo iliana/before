@@ -6,13 +6,13 @@ use rocket::http::hyper::header::{CONTENT_RANGE, RANGE};
 use rocket::http::{ContentType, Header, Status};
 use rocket::request::{FromRequest, Outcome, Request};
 use rocket::response::content::Html;
-use rocket::tokio::fs::File;
-use rocket::tokio::io::{AsyncReadExt, AsyncSeekExt};
 use rocket::{get, Responder, State};
 use std::ffi::OsStr;
 use std::io::{Read, SeekFrom};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
+use tokio::fs::File;
+use tokio::io::{AsyncReadExt, AsyncSeekExt};
 
 #[derive(Debug)]
 pub(crate) struct Range<'r>(&'r str);

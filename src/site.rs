@@ -5,10 +5,10 @@ use crate::time::{datetime, DateTime, Duration};
 use crate::Config;
 use reqwest::Response;
 use rocket::http::uri::Origin;
-use rocket::tokio::sync::RwLock;
 use rocket::{get, State};
 use serde::Deserialize;
 use std::collections::{BTreeMap, HashMap};
+use tokio::sync::RwLock;
 
 lazy_static::lazy_static! {
     static ref EARLY_ASSETS: BTreeMap<DateTime, AssetSet<'static>> =

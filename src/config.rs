@@ -3,12 +3,11 @@ use crate::stream::StreamCacheValue;
 use crate::time::DateTime;
 use lru::LruCache;
 use rocket::fs::relative;
-use rocket::tokio::fs;
-use rocket::tokio::sync::Mutex;
 use serde::Deserialize;
 use std::borrow::Cow;
 use std::io::Cursor;
 use std::path::{Path, PathBuf};
+use tokio::{fs, sync::Mutex};
 use zip::read::ZipArchive;
 
 #[allow(clippy::struct_excessive_bools)] // ceci n'est pas une state machine

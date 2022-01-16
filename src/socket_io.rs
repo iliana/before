@@ -7,7 +7,6 @@ use crate::stream::{self, Item};
 use crate::Result;
 use rand::{thread_rng, Rng};
 use rocket::futures::{Stream, StreamExt};
-use rocket::tokio::{select, sync::Mutex, time::sleep};
 use rocket::{get, post, Shutdown, State};
 use serde::Serialize;
 use serde_json::json;
@@ -16,6 +15,7 @@ use std::collections::{HashMap, VecDeque};
 use std::hash::Hash;
 use std::pin::Pin;
 use std::time::{Duration as StdDuration, Instant};
+use tokio::{select, sync::Mutex, time::sleep};
 
 #[get("/socket.io?<sid>")]
 pub(crate) async fn socket_io(

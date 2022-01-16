@@ -12,7 +12,6 @@ use itertools::Itertools;
 use rand::{thread_rng, Rng};
 use rocket::futures::Stream;
 use rocket::response::stream::stream;
-use rocket::tokio::{select, time::sleep, try_join};
 use rocket::Shutdown;
 use serde::ser::{SerializeStruct, Serializer};
 use serde::{Deserialize, Serialize};
@@ -21,6 +20,7 @@ use std::collections::{hash_map::DefaultHasher, BTreeMap, HashSet};
 use std::hash::{Hash, Hasher};
 use std::sync::Arc;
 use std::time::Duration as StdDuration;
+use tokio::{select, time::sleep, try_join};
 
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct StreamEvent {

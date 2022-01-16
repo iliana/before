@@ -3,9 +3,9 @@ use crate::config::Config;
 use crate::stream::StreamEvent;
 use crate::time::{datetime, DateTime};
 use anyhow::Result;
-use rocket::tokio::try_join;
 use serde::Serialize;
 use serde_json::value::RawValue;
+use tokio::try_join;
 
 const LEAGUES_START: DateTime = datetime!(2020-09-03 21:40:38.266 UTC);
 const TIEBREAKERS_START: DateTime = datetime!(2020-09-10 17:51:30.577 UTC);

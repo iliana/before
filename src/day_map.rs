@@ -3,9 +3,9 @@ use crate::config::Config;
 use crate::time::{datetime, DateTime, Duration};
 use anyhow::Result;
 use itertools::Itertools;
-use rocket::tokio::sync::RwLock;
 use serde::Deserialize;
 use std::collections::{BTreeMap, HashMap};
+use tokio::sync::RwLock;
 use uuid::Uuid;
 
 lazy_static::lazy_static! {
