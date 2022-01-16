@@ -1,5 +1,5 @@
 use crate::api::ApiResult;
-use crate::chronicler::{default_tournament, Order, RequestBuilder};
+use crate::chronicler::{Order, RequestBuilder};
 use crate::config::Config;
 use crate::cookies::{AsCookie, CookieJarExt};
 use crate::offset::OffsetTime;
@@ -146,16 +146,13 @@ pub(crate) async fn bet(
 ) -> Result<BetResult> {
     #[derive(Deserialize)]
     struct Game {
+        timestamp: DateTime,
         data: GameData,
     }
 
     #[derive(Deserialize)]
     #[serde(rename_all = "camelCase")]
     struct GameData {
-        season: i64,
-        #[serde(default = "default_tournament")]
-        tournament: i64,
-        day: i64,
         game_complete: bool,
         away_team: Uuid,
         away_odds: f64,
@@ -181,6 +178,7 @@ pub(crate) async fn bet(
         .await?
         .data
         .into_iter()
+        .rev()
         .find(|game: &Game| game.data.game_complete)
     {
         Some(game) => game,
@@ -194,20 +192,7 @@ pub(crate) async fn bet(
         (game.data.away_team, game.data.away_odds)
     };
 
-    let end_time = {
-        let guard = crate::day_map::DAY_MAP.read().await;
-        match guard.end_time.get(&bet.game_id()).copied().or_else(|| {
-            if game.data.tournament == -1 {
-                guard.season.get(&(game.data.season, game.data.day))
-            } else {
-                guard.tournament.get(&(game.data.tournament, game.data.day))
-            }
-            .map(|time| *time + Duration::hours(1))
-        }) {
-            Some(time) => time,
-            None => return Ok(BetResult::Err(ApiResult::Err("End time not found"))),
-        }
-    };
+    let end_time = game.timestamp;
 
     bets.push(ActiveBet {
         game_id: bet.game_id(),

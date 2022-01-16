@@ -62,7 +62,7 @@ impl<T> ApiVersion for V2<T> {
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
 #[derive(Debug, Default, Serialize, Builder)]
-#[builder(derive(Clone), pattern = "owned")]
+#[builder(derive(Debug, Clone), pattern = "owned")]
 pub(crate) struct Request<V> {
     #[builder(default, setter(skip))]
     #[serde(skip)]
@@ -99,7 +99,13 @@ pub(crate) struct Request<V> {
     started: Option<bool>,
     #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
+    sim: Option<&'static str>,
+    #[builder(default, setter(strip_option))]
+    #[serde(skip_serializing_if = "Option::is_none")]
     season: Option<i64>,
+    #[builder(default, setter(strip_option))]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    tournament: Option<i64>,
     #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
     day: Option<i64>,

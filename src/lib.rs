@@ -9,7 +9,6 @@ mod client;
 mod config;
 mod cookies;
 mod database;
-mod day_map;
 mod election;
 mod events;
 mod favorite_team;
@@ -35,12 +34,12 @@ mod user;
 
 pub use crate::config::Config;
 
-use crate::time::{datetime, DateTime, Duration};
+use crate::time::{datetime, DateTime};
 use rocket::fairing::AdHoc;
 use rocket::figment::Figment;
 use rocket::http::CookieJar;
 use rocket::response::Redirect;
-use rocket::tokio::{self, time::Instant};
+use rocket::tokio;
 use rocket::{catchers, get, routes, uri, Build, Orbit, Rocket};
 use std::time::Duration as StdDuration;
 
@@ -68,34 +67,6 @@ async fn background_tasks(rocket: &Rocket<Orbit>) {
             }
         };
 
-        let update_day_map = async {
-            if let Err(err) = crate::day_map::DAY_MAP.write().await.update(&config).await {
-                log::error!("{:?}", err);
-            }
-
-            // Check for new games to add to the day map at 5 past the hour
-            if !config.siesta_mode {
-                let now = DateTime::now();
-                if let Ok(nowish) = now.trunc(Duration::hours(1)) {
-                    if let Ok(offset) = StdDuration::try_from(nowish + Duration::minutes(65) - now)
-                    {
-                        let mut interval = tokio::time::interval_at(
-                            Instant::now() + offset,
-                            StdDuration::from_secs(3600),
-                        );
-                        loop {
-                            interval.tick().await;
-                            if let Err(err) =
-                                crate::day_map::DAY_MAP.write().await.update(&config).await
-                            {
-                                log::error!("{:?}", err);
-                            }
-                        }
-                    }
-                }
-            }
-        };
-
         let remove_expired_sessions_timer = async {
             let mut interval = tokio::time::interval(StdDuration::from_secs(15 * 60));
             loop {
@@ -106,7 +77,6 @@ async fn background_tasks(rocket: &Rocket<Orbit>) {
 
         tokio::join! {
             update_cache,
-            update_day_map,
             remove_expired_sessions_timer,
         };
     });
