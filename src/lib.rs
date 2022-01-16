@@ -40,7 +40,7 @@ use rocket::figment::Figment;
 use rocket::http::CookieJar;
 use rocket::response::Redirect;
 use rocket::tokio;
-use rocket::{catchers, get, routes, uri, Build, Orbit, Rocket};
+use rocket::{catchers, get, routes, uri, Build, Rocket};
 use std::time::Duration as StdDuration;
 
 const EXPANSION: DateTime = datetime!(2021-03-01 04:10:00 UTC);
@@ -57,28 +57,13 @@ fn reset(cookies: &CookieJar<'_>) -> Redirect {
     Redirect::to(uri!(crate::client::index))
 }
 
-async fn background_tasks(rocket: &Rocket<Orbit>) {
-    let config = rocket.state::<Config>().unwrap().private_clone();
-
-    tokio::spawn(async move {
-        let update_cache = async {
-            if let Err(err) = site::update_cache(&config, DateTime::now()).await {
-                log::error!("{:?}", err);
-            }
-        };
-
-        let remove_expired_sessions_timer = async {
-            let mut interval = tokio::time::interval(StdDuration::from_secs(15 * 60));
-            loop {
-                interval.tick().await;
-                crate::socket_io::remove_expired_sessions().await;
-            }
-        };
-
-        tokio::join! {
-            update_cache,
-            remove_expired_sessions_timer,
-        };
+async fn background_tasks() {
+    tokio::spawn(async {
+        let mut interval = tokio::time::interval(StdDuration::from_secs(15 * 60));
+        loop {
+            interval.tick().await;
+            crate::socket_io::remove_expired_sessions().await;
+        }
     });
 }
 
@@ -95,8 +80,8 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
 
     Ok(rocket
         .manage(config)
-        .attach(AdHoc::on_liftoff("Before background tasks", |r| {
-            Box::pin(background_tasks(r))
+        .attach(AdHoc::on_liftoff("Before background tasks", |_rocket| {
+            Box::pin(background_tasks())
         }))
         .mount("/", database::entity_routes())
         .mount("/", events::extra_season_4_routes())

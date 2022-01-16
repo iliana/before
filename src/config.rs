@@ -81,29 +81,6 @@ impl Config {
 
         Ok(())
     }
-
-    /// Used in `crate::background_tasks`; does not clone `static_zip` or `stream_cache`
-    pub(crate) fn private_clone(&self) -> Config {
-        Config {
-            siesta_mode: self.siesta_mode,
-            chronplete: self.chronplete,
-            http_client_gzip: self.http_client_gzip,
-            chronicler_base_url: self.chronicler_base_url.clone(),
-            upnuts_base_url: self.upnuts_base_url.clone(),
-            content_security_policy: self.content_security_policy.clone(),
-            static_dir: self.static_dir.clone(),
-            static_zip_path: self.static_zip_path.clone(),
-            site_cache: self.site_cache,
-            stream_cache_size: self.stream_cache_size,
-            matomo_base_url: self.matomo_base_url.clone(),
-            matomo_site_id: self.matomo_site_id,
-
-            rocket_config: self.rocket_config.clone(),
-            client: self.client.clone(),
-            static_zip: None,
-            stream_cache: None,
-        }
-    }
 }
 
 impl Default for Config {
