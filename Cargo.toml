@@ -3,7 +3,7 @@ name = "before"
 version = "0.2.0"
 authors = ["iliana etaoin <iliana@buttslol.net>"]
 edition = "2021"
-rust-version = "1.57"
+rust-version = "1.58"
 publish = false
 
 [features]
@@ -61,7 +61,7 @@ version = "1"
 features = ["parking_lot"]
 
 [dependencies.tokio-util]
-version = "0.6"
+version = "0.7"
 features = ["compat"]
 
 [dependencies.uuid]
