@@ -24,7 +24,7 @@ export default function Start({ eras }) {
           </div>
         </div>
 
-        <p className="tw-text-center tw-text-lg lg:tw-text-xl tw-italic">
+        <p className="tw-text-center tw-text-lg lg:tw-text-xl tw-italic tw-font-medium">
           <strong>Before</strong> replays Blaseball from any moment recorded by the SIBR archives.
         </p>
       </div>
@@ -49,7 +49,7 @@ function Era({ era }) {
       <div className="tw-container tw-text-center tw-mb-6 lg:tw-mb-8">
         {era.events ? (
           <>
-            <p>{era.days}</p>
+            <Days>{era.days}</Days>
             <EventList events={era.events} />
           </>
         ) : null}
@@ -65,9 +65,13 @@ function Era({ era }) {
 function Season({ season }) {
   return (
     <>
-      {season.collapse ? null : (
-        <h3 className="tw-text-lg tw-leading-normal lg:tw-text-2xl lg:tw-leading-normal tw-font-bold tw-uppercase">
-          <a href="{{season.jump()}}" className="hover:tw-no-underline tw-group">
+      {season.title ? (
+        <h3 className="tw-text-lg tw-leading-normal lg:tw-text-2xl lg:tw-leading-tight tw-font-bold tw-uppercase tw-mt-1.5 lg:tw-mt-2">
+          <Jump season={season} day={1} className="hover:tw-no-underline tw-group">
+            <span className="tw-block tw-text-sm lg:tw-text-base">
+              Season {season.number}
+              <span className="tw-sr-only">:</span>
+            </span>
             <span className="group-hover:tw-underline" style={{ color: season.color }}>
               {season.title}
             </span>
@@ -80,20 +84,26 @@ function Season({ season }) {
                 </span>
               </>
             ) : null}
-          </a>
+          </Jump>
+        </h3>
+      ) : (
+        <h3 className="tw-text-sm lg:tw-text-base tw-leading-snug lg:tw-leading-normal tw-font-bold tw-uppercase">
+          Season {season.number}
         </h3>
       )}
-      <p>
-        Season {season.number}, {season.days}
-      </p>
+      <Days>{season.days}</Days>
       <EventList events={season.events} season={season.number} />
     </>
   );
 }
 
+function Days({ children }) {
+  return <p className="tw-text-sm lg:tw-text-base tw-font-medium tw-leading-normal lg:tw-leading-snug">{children}</p>;
+}
+
 function EventList({ events, season }) {
   return (
-    <ul className="tw-font-sans tw-mt-1 lg:tw-mt-1.5 tw-mb-4 lg:tw-mb-5 tw-before-list">
+    <ul className="tw-font-sans tw-mt-2 lg:tw-mt-2.5 tw-mb-5 lg:tw-mb-6 tw-before-list">
       {events.map((event) => (
         <Event key={event.title} event={event} season={season} />
       ))}

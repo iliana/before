@@ -6,10 +6,8 @@ color = "#ff0000"
 
 [[eras.seasons]]
 number = 2
-title = "The Discipline Era"
 color = "#ff0000"
 days = "July 27–August 2, 2020"
-collapse = true
 
 [[eras.seasons.events]]
 title = "Postseason"
