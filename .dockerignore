@@ -2,8 +2,9 @@
 /.git
 /.github
 /.gitignore
+/.next
 /Dockerfile
 /node_modules
+/out
 /static.zip
-/static/assets
 /target

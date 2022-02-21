@@ -11,7 +11,7 @@ use rocket::http::Header;
 use rocket::request::FromRequest;
 use rocket::response::Redirect;
 use rocket::Responder;
-use rocket::{catch, get, uri, Request, State};
+use rocket::{catch, get, Request, State};
 use textnonce::TextNonce;
 
 const EYES_FIX_RANGE: Range<DateTime> =
@@ -24,7 +24,7 @@ pub(crate) async fn index(
 ) -> Result<Response<'_>> {
     let time = match time {
         Some(time) => time,
-        None => return Ok(Response::Redirect(Redirect::to(uri!(crate::start::start)))),
+        None => return Ok(Response::Redirect(Redirect::to("/_before/start"))),
     };
 
     crate::site::update_cache(config, time.0).await?;
@@ -49,7 +49,8 @@ pub(crate) async fn index(
         .ok_or_else(|| anyhow!("cache was empty"))?;
 
     let template = Client {
-        nav: media::fetch_static_str(config, "assets/nav.html").await?,
+        nav: media::fetch_static_str(config, "fragment/nav.html").await?,
+        css_path: config.css_path.as_deref().unwrap_or("/_before/styles.css"),
         nonce: &nonce,
         assets,
         body_class,
@@ -127,6 +128,7 @@ impl<'a> From<ContentSecurityPolicy<'a>> for Header<'static> {
 #[template(path = "client.html")]
 struct Client<'a> {
     nav: String,
+    css_path: &'a str,
     nonce: &'a TextNonce,
     assets: AssetSet<'a>,
     body_class: &'static str,

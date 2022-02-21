@@ -8,21 +8,22 @@ fn main() -> Result<()> {
 
     println!("cargo:rerun-if-env-changed=SKIP_ASSET_BUILD");
     if env::var_os("SKIP_ASSET_BUILD").is_none() {
+        println!("cargo:rerun-if-changed=components/");
+        println!("cargo:rerun-if-changed=next.config.js");
         println!("cargo:rerun-if-changed=package-lock.json");
+        println!("cargo:rerun-if-changed=pages/");
         println!("cargo:rerun-if-changed=postcss.config.js");
+        println!("cargo:rerun-if-changed=public/");
         println!("cargo:rerun-if-changed=src/");
-        println!("cargo:rerun-if-changed=static/fragments/");
         println!("cargo:rerun-if-changed=tailwind.config.js");
-        println!("cargo:rerun-if-changed=templates/");
 
-        if env::var("PROFILE")? == "release" {
-            env::set_var("NODE_ENV", "production");
-        }
+        run_cmd!(npx next build --no-lint)?;
+        run_cmd!(npx next export)?;
+        run_cmd!(node fix-fragment.js out/fragment/nav.html)?;
 
-        fs::create_dir_all("static/assets")?;
-        run_cmd!(npx postcss "src/styles.css" -o "static/assets/styles.css")?;
-        fs::copy("src/nav.html", "static/assets/nav.html")?;
-        run_cmd!(node "./patch-nav.js" > "static/assets/nav-meta.html")?;
+        fs::remove_dir_all("out/_next/data")?;
+        fs::remove_dir_all("out/_next/static/chunks")?;
+        fs::remove_file("out/404.html")?;
     }
 
     Ok(())

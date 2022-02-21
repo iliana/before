@@ -1,8 +1,20 @@
 {
+  "private": true,
+  "dependencies": {
+    "@iarna/toml": "^2.2.5",
+    "next": "^12.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
   "devDependencies": {
+    "@svgr/webpack": "^6.2.1",
     "@tailwindcss/typography": "^0.5.0",
     "autoprefixer": "^10.4.0",
     "cssnano": "^5.0.10",
+    "eslint": "8.9.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-next": "12.1.0",
+    "eslint-config-prettier": "^8.4.0",
     "jsdom": "^19.0.0",
     "postcss": "^8.4.4",
     "postcss-cli": "^9.0.2",
@@ -13,5 +25,16 @@
   },
   "prettier": {
     "printWidth": 120
+  },
+  "eslintConfig": {
+    "extends": [
+      "airbnb",
+      "next/core-web-vitals",
+      "prettier"
+    ],
+    "rules": {
+      "@next/next/no-title-in-document-head": "off",
+      "react/jsx-props-no-spreading": "off"
+    }
   }
 }

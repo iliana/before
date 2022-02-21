@@ -37,6 +37,8 @@ pub struct Config {
     #[serde(skip)]
     pub(crate) static_zip: Option<ZipArchive<Cursor<ArcVec>>>,
     #[serde(skip)]
+    pub(crate) css_path: Option<String>,
+    #[serde(skip)]
     pub(crate) stream_cache: Option<Mutex<LruCache<DateTime, StreamCacheValue>>>,
 }
 
@@ -73,6 +75,21 @@ impl Config {
             self.static_zip = Some(ZipArchive::new(Cursor::new(ArcVec::from(
                 fs::read(filename).await?,
             )))?);
+            if let Some(path) = self.static_zip.as_ref().and_then(|zip| {
+                zip.file_names()
+                    .find(|s| s.starts_with("_next/static/css") && s.ends_with(".css"))
+                    .map(String::from)
+            }) {
+                self.css_path = Some(format!("/_before/{}", path));
+            }
+        } else if let Some(entry) = tokio::fs::read_dir(self.static_dir.join("_next/static/css"))
+            .await?
+            .next_entry()
+            .await?
+        {
+            if let Ok(path) = entry.file_name().into_string() {
+                self.css_path = Some(format!("/_before/_next/static/css/{}", path));
+            }
         }
 
         if let Some(stream_cache_size) = self.stream_cache_size {
@@ -89,10 +106,10 @@ impl Default for Config {
             siesta_mode: true,
             chronplete: false,
             http_client_gzip: cfg!(feature = "gzip"),
-            chronicler_base_url: "https://api.sibr.dev/chronicler/".to_string(),
-            upnuts_base_url: "https://api.sibr.dev/upnuts/".to_string(),
-            content_security_policy: "upgrade-insecure-requests; default-src 'self'; script-src 'self' https://platform.twitter.com 'unsafe-inline' 'nonce-{nonce}'; style-src 'self' 'unsafe-inline'; img-src 'self' {matomo_base_url} https://d35iw2jmbg6ut8.cloudfront.net data:; connect-src 'self' {matomo_base_url}; object-src 'none'; frame-src https://platform.twitter.com https://www.youtube.com 'self'; base-uri 'none';".to_string(),
-            static_dir: Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("static"))).into(),
+            chronicler_base_url: "https://api.sibr.dev/chronicler/".into(),
+            upnuts_base_url: "https://api.sibr.dev/upnuts/".into(),
+            content_security_policy: "upgrade-insecure-requests; default-src 'self'; script-src 'self' https://platform.twitter.com 'unsafe-inline' 'nonce-{nonce}'; style-src 'self' 'unsafe-inline'; img-src 'self' {matomo_base_url} https://d35iw2jmbg6ut8.cloudfront.net data:; connect-src 'self' {matomo_base_url}; object-src 'none'; frame-src https://platform.twitter.com https://www.youtube.com 'self'; base-uri 'none';".into(),
+            static_dir: Path::new(option_env!("STATIC_DIR").unwrap_or(relative!("out"))).into(),
             static_zip_path: None,
             site_cache: true,
             stream_cache_size: None,
@@ -102,6 +119,7 @@ impl Default for Config {
             rocket_config: rocket::Config::default(),
             client: reqwest::Client::default(),
             static_zip: None,
+            css_path: None,
             stream_cache: None,
         }
     }

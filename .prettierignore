@@ -1,7 +1,7 @@
+/.next
 /data
 /ext
+/out
+/public/patched
 /static.zip
-/static/assets
-/static/patched
-/static/players
 /target

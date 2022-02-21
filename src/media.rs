@@ -1,11 +1,9 @@
 use crate::{Config, Result};
 use anyhow::{anyhow, ensure, Context};
-use askama::Template;
 use http_range::{HttpRange, HttpRangeParseError};
 use rocket::http::hyper::header::{CONTENT_RANGE, RANGE};
 use rocket::http::{ContentType, Header, Status};
 use rocket::request::{FromRequest, Outcome, Request};
-use rocket::response::content::Html;
 use rocket::{get, Responder, State};
 use std::ffi::OsStr;
 use std::io::{Read, SeekFrom};
@@ -14,7 +12,7 @@ use std::sync::Arc;
 use tokio::fs::File;
 use tokio::io::{AsyncReadExt, AsyncSeekExt};
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub(crate) struct Range<'r>(&'r str);
 
 #[rocket::async_trait]
@@ -59,7 +57,7 @@ pub(crate) async fn fetch_static(
             .iter()
             .map(OsStr::to_str)
             .collect::<Option<Vec<_>>>()
-            .map(|segments| format!("static/{}", segments.join("/")))
+            .map(|segments| segments.join("/"))
             .and_then(|f| zip.by_name(&f).ok())
         {
             let mut v = Vec::with_capacity(usize::try_from(file.size())?);
@@ -138,42 +136,12 @@ pub(crate) async fn static_root(
     path: PathBuf,
     range: Option<Range<'_>>,
 ) -> Result<Option<Static>> {
-    Ok(fetch_static(config, &path, range).await?)
-}
-
-// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
-
-#[derive(Template)]
-#[template(path = "base.html")]
-struct Base {
-    nav: String,
-    content: String,
-}
-
-macro_rules! fragment {
-    (# [ $($tt:tt)* ] $name:ident => $path:expr) => {
-        #[$($tt)*]
-        pub(crate) async fn $name(config: &State<Config>) -> Result<Html<String>> {
-            Ok(Html(
-                Base {
-                    nav: fetch_static_str(config, "assets/nav-meta.html").await?,
-                    content: fetch_static_str(config, $path).await?,
-                }
-                .render()
-                .map_err(anyhow::Error::from)?,
-            ))
+    if path.extension().is_none() {
+        if let Some(s) = fetch_static(config, &path.with_extension("html"), range).await? {
+            return Ok(Some(s));
         }
-    };
-}
-
-fragment! {
-    #[get("/_before/credits", rank = 1)]
-    credits => "fragments/credits.html"
-}
-
-fragment! {
-    #[get("/_before/info", rank = 1)]
-    info => "fragments/info.html"
+    }
+    Ok(fetch_static(config, &path, range).await?)
 }
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=

@@ -21,10 +21,6 @@
     @apply hover:tw-underline;
   }
 
-  a:hover span {
-    @apply tw-underline tw-decoration-current;
-  }
-
   details > summary {
     @apply tw-list-none;
   }
@@ -50,80 +46,7 @@
 
   .tw-before-list li:not(:first-child):before {
     @apply tw-px-1 lg:tw-px-1.5;
-    content: "• ";
-  }
-
-  .tw-being,
-  .tw-being:before,
-  .tw-being:after {
-    @apply tw-font-client-serif tw-font-medium tw-inline-block;
-  }
-
-  .tw-being:before {
-    content: "“";
-  }
-
-  .tw-being:after {
-    content: "”";
-  }
-
-  .tw-being-alert {
-    @apply tw-italic;
-  }
-
-  .tw-being-peanut {
-    color: red;
-  }
-
-  .tw-being-monitor {
-    color: #5988ff;
-    text-shadow: 0 0 0.5em #5988ff;
-  }
-
-  .tw-being-coin {
-    color: #ffbe00;
-  }
-
-  .tw-being-reader {
-    color: #a16dc3;
-    text-shadow: 0 0 0.5em #a16dc3;
-  }
-
-  .tw-being-parker {
-    @apply tw-font-sans tw-font-normal;
-  }
-
-  .tw-being-parker:before,
-  .tw-being-parker:after,
-  .tw-being-microphone:before,
-  .tw-being-microphone:after {
-    color: #ff007b;
-  }
-
-  .tw-being-lootcrates {
-    @apply tw-italic;
-    color: #b3b3b3;
-  }
-
-  .tw-being-namerifeht {
-    @apply tw-inline-block;
-    color: #ea5b23;
-    transform: scaleX(-1);
-    unicode-bidi: bidi-override;
-    direction: rtl;
-  }
-
-  .tw-being-namerifeht:before,
-  .tw-being-namerifeht:after {
-    transform: scaleX(-1);
-  }
-
-  .tw-before-credits h2 {
-    @apply tw-font-bold tw-text-lg lg:tw-text-xl tw-mb-1 lg:tw-mb-1.5;
-  }
-
-  .tw-before-credits ul {
-    @apply tw-mb-3.5 lg:tw-mb-4;
+    content: " • ";
   }
 }
 
@@ -147,7 +70,7 @@ body.tw-before-eyes-fix .Main {
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url(../lora/v20/0QIhMX1D_JOuMw_LL_tLtfOm84TX.woff2) format("woff2");
+  src: url(lora/v20/0QIhMX1D_JOuMw_LL_tLtfOm84TX.woff2) format("woff2");
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -156,7 +79,7 @@ body.tw-before-eyes-fix .Main {
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url(../lora/v20/0QIhMX1D_JOuMw_LIftLtfOm8w.woff2) format("woff2");
+  src: url(lora/v20/0QIhMX1D_JOuMw_LIftLtfOm8w.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -166,7 +89,7 @@ body.tw-before-eyes-fix .Main {
   font-style: italic;
   font-weight: 500;
   font-display: swap;
-  src: url(../lora/v20/0QIhMX1D_JOuMw_LL_tLtfOm84TX.woff2) format("woff2");
+  src: url(lora/v20/0QIhMX1D_JOuMw_LL_tLtfOm84TX.woff2) format("woff2");
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -175,7 +98,7 @@ body.tw-before-eyes-fix .Main {
   font-style: italic;
   font-weight: 500;
   font-display: swap;
-  src: url(../lora/v20/0QIhMX1D_JOuMw_LIftLtfOm8w.woff2) format("woff2");
+  src: url(lora/v20/0QIhMX1D_JOuMw_LIftLtfOm8w.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -185,7 +108,7 @@ body.tw-before-eyes-fix .Main {
   font-style: italic;
   font-weight: 700;
   font-display: swap;
-  src: url(../lora/v20/0QIhMX1D_JOuMw_LL_tLtfOm84TX.woff2) format("woff2");
+  src: url(lora/v20/0QIhMX1D_JOuMw_LL_tLtfOm84TX.woff2) format("woff2");
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -194,7 +117,7 @@ body.tw-before-eyes-fix .Main {
   font-style: italic;
   font-weight: 700;
   font-display: swap;
-  src: url(../lora/v20/0QIhMX1D_JOuMw_LIftLtfOm8w.woff2) format("woff2");
+  src: url(lora/v20/0QIhMX1D_JOuMw_LIftLtfOm8w.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -205,7 +128,7 @@ body.tw-before-eyes-fix .Main {
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(../lora/v20/0QIvMX1D_JOuMwT7I_FMl_GW8g.woff2) format("woff2");
+  src: url(lora/v20/0QIvMX1D_JOuMwT7I_FMl_GW8g.woff2) format("woff2");
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -214,7 +137,7 @@ body.tw-before-eyes-fix .Main {
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(../lora/v20/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format("woff2");
+  src: url(lora/v20/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -224,7 +147,7 @@ body.tw-before-eyes-fix .Main {
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(../lora/v20/0QIvMX1D_JOuMwT7I_FMl_GW8g.woff2) format("woff2");
+  src: url(lora/v20/0QIvMX1D_JOuMwT7I_FMl_GW8g.woff2) format("woff2");
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -233,7 +156,7 @@ body.tw-before-eyes-fix .Main {
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(../lora/v20/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format("woff2");
+  src: url(lora/v20/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -243,7 +166,7 @@ body.tw-before-eyes-fix .Main {
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(../lora/v20/0QIvMX1D_JOuMwT7I_FMl_GW8g.woff2) format("woff2");
+  src: url(lora/v20/0QIvMX1D_JOuMwT7I_FMl_GW8g.woff2) format("woff2");
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -252,7 +175,7 @@ body.tw-before-eyes-fix .Main {
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(../lora/v20/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format("woff2");
+  src: url(lora/v20/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -263,7 +186,7 @@ body.tw-before-eyes-fix .Main {
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(../lora/v20/0QIvMX1D_JOuMwT7I_FMl_GW8g.woff2) format("woff2");
+  src: url(lora/v20/0QIvMX1D_JOuMwT7I_FMl_GW8g.woff2) format("woff2");
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -272,7 +195,7 @@ body.tw-before-eyes-fix .Main {
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(../lora/v20/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format("woff2");
+  src: url(lora/v20/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -282,7 +205,7 @@ body.tw-before-eyes-fix .Main {
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(../lora/v20/0QIvMX1D_JOuMwT7I_FMl_GW8g.woff2) format("woff2");
+  src: url(lora/v20/0QIvMX1D_JOuMwT7I_FMl_GW8g.woff2) format("woff2");
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -291,7 +214,7 @@ body.tw-before-eyes-fix .Main {
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(../lora/v20/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format("woff2");
+  src: url(lora/v20/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -301,7 +224,7 @@ body.tw-before-eyes-fix .Main {
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(../lora/v20/0QIvMX1D_JOuMwT7I_FMl_GW8g.woff2) format("woff2");
+  src: url(lora/v20/0QIvMX1D_JOuMwT7I_FMl_GW8g.woff2) format("woff2");
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -310,7 +233,7 @@ body.tw-before-eyes-fix .Main {
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(../lora/v20/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format("woff2");
+  src: url(lora/v20/0QIvMX1D_JOuMwr7I_FMl_E.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -322,7 +245,7 @@ body.tw-before-eyes-fix .Main {
   font-weight: 400;
   font-stretch: 100%;
   font-display: swap;
-  src: url(../opensans/v27/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSGmu0SC55K5gw.woff2) format("woff2");
+  src: url(opensans/v27/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSGmu0SC55K5gw.woff2) format("woff2");
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -332,7 +255,7 @@ body.tw-before-eyes-fix .Main {
   font-weight: 400;
   font-stretch: 100%;
   font-display: swap;
-  src: url(../opensans/v27/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format("woff2");
+  src: url(opensans/v27/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -343,7 +266,7 @@ body.tw-before-eyes-fix .Main {
   font-weight: 700;
   font-stretch: 100%;
   font-display: swap;
-  src: url(../opensans/v27/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSGmu0SC55K5gw.woff2) format("woff2");
+  src: url(opensans/v27/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSGmu0SC55K5gw.woff2) format("woff2");
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -353,7 +276,7 @@ body.tw-before-eyes-fix .Main {
   font-weight: 700;
   font-stretch: 100%;
   font-display: swap;
-  src: url(../opensans/v27/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format("woff2");
+  src: url(opensans/v27/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-mu0SC55I.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
