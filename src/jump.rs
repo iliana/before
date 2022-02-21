@@ -60,8 +60,8 @@ impl<'a> JumpTime<'a> {
                 .day(day - 1);
             if let Some(season) = self.season {
                 builder = builder.season(season - 1);
-            } else if let Some(tournament) = self.tournament {
-                builder = builder.tournament(tournament);
+            } else if self.tournament.is_some() {
+                builder = builder.season(-1);
             } else {
                 return Ok(None);
             }
