@@ -5,17 +5,6 @@ import Back30s from "./back-30s.svg";
 import Forward5m from "./forward-5m.svg";
 import Forward30s from "./forward-30s.svg";
 
-function SkipLink({ Icon, hide, duration, unit }) {
-  return hide ? null : (
-    <a
-      href={`/_before/relative?${unit}=${duration}`}
-      title={`Skip ${duration > 0 ? "forward" : "back"} ${Math.abs(duration)} ${unit}`}
-    >
-      <Icon className="tw-h-4 lg:tw-h-5 tw-fill-white" />
-    </a>
-  );
-}
-
 export default function Nav({ open, hideSkip }) {
   return (
     <div className="tw-before-scope">
@@ -56,16 +45,8 @@ export default function Nav({ open, hideSkip }) {
               method="get"
               className="tw-font-sans tw-flex tw-items-center tw-gap-1 lg:tw-gap-1.5 tw-text-sm"
             >
-              <input
-                className="tw-bg-black tw-border tw-border-gray-800 tw-text-center tw-w-10 lg:tw-w-14 tw-rounded tw-py-px"
-                name="season"
-                placeholder="Season"
-              />
-              <input
-                className="tw-bg-black tw-border tw-border-gray-800 tw-text-center tw-w-10 lg:tw-w-14 tw-rounded tw-py-px"
-                name="day"
-                placeholder="Day"
-              />
+              <JumpInput name="season" placeholder="Season" />
+              <JumpInput name="day" placeholder="Day" />
               <input
                 className="tw-bg-gray-700 tw-text-center tw-font-bold tw-rounded-full tw-hidden lg:tw-block tw-px-2.5 tw-py-px"
                 type="submit"
@@ -78,5 +59,28 @@ export default function Nav({ open, hideSkip }) {
         </div>
       </div>
     </div>
+  );
+}
+
+function SkipLink({ Icon, hide, duration, unit }) {
+  return hide ? null : (
+    <a
+      href={`/_before/relative?${unit}=${duration}`}
+      title={`Skip ${duration > 0 ? "forward" : "back"} ${Math.abs(duration)} ${unit}`}
+    >
+      <Icon className="tw-h-4 lg:tw-h-5 tw-fill-white" />
+    </a>
+  );
+}
+
+function JumpInput({ name, placeholder }) {
+  return (
+    <input
+      className="tw-bg-black tw-border tw-border-gray-800 tw-text-center tw-w-10 lg:tw-w-14 tw-rounded tw-py-px"
+      type="text"
+      inputMode="numeric"
+      name={name}
+      placeholder={placeholder}
+    />
   );
 }

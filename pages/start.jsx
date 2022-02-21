@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import TOML from "@iarna/toml";
+import Jump from "../components/jump";
 
 export const config = {
   unstable_runtimeJS: false,
@@ -103,14 +104,6 @@ function EventList({ events, season }) {
 function Event({ event, season }) {
   const { title, butalso, being, ...jump } = event;
 
-  const params = new URLSearchParams(jump);
-  if (!params.has("redirect")) {
-    params.set("redirect", season && season > 11 ? "/league" : "/");
-  }
-  if (season && !params.has("season")) {
-    params.set("season", season);
-  }
-
   const inner = {
     alert: <Being className="tw-italic">{title}</Being>,
     peanut: <Being className="tw-text-[red]">{title}</Being>,
@@ -135,7 +128,7 @@ function Event({ event, season }) {
 
   return (
     <li>
-      <a className="lg:tw-whitespace-nowrap hover:tw-no-underline tw-group" href={`/_before/jump?${params}`}>
+      <Jump className="lg:tw-whitespace-nowrap hover:tw-no-underline tw-group" season={season} {...jump}>
         {inner}
         {butalso ? (
           <>
@@ -143,7 +136,7 @@ function Event({ event, season }) {
             — <span className="group-hover:tw-underline">{butalso}</span>
           </>
         ) : null}
-      </a>
+      </Jump>
     </li>
   );
 }
