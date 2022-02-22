@@ -1,11 +1,10 @@
 use crate::chronicler::{Data, Order, RequestBuilder};
+use crate::http::{ETag, Proxy};
 use crate::offset::OffsetTime;
-use crate::proxy::Proxy;
 use crate::time::{datetime, DateTime, Duration};
 use crate::Config;
-use reqwest::Response;
 use rocket::http::uri::Origin;
-use rocket::{get, State};
+use rocket::{get, Responder, State};
 use serde::Deserialize;
 use std::collections::{BTreeMap, HashMap};
 use tokio::sync::RwLock;
@@ -46,7 +45,7 @@ struct SiteUpdate {
 }
 
 impl SiteUpdate {
-    async fn fetch(&self, config: &Config) -> anyhow::Result<Response> {
+    async fn fetch(&self, config: &Config) -> anyhow::Result<reqwest::Response> {
         Ok(config
             .client
             .get(format!(
@@ -159,19 +158,25 @@ pub(crate) async fn update_cache(config: &Config, at: DateTime) -> anyhow::Resul
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
 
+#[derive(Debug, Responder)]
+pub(crate) struct Response {
+    proxy: Proxy,
+    etag: ETag,
+}
+
 #[get("/static/<_..>", rank = 1)]
 pub(crate) async fn site_static(
     origin: &Origin<'_>,
     time: OffsetTime,
     config: &State<Config>,
-) -> crate::Result<Option<Proxy>> {
+) -> crate::Result<Option<Response>> {
     update_cache(config, time.0).await?;
     let cache = CACHE.read().await;
 
     Ok(match cache.assets.get(origin.path().as_str()) {
-        Some(update) => Some(Proxy {
-            response: update.fetch(config).await?,
-            etag: config.site_cache.then(|| update.hash.clone()),
+        Some(update) => Some(Response {
+            proxy: Proxy(update.fetch(config).await?),
+            etag: ETag::new(&update.hash),
         }),
         None => None,
     })

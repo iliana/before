@@ -2,7 +2,6 @@ use anyhow::Result;
 use cmd_lib::run_cmd;
 use std::env;
 use std::fs;
-use std::path::Path;
 
 fn main() -> Result<()> {
     cmd_lib::set_pipefail(true);
@@ -22,18 +21,7 @@ fn main() -> Result<()> {
         run_cmd!(npx next export)?;
         run_cmd!(node fix-fragment.js out/fragment/nav.html)?;
 
-        fs::remove_dir_all("out/_next/data")?;
-        fs::remove_dir_all("out/_next/static/chunks")?;
         fs::remove_file("out/404.html")?;
-
-        for entry in fs::read_dir("out/_next")? {
-            let name = entry?.file_name();
-            if name != "static" {
-                fs::remove_dir_all(Path::new("out/_next").join(&name))?;
-                fs::remove_dir_all(Path::new("out/_next/static").join(&name))?;
-                break;
-            }
-        }
     }
 
     Ok(())

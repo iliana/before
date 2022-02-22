@@ -26,5 +26,4 @@ module.exports = {
       lg: "1080px",
     },
   },
-  plugins: [require("@tailwindcss/typography")],
 };

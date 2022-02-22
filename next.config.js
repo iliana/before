@@ -1,5 +1,8 @@
-module.exports = {
+const withPreact = require("next-plugin-preact");
+
+module.exports = withPreact({
   basePath: "/_before",
+  reactStrictMode: true,
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule) => rule.test && rule.test.test(".svg"));
     fileLoaderRule.exclude = /\.svg$/;
@@ -9,4 +12,4 @@ module.exports = {
     });
     return config;
   },
-};
+});

@@ -3,10 +3,6 @@ import path from "path";
 import TOML from "@iarna/toml";
 import Jump from "../components/jump";
 
-export const config = {
-  unstable_runtimeJS: false,
-};
-
 export async function getStaticProps() {
   const text = await fs.readFile(path.join(process.cwd(), "data/start.toml"), { encoding: "utf-8" });
   const data = TOML.parse(text);

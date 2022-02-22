@@ -24,9 +24,6 @@ export default function Nav({ open, hideSkip }) {
                   <Link href="/start">Index</Link>
                 </li>
                 <li>
-                  <Link href="/info">More info</Link>
-                </li>
-                <li>
                   <Link href="/credits">Credits</Link>
                 </li>
               </ul>

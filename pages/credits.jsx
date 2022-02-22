@@ -1,6 +1,4 @@
-export const config = {
-  unstable_runtimeJS: false,
-};
+import Jump from "../components/jump";
 
 export default function Credits() {
   return (
@@ -9,13 +7,13 @@ export default function Credits() {
         <p className="tw-font-sans tw-mb-4 lg:tw-mb-6">
           View credits for Blaseball:
           <br />
-          <a className="tw-underline" href="/_before/jump?redirect=%2Foffseason&time=2020-10-25T19%3A15%3A00Z">
+          <Jump time="2020-10-25T19:15:00Z" redirect="/offseason" className="tw-underline">
             The Discipline Era
-          </a>{" "}
+          </Jump>{" "}
           &middot;{" "}
-          <a className="tw-underline" href="/_before/jump?redirect=%2F&time=2021-07-30T22%3A30%3A00Z">
+          <Jump time="2021-07-30T22:30:00Z" redirect="/" className="tw-underline">
             The Expansion Era
-          </a>
+          </Jump>
         </p>
 
         <Heading>

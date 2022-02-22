@@ -1,4 +1,4 @@
-use crate::{Config, Result};
+use crate::{http::ETag, Config, Result};
 use anyhow::{anyhow, ensure, Context};
 use http_range::{HttpRange, HttpRangeParseError};
 use rocket::http::hyper::header::{CONTENT_RANGE, RANGE};
@@ -29,12 +29,25 @@ impl<'r> FromRequest<'r> for Range<'r> {
 
 #[derive(Debug, Responder)]
 pub(crate) enum Static {
-    Data(Vec<u8>, ContentType),
+    ZipData {
+        content: Vec<u8>,
+        ct: ContentType,
+        etag: ETag,
+    },
+    File {
+        file: File,
+        ct: ContentType,
+        etag: ETag,
+    },
     #[response(status = 206)]
-    Range(Vec<u8>, ContentType, Header<'static>),
+    Range {
+        content: Vec<u8>,
+        ct: ContentType,
+        range: Header<'static>,
+    },
 }
 
-pub(crate) async fn fetch_static(
+async fn fetch_static(
     config: &State<Config>,
     path: &Path,
     range: Option<Range<'_>>,
@@ -62,7 +75,11 @@ pub(crate) async fn fetch_static(
         {
             let mut v = Vec::with_capacity(usize::try_from(file.size())?);
             file.read_to_end(&mut v)?;
-            return Ok(Some(Static::Data(v, ct)));
+            return Ok(Some(Static::ZipData {
+                content: v,
+                ct,
+                etag: ETag::new((file.crc32(), file.size())),
+            }));
         }
     }
 
@@ -75,24 +92,26 @@ pub(crate) async fn fetch_static(
             let mut v = vec![0; usize::try_from(range.length)?];
             file.seek(SeekFrom::Start(range.start)).await?;
             file.read_exact(&mut v).await?;
-            Static::Range(
-                v,
+            Static::Range {
+                content: v,
                 ct,
-                Header {
-                    name: CONTENT_RANGE.as_str().into(),
-                    value: format!(
+                range: Header::new(
+                    CONTENT_RANGE.as_str(),
+                    format!(
                         "bytes {}-{}/{}",
                         range.start,
                         range.length - range.start - 1,
                         len
-                    )
-                    .into(),
-                },
-            )
+                    ),
+                ),
+            }
         } else {
-            let mut v = Vec::with_capacity(usize::try_from(len)?);
-            file.read_to_end(&mut v).await?;
-            Static::Data(v, ct)
+            let metadata = file.metadata().await?;
+            Static::File {
+                file,
+                ct,
+                etag: ETag::new((metadata.modified()?, metadata.len())),
+            }
         }))
     } else {
         Ok(None)
@@ -113,8 +132,13 @@ pub(crate) async fn fetch_static_str(config: &State<Config>, path: &str) -> anyh
             .await?
             .context("file not found")?
         {
-            Static::Data(data, _) => String::from_utf8(data)?,
-            Static::Range(_, _, _) => unreachable!("did not request range"),
+            Static::ZipData { content, .. } => String::from_utf8(content)?,
+            Static::File { mut file, .. } => {
+                let mut s = String::new();
+                file.read_to_string(&mut s).await?;
+                s
+            }
+            Static::Range { .. } => unreachable!("did not request range"),
         },
     )
 }

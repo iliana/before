@@ -14,12 +14,12 @@ mod events;
 mod favorite_team;
 mod feed;
 mod fetch;
+mod http;
 mod idol;
 mod jump;
 mod media;
 mod offset;
 mod players;
-mod proxy;
 mod redirect;
 mod settings;
 mod site;
@@ -82,6 +82,13 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
         .attach(AdHoc::on_liftoff("Before background tasks", |_rocket| {
             Box::pin(background_tasks())
         }))
+        .attach(AdHoc::on_response(
+            "If-None-Match middleware",
+            |request, response| {
+                http::check_if_none_match(request, response);
+                Box::pin(rocket::futures::future::ready(()))
+            },
+        ))
         .mount("/", database::entity_routes())
         .mount("/", events::extra_season_4_routes())
         .mount(
