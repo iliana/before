@@ -67,6 +67,7 @@ pub(crate) fn check_if_none_match(request: &Request<'_>, response: &mut Response
         response.headers().get_one(ETAG.as_str()),
     ) {
         if if_none_match == etag {
+            response.remove_header(CONTENT_LENGTH.as_str());
             response.set_status(Status::NotModified);
             response.body_mut().take();
         }
