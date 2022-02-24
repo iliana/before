@@ -6,7 +6,6 @@ use reqwest::Url;
 use rocket::serde::json::Json;
 use rocket::{get, State};
 use serde_json::value::RawValue;
-use std::collections::HashMap;
 
 const PROVIDER: &str = "7fcb63bc-11f2-40b9-b465-f1d458692a63";
 
@@ -113,8 +112,8 @@ where
             (
                 "type",
                 event_types
-                    .into_iter()
-                    .map(|v| v.to_string())
+                    .iter()
+                    .map(std::string::ToString::to_string)
                     .join("_or_")
                     .as_str(),
             ),

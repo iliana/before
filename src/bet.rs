@@ -23,14 +23,6 @@ use uuid::Uuid;
 
 const EPOCH: DateTime = datetime!(2020-07-20 00:00:00 UTC);
 
-// all you can eat epochs
-const AYCE_START: DateTime = datetime!(2021-04-05 00:00:00 UTC);
-const AYCE_END: DateTime = datetime!(2021-07-29 03:35:53 UTC);
-const AYCE_MODIFIERS: [f64; 25] = [
-    6.50, 3.50, 2.50, 1.90, 1.50, 1.25, 1.10, 1.00, 0.90, 0.80, 0.70, 0.63, 0.57, 0.50, 0.45, 0.39,
-    0.34, 0.30, 0.25, 0.21, 0.17, 0.13, 0.09, 0.05, 0.00,
-];
-
 // Changing the order of any enum variants or struct members in this module will break existing
 // cookies. To create a new cookie version, add a new variant to the end of `ActiveBets`.
 
@@ -325,69 +317,7 @@ pub(crate) async fn generate_toasts(
         .into_iter()
         .partition::<Vec<_>, _>(|bet| bet.end_time() < time);
 
-    // calculate snack payouts
-    let snack_pack = cookies.load::<SnackPack>().unwrap_or_default();
-    let snacks = snack_pack.amounts();
-    let last_snack_payout = cookies
-        .load::<LastPayoutTime>()
-        .map(|v| v.0)
-        .unwrap_or(time);
-
-    let snack_modifier = if time > AYCE_START && time < AYCE_END {
-        AYCE_MODIFIERS[std::cmp::min(25, snack_pack.len()) - 1]
-    } else {
-        1.0
-    };
-
-    // an iterator would be more idiomatic here, however: async
-    let mut snack_payouts = Vec::with_capacity(snacks.len());
-    for (snack, snack_amount) in snacks {
-        if let Some(payout_info) = SNACK_CONDITIONS.get(&snack) {
-            let to = payout_info
-                .to
-                .map(|v| std::cmp::min(v, time))
-                .unwrap_or(time);
-            let from = std::cmp::max(last_snack_payout, payout_info.from);
-
-            let triggers = crate::feed::count_events(
-                config,
-                &payout_info.event_types,
-                from,
-                to,
-                payout_info.filters.iter().map(|(k, v)| {
-                    (
-                        k.to_string(),
-                        v.replace(
-                            "::IDOL::",
-                            &cookies
-                                .load::<Idol>()
-                                .map(|v| v.to_string())
-                                .unwrap_or_default(),
-                        )
-                        .replace(
-                            "::FAV_TEAM::",
-                            &cookies
-                                .load::<FavoriteTeam>()
-                                .map(|v| v.to_string())
-                                .unwrap_or_default(),
-                        ),
-                    )
-                }),
-            )
-            .await?;
-
-            snack_payouts.push((
-                snack,
-                // todo: check this calculation
-                (triggers as f64
-                    * snack_modifier
-                    * PAYOUT_CURVES[&snack][snack_amount as usize] as f64)
-                    .round() as i64,
-            ));
-        }
-    }
-
-    cookies.store(&LastPayoutTime(time));
+    let mut snack_toasts = generate_snack_toasts(config, cookies, time).await?;
 
     let mut toasts = if old.is_empty() {
         Vec::new()
@@ -422,12 +352,7 @@ pub(crate) async fn generate_toasts(
             .collect()
     };
 
-    toasts.extend(
-        snack_payouts
-            .into_iter()
-            .map(|(snack, amt)| format!("snack {} earned ya {}", snack, amt)),
-    );
-
+    toasts.append(&mut snack_toasts);
     Ok(toasts)
 }
 
@@ -439,8 +364,15 @@ lazy_static::lazy_static! {
     // todo: add melted sundaes
     // sourced from: https://www.blaseball.wiki/w/Concessions/Pricing
     static ref PAYOUT_CURVES: HashMap<Snack, Vec<i64>> = serde_json::from_str(include_str!("../data/snack_payouts.json")).unwrap();
-
 }
+
+// all you can eat epochs
+const AYCE_START: DateTime = datetime!(2021-04-05 00:00:00 UTC);
+const AYCE_END: DateTime = datetime!(2021-07-29 03:35:53 UTC);
+const AYCE_MODIFIERS: [f64; 25] = [
+    6.50, 3.50, 2.50, 1.90, 1.50, 1.25, 1.10, 1.00, 0.90, 0.80, 0.70, 0.63, 0.57, 0.50, 0.45, 0.39,
+    0.34, 0.30, 0.25, 0.21, 0.17, 0.13, 0.09, 0.05, 0.00,
+];
 
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct SnackPayoutInfo {
@@ -472,4 +404,81 @@ impl FromStr for LastPayoutTime {
 
 impl AsCookie for LastPayoutTime {
     const NAME: &'static str = "last_snack_payout";
+}
+
+#[allow(
+    clippy::cast_sign_loss,
+    clippy::cast_precision_loss,
+    clippy::cast_possible_truncation
+)]
+pub(crate) async fn generate_snack_toasts(
+    config: &Config,
+    cookies: &CookieJar<'_>,
+    time: DateTime,
+) -> anyhow::Result<Vec<String>> {
+    let snack_pack = cookies.load::<SnackPack>().unwrap_or_default();
+    let snacks = snack_pack.amounts();
+    let last_snack_payout = cookies.load::<LastPayoutTime>().map_or(time, |v| v.0);
+
+    let snack_modifier = if time > AYCE_START && time < AYCE_END {
+        AYCE_MODIFIERS[std::cmp::min(25, snack_pack.len()) - 1]
+    } else {
+        1.0
+    };
+
+    // an iterator would be more idiomatic here, however: async
+    let mut toasts = Vec::with_capacity(snacks.len());
+    for (snack, snack_amount) in snacks {
+        if let Some(payout_info) = SNACK_CONDITIONS.get(&snack) {
+            let to = payout_info.to.map_or(time, |v| std::cmp::min(v, time));
+            let from = std::cmp::max(last_snack_payout, payout_info.from);
+
+            let triggers = crate::feed::count_events(
+                config,
+                &payout_info.event_types,
+                from,
+                to,
+                payout_info.filters.iter().map(|(k, v)| {
+                    (
+                        (*k).to_string(),
+                        v.replace(
+                            "::IDOL::",
+                            &cookies
+                                .load::<Idol>()
+                                .map(|v| v.to_string())
+                                .unwrap_or_default(),
+                        )
+                        .replace(
+                            "::FAV_TEAM::",
+                            &cookies
+                                .load::<FavoriteTeam>()
+                                .map(|v| v.to_string())
+                                .unwrap_or_default(),
+                        ),
+                    )
+                }),
+            )
+            .await?;
+
+            let paying_out_snack =
+                if snack == Snack::Incineration && time > datetime!(2021-07-25 17:50:00 UTC) {
+                    Snack::IncinerationMelted
+                } else {
+                    snack
+                };
+
+            let payout = (triggers as f64
+                * snack_modifier
+                * PAYOUT_CURVES[&paying_out_snack][snack_amount as usize] as f64)
+                .round() as i64;
+
+            if payout > 0 {
+                toasts.push(format!("snack {} earned ya {}", snack, payout));
+            }
+        }
+    }
+
+    cookies.store(&LastPayoutTime(time));
+
+    Ok(toasts)
 }

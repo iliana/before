@@ -1,4 +1,3 @@
-use crate::bet::LastPayoutTime;
 use crate::chronicler::RequestBuilder;
 use crate::cookies::CookieJarExt;
 use crate::favorite_team::FavoriteTeam;
