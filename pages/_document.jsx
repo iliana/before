@@ -9,7 +9,7 @@ export default function Document() {
         <meta name="description" content="&#x1FA78; Do you remember before? &#x1FA78;" />
         <title>Before</title>
       </Head>
-      <body className="tw-bg-black tw-text-white tw-text-dev lg:tw-text-lg">
+      <body className="tw-bg-black tw-text-white lg:tw-text-lg">
         <Main />
         <NextScript />
       </body>

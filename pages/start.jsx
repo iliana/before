@@ -66,7 +66,7 @@ function Season({ season }) {
           <Jump season={season} day={1} className="hover:tw-no-underline tw-group">
             <span className="tw-block tw-text-sm lg:tw-text-base">
               Season {season.number}
-              <span className="tw-sr-only">:</span>
+              <span className="tw-sr-only">: </span>
             </span>
             <span className="group-hover:tw-underline" style={{ color: season.color }}>
               {season.title}

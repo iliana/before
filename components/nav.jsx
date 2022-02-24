@@ -27,6 +27,16 @@ export default function Nav({ open, hideSkip }) {
                   <Link href="/credits">Credits</Link>
                 </li>
               </ul>
+              <dl>
+                <dt>Team histories</dt>
+                <dd>
+                  <ul className="tw-before-list tw-inline">
+                    <li>
+                      <Link href="/histories/breath-mints">Breath Mints</Link>
+                    </li>
+                  </ul>
+                </dd>
+              </dl>
             </div>
           </details>
 
