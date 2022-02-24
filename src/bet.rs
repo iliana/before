@@ -417,6 +417,7 @@ lazy_static::lazy_static! {
     static ref SNACK_CONDITIONS: HashMap<Snack, SnackPayoutInfo> =
         serde_json::from_str(include_str!("../data/snack_conditions.json")).unwrap();
     // todo: add melted sundaes
+    // sourced from: https://www.blaseball.wiki/w/Concessions/Pricing
     static ref PAYOUT_CURVES: HashMap<Snack, Vec<i64>> = serde_json::from_str(include_str!("../data/snack_payouts.json")).unwrap();
 
 }
