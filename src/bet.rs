@@ -3,6 +3,7 @@ use crate::chronicler::{Order, RequestBuilder};
 use crate::config::Config;
 use crate::cookies::{AsCookie, CookieJarExt};
 use crate::offset::OffsetTime;
+use crate::snacks::{Snack, SnackPack};
 use crate::time::{datetime, DateTime};
 use crate::Result;
 use bincode::{DefaultOptions, Options};
@@ -12,12 +13,21 @@ use rocket::serde::json::Json;
 use rocket::{get, post, Responder, State};
 use serde::{Deserialize, Serialize};
 use serde_json::Number;
+use std::collections::HashMap;
 use std::fmt::{self, Display};
 use std::str::FromStr;
 use time::Duration;
 use uuid::Uuid;
 
 const EPOCH: DateTime = datetime!(2020-07-20 00:00:00 UTC);
+
+// all you can eat epochs
+const AYCE_START: DateTime = datetime!(2021-04-05 00:00:00 UTC);
+const AYCE_END: DateTime = datetime!(2021-07-29 03:35:53 UTC);
+const AYCE_MODIFIERS: [f64; 25] = [
+    6.50, 3.50, 2.50, 1.90, 1.50, 1.25, 1.10, 1.00, 0.90, 0.80, 0.70, 0.63, 0.57, 0.50, 0.45, 0.39,
+    0.34, 0.30, 0.25, 0.21, 0.17, 0.13, 0.09, 0.05, 0.00,
+];
 
 // Changing the order of any enum variants or struct members in this module will break existing
 // cookies. To create a new cookie version, add a new variant to the end of `ActiveBets`.
@@ -313,7 +323,53 @@ pub(crate) async fn generate_toasts(
         .into_iter()
         .partition::<Vec<_>, _>(|bet| bet.end_time() < time);
 
-    Ok(if old.is_empty() {
+    // calculate snack payouts
+    let snack_pack = cookies.load::<SnackPack>().unwrap_or_default();
+    let snacks = snack_pack.amounts();
+    let last_snack_payout = cookies
+        .load::<LastPayoutTime>()
+        .map(|v| v.0)
+        .unwrap_or(time);
+
+    let snack_modifier = if time > AYCE_START && time < AYCE_END {
+        AYCE_MODIFIERS[std::cmp::min(25, snack_pack.len())]
+    } else {
+        1.0
+    };
+
+    // an iterator would be more idiomatic here, however: async
+    let mut snack_payouts = Vec::with_capacity(snacks.len());
+    for (snack, snack_amount) in snacks {
+        if let Some(payout_info) = SNACK_CONDITIONS.get(&snack) {
+            let to = payout_info
+                .to
+                .map(|v| std::cmp::min(v, time))
+                .unwrap_or(time);
+            let from = std::cmp::max(last_snack_payout, payout_info.from);
+
+            let triggers = crate::feed::count_events(
+                config,
+                &payout_info.event_types,
+                from,
+                to,
+                std::iter::empty::<(&str, &str)>(),
+            )
+            .await?;
+
+            snack_payouts.push((
+                snack,
+                // todo: check this calculation
+                (triggers as f64
+                    * snack_modifier
+                    * PAYOUT_CURVES[&snack][snack_amount as usize] as f64)
+                    .round() as i64,
+            ));
+        }
+    }
+
+    cookies.store(&LastPayoutTime(time));
+
+    let mut toasts = if old.is_empty() {
         Vec::new()
     } else {
         old.sort_by_key(|bet| bet.team_id);
@@ -344,5 +400,55 @@ pub(crate) async fn generate_toasts(
                 )
             })
             .collect()
-    })
+    };
+
+    toasts.extend(
+        snack_payouts
+            .into_iter()
+            .map(|(snack, amt)| format!("snack {} earned ya {}", snack, amt)),
+    );
+
+    Ok(toasts)
+}
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
+lazy_static::lazy_static! {
+    static ref SNACK_CONDITIONS: HashMap<Snack, SnackPayoutInfo> =
+        serde_json::from_str(include_str!("../data/snack_conditions.json")).unwrap();
+    // todo: add melted sundaes
+    static ref PAYOUT_CURVES: HashMap<Snack, Vec<i64>> = serde_json::from_str(include_str!("../data/snack_payouts.json")).unwrap();
+
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub(crate) struct SnackPayoutInfo {
+    event_types: Vec<i32>,
+    from: DateTime,
+    #[serde(default)]
+    to: Option<DateTime>,
+    template: &'static str,
+    #[serde(default)]
+    filters: Vec<(&'static str, &'static str)>,
+}
+
+pub(crate) struct LastPayoutTime(DateTime);
+
+impl Display for LastPayoutTime {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.0)?;
+        Ok(())
+    }
+}
+
+impl FromStr for LastPayoutTime {
+    type Err = time::error::Parse;
+
+    fn from_str(s: &str) -> std::result::Result<LastPayoutTime, time::error::Parse> {
+        DateTime::from_str(s).map(LastPayoutTime)
+    }
+}
+
+impl AsCookie for LastPayoutTime {
+    const NAME: &'static str = "last_snack_payout";
 }

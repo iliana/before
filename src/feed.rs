@@ -1,9 +1,12 @@
 use crate::offset::OffsetTime;
+use crate::time::DateTime;
 use crate::{Config, Result};
+use itertools::Itertools;
 use reqwest::Url;
 use rocket::serde::json::Json;
 use rocket::{get, State};
 use serde_json::value::RawValue;
+use std::collections::HashMap;
 
 const PROVIDER: &str = "7fcb63bc-11f2-40b9-b465-f1d458692a63";
 
@@ -82,4 +85,50 @@ pub(crate) async fn feedbyphase(
             .await
             .map_err(anyhow::Error::from)?,
     ))
+}
+
+pub(crate) async fn count_events<I, K, V>(
+    config: &Config,
+    event_types: &[i32],
+    from: DateTime,
+    to: DateTime,
+    extra_filters: I,
+) -> anyhow::Result<i64>
+where
+    I: IntoIterator,
+    I::Item: core::borrow::Borrow<(K, V)>,
+    K: AsRef<str>,
+    V: AsRef<str>,
+{
+    #[derive(serde::Deserialize)]
+    struct Count {
+        count: i64,
+    }
+
+    let mut url = Url::parse_with_params(
+        &format!("{}count", config.eventually_base_url),
+        [
+            ("before", to.to_string().as_str()),
+            ("after", from.to_string().as_str()),
+            (
+                "type",
+                event_types
+                    .into_iter()
+                    .map(|v| v.to_string())
+                    .join("_or_")
+                    .as_str(),
+            ),
+        ],
+    )?;
+
+    url.query_pairs_mut().extend_pairs(extra_filters);
+
+    Ok(config
+        .client
+        .get(url)
+        .send()
+        .await?
+        .json::<Count>()
+        .await
+        .map(|v| v.count)?)
 }
