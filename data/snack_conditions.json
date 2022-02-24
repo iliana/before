@@ -1,9 +1,28 @@
 {
-    "Idol_Hits": 
-        {
-            "from": "1970-01-01T00:00:01.000Z",
-            "event_types": [0],
-            "template": "sure"
-        }
-    
+    "Idol_Hits": {
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            10
+        ],
+        "filters": [
+            [
+                "playerTags",
+                "::IDOL::"
+            ]
+        ],
+        "template": "sure"
+    },
+    "Team_Win": {
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            11
+        ],
+        "filters": [
+            [
+                "metadata.winner",
+                "::FAV_TEAM::"
+            ]
+        ],
+        "template": "sure"
+    }
 }

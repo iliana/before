@@ -2,6 +2,8 @@ use crate::api::ApiResult;
 use crate::chronicler::{Order, RequestBuilder};
 use crate::config::Config;
 use crate::cookies::{AsCookie, CookieJarExt};
+use crate::favorite_team::FavoriteTeam;
+use crate::idol::Idol;
 use crate::offset::OffsetTime;
 use crate::snacks::{Snack, SnackPack};
 use crate::time::{datetime, DateTime};
@@ -352,7 +354,25 @@ pub(crate) async fn generate_toasts(
                 &payout_info.event_types,
                 from,
                 to,
-                std::iter::empty::<(&str, &str)>(),
+                payout_info.filters.iter().map(|(k, v)| {
+                    (
+                        k.to_string(),
+                        v.replace(
+                            "::IDOL::",
+                            &cookies
+                                .load::<Idol>()
+                                .map(|v| v.to_string())
+                                .unwrap_or_default(),
+                        )
+                        .replace(
+                            "::FAV_TEAM::",
+                            &cookies
+                                .load::<FavoriteTeam>()
+                                .map(|v| v.to_string())
+                                .unwrap_or_default(),
+                        ),
+                    )
+                }),
             )
             .await?;
 
