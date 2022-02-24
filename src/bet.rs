@@ -332,7 +332,7 @@ pub(crate) async fn generate_toasts(
         .unwrap_or(time);
 
     let snack_modifier = if time > AYCE_START && time < AYCE_END {
-        AYCE_MODIFIERS[std::cmp::min(25, snack_pack.len())]
+        AYCE_MODIFIERS[std::cmp::min(25, snack_pack.len()) - 1]
     } else {
         1.0
     };
@@ -361,7 +361,7 @@ pub(crate) async fn generate_toasts(
                 // todo: check this calculation
                 (triggers as f64
                     * snack_modifier
-                    * PAYOUT_CURVES[&snack][snack_amount as usize - 1] as f64)
+                    * PAYOUT_CURVES[&snack][snack_amount as usize] as f64)
                     .round() as i64,
             ));
         }
