@@ -361,7 +361,7 @@ pub(crate) async fn generate_toasts(
                 // todo: check this calculation
                 (triggers as f64
                     * snack_modifier
-                    * PAYOUT_CURVES[&snack][snack_amount as usize] as f64)
+                    * PAYOUT_CURVES[&snack][snack_amount as usize - 1] as f64)
                     .round() as i64,
             ));
         }
