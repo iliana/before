@@ -15,6 +15,7 @@ use rocket::serde::json::Json;
 use rocket::{get, post, Responder, State};
 use serde::{Deserialize, Serialize};
 use serde_json::Number;
+use std::cmp;
 use std::collections::HashMap;
 use std::fmt::{self, Display};
 use std::str::FromStr;
@@ -361,7 +362,6 @@ pub(crate) async fn generate_toasts(
 lazy_static::lazy_static! {
     static ref SNACK_CONDITIONS: HashMap<Snack, SnackPayoutInfo> =
         serde_json::from_str(include_str!("../data/snack_conditions.json")).unwrap();
-    // todo: add melted sundaes
     // sourced from: https://www.blaseball.wiki/w/Concessions/Pricing
     static ref PAYOUT_CURVES: HashMap<Snack, Vec<i64>> = serde_json::from_str(include_str!("../data/snack_payouts.json")).unwrap();
 }
@@ -421,7 +421,7 @@ pub(crate) async fn generate_snack_toasts(
     let last_snack_payout = cookies.load::<LastPayoutTime>().map_or(time, |v| v.0);
 
     let snack_modifier = if time > AYCE_START && time < AYCE_END {
-        AYCE_MODIFIERS[std::cmp::min(25, snack_pack.len()) - 1]
+        AYCE_MODIFIERS[cmp::min(25, snack_pack.len()) - 1]
     } else {
         1.0
     };
@@ -429,56 +429,109 @@ pub(crate) async fn generate_snack_toasts(
     // an iterator would be more idiomatic here, however: async
     let mut toasts = Vec::with_capacity(snacks.len());
     for (snack, snack_amount) in snacks {
-        if let Some(payout_info) = SNACK_CONDITIONS.get(&snack) {
-            let to = payout_info.to.map_or(time, |v| std::cmp::min(v, time));
-            let from = std::cmp::max(last_snack_payout, payout_info.from);
-
-            let triggers = crate::feed::count_events(
-                config,
-                &payout_info.event_types,
-                from,
-                to,
-                payout_info.filters.iter().map(|(k, v)| {
-                    (
-                        (*k).to_string(),
-                        v.replace(
-                            "::IDOL::",
-                            &cookies
-                                .load::<Idol>()
-                                .map(|v| v.to_string())
-                                .unwrap_or_default(),
+        let result = match snack {
+            Snack::Breakfast => {
+                // the idle time before it pays out may be 15min instead?
+                let idle_mins = (time - last_snack_payout).whole_minutes();
+                if idle_mins >= 60 {
+                    Some(format!(
+                        "breakfast won you {}",
+                        cmp::min(
+                            (idle_mins as f64 * snack_modifier).round() as i64,
+                            PAYOUT_CURVES[&Snack::Breakfast][snack_amount as usize]
                         )
-                        .replace(
-                            "::FAV_TEAM::",
-                            &cookies
-                                .load::<FavoriteTeam>()
-                                .map(|v| v.to_string())
-                                .unwrap_or_default(),
-                        ),
-                    )
-                }),
-            )
-            .await?;
-
-            let paying_out_snack =
-                if snack == Snack::Incineration && time > datetime!(2021-07-25 17:50:00 UTC) {
-                    Snack::IncinerationMelted
+                    ))
                 } else {
-                    snack
-                };
-
-            let payout = (triggers as f64
-                * snack_modifier
-                * PAYOUT_CURVES[&paying_out_snack][snack_amount as usize] as f64)
-                .round() as i64;
-
-            if payout > 0 {
-                toasts.push(format!("snack {} earned ya {}", snack, payout));
+                    None
+                }
             }
+            _ => {
+                event_based_snack(
+                    // long boy invocation
+                    config,
+                    cookies,
+                    last_snack_payout,
+                    time,
+                    snack_modifier,
+                    snack,
+                    snack_amount,
+                )
+                .await?
+            }
+        };
+        // i hate this - allie
+        if let Some(toast) = result {
+            toasts.push(toast);
         }
     }
 
     cookies.store(&LastPayoutTime(time));
 
     Ok(toasts)
+}
+
+/// makes toasts for snacks that can be calculated off feed events
+#[allow(
+    clippy::cast_sign_loss,
+    clippy::cast_precision_loss,
+    clippy::cast_possible_truncation
+)]
+async fn event_based_snack(
+    config: &Config,
+    cookies: &CookieJar<'_>,
+    last_snack_payout: DateTime,
+    time: DateTime,
+    modifier: f64,
+    snack: Snack,
+    snack_amount: i64,
+) -> anyhow::Result<Option<String>> {
+    if let Some(payout_info) = SNACK_CONDITIONS.get(&snack) {
+        let to = payout_info.to.map_or(time, |v| cmp::min(v, time));
+        let from = cmp::max(last_snack_payout, payout_info.from);
+
+        let triggers = crate::feed::count_events(
+            config,
+            &payout_info.event_types,
+            from,
+            to,
+            payout_info.filters.iter().map(|(k, v)| {
+                (
+                    (*k).to_string(),
+                    v.replace(
+                        "::IDOL::",
+                        &cookies
+                            .load::<Idol>()
+                            .map(|v| v.to_string())
+                            .unwrap_or_default(),
+                    )
+                    .replace(
+                        "::FAV_TEAM::",
+                        &cookies
+                            .load::<FavoriteTeam>()
+                            .map(|v| v.to_string())
+                            .unwrap_or_default(),
+                    ),
+                )
+            }),
+        )
+        .await?;
+
+        let paying_out_snack =
+            if snack == Snack::Incineration && time > datetime!(2021-07-25 17:50:00 UTC) {
+                Snack::IncinerationMelted
+            } else {
+                snack
+            };
+
+        let payout = (triggers as f64
+            * modifier
+            * PAYOUT_CURVES[&paying_out_snack][snack_amount as usize] as f64)
+            .round() as i64;
+
+        if payout > 0 {
+            return Ok(Some(format!("snack {} earned ya {}", snack, payout)));
+        }
+    }
+
+    Ok(None)
 }
