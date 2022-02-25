@@ -1,7 +1,7 @@
 name: Build and push
 on:
   push:
-    branches: [main]
+    branches: [main, team-histories]
 jobs:
   deploy:
     runs-on: ubuntu-latest

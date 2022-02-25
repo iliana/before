@@ -2,18 +2,19 @@
   "private": true,
   "dependencies": {
     "@iarna/toml": "^2.2.5",
+    "js-cookie": "^3.0.1",
     "next": "^12.1.0",
     "next-plugin-preact": "^3.0.6",
     "preact": "^10.6.6",
     "preact-render-to-string": "^5.1.20",
     "react": "npm:@preact/compat@^17.0.3",
     "react-dom": "npm:@preact/compat@^17.0.3",
+    "react-icons": "^4.3.1",
     "react-ssr-prepass": "npm:preact-ssr-prepass@^1.2.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
     "autoprefixer": "^10.4.0",
-    "cssnano": "^5.0.10",
     "eslint": "8.9.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "12.1.0",
@@ -26,6 +27,10 @@
     "prettier": "^2.4.1",
     "tailwindcss": "^3.0.0"
   },
+  "browserslist": [
+    "defaults",
+    "since 2019-07-20"
+  ],
   "prettier": {
     "printWidth": 120
   },
@@ -37,6 +42,7 @@
     ],
     "rules": {
       "@next/next/no-title-in-document-head": "off",
+      "jsx-a11y/anchor-is-valid": "off",
       "react/jsx-props-no-spreading": "off"
     }
   }

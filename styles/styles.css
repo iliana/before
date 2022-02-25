@@ -48,6 +48,14 @@
     @apply tw-px-1 lg:tw-px-1.5;
     content: " • ";
   }
+
+  .tw-before-history a {
+    @apply tw-underline;
+  }
+
+  .tw-before-history p {
+    @apply tw-my-2 lg:tw-my-3;
+  }
 }
 
 .Shop-Item-Icon {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import MenuIcon from "./menu.svg";
+import { MdMenu } from "react-icons/md";
 import Back5m from "./back-5m.svg";
 import Back30s from "./back-30s.svg";
 import Forward5m from "./forward-5m.svg";
@@ -12,7 +12,9 @@ export default function Nav({ open, hideSkip }) {
         <div className="tw-relative tw-container tw-py-1.5 lg:tw-py-2">
           <details open={open ?? false}>
             <summary className="tw-group tw-space-x-1.5 tw-inline-block tw-font-bold tw-cursor-pointer">
-              <MenuIcon
+              <MdMenu
+                viewBox="3 3 21 21"
+                preserveAspectRatio="none"
                 className="tw-inline tw-h-3.5 lg:tw-h-4 tw-w-2.5 lg:tw-w-3 tw-stroke-0 tw-fill-gray-100"
                 aria-hidden="true"
               />
@@ -24,19 +26,12 @@ export default function Nav({ open, hideSkip }) {
                   <Link href="/start">Index</Link>
                 </li>
                 <li>
+                  <Link href="/histories">Team Histories</Link>
+                </li>
+                <li>
                   <Link href="/credits">Credits</Link>
                 </li>
               </ul>
-              <dl>
-                <dt>Team histories</dt>
-                <dd>
-                  <ul className="tw-before-list tw-inline">
-                    <li>
-                      <Link href="/histories/breath-mints">Breath Mints</Link>
-                    </li>
-                  </ul>
-                </dd>
-              </dl>
             </div>
           </details>
 

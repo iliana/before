@@ -1,7 +1,8 @@
 import fs from "fs/promises";
 import path from "path";
+import { useMemo } from "react";
 import TOML from "@iarna/toml";
-import Jump from "../components/jump";
+import { Jump, JumpDefaults } from "../components/jump";
 
 export async function getStaticProps() {
   const text = await fs.readFile(path.join(process.cwd(), "data/start.toml"), { encoding: "utf-8" });
@@ -60,10 +61,10 @@ function Era({ era }) {
 
 function Season({ season }) {
   return (
-    <>
+    <JumpDefaults.Provider value={useMemo(() => ({ season: season.number }), [season])}>
       {season.title ? (
         <h3 className="tw-text-lg tw-leading-normal lg:tw-text-2xl lg:tw-leading-tight tw-font-bold tw-uppercase tw-mt-1.5 lg:tw-mt-2">
-          <Jump season={season} day={1} className="hover:tw-no-underline tw-group">
+          <Jump day={1} className="hover:tw-no-underline tw-group">
             <span className="tw-block tw-text-sm lg:tw-text-base">
               Season {season.number}
               <span className="tw-sr-only">: </span>
@@ -88,8 +89,8 @@ function Season({ season }) {
         </h3>
       )}
       <Days>{season.days}</Days>
-      <EventList events={season.events} season={season.number} />
-    </>
+      <EventList events={season.events} />
+    </JumpDefaults.Provider>
   );
 }
 
@@ -97,17 +98,17 @@ function Days({ children }) {
   return <p className="tw-text-sm lg:tw-text-base tw-font-medium tw-leading-normal lg:tw-leading-snug">{children}</p>;
 }
 
-function EventList({ events, season }) {
+function EventList({ events }) {
   return (
     <ul className="tw-font-sans tw-mt-2 lg:tw-mt-2.5 tw-mb-5 lg:tw-mb-6 tw-before-list">
       {events.map((event) => (
-        <Event key={event.title} event={event} season={season} />
+        <Event key={event.title} event={event} />
       ))}
     </ul>
   );
 }
 
-function Event({ event, season }) {
+function Event({ event }) {
   const { title, butalso, being, ...jump } = event;
 
   const inner = {
@@ -134,7 +135,7 @@ function Event({ event, season }) {
 
   return (
     <li>
-      <Jump className="lg:tw-whitespace-nowrap hover:tw-no-underline tw-group" season={season} {...jump}>
+      <Jump className="lg:tw-whitespace-nowrap hover:tw-no-underline tw-group" {...jump}>
         {inner}
         {butalso ? (
           <>

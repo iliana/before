@@ -1,33 +1,68 @@
-import Jump from "./jump";
+import Cookies from "js-cookie";
+import { useEffect, useMemo, useState } from "react";
+import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import contrast from "../lib/contrast";
+import { teams, getTeamIndex } from "../lib/teams";
+import { Jump, JumpDefaults } from "./jump";
+import TeamIcon from "./team-icon";
 
-export function History({ id, name, emoji, color, slogan, authors, children }) {
+function contrastColor(color) {
+  return contrast(color, "#000000") > contrast(color, "#ffffff") ? "#000000" : "#ffffff";
+}
+
+export function History({ authors, children }) {
+  const slug = useRouter().pathname.split("/").pop();
+  const index = getTeamIndex({ slug });
+  const team = teams[index];
+
+  const previous = teams[(((index - 1) % 24) + 24) % 24];
+  const next = teams[(index + 1) % 24];
+
+  const [favorite, setFavorite] = useState(false);
+  useEffect(() => {
+    setFavorite(Cookies.get("favorite_team") === team.id);
+  }, [team.id]);
+
   return (
-    <>
+    <JumpDefaults.Provider value={useMemo(() => ({ team: team.id }), [team.id])}>
+      <div className="tw-container tw-my-3 lg:tw-my-4">
+        <div className="lg:tw-max-w-prose tw-mx-auto tw-flex tw-justify-between">
+          <WebRing team={previous} previous />
+          <WebRing team={next} />
+        </div>
+      </div>
       <div className="tw-font-client-serif tw-w-96 tw-max-w-max tw-mx-auto tw-my-6 lg:tw-my-8 tw-text-center">
         <div className="tw-flex tw-gap-x-2.5 tw-text-left">
-          <div
-            className="tw-text-[1.75rem] tw-leading-10 tw-h-10 tw-w-10 lg:tw-text-4xl lg:tw-leading-[3.75rem] lg:tw-h-[3.75rem] lg:tw-w-[3.75rem] tw-rounded-full tw-text-center"
-            style={{ backgroundColor: color }}
-          >
-            {emoji}
-          </div>
+          <TeamIcon size="teamCard" emoji={team.emoji} color={team.mainColor} />
           <div>
-            <h2 className="tw-text-[1.375rem] tw-leading-[1.65rem] lg:tw-text-2xl lg:tw-leading-[1.8rem]">{name}</h2>
-            <div className="tw-italic tw-text-base">“{slogan}”</div>
+            <h2 className="tw-text-[1.375rem] tw-leading-[1.65rem] lg:tw-text-2xl lg:tw-leading-[1.8rem]">
+              {team.name}
+            </h2>
+            <div className="tw-italic tw-text-base">&quot;{team.slogan}&quot;</div>
           </div>
         </div>
         <button
-          className="tw-mt-4 tw-rounded-full tw-cursor-pointer tw-border tw-border-white tw-font-bold tw-text-sm tw-h-8 tw-px-[15px] tw-py-[5px] hover:tw-opacity-80"
-          style={{ backgroundColor: color }}
+          type="button"
+          disabled={favorite}
+          onClick={() => {
+            if (!favorite) {
+              Cookies.set("favorite_team", team.id);
+              setFavorite(true);
+            }
+          }}
+          className="tw-mt-4 tw-rounded-full tw-cursor-pointer disabled:tw-cursor-default tw-border disabled:tw-border-0 tw-border-white tw-font-bold tw-text-sm tw-h-8 tw-px-[15px] tw-py-[5px] hover:tw-opacity-80 disabled:hover:tw-opacity-100"
+          style={{ backgroundColor: team.mainColor, color: contrastColor(team.mainColor) }}
         >
-          Change Favorite Team
+          {favorite ? "Favorite Team" : "Change Favorite Team"}
         </button>
         <div className="tw-font-serif tw-text-sm lg:tw-text-base tw-mt-6">
-          <span className="tw-italic">History compiled by:</span> {authors}
+          <span className="tw-italic">Team history compiled by:</span> {authors}
         </div>
       </div>
       <div className="tw-container tw-mx-auto">{children}</div>
-    </>
+    </JumpDefaults.Provider>
   );
 }
 
@@ -42,56 +77,23 @@ export function Entry({ date, title, jump, children }) {
               <span className="tw-sr-only">: </span>
             </span>
           ) : null}
-          <span className="group-hover:tw-underline">{title}</span>
+          <span className="group-hover:tw-underline tw-block">{title}</span>
         </Jump>
       </h3>
-      <div className="tw-max-w-prose tw-mx-auto tw-leading-relaxed tw-font-sans">{children}</div>
+      <div className="tw-before-history tw-max-w-prose tw-mx-auto tw-leading-relaxed">{children}</div>
     </div>
   );
 }
 
-export function LineScore({ away, home }) {
+function WebRing({ team, previous }) {
   return (
-    <div className="tw-w-full tw-max-w-full tw-overflow-x-auto tw-my-2 lg:tw-my-3">
-      <table className="tw-font-sans tw-whitespace-nowrap tw-text-sm lg:tw-text-base tw-mx-auto">
-        <thead>
-          <tr className="tw-text-xs lg:tw-text-sm">
-            <td />
-            {away.innings.map((_, i) => (
-              <>
-                {/* eslint-disable-next-line react/jsx-key */}
-                <th className="tw-w-7 tw-px-1">{i + 1}</th>
-              </>
-            ))}
-            <th className="tw-w-7 tw-px-1">
-              <abbr title="Runs">R</abbr>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <LineScoreRow team={away} />
-          <LineScoreRow team={home} />
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function LineScoreRow({ team }) {
-  return (
-    <tr>
-      <th className="tw-text-left tw-pr-2">
-        {team.emoji}
-        {"\u2004"}
-        {team.abbr}
-      </th>
-      {team.innings.map((x) => (
-        <>
-          {/* eslint-disable-next-line react/jsx-key */}
-          <td className="tw-text-center tw-px-1">{x}</td>
-        </>
-      ))}
-      <td className="tw-text-center tw-font-bold tw-px-1">{team.innings.reduce((a, b) => a + b, 0)}</td>
-    </tr>
+    <Link href={`/histories/${team.slug}`} passHref>
+      <a className="tw-flex tw-items-center tw-gap-2 hover:tw-no-underline tw-group">
+        {previous ? <HiArrowLeft className="tw-h-4 tw-w-4" /> : null}
+        <TeamIcon size="small" emoji={team.emoji} color={team.mainColor} />
+        <span className="group-hover:tw-underline">{team.nickname}</span>
+        {previous ? null : <HiArrowRight className="tw-h-4 tw-w-4" />}
+      </a>
+    </Link>
   );
 }

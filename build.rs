@@ -19,7 +19,7 @@ fn main() -> Result<()> {
 
         run_cmd!(npx next build --no-lint)?;
         run_cmd!(npx next export)?;
-        run_cmd!(node fix-fragment.js out/fragment/nav.html)?;
+        run_cmd!(node util/fix-fragment.js out/fragment/nav.html)?;
 
         fs::remove_file("out/404.html")?;
     }
