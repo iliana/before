@@ -101,7 +101,7 @@ export default function Page({ linescores }) {
         <p>
           This game was complete chaos to watch live, and only became scarier when our fears of Unstable were confirmed
           during{" "}
-          <Jump time="2020-09-15T23:05:55Z" team="747b8e4a-7e50-4638-a973-ea7950a3e739">
+          <Jump season={7} time="2020-09-15T23:05:55Z" team="747b8e4a-7e50-4638-a973-ea7950a3e739">
             Ruby Tuesday
           </Jump>
           . Marquez Clark would go on to be hit with four more pitches, holding the record for the player hit by the
@@ -220,8 +220,11 @@ export default function Page({ linescores }) {
           <Jump redirect="/offseason" time="2021-04-18T18:15:00Z">
             having been Alternated to mediocrity in the Season 16 Election
           </Jump>
-          , and Zavala <Jump time="2021-04-20T10:15:25Z">suffering an allergic reaction on Season 17, Day 20</Jump>, but
-          Mints fans were still excited to see the match-up at least once.
+          , and Zavala{" "}
+          <Jump season={17} time="2021-04-20T10:15:25Z">
+            suffering an allergic reaction on Season 17, Day 20
+          </Jump>
+          , but Mints fans were still excited to see the match-up at least once.
         </p>
         <LineScore {...linescores["c35c2ad0-c403-41f8-8394-549b8a4654f8"]} />
         <p>
@@ -336,8 +339,10 @@ export default function Page({ linescores }) {
         <p>
           Games where the sim breaks are always generally silly, and this one in particular is memorable due to the
           chaotic nature of the end of Expansion. Jon Halifax{" "}
-          <Jump time="2021-07-22T07:06:04Z">would go on to be incinerated five games later</Jump>, and nobody would miss
-          him.
+          <Jump season={23} time="2021-07-22T07:06:04Z">
+            would go on to be incinerated five games later
+          </Jump>
+          , and nobody would miss him.
         </p>
       </Entry>
       <Entry date="Season 24, Day 3" title="We Die" jump={{ time: "2021-07-26T17:13:23Z" }}>
