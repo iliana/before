@@ -25,8 +25,8 @@ export default function LineScore({ season, day, away, home }) {
           </tr>
         </thead>
         <tbody>
-          <LineScoreRow team={away} />
-          <LineScoreRow team={home} />
+          <LineScoreRow team={away} innings={away.innings.length} />
+          <LineScoreRow team={home} innings={away.innings.length} />
         </tbody>
       </table>
     </div>
@@ -37,7 +37,7 @@ function minus(count) {
   return count < 0 ? <>&minus;{Math.abs(count)}</> : count;
 }
 
-function LineScoreRow({ team }) {
+function LineScoreRow({ team, innings }) {
   const teamData = getTeam({ id: team.id });
   return (
     <tr>
@@ -47,6 +47,12 @@ function LineScoreRow({ team }) {
         <>
           {/* eslint-disable-next-line react/jsx-key */}
           <td className="tw-text-center tw-px-1">{minus(runs)}</td>
+        </>
+      ))}
+      {[...Array(innings - team.innings.length)].map(() => (
+        <>
+          {/* eslint-disable-next-line react/jsx-key */}
+          <td className="tw-text-center tw-px-1">&times;</td>
         </>
       ))}
       <td className="tw-text-center tw-font-bold tw-px-1">{minus(team.innings.reduce((a, b) => a + b, 0))}</td>
