@@ -7,8 +7,8 @@ export default function Spoiler({ children }) {
     <span
       className={`${
         revealed
-          ? "tw-bg-gray-800 tw-text-white"
-          : "tw-bg-gray-700 hover:tw-bg-gray-600 tw-text-transparent selection:tw-text-white tw-cursor-pointer"
+          ? "tw-bg-gray-800 tw-text-white tw-cursor-auto"
+          : "tw-bg-gray-700 hover:tw-bg-gray-600 tw-text-transparent selection:tw-text-white"
       } tw-rounded`}
       aria-label="Spoiler"
       aria-expanded={revealed ? "true" : "false"}
