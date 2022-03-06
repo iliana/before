@@ -40,7 +40,7 @@ export default function Page({ linescores }) {
           Season 3, Day 57, was an early chapter in the rivalry, where up to this point the Mints were not doing too
           well. The Shoe Thieves had star pitcher Matteo Prestige on the mound, and in the bottom of the second already
           had a 6-3 lead over the Mints. It seemed the Mints could be on the losing end of this bout, when a cruel twist
-          struck in the form of a rogue umpire incinerating Matteo Prestige, replacing them with Gunther O'Brian. At the
+          struck in the form of a rogue umpire incinerating Matteo Prestige, replacing them with Gunther O’Brian. At the
           time of their birth, Gunther was a 0-star pitcher with pathetically bad stats, quickly turning the tides of
           the game into an offensive shootout, with both pitchers giving up run after run.
         </p>
@@ -49,7 +49,7 @@ export default function Page({ linescores }) {
           By the bottom of the ninth inning, the game was tied 16-16, but Gunther was unable to hang on, giving up 5
           runs and being shamed into a final score of Breath Mints 21, Shoe Thieves 16. This game is notable for holding
           the record for the highest scoring game for many seasons, at least for as long as scoring in Blaseball was
-          logical. Gunther's first game is remembered by the Mints as a chaotic chapter in the rivalry, and over time as
+          logical. Gunther’s first game is remembered by the Mints as a chaotic chapter in the rivalry, and over time as
           Gunther improved from blessings, a yummy reaction, and parties into a worthy adversary, Gunther became a
           fixture of the rivalry.
         </p>
@@ -68,7 +68,7 @@ export default function Page({ linescores }) {
         <p>
           Unfortunately by that point, the Steaks had already won their game against Breckenridge Jazz Hands, meaning
           the Mints and Steaks were tied with the same record of 51-48. At this point, Divine Favor rankings were not
-          yet listed on the site and weren't widely known, but the Steaks had the better Divine Favor, and thus the
+          yet listed on the site and weren’t widely known, but the Steaks had the better Divine Favor, and thus the
           Mints were eliminated from postseason contention once again as the first team to be eliminated by tiebreaker.
           The Mints fanbase decided to cope with these events by rebranding themselves as the Death Mints, and being…
           you know, like mildly edgy by doing things like declaring they would exact their revenge and stuff. The Breath
@@ -86,7 +86,7 @@ export default function Page({ linescores }) {
             Season 6 Election
           </Jump>
           , Jaylen Hotdogfingers was resurrected and given the Debted modifier, and it was kind of a big deal? Anyway,
-          Jaylen's first game pitching that season was against the Breath Mints. In the second inning,{" "}
+          Jaylen’s first game pitching that season was against the Breath Mints. In the second inning,{" "}
           <Jump time="2020-09-14T20:04:26Z">Jaylen hit Mints batter Dickerson Morse with a pitch</Jump>, giving him the
           Unstable modifier. What does Unstable do? At the time, we had no idea what it did, there was no description
           given to the modifier and the website, and we were all very scared.
@@ -95,7 +95,7 @@ export default function Page({ linescores }) {
           Mints pitcher and walk queen Leach Ingram seemed to agree that Unstable was scary and we should avoid it, and
           her strategy to avoid her teammates getting beaned by Jaylen was to just let the other team score as many runs
           as they wanted. Jaylen would bean two more Mints batters during the game, Stew Briggs and Marquez Clark, but
-          Leach's strategy caused the game to easily end in nine innings, with the <Link href="garages">Garages</Link>{" "}
+          Leach’s strategy caused the game to easily end in nine innings, with the <Link href="garages">Garages</Link>{" "}
           winning with a score of Garages 20, Breath Mints 1.
         </p>
         <p>
@@ -110,7 +110,7 @@ export default function Page({ linescores }) {
       </Entry>
       <Entry date="Season 10, Day 105" title="PDZ Chokes" jump={{ season: 10, day: 105 }}>
         <p>
-          It's the quarterfinals of Postseason 10 and it looks like the Breath Mints might finally be able to punch
+          It’s the quarterfinals of Postseason 10 and it looks like the Breath Mints might finally be able to punch
           their ticket to their first semifinals appearance ever. The Mints took the first two games of the series
           against the <Link href="shoe-theives">Charleston Shoe Thieves</Link>, and only needed one more win to take the
           series. The game seemed to be going well for the Mints, with the Mints holding a 1-(-1) lead (oh yeah, all the
@@ -118,7 +118,7 @@ export default function Page({ linescores }) {
           bottom of the ninth, and only needing to hold onto the shutout to sweep the Thieves.
         </p>
         <p>
-          On the mound for the Breath Mints was PolkaDot "PDZ" Zavala, the lesser known of the PolkaDots and thus a
+          On the mound for the Breath Mints was PolkaDot “PDZ” Zavala, the lesser known of the PolkaDots and thus a
           scrappy underdog for most of her career. PDZ was able to rack up two outs, but also allowed three runners on
           base, having runners at second, third and fourth (oh yeah, all the teams not in Wild High had five bases for
           all of Season 10), leaving a tense situation with only one out needed for the Mints to move on to the
@@ -148,11 +148,11 @@ export default function Page({ linescores }) {
         <LineScore {...linescores["5efd94fd-875f-423e-a47f-cc464d5684e6"]} />
         <p>
           Well, the Mints did win the game, but Leach also gave up 13 walks and 20 runs during it, which is a lot and
-          maybe shouldn't count as a shutout. However, due to the Black Hole weather, all 20 of those runs were
+          maybe shouldn’t count as a shutout. However, due to the Black Hole weather, all 20 of those runs were
           swallowed, leaving the Steaks with no runs, and the Mints with the win. This game truly embodies Leach Ingram,
-          a beloved Mint, because even when she plays bad, at least she does it in a way that's funny, and in this case
-          it even got us a win. Sure, it also took away two of our wins from the Black Hole and we're net negative, but
-          who's counting?
+          a beloved Mint, because even when she plays bad, at least she does it in a way that’s funny, and in this case
+          it even got us a win. Sure, it also took away two of our wins from the Black Hole and we’re net negative, but
+          who’s counting?
         </p>
       </Entry>
       <Entry date="Season 14, Day 92" title="An Easy Win for the Breath Mints" jump={{ season: 14, day: 92 }}>
@@ -164,7 +164,7 @@ export default function Page({ linescores }) {
         </p>
         <LineScore {...linescores["0cab391d-f1e4-4d69-95a4-19b130b4aff5"]} />
         <p>
-          In fact, you don't even have to watch this game, because the result was so obvious, so you can just take my
+          In fact, you don’t even have to watch this game, because the result was so obvious, so you can just take my
           word for it that the Mints won and Simba Davis never got a win.
         </p>
       </Entry>
@@ -179,14 +179,14 @@ export default function Page({ linescores }) {
           <Jump redirect="/offseason" time="2021-03-21T18:15:00Z">
             Season 14 Election
           </Jump>
-          , the Mints and Thieves' Stadiums, the Meadow and the Choux, were declared Crime Scenes, and two
+          , the Mints and Thieves’ Stadiums, the Meadow and the Choux, were declared Crime Scenes, and two
           investigators, Uncle Plasma and Liquid Friend, were hired to investigate the disappearances.
         </p>
         <p>
           How the investigators intended to investigate was revealed when Uncle Plasma, currently a pitcher for the
           Millennials,{" "}
           <Jump season={15} day={31} team="36569151-a2fb-43c1-9df7-2df512424c82">
-            entered the Shoe Thieves' shadows to investigate
+            entered the Shoe Thieves’ shadows to investigate
           </Jump>{" "}
           at the start of a Millennials&ndash;Shoe Thieves game at the Choux. Witnessing this, the Mints came up with a
           devious plan to recruit Uncle Plasma to the Breath Mints.
@@ -280,9 +280,9 @@ export default function Page({ linescores }) {
           Fortunately for the Mints, the Crabs were also unable to get anything going offensively, and the Mints won
           with a score of Breath Mints 0, Crabs -1. The Mints finishing the sweep of the Crabs demonstrated the
           dominance of the Mints rotation, with the Crabs scoring a total of -1 runs throughout the entire series. This
-          dominance caused many Blaseball fans to take to Twitter spamming the Mints famous phrase "The Breath Mints."
+          dominance caused many Blaseball fans to take to Twitter spamming the Mints famous phrase “The Breath Mints.”
           to celebrate the victory. The repetition went so far that the Breath Mints ended up trending on Twitter, going
-          as high as #6 on the list. This entire chronicle might've be a gigantic premature celebration, since we
+          as high as #6 on the list. This entire chronicle might’ve be a gigantic premature celebration, since we
           trended for winning the <em>semifinals</em> for the first time, with still one more series to play for the
           championship. But the Mints were so dominant that it seemed all but assured that we would take it home.
         </p>
@@ -292,7 +292,7 @@ export default function Page({ linescores }) {
         <p>
           Truly, there is no larger horse than Winnie Hess. At this point in time, Winnie had 31.72 total stars, the
           most of any Blaseball player, and those stars really showed in her performance. Throughout her career, Winnie
-          had three perfect games, including one in a game that went ten innings, but Winnie's perfect game in the
+          had three perfect games, including one in a game that went ten innings, but Winnie’s perfect game in the
           Internet Series might be her most iconic.
         </p>
         <p>
@@ -309,7 +309,7 @@ export default function Page({ linescores }) {
           Game 3 of the season 22 Internet Series promised to be a clown game as soon as the weather for the game was
           revealed. Under Polarity weather, the weather randomly shifts between Polarity&nbsp;+, where runs are scored
           regularly, and Polarity&nbsp;&minus;, where all runs are scored negatively. This basically leaves the entire
-          game on a coin-flip, which is <em>super</em> fun when you're in the finals. The Mints offense again had
+          game on a coin-flip, which is <em>super</em> fun when you’re in the finals. The Mints offense again had
           another game against itself, with the Mints score going up and down the entire game, until finally in the
           eight inning the Mints started to rally during Polarity&nbsp;+.
         </p>
@@ -324,7 +324,7 @@ export default function Page({ linescores }) {
         <p>
           Towards the end of the Expansion Era, some rules were added to Blaseball that made it impossibly convoluted.
           One such rule was Equal Sun, which caused any home run hit with only one out left in the game to score enough
-          runs to tie the game. The Mints' only hope of winning on Day 58 came down to Equal Sun, with the Mints
+          runs to tie the game. The Mints’ only hope of winning on Day 58 came down to Equal Sun, with the Mints
           trailing the Crabs by a score of 20.3-.1 and two outs. The last hope of the Mints to hit this home run was,
           regrettably, Jon Halifax, an all around not-beloved-at-all Blaseball player.
         </p>
@@ -332,7 +332,7 @@ export default function Page({ linescores }) {
           Jon managed to make the comeback happen, hitting a 2-run home run, which Equal Sun turned into a 20.2-run home
           run, tying the game and faxing Crabs pitcher --ntgomery Bullo-k. No more runs were scored for the rest of the
           ninth inning, so everyone was prepared to head to extra innings, when instead the game just ended with the
-          Mints being given the win. Somehow, Jon Halifax's tying home run caused a floating point error, which caused
+          Mints being given the win. Somehow, Jon Halifax’s tying home run caused a floating point error, which caused
           the game to think the Mints had a slight lead over the Crabs.
         </p>
         <LineScore {...linescores["607d7829-966e-4f2c-882b-d49066040cc2"]} />
