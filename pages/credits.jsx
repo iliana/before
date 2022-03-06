@@ -1,4 +1,4 @@
-import Jump from "../components/jump";
+import { Jump } from "../components/jump";
 
 export default function Credits() {
   return (

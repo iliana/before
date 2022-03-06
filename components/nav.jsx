@@ -1,9 +1,9 @@
 import Link from "next/link";
-import MenuIcon from "./menu.svg";
 import Back5m from "./back-5m.svg";
 import Back30s from "./back-30s.svg";
 import Forward5m from "./forward-5m.svg";
 import Forward30s from "./forward-30s.svg";
+import MenuIcon from "./menu.svg";
 
 export default function Nav({ open, hideSkip }) {
   return (
