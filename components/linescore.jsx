@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+
 import { getTeam } from "../lib/teams";
 
 export default function LineScore({ season, day, away, home }) {
@@ -10,11 +12,10 @@ export default function LineScore({ season, day, away, home }) {
             <td className="tw-font-bold">
               S{season}/{day}
             </td>
-            {away.innings.map((_, i) => (
-              <>
-                {/* eslint-disable-next-line react/jsx-key */}
-                <th className="tw-w-7 tw-px-1">{i + 1}</th>
-              </>
+            {away.innings.map((_, index) => (
+              <th key={index} className="tw-w-7 tw-px-1">
+                {index + 1}
+              </th>
             ))}
             <th className="tw-w-7 tw-px-1">
               <abbr title="Runs">R</abbr>
@@ -43,17 +44,15 @@ function LineScoreRow({ team, innings }) {
     <tr>
       <td className="tw-pr-1">{teamData.emoji}</td>
       <th className="tw-text-left tw-pr-2">{teamData.shorthand}</th>
-      {team.innings.map((runs) => (
-        <>
-          {/* eslint-disable-next-line react/jsx-key */}
-          <td className="tw-text-center tw-px-1">{minus(runs)}</td>
-        </>
+      {team.innings.map((runs, index) => (
+        <td key={index} className="tw-text-center tw-px-1">
+          {minus(runs)}
+        </td>
       ))}
-      {[...Array(innings - team.innings.length)].map(() => (
-        <>
-          {/* eslint-disable-next-line react/jsx-key */}
-          <td className="tw-text-center tw-px-1">&times;</td>
-        </>
+      {[...Array(innings - team.innings.length)].map((_, index) => (
+        <td key={index} className="tw-text-center tw-px-1">
+          &times;
+        </td>
       ))}
       <td className="tw-text-center tw-font-bold tw-px-1">{minus(team.innings.reduce((a, b) => a + b, 0))}</td>
       <td className="tw-text-center tw-font-bold tw-px-1">{minus(team.hits)}</td>

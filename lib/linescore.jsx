@@ -27,8 +27,7 @@ async function loadLineScore(gameId) {
       await json(`https://api.blaseball.com/database/playerStatsheets?ids=${playerStatsIds.join(",")}`)
     );
 
-    /* eslint-disable-next-line no-underscore-dangle */
-    const data = { id: game.id ?? game._id, season: game.season + 1, day: game.day + 1 };
+    const data = { id: gameId, season: game.season + 1, day: game.day + 1 };
     ["away", "home"].forEach((team) => {
       data[team] = {
         id: game[`${team}Team`],
