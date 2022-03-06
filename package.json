@@ -1,7 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "@iarna/toml": "^2.2.5",
     "js-cookie": "^3.0.1",
     "next": "^12.1.0",
     "next-plugin-preact": "^3.0.6",
