@@ -316,7 +316,7 @@ export default function Page({ linescores }) {
         <p>
           There was nothing the Millennials could do to guarantee keeping either player, so the fans looked elsewhere
           and found Beck Whitney who, thanks to a party late in the season, was now within Equivalent Exchange star
-          range of Turner. Whitney, batting for the Hawai’i Fridays at the time and a superstar in her own right, had
+          range of Turner. Whitney, batting for the Hawaiʻi Fridays at the time and a superstar in her own right, had
           faxed the Mills’ new baby, Lil Pitchy, earlier this season. Another looming problem for the Millennials was
           Under Taker, a blessing which would recruit a random player with Undertaker to the team that won it. One of
           the few potential targets of Under Taker was Thomas Dracaena, beloved longtime Mills slugger who fans insisted
