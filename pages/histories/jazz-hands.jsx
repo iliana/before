@@ -1,6 +1,7 @@
 /* FIXME */ /* eslint-disable no-unused-vars */
 
 import Link from "next/link";
+import Spoiler from "../../components/spoiler";
 import { Jump } from "../../components/jump";
 import { History, Entry } from "../../components/histories";
 import LineScore from "../../components/linescore";
@@ -207,10 +208,10 @@ export default function Page({ linescores }) {
           does Collins Melon have 25 stars?”
         </p>
         <p>
-          Previously a Spy{/* Spoiler this if possible */}, Jazz Hands fans gave them the moniker “Agent M” while they
-          flew under the league’s radar, seemingly no one outside of Breckenridge noticing they had more stars than
-          contemporaries Castillo Turner and Winnie Hess. This was the perfect start to the end of the Era of Melon,
-          their final season in the ILB, as well: Disrupt the economy, refuse to elaborate, and then leave.
+          Previously a <Spoiler>Spy</Spoiler>, Jazz Hands fans gave them the moniker “Agent M” while they flew under the
+          league’s radar, seemingly no one outside of Breckenridge noticing they had more stars than contemporaries
+          Castillo Turner and Winnie Hess. This was the perfect start to the end of the Era of Melon, their final season
+          in the ILB, as well: Disrupt the economy, refuse to elaborate, and then leave.
         </p>
       </Entry>
       <Entry date="Season 23, Day 95" title="LCD Soundsystem Fraud" jump={{ season: 23, day: 95 }}>
