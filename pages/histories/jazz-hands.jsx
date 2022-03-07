@@ -1,10 +1,9 @@
-/* FIXME */ /* eslint-disable no-unused-vars */
-
+/* eslint-disable no-unused-vars */
 import Link from "next/link";
-import Spoiler from "../../components/spoiler";
-import { Jump } from "../../components/jump";
 import { History, Entry } from "../../components/histories";
+import { Jump } from "../../components/jump";
 import LineScore from "../../components/linescore";
+import Spoiler from "../../components/spoiler";
 import loadLineScores from "../../lib/linescore";
 
 export async function getStaticProps() {

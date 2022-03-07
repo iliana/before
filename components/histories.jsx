@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
-import { useEffect, useMemo, useState } from "react";
-import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useMemo, useState } from "react";
+import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 import contrast from "../lib/contrast";
 import { teams, getTeamIndex } from "../lib/teams";
 import { Jump, JumpDefaults } from "./jump";
@@ -91,7 +91,7 @@ export function Entry({ date, title, children, ...jump }) {
 function WebRing({ team, previous }) {
   return (
     <Link href={`/histories/${team.slug}`} passHref>
-      <a className="tw-flex tw-items-center tw-gap-2 hover:tw-no-underline tw-group">
+      <a href="passedHref" className="tw-flex tw-items-center tw-gap-2 hover:tw-no-underline tw-group">
         {previous ? <HiArrowLeft className="tw-h-4 tw-w-4" /> : null}
         <TeamIcon size="small" emoji={team.emoji} color={team.mainColor} />
         <span className="group-hover:tw-underline">{team.nickname}</span>

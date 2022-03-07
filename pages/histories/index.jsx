@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { teams } from "../../lib/teams";
 import TeamIcon from "../../components/team-icon";
+import { teams } from "../../lib/teams";
 
 export default function Page() {
   return (
@@ -14,7 +14,10 @@ export default function Page() {
       <div className="tw-w-fit lg:tw-w-[400px] tw-mx-auto tw-my-5 lg:tw-my-6">
         {teams.map((team) => (
           <Link key={team.id} href={`/histories/${team.slug}`} passHref>
-            <a className="tw-block tw-px-[10px] tw-py-[7px] tw-mx-[6px] hover:tw-no-underline tw-rounded-[5px] odd:tw-bg-[#131313] hover:tw-bg-[#424242]">
+            <a
+              href="passedHref"
+              className="tw-block tw-px-[10px] tw-py-[7px] tw-mx-[6px] hover:tw-no-underline tw-rounded-[5px] odd:tw-bg-[#131313] hover:tw-bg-[#424242]"
+            >
               <TeamIcon size="small" emoji={team.emoji} color={team.mainColor} />
               <span
                 className="tw-pl-[20px] tw-text-lg lg:tw-text-xl tw-leading-normal lg:tw-leading-normal"

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Jump } from "../../components/jump";
 import { History, Entry } from "../../components/histories";
+import { Jump } from "../../components/jump";
 import LineScore from "../../components/linescore";
 import loadLineScores from "../../lib/linescore";
 

@@ -1,8 +1,7 @@
-/* FIXME */ /* eslint-disable no-unused-vars */
-
+/* eslint-disable no-unused-vars */
 import Link from "next/link";
-import { Jump } from "../../components/jump";
 import { History, Entry } from "../../components/histories";
+import { Jump } from "../../components/jump";
 import LineScore from "../../components/linescore";
 import loadLineScores from "../../lib/linescore";
 

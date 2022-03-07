@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { Era, Season, EventList, Event } from "../components/start";
 import { Peanut, Monitor, Wyatt, Alert, Coin, Reader, Lootcrates, Namerifeht, Parker } from "../components/being";
 import { JumpDefaults } from "../components/jump";
+import { Era, Season, EventList, Event } from "../components/start";
 
 export default function Start() {
   return (

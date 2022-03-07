@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "autoprefixer": "^10.4.0",
     "eslint": "8.9.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -31,7 +32,10 @@
     "since 2019-07-20"
   ],
   "prettier": {
-    "printWidth": 120
+    "printWidth": 120,
+    "importOrder": [
+      "^[./]"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -40,8 +44,6 @@
       "prettier"
     ],
     "rules": {
-      "@next/next/no-title-in-document-head": "off",
-      "jsx-a11y/anchor-is-valid": "off",
       "react/jsx-props-no-spreading": "off"
     }
   }

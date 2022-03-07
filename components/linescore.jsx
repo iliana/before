@@ -1,5 +1,4 @@
 /* eslint-disable react/no-array-index-key */
-
 import { getTeam } from "../lib/teams";
 
 export default function LineScore({ season, day, away, home }) {
