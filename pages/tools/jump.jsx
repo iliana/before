@@ -4,6 +4,7 @@ import { HiOutlineClipboardCopy } from "react-icons/hi";
 
 export default function Page() {
   const [linkData, setLinkData] = useState();
+  const [loading, setLoading] = useState(false);
   const [timestamp, setTimestamp] = useState();
   const [offset, setOffset] = useState();
   const [element, setElement] = useState();
@@ -11,18 +12,20 @@ export default function Page() {
   useEffect(() => {
     if (linkData) {
       const [game, hash] = linkData.split("#");
-      setElement(<CgSpinner className="tw-animate-spin" />);
+      setLoading(true);
       fetch(`https://api.sibr.dev/chronicler/v1/games/updates?count=2000&game=${game}&started=true`)
         .then((response) => response.json())
         .then(({ data }) => {
-          setElement();
+          setLoading(false);
           setTimestamp(data.find((datum) => datum.hash === hash)?.timestamp);
         });
     }
   }, [linkData]);
 
   useEffect(() => {
-    if (timestamp) {
+    if (loading) {
+      setElement(<CgSpinner className="tw-animate-spin" />);
+    } else if (timestamp) {
       const time = new Date(timestamp).setUTCMilliseconds(0);
       const timeStr = new Date(offset ? time - 5000 : time).toISOString().replace(/.000Z$/, "Z");
       setElement(
@@ -32,11 +35,13 @@ export default function Page() {
           <Copy data={`<Jump time="${timeStr}"></Jump>`} />
         </>
       );
+    } else {
+      setElement();
     }
-  }, [timestamp, offset]);
+  }, [loading, timestamp, offset]);
 
   return (
-    <div className="tw-container tw-font-sans tw-font-medium tw-my-4">
+    <div className="tw-container tw-font-sans tw-my-4">
       <label htmlFor="reblase-anchor" className="tw-block tw-my-2">
         Reblase anchor:
         <input
@@ -67,7 +72,7 @@ export default function Page() {
               node.dispatchEvent(new Event("change"));
             }
           }, [])}
-        />{" "}
+        />
         Offset time 5 seconds in the past
       </label>
       <div className="tw-my-4">{element}</div>
