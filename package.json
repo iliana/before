@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "autoprefixer": "^10.4.0",
     "cssnano": "^5.0.10",
     "eslint": "8.9.0",
@@ -26,7 +27,10 @@
     "tailwindcss": "^3.0.0"
   },
   "prettier": {
-    "printWidth": 120
+    "printWidth": 120,
+    "importOrder": [
+      "^[./]"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -35,7 +39,6 @@
       "prettier"
     ],
     "rules": {
-      "@next/next/no-title-in-document-head": "off",
       "react/jsx-props-no-spreading": "off"
     }
   }
