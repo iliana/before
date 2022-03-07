@@ -16,7 +16,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function Page({ linescores }) {
+export default function Page() {
   return (
     <History authors="ambopteryx, Cicatricks, and HoneyFox">
       <Entry title="A Worm Welcome" season={13} day={1}>
@@ -145,7 +145,7 @@ export default function Page({ linescores }) {
           game ended in the 22nd inning with a final score of Dale 5, Worms 4, breaking the previous record of longest
           game in Material Plane time.
         </p>
-        <LineScore {...linescores["bac30156-624e-4171-8f60-d660855b3fd5"]} />
+        <LineScore id="bac30156-624e-4171-8f60-d660855b3fd5" />
       </Entry>
       <Entry title="The Incineration of Iggy Delacruz" season={19} day={22}>
         {/* https://reblase.sibr.dev/game/be2b34a4-8bbf-4d59-a4c1-17cba9b63a0f#8585c0fb-af92-f5ce-1ee0-f104eee3c88c */}
@@ -228,7 +228,7 @@ export default function Page({ linescores }) {
           Pancakes and Parker Meng, used the Wormhole’s Tunnels to each steal a run. The game ended at 5-5.2, with the
           single fractional run being the deciding factor.
         </p>
-        <LineScore {...linescores["1ded3337-0240-41dd-8d2b-049671409c39"]} />
+        <LineScore id="1ded3337-0240-41dd-8d2b-049671409c39" />
         <p>
           Worms fans writhed with excitement when they realized that they were now Wild League Champions. This was the
           Season Of Worms. Even though they didn’t win the Internet Series, this was a historical first for Worms. They

@@ -1,7 +1,10 @@
 /* eslint-disable react/no-array-index-key */
+import { useContext } from "react";
 import { getTeam } from "../lib/teams";
+import { LineScoreData } from "../pages/_app";
 
-export default function LineScore({ season, day, away, home }) {
+export default function LineScore({ id }) {
+  const { season, day, away, home } = useContext(LineScoreData)[id];
   return (
     <div className="tw-w-full tw-max-w-full tw-overflow-x-auto tw-my-2 lg:tw-my-3">
       <table className="tw-font-sans tw-whitespace-nowrap tw-text-sm lg:tw-text-base tw-mx-auto">

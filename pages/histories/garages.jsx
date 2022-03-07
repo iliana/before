@@ -21,7 +21,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function Page({ linescores }) {
+export default function Page() {
   return (
     <History authors="fionna adams, Riley “Navi” Murphy, squirrel, and Leo Mathonwy">
       <Entry title="The Incineration of Unremarkable Derrick Krueger" season={3} day={80}>
@@ -45,7 +45,7 @@ export default function Page({ linescores }) {
           under their belt. Instead, the Garages were swept by the Baltimore Crabs, beginning a long history of the
           Garages choking in the postseason.
         </p>
-        <LineScore {...linescores["34ef84d9-77f7-4b3a-a92d-6d5b9120f80b"]} />
+        <LineScore id="34ef84d9-77f7-4b3a-a92d-6d5b9120f80b" />
         <p>
           Season 7 saw the Garages win their first game{" "}
           {/* https://reblase.sibr.dev/game/71b101ae-d358-4e6e-a965-d6c3768ffba3 */} in the Mild League Championship
@@ -73,7 +73,7 @@ export default function Page({ linescores }) {
           , faxing out for Nolanestophia Patterson. Patterson would throw one pitch that game, to Silvaire Semiquaver,
           who hit it right into Alaynabella Hollywood’s glove for the third out of the top of the 9th.
         </p>
-        <LineScore {...linescores["f7ad7826-ca6e-49c2-818e-190408b046fe"]} />
+        <LineScore id="f7ad7826-ca6e-49c2-818e-190408b046fe" />
         <p>
           Seattle would host Party Time the next two seasons, which also meant appearances in the Underbracket, a
           separate postseason tournament for the worst-performing teams, where the lowest scoring teams would win their
@@ -182,7 +182,7 @@ export default function Page({ linescores }) {
           during her second-ever appearance on the mound, losing the game to the San Francisco Lovers. This made her one
           of the only two pitchers in the league to get charmed this many times in the season.
         </p>
-        <LineScore {...linescores["cfd4f578-84f3-4078-a4f5-60103338c82a"]} />
+        <LineScore id="cfd4f578-84f3-4078-a4f5-60103338c82a" />
       </Entry>
       <Entry title="Strategic Loops" season={11} day={116}>
         {/* https://reblase.sibr.dev/game/4f63ec6a-094c-44d2-945d-1325b1f61ad3#21d80c23-55e1-9ada-88cb-794e561d2e2c */}
@@ -194,7 +194,7 @@ export default function Page({ linescores }) {
           runs, the count would reset thanks to Sun 2, and they’d both win. Lenny let up exactly 5 runs, ending the game
           6-0, marking Lenny’s first postseason shutout.
         </p>
-        <LineScore {...linescores["4f63ec6a-094c-44d2-945d-1325b1f61ad3"]} />
+        <LineScore id="4f63ec6a-094c-44d2-945d-1325b1f61ad3" />
         <p>
           Betsy Trombone
           {/* https://reblase.sibr.dev/game/46cd84cc-c7c5-4d20-831b-5acacd43d948#41303449-8a5a-e21b-fd82-6d585eb4a2d4 */}{" "}
@@ -205,7 +205,7 @@ export default function Page({ linescores }) {
           {/* https://reblase.sibr.dev/game/47bcac42-f651-4fc9-9f93-5567a7b10daf */}, who let through 9 runs and parked
           it there, costing the Garages the last championship of the Discipline Era.
         </p>
-        <LineScore {...linescores["47bcac42-f651-4fc9-9f93-5567a7b10daf"]} />
+        <LineScore id="47bcac42-f651-4fc9-9f93-5567a7b10daf" />
       </Entry>
       <Entry date="Season 12 Elections" title="Alaynabella Hollywood, an Entity Fueled By Chaos">
         {" "}
@@ -218,7 +218,7 @@ export default function Page({ linescores }) {
           {/* https://reblase.sibr.dev/game/fb88756a-6aa1-4ec5-b988-0a1285e045f3 */}, but wins aren’t everything for the
           Garages.
         </p>
-        <LineScore {...linescores["fb88756a-6aa1-4ec5-b988-0a1285e045f3"]} />
+        <LineScore id="fb88756a-6aa1-4ec5-b988-0a1285e045f3" />
         <p>
           In Season 15, she would battle the chewed-up Chorby Soul for most runs allowed, taking the lead on Day 13
           {/* https://reblase.sibr.dev/game/e6a6e75f-1433-4296-9659-bc7c3e37ae30 */} but finally getting beat by one run
@@ -333,7 +333,7 @@ export default function Page({ linescores }) {
           , when Townsend was voicemailed to the roster as a batter. This was something of a meme amongst the team’s
           fans, and the meme paid off on the last day of the regular season.
         </p>
-        <LineScore {...linescores["3d953e88-5749-4b1b-822b-336d4e3d01b5"]} />
+        <LineScore id="3d953e88-5749-4b1b-822b-336d4e3d01b5" />
         <p>
           Townsend went on to hit a second grand slam in Season 23, on Day 29
           {/* https://reblase.sibr.dev/game/527f9c87-6c0b-4e2d-a04e-dc301a3d08fe#2a25b0ac-c012-51ed-3d6b-d311b90f1b06 */}

@@ -24,7 +24,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function Page({ linescores }) {
+export default function Page() {
   return (
     <History authors="tc">
       <Entry title="A Rivalry Intensifies" season={3} day={57}>
@@ -44,7 +44,7 @@ export default function Page({ linescores }) {
           time of their birth, Gunther was a 0-star pitcher with pathetically bad stats, quickly turning the tides of
           the game into an offensive shootout, with both pitchers giving up run after run.
         </p>
-        <LineScore {...linescores["1f7026c9-1da6-4a4c-b8b8-f417a34af030"]} />
+        <LineScore id="1f7026c9-1da6-4a4c-b8b8-f417a34af030" />
         <p>
           By the bottom of the ninth inning, the game was tied 16-16, but Gunther was unable to hang on, giving up 5
           runs and being shamed into a final score of Breath Mints 21, Shoe Thieves 16. This game is notable for holding
@@ -64,7 +64,7 @@ export default function Page({ linescores }) {
           11 innings, but in the end the Mints triumphed, shaming the Flowers with a final score of Breath Mints 7,
           Flowers 6.
         </p>
-        <LineScore {...linescores["65879dec-e15e-4c67-a32d-1cd6bca8294a"]} />
+        <LineScore id="65879dec-e15e-4c67-a32d-1cd6bca8294a" />
         <p>
           Unfortunately by that point, the Steaks had already won their game against Breckenridge Jazz Hands, meaning
           the Mints and Steaks were tied with the same record of 51-48. At this point, Divine Favor rankings were not
@@ -125,7 +125,7 @@ export default function Page({ linescores }) {
           semifinals. Unfortunately PDZ was unable to hold it together, with Thieves batter Simon Haley hitting a
           quadruple that drove in three runs, shaming the Mints with a final score of Shoe Thieves 2, Breath Mints 1.
         </p>
-        <LineScore {...linescores["0a5ad466-78c6-4139-a1f5-b479b9e29c29"]} />
+        <LineScore id="0a5ad466-78c6-4139-a1f5-b479b9e29c29" />
         <p>
           The Breath Mints would go on to lose the next two games and be eliminated from the playoffs. This is a game of
           what could have been, with the Mints being inches away from getting to the semifinals. It would be many more
@@ -145,7 +145,7 @@ export default function Page({ linescores }) {
           puts up some of the best performances in terms of being entertaining. This game, however, is not one of those
           games: the Mints won this game handily, with a final score of Breath Mints 4, Steaks 0.
         </p>
-        <LineScore {...linescores["5efd94fd-875f-423e-a47f-cc464d5684e6"]} />
+        <LineScore id="5efd94fd-875f-423e-a47f-cc464d5684e6" />
         <p>
           Well, the Mints did win the game, but Leach also gave up 13 walks and 20 runs during it, which is a lot and
           maybe shouldn’t count as a shutout. However, due to the Black Hole weather, all 20 of those runs were
@@ -162,7 +162,7 @@ export default function Page({ linescores }) {
           games. On Season 14, Day 92, the Breath Mints definitely did not choke and lose, but won the game, as was
           expected.
         </p>
-        <LineScore {...linescores["0cab391d-f1e4-4d69-95a4-19b130b4aff5"]} />
+        <LineScore id="0cab391d-f1e4-4d69-95a4-19b130b4aff5" />
         <p>
           In fact, you don’t even have to watch this game, because the result was so obvious, so you can just take my
           word for it that the Mints won and Simba Davis never got a win.
@@ -226,7 +226,7 @@ export default function Page({ linescores }) {
           </Jump>
           , but Mints fans were still excited to see the match-up at least once.
         </p>
-        <LineScore {...linescores["c35c2ad0-c403-41f8-8394-549b8a4654f8"]} />
+        <LineScore id="c35c2ad0-c403-41f8-8394-549b8a4654f8" />
         <p>
           Ironically, the highlight of the game was not from either Dot, but from another player far past their prime
           from peanuts and consumers, the King of Miserable Events, Marquez Clark, who stole home not once, but twice in
@@ -238,7 +238,7 @@ export default function Page({ linescores }) {
         </p>
       </Entry>
       <Entry title="The 4-20 Sclorigami" season={17} day={61}>
-        <LineScore {...linescores["73523330-bff4-463f-a2b8-2ebe60dc06e5"]} />
+        <LineScore id="73523330-bff4-463f-a2b8-2ebe60dc06e5" />
         <p>
           This game truly highlights the insanity of the Meadow as a stadium. The Mints built their stadium to have low
           Fortification (making weather events happen more often), have Reverb weather much more often, and also have an
@@ -275,7 +275,7 @@ export default function Page({ linescores }) {
           ended up being more of a battle of the Mints offense against itself than anything else, with every positive
           run the Mints scored getting cancelled out by runs from a home run.
         </p>
-        <LineScore {...linescores["0e40f4e6-2a42-4c9d-91d1-5b0932d6c369"]} />
+        <LineScore id="0e40f4e6-2a42-4c9d-91d1-5b0932d6c369" />
         <p>
           Fortunately for the Mints, the Crabs were also unable to get anything going offensively, and the Mints won
           with a score of Breath Mints 0, Crabs -1. The Mints finishing the sweep of the Crabs demonstrated the
@@ -288,7 +288,7 @@ export default function Page({ linescores }) {
         </p>
       </Entry>
       <Entry title="A Perfect Game in the Internet Series" season={22} day={113}>
-        <LineScore {...linescores["15bf627b-96d8-4cab-8567-a8fadc04ce6e"]} />
+        <LineScore id="15bf627b-96d8-4cab-8567-a8fadc04ce6e" />
         <p>
           Truly, there is no larger horse than Winnie Hess. At this point in time, Winnie had 31.72 total stars, the
           most of any Blaseball player, and those stars really showed in her performance. Throughout her career, Winnie
@@ -313,7 +313,7 @@ export default function Page({ linescores }) {
           another game against itself, with the Mints score going up and down the entire game, until finally in the
           eight inning the Mints started to rally during Polarity&nbsp;+.
         </p>
-        <LineScore {...linescores["3d0853ff-3f06-4478-b568-e7a6cd54b63d"]} />
+        <LineScore id="3d0853ff-3f06-4478-b568-e7a6cd54b63d" />
         <p>
           The Mints scored three runs to tie up the game at 1-1, when suddenly the beloved Leach Ingram returned from
           Elsewhere and immediately hit a solo home run, clinching the series and the championships for the Mints. This
@@ -335,7 +335,7 @@ export default function Page({ linescores }) {
           Mints being given the win. Somehow, Jon Halifax’s tying home run caused a floating point error, which caused
           the game to think the Mints had a slight lead over the Crabs.
         </p>
-        <LineScore {...linescores["607d7829-966e-4f2c-882b-d49066040cc2"]} />
+        <LineScore id="607d7829-966e-4f2c-882b-d49066040cc2" />
         <p>
           Games where the sim breaks are always generally silly, and this one in particular is memorable due to the
           chaotic nature of the end of Expansion. Jon Halifax{" "}

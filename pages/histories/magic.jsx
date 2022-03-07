@@ -13,6 +13,6 @@ export async function getStaticProps() {
   };
 }
 
-export default function Page({ linescores }) {
+export default function Page() {
   return <History />;
 }

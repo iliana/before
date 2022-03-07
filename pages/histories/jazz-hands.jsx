@@ -24,7 +24,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function Page({ linescores }) {
+export default function Page() {
   return (
     <History authors="Sour, King Solomon, deafhobbit, and the Orion System">
       <Entry title="Where Were You When Comfort Septemberish Stole Home?" season={2} day={104}>
@@ -36,7 +36,7 @@ export default function Page({ linescores }) {
           a two-run home run death blow to the Tigers. This knocked the Tigers out of contention so hard it got into the
           Blaseball Beat. Jazz Hands fans still ask to this day, “Where were you when Comfort Septemberish stole home?”
         </p>
-        <LineScore {...linescores["e83806f4-1d8c-4c61-815a-884f31bfd9a9"]} />
+        <LineScore id="e83806f4-1d8c-4c61-815a-884f31bfd9a9" />
       </Entry>
       <Entry title="The First Jazzbeams Double Incineration" season={3} day={23}>
         <p>
@@ -58,7 +58,7 @@ export default function Page({ linescores }) {
           they’d be up against the Tigers’ best pitchers. Against all odds, Lowe held the Tigers to 2 runs, with the
           Tigers ultimately losing 2-10 and cementing Lowe Forbes as one of the Jazz Hands pitchers of all time.
         </p>
-        <LineScore {...linescores["477f451a-7bc0-4c4d-887d-a3e2d057569c"]} />
+        <LineScore id="477f451a-7bc0-4c4d-887d-a3e2d057569c" />
       </Entry>
       <Entry title="August Sky vs. PolkaDot Patterson" season={5} day={106}>
         <p>
@@ -67,7 +67,7 @@ export default function Page({ linescores }) {
           would lose this game, but before they did, the entire league was held hostage by an absurd-for-the-time
           pitcher’s duel.
         </p>
-        <LineScore {...linescores["bbf1b3d0-de4a-4248-a67f-5ec69378bc43"]} />
+        <LineScore id="bbf1b3d0-de4a-4248-a67f-5ec69378bc43" />
       </Entry>
       <Entry title="Declan Suzanne Eats a Peanut, Causes a Win Anyway" season={5} day={112}>
         {" "}
@@ -82,7 +82,7 @@ export default function Page({ linescores }) {
           first on a fielder’s choice despite this, pushing Justice Spoon home and winning the game for the
           Firefighters. The Jazz Hands would ultimately lose their first and only Internet Series to the Firefighters.
         </p>
-        <LineScore {...linescores["9298a48f-c2fc-4821-9466-1ecacfd35a56"]} />
+        <LineScore id="9298a48f-c2fc-4821-9466-1ecacfd35a56" />
       </Entry>
       <Entry title="No Eyes Eleven Hearts Can’t Lose" season={6} day={95}>
         <p>
@@ -90,7 +90,7 @@ export default function Page({ linescores }) {
           happened if Campos wasn’t alternated during the Season 4 election, which tripled her pitching stars and helped
           round out the Jazz Hands’ rotation.
         </p>
-        <LineScore {...linescores["50d1d815-1b16-45bc-a1fb-6b357736c13a"]} />
+        <LineScore id="50d1d815-1b16-45bc-a1fb-6b357736c13a" />
       </Entry>
       <Entry title="The Burke/Pothos Showdown" season={12} day={66}>
         <p>
@@ -107,7 +107,7 @@ export default function Page({ linescores }) {
           {/* https://reblase.sibr.dev/game/78d3a18f-c368-41b8-bff6-d4e1304dcc87#09cf4a91-fea3-68bb-65e6-865b823aafa5 */}
           . Pothos held on for one more inning to seal the deal for the Jazz Hands.
         </p>
-        <LineScore {...linescores["78d3a18f-c368-41b8-bff6-d4e1304dcc87"]} />
+        <LineScore id="78d3a18f-c368-41b8-bff6-d4e1304dcc87" />
       </Entry>
       <Entry title="Combs Estes and the Thursday Blues" season={13} day={98}>
         <p>
@@ -144,7 +144,7 @@ export default function Page({ linescores }) {
           Lowe struggled with otherwise. For this one game, Lowe was a competent batter. Lowe’s surprising plays
           markedly contributed to that game’s 12-4 defeat of the Atlantis Georgias.
         </p>
-        <LineScore {...linescores["613ef50b-ef18-47d2-acbf-fcd8c6515a7c"]} />
+        <LineScore id="613ef50b-ef18-47d2-acbf-fcd8c6515a7c" />
       </Entry>
       <Entry title="Le Gring" season={16} day={14}>
         {" "}
@@ -164,7 +164,7 @@ export default function Page({ linescores }) {
           season, and, overall, it interacted in really funny ways with the coinciding Turntables.
         </p>
         <p>And the Jazz Hands loved it, likely benefitting from it the most.</p>
-        <LineScore {...linescores["d1daa9db-b7c2-4352-b993-da1505684bda"]} />
+        <LineScore id="d1daa9db-b7c2-4352-b993-da1505684bda" />
         <p>
           The Jazz Hands ended the season with a 50-7 home record and an 8-37 away record. The unstoppable Jazz Hands
           Hype Train started right out of the gate on Day 1 and didn’t stop, even as it drove the team to -55 Wins.
@@ -191,7 +191,7 @@ export default function Page({ linescores }) {
           For a very brief moment in Season 23, Collins Melon was the economy. On Day 1, they stole 12 bases while only
           having 4 hits in the entire game.
         </p>
-        <LineScore {...linescores["a193f2f0-0fe7-423b-9387-da91626dffd5"]} />
+        <LineScore id="a193f2f0-0fe7-423b-9387-da91626dffd5" />
         <p>
           This one game was the culmination of Collins Melon becoming ridiculously big after an Infuse in Season 14
           {/* S14 election results */} and a number of parties, while somehow flying under the radar until the Reader

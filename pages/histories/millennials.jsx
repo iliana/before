@@ -17,7 +17,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function Page({ linescores }) {
+export default function Page() {
   return (
     <History authors="Rudy and Clip Clipperson">
       <Entry title="The First Death of Chorby Soul" season={3} day={14}>
@@ -112,13 +112,13 @@ export default function Page({ linescores }) {
           lineup enough time to work their way out of a 4-run deficit inflicted by Targeted Shame. The Millennials would
           go on to win that game 2-0.
         </p>
-        <LineScore {...linescores["047aaf44-329b-4237-8f2e-40a4eeae1ba8"]} />
+        <LineScore id="047aaf44-329b-4237-8f2e-40a4eeae1ba8" />
         <p>
           She performed her third miracle when she pitched the first recorded perfect game in Blaseball’s history
           against the Boston Flowers. For her achievement, she discovered the 9-Blood Blagonball, the fourth of such
           artifacts and the second for the team.
         </p>
-        <LineScore {...linescores["c8acdfe9-d981-46ba-b202-e977c99b8a4c"]} />
+        <LineScore id="c8acdfe9-d981-46ba-b202-e977c99b8a4c" />
       </Entry>
       <Entry date="Season 10, Day X" title="Dominic Marijuana Baja Blasts God">
         {" "}
@@ -152,7 +152,7 @@ export default function Page({ linescores }) {
           {/* https://reblase.sibr.dev/game/06bc5009-8f12-42fa-bf63-2e38d406d2d0#35bf94b9-d72b-8bef-9029-9c442f7a3745 */}
           .
         </p>
-        <LineScore {...linescores["06bc5009-8f12-42fa-bf63-2e38d406d2d0"]} />
+        <LineScore id="06bc5009-8f12-42fa-bf63-2e38d406d2d0" />
         <p>
           Dracaena’s baserunning stat was a paltry 1.02 stars at the time of the election, but would be boosted to 2.25
           stars as part of the compensation owed from the verdict of{" "}
