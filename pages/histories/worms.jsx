@@ -20,7 +20,7 @@ export async function getStaticProps() {
 export default function Page({ linescores }) {
   return (
     <History authors="ambopteryx, Cicatricks, and HoneyFox">
-      <Entry date="Season 13, Day 1" title="A Worm Welcome" jump={{ season: 13, day: 1 }}>
+      <Entry title="A Worm Welcome" season={13} day={1}>
         <p>
           The Ohio Worms, along with their fellow breach teams, stepped to plate for their first-ever game in the ILB
           against the Tokyo Lift. It’s the top of the first, Worms batting. First up was original Worm Lenny Crumb, who
@@ -28,7 +28,7 @@ export default function Page({ linescores }) {
           wonderful welcome of the Worms to Blaseball.
         </p>
       </Entry>
-      <Entry date="Season 13, Day 67" title="Party Time Speedrun" jump={{ season: 13, day: 67 }}>
+      <Entry title="Party Time Speedrun" season={13} day={67}>
         <p>
           Mostly due to the Ohio Worms having pitchers with fairly abysmal Ruthlessness— Patchwork Southwick, with the
           most pitching stars, had around .4 Ruthlessness —the Worms managed to enter Party Time on Day 67. This set a
@@ -38,7 +38,7 @@ export default function Page({ linescores }) {
           consider this the first step in their long-term plan of gradual improvement. Worms to the moon!
         </p>
       </Entry>
-      <Entry date="Season 13, Day 87" title="The Incineration of Augusta Chadwell" jump={{ season: 13, day: 89 }}>
+      <Entry title="The Incineration of Augusta Chadwell" season={13} day={89}>
         {/* https://reblase.sibr.dev/game/b508b99f-4611-4647-9d99-3d7456477d94#b7574727-1879-5e2c-5e31-9f05cbac7207 */}
         <p>
           The Ohio Worms were already in Party Time. Fans were riding high on the knowledge that the team would be made
@@ -63,7 +63,7 @@ export default function Page({ linescores }) {
           actual option or not, Worms fans would suggest Plundering PM almost any time election options were discussed.
         </p>
       </Entry>
-      <Entry date="Season 14, Day 67" title="Feedback Detected" jump={{ season: 14, day: 67 }}>
+      <Entry title="Feedback Detected" season={14} day={67}>
         {/* https://reblase.sibr.dev/game/f814e524-a257-4e72-a0c6-f7dae24aa15e#a00d9a37-8722-cfaa-27fd-48f22f6faf65 */}
         <p>
           Throughout Wormstory, the Ohio Worms faced weather-based roster changes fairly rarely. The only two times the
@@ -89,7 +89,7 @@ export default function Page({ linescores }) {
           Xandra Pancakes for Rosa, and then Moving Rosa to the Shadows&#8230; from the Shadows.
         </p>
       </Entry>
-      <Entry date="Season 14, Day 99" title="Divine Disfavor" jump={{ season: 14, day: 99 }}>
+      <Entry title="Divine Disfavor" season={14} day={99}>
         {/* Link to standings post-D99 */}
         <p>
           Divine Favor was sometimes a blessing and sometimes a curse; in this particular case, a curse. Due to the
@@ -102,7 +102,7 @@ export default function Page({ linescores }) {
           Worms decided to turn. If they couldn’t succeed at being bad, they might as well try being good.
         </p>
       </Entry>
-      <Entry date="Season 15, Day 16" title="Scratch Comes Back" jump={{ season: 15, day: 16 }}>
+      <Entry title="Scratch Comes Back" season={15} day={16}>
         <p>
           Scratch Deleuze, star player and beloved Worm, was initially swept Elsewhere on Season 14, Day 50
           {/* https://reblase.sibr.dev/game/b6752ba0-5c41-4120-a512-c67ca032989e#95200589-6162-aa94-8420-d4be820e6227 */}
@@ -117,11 +117,7 @@ export default function Page({ linescores }) {
           20 days on the Material Plane, from March 17th to April 6th.
         </p>
       </Entry>
-      <Entry
-        date="Season 16, Day 106"
-        title="Spies and Worms, Enemies For Life (affectionate)"
-        jump={{ season: 16, day: 106 }}
-      >
+      <Entry title="Spies and Worms, Enemies For Life (affectionate)" season={16} day={106}>
         <p>
           After a slow improvement of the team over several seasons, the Ohio Worms made it to the postseason. As Day
           106 started, the Houston Spies had won 2 games and Worms had won 1. Patchwork Southwick was pitching under Sun
@@ -139,7 +135,7 @@ export default function Page({ linescores }) {
           Worms have been eliminated by the Spies every single time they faced off in the Postseason.
         </p>
       </Entry>
-      <Entry date="Season 18, Day 12" title="The Ride Never Ends (A.K.A. ¡SNALE!)" jump={{ season: 18, day: 12 }}>
+      <Entry title="The Ride Never Ends (A.K.A. ¡SNALE!)" season={18} day={12}>
         <p>
           It was a seemingly normal game, with the Dale at the Wormhole. Patchwork Southwick was pitching for the Ohio
           Worms, and Liam Snail was pitching for the Miami Dale. As the game progressed, the Worms responded to every
@@ -152,7 +148,7 @@ export default function Page({ linescores }) {
         </p>
         <LineScore {...linescores["bac30156-624e-4171-8f60-d660855b3fd5"]} />
       </Entry>
-      <Entry date="Season 19, Day 22" title="The Incineration of Iggy Delacruz" jump={{ season: 19, day: 22 }}>
+      <Entry title="The Incineration of Iggy Delacruz" season={19} day={22}>
         {/* https://reblase.sibr.dev/game/be2b34a4-8bbf-4d59-a4c1-17cba9b63a0f#8585c0fb-af92-f5ce-1ee0-f104eee3c88c */}
         <p>
           Igneus Delacruz, notable scamp and former Hellmouth Sunbeam, beloved by all, was unceremoniously incinerated
@@ -161,7 +157,7 @@ export default function Page({ linescores }) {
           every city in the ILB. Millipede Aqualuft could not be reached for comment.
         </p>
       </Entry>
-      <Entry date="Season 19, Day 99" title="Worm Logic" jump={{ season: 19, day: 99 }}>
+      <Entry title="Worm Logic" season={19} day={99}>
         {/* post-D99 standings page */}
         <p>
           Thanks to the much lauded and scorned Turntables, the Worms had one of their best and worst seasons to date.
@@ -174,7 +170,7 @@ export default function Page({ linescores }) {
           without Turntables, the Worms would’ve been at the bottom of the Wild Low.
         </p>
       </Entry>
-      <Entry date="Season 21, Day 75" title="SHABOOM! Gatecrash." jump={{ season: 19, day: 99 }}>
+      <Entry title="SHABOOM! Gatecrash." season={19} day={99}>
         {/* D75 Depth Chart */}
         <p>
           Season 21’s Latesiesta{/* S21 Latesiesta results */} brought the Worms a fantastical four-pack of gifts from
@@ -193,11 +189,7 @@ export default function Page({ linescores }) {
           Chorby Replica alike, the Worms descended. SMASH.
         </p>
       </Entry>
-      <Entry
-        date="Season 23, Day 65"
-        title="The (Temporary) Incineration of Pudge (and Consequences Thereof)"
-        jump={{ season: 23, day: 65 }}
-      >
+      <Entry title="The (Temporary) Incineration of Pudge (and Consequences Thereof)" season={23} day={65}>
         {/* https://reblase.sibr.dev/game/b6d1894c-8639-41c9-8f59-8a8ec4e8e4da#9e12aca2-f066-f9f9-8775-3b560b41b326 */}
         <p>
           Over the seasons, many players have been incinerated and afterwards could be seen in the Hall of Flame. Pudge
@@ -219,7 +211,7 @@ export default function Page({ linescores }) {
           Scoobert was such a mediocre player on a large lineup, so it didn’t really matter anyways.
         </p>
       </Entry>
-      <Entry date="Season 23, Day 111" title="Wild Champions, Ohio Worms" jump={{ season: 23, day: 111 }}>
+      <Entry title="Wild Champions, Ohio Worms" season={23} day={111}>
         <p>
           Worms, privileged to not face the Spies in Season 23’s postseason, made it farther than they ever had before.
           Fans swarmed the team’s watch party channel on Discord to see all their efforts pay off. It all came down to

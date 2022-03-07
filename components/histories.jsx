@@ -66,14 +66,17 @@ export function History({ authors, children }) {
   );
 }
 
-export function Entry({ date, title, jump, children }) {
+export function Entry({ date, title, children, ...jump }) {
+  const theDate =
+    date ??
+    (jump.season !== undefined && jump.day !== undefined ? `Season ${jump.season}, Day ${jump.day}` : undefined);
   return (
     <div className="tw-my-6 lg:tw-my-8">
       <h3 className="tw-text-center tw-font-bold tw-text-xl lg:tw-text-2xl tw-mb-1.5 lg:tw-mb-2">
         <Jump className="hover:tw-no-underline tw-group" {...jump}>
-          {date ? (
+          {theDate ? (
             <span className="tw-block tw-text-sm lg:tw-text-base tw-uppercase">
-              {date}
+              {theDate}
               <span className="tw-sr-only">: </span>
             </span>
           ) : null}

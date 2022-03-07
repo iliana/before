@@ -28,11 +28,7 @@ export async function getStaticProps() {
 export default function Page({ linescores }) {
   return (
     <History authors="Sour, King Solomon, deafhobbit, and the Orion System">
-      <Entry
-        date="Season 2, Day 104"
-        title="Where Were You When Comfort Septemberish Stole Home?"
-        jump={{ season: 2, day: 104 }}
-      >
+      <Entry title="Where Were You When Comfort Septemberish Stole Home?" season={2} day={104}>
         {" "}
         {/* https://reblase.sibr.dev/game/e83806f4-1d8c-4c61-815a-884f31bfd9a9#9d34dc97-5259-4053-1088-7469096c3f50 */}
         <p>
@@ -43,7 +39,7 @@ export default function Page({ linescores }) {
         </p>
         <LineScore {...linescores["e83806f4-1d8c-4c61-815a-884f31bfd9a9"]} />
       </Entry>
-      <Entry date="Season 3, Day 23" title="The First Jazzbeams Double Incineration" jump={{ season: 3, day: 23 }}>
+      <Entry title="The First Jazzbeams Double Incineration" season={3} day={23}>
         <p>
           It was an eclipse game like any other, at first. The sun had gone out and there was always a chance someone
           was going to go out in flames, but it seemed standard at first. When Jazz Hands player Ogden Mendoza burned
@@ -55,7 +51,7 @@ export default function Page({ linescores }) {
           many seasons to come.
         </p>
       </Entry>
-      <Entry date="Season 5, Day 102" title="Lowe Tames the Tigers" jump={{ season: 5, day: 102 }}>
+      <Entry title="Lowe Tames the Tigers" season={5} day={102}>
         <p>
           The Tigers were on a hot streak. They had just won back-to-back championships and were potentially on track
           for their third and the Ascension that came with it. The only thing standing in their way was Jazz Hands
@@ -65,7 +61,7 @@ export default function Page({ linescores }) {
         </p>
         <LineScore {...linescores["477f451a-7bc0-4c4d-887d-a3e2d057569c"]} />
       </Entry>
-      <Entry date="Season 5, Day 106" title="August Sky vs. PolkaDot Patterson" jump={{ season: 5, day: 106 }}>
+      <Entry title="August Sky vs. PolkaDot Patterson" season={5} day={106}>
         <p>
           August Sky was an ace for the Jazz Hands, but she was up against 5-star PolkaDot Patterson. August and the
           team would go on not only to hold on, but to do so for a then-record 23 innings. Ultimately, the Jazz Hands
@@ -74,11 +70,7 @@ export default function Page({ linescores }) {
         </p>
         <LineScore {...linescores["bbf1b3d0-de4a-4248-a67f-5ec69378bc43"]} />
       </Entry>
-      <Entry
-        date="Season 5, Day 112"
-        title="Declan Suzanne Eats a Peanut, Causes a Win Anyway"
-        jump={{ season: 5, day: 112 }}
-      >
+      <Entry title="Declan Suzanne Eats a Peanut, Causes a Win Anyway" season={5} day={112}>
         {" "}
         {/* https://reblase.sibr.dev/game/9298a48f-c2fc-4821-9466-1ecacfd35a56#df1e3178-9876-ead6-9211-49ca53cbe764 */}
         <p>
@@ -93,7 +85,7 @@ export default function Page({ linescores }) {
         </p>
         <LineScore {...linescores["9298a48f-c2fc-4821-9466-1ecacfd35a56"]} />
       </Entry>
-      <Entry date="Season 6, Day 95" title="No Eyes Eleven Hearts Can’t Lose" jump={{ season: 6, day: 95 }}>
+      <Entry title="No Eyes Eleven Hearts Can’t Lose" season={6} day={95}>
         <p>
           Day 95 marked the final game of Campos Arias’ undefeated 19-0 season. Such a feat likely never would have
           happened if Campos wasn’t alternated during the Season 4 election, which tripled her pitching stars and helped
@@ -101,7 +93,7 @@ export default function Page({ linescores }) {
         </p>
         <LineScore {...linescores["50d1d815-1b16-45bc-a1fb-6b357736c13a"]} />
       </Entry>
-      <Entry date="Season 12, Day 66" title="The Burke/Pothos Showdown" jump={{ season: 12, day: 66 }}>
+      <Entry title="The Burke/Pothos Showdown" season={12} day={66}>
         <p>
           When two of the best pitchers in the league go head-to-head, fans take notice. But they weren’t ready for the
           ridiculous pitcher duel that the Jazz Hands and Wild Wings would get caught up in as Wyatt Pothos and Burke
@@ -118,7 +110,7 @@ export default function Page({ linescores }) {
         </p>
         <LineScore {...linescores["78d3a18f-c368-41b8-bff6-d4e1304dcc87"]} />
       </Entry>
-      <Entry date="Season 13, Day 98" title="Combs Estes and the Thursday Blues" jump={{ season: 13, day: 98 }}>
+      <Entry title="Combs Estes and the Thursday Blues" season={13} day={98}>
         <p>
           Season 13 had been unkind to the Jazz Hands, and to Combs Estes in particular. A devastating Reverb shuffled
           the entire roster
@@ -135,7 +127,7 @@ export default function Page({ linescores }) {
           fans that The Tower Always Looms, an important lesson that they would come to fear and embrace.
         </p>
       </Entry>
-      <Entry date="Season 15, Day 79" title="Lowe Forbes Good???" jump={{ season: 15, day: 79 }}>
+      <Entry title="Lowe Forbes Good???" season={15} day={79}>
         <p>
           Lowe Forbes was never the best Jazz Hands player. However, they were a far better pitcher than batter. After
           the devastating Season 13 Reverb, Lowe was a batter, and not a very good one. For one game, however, Lowe was
@@ -155,7 +147,7 @@ export default function Page({ linescores }) {
         </p>
         <LineScore {...linescores["613ef50b-ef18-47d2-acbf-fcd8c6515a7c"]} />
       </Entry>
-      <Entry date="Season 16, Day 14" title="Le Gring" jump={{ season: 16, day: 14 }}>
+      <Entry title="Le Gring" season={16} day={14}>
         {" "}
         {/* https://reblase.sibr.dev/game/5591a72d-aad2-4cf6-b659-dd50be63f1e4#a625f532-e96b-04da-3579-49a61a357fd2 */}
         <p>
@@ -167,7 +159,7 @@ export default function Page({ linescores }) {
           election{/* S18 election results */}.
         </p>
       </Entry>
-      <Entry date="Season 19, Day 1" title="Hype Builds in The Pocket!" jump={{ season: 19, day: 1 }}>
+      <Entry title="Hype Builds in The Pocket!" season={19} day={1}>
         <p>
           Hype Train was broken. It gave too much of an advantage to the home team, it didn’t decay in its inaugural
           season, and, overall, it interacted in really funny ways with the coinciding Turntables.
@@ -179,7 +171,7 @@ export default function Page({ linescores }) {
           Hype Train started right out of the gate on Day 1 and didn’t stop, even as it drove the team to -55 Wins.
         </p>
       </Entry>
-      <Entry date="Season 21, Day 22" title="The Firewall" jump={{ season: 21, day: 22 }}>
+      <Entry title="The Firewall" season={21} day={22}>
         {" "}
         {/* https://reblase.sibr.dev/game/bd21d34f-d3ac-4492-b400-934b18b51fec#2ca530a1-bc6c-c801-6fcd-9a287888a732 */}
         <p>
@@ -195,7 +187,7 @@ export default function Page({ linescores }) {
           dies. The Firewall holds.
         </p>
       </Entry>
-      <Entry date="Season 23, Day 1" title="Melonconomy" jump={{ season: 23, day: 1 }}>
+      <Entry title="Melonconomy" season={23} day={1}>
         <p>
           For a very brief moment in Season 23, Collins Melon was the economy. On Day 1, they stole 12 bases while only
           having 4 hits in the entire game.
@@ -214,7 +206,7 @@ export default function Page({ linescores }) {
           in the ILB, as well: Disrupt the economy, refuse to elaborate, and then leave.
         </p>
       </Entry>
-      <Entry date="Season 23, Day 95" title="LCD Soundsystem Fraud" jump={{ season: 23, day: 95 }}>
+      <Entry title="LCD Soundsystem Fraud" season={23} day={95}>
         <p>
           During the Season 23 Latesiesta, Spears Rogers received a Fliickerrriiing Potion from the Gift Shop. During
           the Feedback game on Day 95, Spears switched places with Famous Owens
@@ -233,7 +225,7 @@ export default function Page({ linescores }) {
           hustle.
         </p>
       </Entry>
-      <Entry date="Season 24, Day 5" title="They Faxed a Baby" jump={{ season: 24, day: 5 }}>
+      <Entry title="They Faxed a Baby" season={24} day={5}>
         {" "}
         {/* https://reblase.sibr.dev/game/04a1107a-7531-436b-8302-1cb508314496#2ae78877-37f9-5c1b-c31a-f3db224c33a4 */}
         <p>

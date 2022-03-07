@@ -27,7 +27,7 @@ export async function getStaticProps() {
 export default function Page({ linescores }) {
   return (
     <History authors="tc">
-      <Entry date="Season 3, Day 57" title="A Rivalry Intensifies" jump={{ season: 3, day: 57 }}>
+      <Entry title="A Rivalry Intensifies" season={3} day={57}>
         <p>
           In all of sporting history, there are few rivalries as fierce or as storied as the rivalry between the Kansas
           City Breath Mints and the <Link href="shoe-thieves">Charleston Shoe Thieves</Link>
@@ -54,7 +54,7 @@ export default function Page({ linescores }) {
           fixture of the rivalry.
         </p>
       </Entry>
-      <Entry date="Season 5, Day 99" title="The Rise of the Death Mints" jump={{ season: 5, day: 99 }}>
+      <Entry title="The Rise of the Death Mints" season={5} day={99}>
         <p>
           As the race for the Postseason 5 neared its end, it looked like the Breath Mints had a chance to finally
           clinch their first postseason berth. Going into the final day of the regular season, the Breath Mints were
@@ -79,7 +79,7 @@ export default function Page({ linescores }) {
           .
         </p>
       </Entry>
-      <Entry date="Season 7, Day 5" title="The First Beaning" jump={{ season: 7, day: 5 }}>
+      <Entry title="The First Beaning" season={7} day={5}>
         <p>
           In the{" "}
           <Jump redirect="/offseason" time="2020-09-13T19:30:00Z">
@@ -108,7 +108,7 @@ export default function Page({ linescores }) {
           most pitches, as well as having every other unfortunate thing possible happening to him.
         </p>
       </Entry>
-      <Entry date="Season 10, Day 105" title="PDZ Chokes" jump={{ season: 10, day: 105 }}>
+      <Entry title="PDZ Chokes" season={10} day={105}>
         <p>
           It’s the quarterfinals of Postseason 10 and it looks like the Breath Mints might finally be able to punch
           their ticket to their first semifinals appearance ever. The Mints took the first two games of the series
@@ -132,14 +132,14 @@ export default function Page({ linescores }) {
           months and seasons before the Mints would get there for the first time.
         </p>
       </Entry>
-      <Entry date="Season 12, Day 61" title="An Extra Innings Shootout" jump={{ season: 12, day: 61 }}>
+      <Entry title="An Extra Innings Shootout" season={12} day={61}>
         <p>
           This game is probably one of the most exciting games of Blaseball the Mints ever played that did not rely on
           the sim doing something silly to make it iconic. This game is just a back and forth slugfest that both teams
           looked like they were definitely going to win at different points and is a good watch.
         </p>
       </Entry>
-      <Entry date="Season 12, Day 71" title="Leach&rsquo;s &ldquo;Shutout&rdquo;" jump={{ season: 12, day: 71 }}>
+      <Entry title="Leach&rsquo;s &ldquo;Shutout&rdquo;" season={12} day={71}>
         <p>
           Leach Ingram may not always have performed the best in the objective sense of winning the game, but certainly
           puts up some of the best performances in terms of being entertaining. This game, however, is not one of those
@@ -155,7 +155,7 @@ export default function Page({ linescores }) {
           who’s counting?
         </p>
       </Entry>
-      <Entry date="Season 14, Day 92" title="An Easy Win for the Breath Mints" jump={{ season: 14, day: 92 }}>
+      <Entry title="An Easy Win for the Breath Mints" season={14} day={92}>
         <p>
           Simba Davis is easily one of the worst pitchers to ever play Blaseball. Especially in the Expansion Era, where
           the threshold for a player being good rose significantly, there was really no chance for Simba to take any
@@ -168,7 +168,7 @@ export default function Page({ linescores }) {
           word for it that the Mints won and Simba Davis never got a win.
         </p>
       </Entry>
-      <Entry date="Season 15, Day 52" title="The Plansma" jump={{ season: 15, day: 52 }}>
+      <Entry title="The Plansma" season={15} day={52}>
         <p>
           During the{" "}
           <Jump redirect="/offseason" time="2021-03-14T19:15:00Z">
@@ -208,7 +208,7 @@ export default function Page({ linescores }) {
           for that season.
         </p>
       </Entry>
-      <Entry date="Season 17, Day 40" title="The Dot-Off" jump={{ season: 17, day: 40 }}>
+      <Entry title="The Dot-Off" season={17} day={40}>
         <p>
           At the very start of Beta in Season 1, the Breath Mints starting pitching rotation had two PolkaDots: PolkaDot
           Zavala and PolkaDot Patterson. The two would have two entirely different career trajectories, with Patterson
@@ -237,7 +237,7 @@ export default function Page({ linescores }) {
           able to happen at least once.
         </p>
       </Entry>
-      <Entry date="Season 17, Day 61" title="The 4-20 Sclorigami" jump={{ season: 17, day: 61 }}>
+      <Entry title="The 4-20 Sclorigami" season={17} day={61}>
         <LineScore {...linescores["73523330-bff4-463f-a2b8-2ebe60dc06e5"]} />
         <p>
           This game truly highlights the insanity of the Meadow as a stadium. The Mints built their stadium to have low
@@ -259,7 +259,7 @@ export default function Page({ linescores }) {
           20, the first game of Blaseball to end with this score.
         </p>
       </Entry>
-      <Entry date="Season 22, Day 110" title="Trending on Twitter" jump={{ season: 22, day: 110 }}>
+      <Entry title="Trending on Twitter" season={22} day={110}>
         <p>
           In Season 22, the Breath Mints assembled a roster that is almost certainly the strongest roster in all of
           Blaseball history. Their pitching rotation consisted of only 10-star pitcher Winnie Hess and underhanded
@@ -287,7 +287,7 @@ export default function Page({ linescores }) {
           championship. But the Mints were so dominant that it seemed all but assured that we would take it home.
         </p>
       </Entry>
-      <Entry date="Season 22, Day 113" title="A Perfect Game in the Internet Series" jump={{ season: 22, day: 113 }}>
+      <Entry title="A Perfect Game in the Internet Series" season={22} day={113}>
         <LineScore {...linescores["15bf627b-96d8-4cab-8567-a8fadc04ce6e"]} />
         <p>
           Truly, there is no larger horse than Winnie Hess. At this point in time, Winnie had 31.72 total stars, the
@@ -304,7 +304,7 @@ export default function Page({ linescores }) {
           of her career.
         </p>
       </Entry>
-      <Entry date="Season 22, Day 115" title="A Clutch Return" jump={{ season: 22, day: 115 }}>
+      <Entry title="A Clutch Return" season={22} day={115}>
         <p>
           Game 3 of the season 22 Internet Series promised to be a clown game as soon as the weather for the game was
           revealed. Under Polarity weather, the weather randomly shifts between Polarity&nbsp;+, where runs are scored
@@ -320,7 +320,7 @@ export default function Page({ linescores }) {
           game was a chaotic game to finish off the Mints championship run, but it was incredibly exciting to watch.
         </p>
       </Entry>
-      <Entry date="Season 23, Day 58" title="Breath Mints 20.3, Crabs 20.3" jump={{ time: "2021-07-22T01:24:22Z" }}>
+      <Entry title="Breath Mints 20.3, Crabs 20.3" time="2021-07-22T01:24:22Z">
         <p>
           Towards the end of the Expansion Era, some rules were added to Blaseball that made it impossibly convoluted.
           One such rule was Equal Sun, which caused any home run hit with only one out left in the game to score enough
@@ -345,7 +345,7 @@ export default function Page({ linescores }) {
           , and nobody would miss him.
         </p>
       </Entry>
-      <Entry date="Season 24, Day 3" title="We Die" jump={{ time: "2021-07-26T17:13:23Z" }}>
+      <Entry title="We Die" time="2021-07-26T17:13:23Z">
         <p>On Day 3 of Season 24, a rogue umpire incinerated the Kansas City Breath Mints. lmao</p>
       </Entry>
     </History>

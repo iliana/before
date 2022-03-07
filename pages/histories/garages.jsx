@@ -25,11 +25,7 @@ export async function getStaticProps() {
 export default function Page({ linescores }) {
   return (
     <History authors="fionna adams, Riley “Navi” Murphy, squirrel, and Leo Mathonwy">
-      <Entry
-        date="Season 3, Day 80"
-        title="The Incineration of Unremarkable Derrick Krueger"
-        jump={{ season: 3, day: 80 }}
-      >
+      <Entry title="The Incineration of Unremarkable Derrick Krueger" season={3} day={80}>
         {/* insert data */}
         <p>
           Season 3 lit the Garages’ roster on fire. Bennett Browning was incinerated on Day 4
@@ -43,11 +39,7 @@ export default function Page({ linescores }) {
           team.
         </p>
       </Entry>
-      <Entry
-        date="Season 6, Day 108"
-        title="The Garages Suck, or: The Garages are Okay+"
-        jump={{ season: 6, day: 108 }}
-      >
+      <Entry title="The Garages Suck, or: The Garages are Okay+" season={6} day={108}>
         <p>
           After a season spent deliberating over Jaylen Hotdogfingers’ necromancy, fans were excited for the Garages’
           first postseason appearance, hoping that the star pitcher could be resurrected to a team with one championship
@@ -91,7 +83,7 @@ export default function Page({ linescores }) {
           Garages, as fans began to say, were “okay+.”
         </p>
       </Entry>
-      <Entry date="Season 8, Day 56" title="Expand Band" jump={{ season: 8, day: 56 }}>
+      <Entry title="Expand Band" season={8} day={56}>
         {/* https://reblase.sibr.dev/game/3dc0e14a-e1ed-4109-a199-efdd4971ffea#a35c237e-8e5c-0e58-977f-99174690a59c */}
         <p>
           When most people think of the effects Jaylen Hotdogfingers had on the league, they remember her Season 7
@@ -120,7 +112,7 @@ export default function Page({ linescores }) {
           .
         </p>
       </Entry>
-      <Entry date="Season 9, Day 7" title="Jaylen Hotdogfingers’ World Tour" jump={{ season: 9, day: 7 }}>
+      <Entry title="Jaylen Hotdogfingers’ World Tour" season={9} day={7}>
         {/* https://reblase.sibr.dev/game/22ce4d81-a283-46b4-8787-8dce1de75fbe#0ca00320-6a8d-af2e-02f1-9a14bbb8dc83 */}
         <p>
           Though she’s known forever as a Garage, Jaylen Hotdogfingers traveled the league extensively due to her
@@ -157,7 +149,7 @@ export default function Page({ linescores }) {
           off, rerolling the modification into Super Idol{/* S17 election results */}.
         </p>
       </Entry>
-      <Entry date="Season 10, Day 91" title="No Parties in Seattle" jump={{ season: 10, day: 91 }}>
+      <Entry title="No Parties in Seattle" season={10} day={91}>
         {/* https://reblase.sibr.dev/game/b92f3af2-ca9f-4aef-8a7c-09d19e16fe2f#03bd5244-0e73-f8e4-cdee-8b92a278f192 */}
         <p>
           Despite Enhanced Party Time passing during the Season 6 elections{/* S6 election results */}, Garages players
@@ -177,7 +169,7 @@ export default function Page({ linescores }) {
           . Due to this pattern, fans of the team decided that Day 97 is their birthday, and celebrate it every season.
         </p>
       </Entry>
-      <Entry date="Season 11, Day 12" title="Goodwin Morin Gets Charmed" jump={{ season: 11, day: 12 }}>
+      <Entry title="Goodwin Morin Gets Charmed" season={11} day={12}>
         {/* https://reblase.sibr.dev/game/cfd4f578-84f3-4078-a4f5-60103338c82a#98f28ea6-db64-1a37-69a9-482ad1983911 */}
         <p>
           Getting Goodwin Morin to her star status was a labor of love, seasons in the making. She was boosted in the
@@ -193,7 +185,7 @@ export default function Page({ linescores }) {
         </p>
         <LineScore {...linescores["cfd4f578-84f3-4078-a4f5-60103338c82a"]} />
       </Entry>
-      <Entry date="Season 11, Day 116" title="Strategic Loops" jump={{ season: 11, day: 116 }}>
+      <Entry title="Strategic Loops" season={11} day={116}>
         {/* https://reblase.sibr.dev/game/4f63ec6a-094c-44d2-945d-1325b1f61ad3#21d80c23-55e1-9ada-88cb-794e561d2e2c */}
         <p>
           One of the most amusing postseason runs for the Garages was in Season 11 against the Hellmouth Sunbeams, a
@@ -297,7 +289,7 @@ export default function Page({ linescores }) {
           Observation-causing Debt, then waved farewell as the New York Millennials Plundered the now-Unstable Soul.
         </p>
       </Entry>
-      <Entry date="Season 19, Day 104" title="Tables Turned" jump={{ season: 19, day: 104 }}>
+      <Entry title="Tables Turned" season={19} day={104}>
         {/* https://reblase.sibr.dev/game/70847b4d-7032-4c71-a489-25e0fda2c439#cb200729-807d-6569-08b1-dd2f6bf9aa92 */}
         <p>
           After finally succeeding in Exchanging Avila Guzman back onto the team during the Season 18 elections
@@ -310,7 +302,7 @@ export default function Page({ linescores }) {
           beloved part of the team.
         </p>
       </Entry>
-      <Entry date="Season 22, Day 60" title="We Don’t Want To Lose You" jump={{ season: 22, day: 60 }}>
+      <Entry title="We Don’t Want To Lose You" season={22} day={60}>
         <p>
           After being marked Unstable back to back in Season 7, on Day 96
           {/* https://reblase.sibr.dev/game/ab1a4e1f-d0c1-4f2d-b362-2a78147aec43#32cfef3c-b777-fabc-490f-44d892cafb62 */}{" "}
@@ -326,7 +318,7 @@ export default function Page({ linescores }) {
           ratelimited, in an event later dubbed “Soliswearity” by the team. Tot and Malik escaped unscathed.
         </p>
       </Entry>
-      <Entry date="Season 22, Day 99" title="Mike Townsend Hits a Grand Slam!" jump={{ season: 22, day: 99 }}>
+      <Entry title="Mike Townsend Hits a Grand Slam!" season={22} day={99}>
         {/* https://reblase.sibr.dev/game/3d953e88-5749-4b1b-822b-336d4e3d01b5#b21cb6c0-c500-da64-fa3a-2e90b3e8af2e */}
         <p>
           Mike Townsend has had a storied career, with epithets that rotated as often as he was called into and out of
@@ -349,7 +341,7 @@ export default function Page({ linescores }) {
           .
         </p>
       </Entry>
-      <Entry date="Season 24, Day 98" title="The End of an Era" jump={{ season: 24, day: 98 }}>
+      <Entry title="The End of an Era" season={24} day={98}>
         <p>
           With the team prepared to go out together for the Expansion Era’s finale, everyone was shocked when a series
           of devastating events tore four of the Garages’ original players from the team early in the season. On Day 6

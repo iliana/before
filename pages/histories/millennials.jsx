@@ -21,7 +21,7 @@ export async function getStaticProps() {
 export default function Page({ linescores }) {
   return (
     <History authors="Rudy and Clip Clipperson">
-      <Entry date="Season 3, Day 14" title="The First Death of Chorby Soul" jump={{ season: 3, day: 14 }}>
+      <Entry title="The First Death of Chorby Soul" season={3} day={14}>
         {" "}
         {/* https://reblase.sibr.dev/game/0af42e9a-7863-41df-80b6-7420bab5900c#6726aa89-f387-6b9f-40b9-5460305ee6a2 */}
         <p>
@@ -38,11 +38,7 @@ export default function Page({ linescores }) {
           Election{/* S14 Election results */}.
         </p>
       </Entry>
-      <Entry
-        date="Season 4, Day 43"
-        title="Sophomore Sandie Turner Discovers the 3-Blood Blagonball"
-        jump={{ season: 4, day: 43 }}
-      >
+      <Entry title="Sophomore Sandie Turner Discovers the 3-Blood Blagonball" season={4} day={43}>
         {" "}
         {/* https://reblase.sibr.dev/game/92048ee3-9880-4ab7-badf-3c63a4cb2a89#c15ca8a7-14f7-7059-4062-9a70f472befc */}
         <p>
@@ -54,7 +50,7 @@ export default function Page({ linescores }) {
           come.
         </p>
       </Entry>
-      <Entry date="Season 4, Day 108" title="TDHAGOTET" jump={{ season: 4, day: 108 }}>
+      <Entry title="TDHAGOTET" season={4} day={108}>
         {" "}
         {/* https://reblase.sibr.dev/game/53c3e12c-5a94-49ea-9804-4358aee1edb6#73c13473-f56b-d8dd-1a80-f0ef8b3b479e */}
         <p>
@@ -66,7 +62,7 @@ export default function Page({ linescores }) {
           early copypasta still remembered fondly by both teams.
         </p>
       </Entry>
-      <Entry date="Season 7, Day 59" title="The Death of Dominic Marijuana" jump={{ season: 7, day: 59 }}>
+      <Entry title="The Death of Dominic Marijuana" season={7} day={59}>
         {" "}
         {/* https://reblase.sibr.dev/game/ca45dbf1-b465-474b-9490-607eb4d55e98#8aa4ab49-884d-9aca-2021-a08d489ba67b */}
         <p>
@@ -95,7 +91,7 @@ export default function Page({ linescores }) {
           a depressing low in Mills history.
         </p>
       </Entry>
-      <Entry date="Season 8, Day 18" title="Red Hot!" jump={{ season: 8, day: 18 }}>
+      <Entry title="Red Hot!" season={8} day={18}>
         {/* https://reblase.sibr.dev/game/0e259fa8-8b32-4373-add1-9a8a084882c7#f55d569c-0c81-62da-80c1-f91f723b3f3c */}
         <p>
           In the Season 7 election{/* S7 election results */}, the New York Millennials won the Hot Sauce Packet
@@ -107,7 +103,7 @@ export default function Page({ linescores }) {
           when the team inevitably falters.
         </p>
       </Entry>
-      <Entry date="Season 8, Day 61" title="Patty Fox’s Third Miracle" jump={{ season: 8, day: 61 }}>
+      <Entry title="Patty Fox’s Third Miracle" season={8} day={61}>
         <p>
           Despite never being the Millennials’ strongest pitcher, Patty Fox had always been a bit of a miracle worker.
           Fox became the first pitcher with multiple confirmed immaculate innings, both of which occurred during Season
@@ -171,7 +167,7 @@ export default function Page({ linescores }) {
           modification by chanting “BIRD SEED”, with many line breaks between the two words.
         </p>
       </Entry>
-      <Entry date="Season 15, Day 86" title="Sandie Turner’s Red Hot! Season" jump={{ season: 15, day: 86 }}>
+      <Entry title="Sandie Turner’s Red Hot! Season" season={15} day={86}>
         {" "}
         {/* https://reblase.sibr.dev/game/99c333a6-5667-432c-a748-a4d2805aef3d#1bb2a34b-f441-6743-9fa6-594de101ed0b */}
         <p>
@@ -216,7 +212,7 @@ export default function Page({ linescores }) {
           it all next season.
         </p>
       </Entry>
-      <Entry date="Season 16, Day 88" title="The Second Death of Chorby Soul" jump={{ season: 16, day: 88 }}>
+      <Entry title="The Second Death of Chorby Soul" season={16} day={88}>
         {" "}
         {/* https://reblase.sibr.dev/game/3c455a07-3b01-445b-94ec-197b0b24ad56#b52839d1-6263-c732-ef4d-78153d64e34f */}
         <p>
@@ -239,11 +235,7 @@ export default function Page({ linescores }) {
           Flame.
         </p>
       </Entry>
-      <Entry
-        date="Season 22, Day 13"
-        title="The Baby Shower Held ‘Round the League: Lil Pitchy’s ILB Debut"
-        jump={{ season: 22, day: 13 }}
-      >
+      <Entry title="The Baby Shower Held ‘Round the League: Lil Pitchy’s ILB Debut" season={22} day={13}>
         <p>
           At the end of Day 12, the Millennials’ rotation was in a tight spot. Sandie Carver and Schneider Bendie both
           escaped Elsewhere the previous season to avoid being caught in Grand Heists on Day 26
@@ -269,7 +261,7 @@ export default function Page({ linescores }) {
           darling of the league, now safe in the New York Shadows.
         </p>
       </Entry>
-      <Entry date="Season 22, Day 116" title="The New York Perennial Bridesmaids" jump={{ season: 22, day: 116 }}>
+      <Entry title="The New York Perennial Bridesmaids" season={22} day={116}>
         <p>
           The Millennials continued their tradition of strange playoff entrances, making it into the Underbracket
           Playoffs purely because the Canada Moist Talkers, whose qualification would knock the Mills out, received the
@@ -336,7 +328,7 @@ export default function Page({ linescores }) {
           This was the funniest end to the funniest season the Millennials had during Beta.
         </p>
       </Entry>
-      <Entry date="Season 24, Day 59" title="The Millennials Kill the Economy" jump={{ season: 24, day: 59 }}>
+      <Entry title="The Millennials Kill the Economy" season={24} day={59}>
         {/* https://reblase.sibr.dev/game/25095a7e-0676-43b4-95cd-6c33d72c2e0d#d91a4543-212a-ae40-58e2-18e7404646f0 */}
         <p>
           Here on the Material Plane, there’s a genre of hit piece that blames millennials for the deaths of several
@@ -352,7 +344,7 @@ export default function Page({ linescores }) {
           Home!”
         </p>
       </Entry>
-      <Entry date="Season 24, Day 76" title="Schneider Bendie Crank Calls Kennedy Loser" jump={{ season: 24, day: 76 }}>
+      <Entry title="Schneider Bendie Crank Calls Kennedy Loser" season={24} day={76}>
         {/* https://reblase.sibr.dev/game/63069471-d63a-4e3c-a61d-e44ba329933d#864f8a7c-19a7-4cfd-313c-2ac6768eaf58 */}
         <p>
           The Millennials had been Hall-bound when teams took flight on the Map, bumping up against the Pulsar (Pulsar)
