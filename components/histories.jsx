@@ -34,7 +34,7 @@ export function History({ authors, children }) {
         </div>
       </div>
       <div className="tw-font-client-serif tw-w-96 tw-max-w-max tw-mx-auto tw-my-6 lg:tw-my-8 tw-text-center">
-        <div className="tw-flex tw-gap-x-2.5 tw-text-left">
+        <div className="tw-flex tw-justify-center tw-gap-x-2.5 tw-text-left">
           <TeamIcon size="teamCard" emoji={team.emoji} color={team.mainColor} />
           <div>
             <h2 className="tw-text-[1.375rem] tw-leading-[1.65rem] lg:tw-text-2xl lg:tw-leading-[1.8rem]">
