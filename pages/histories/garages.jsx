@@ -82,7 +82,7 @@ export default function Page() {
         </p>
         <p>
           While the Garages managed to escape Season 7 unscathed, they took a huge hit this season, with a total of 5
-          lost to the feedback. Seeing Lang Richardson, an original Garage, go to the Pies on <Jump time="2020-09-22T12:20:32Z">Day 21</Jump>Day 21 in exchange for Nolanestophia Patterson stung, and there was a tragic irony in Cedric Spliff swapping for
+          lost to the feedback. Seeing Lang Richardson, an original Garage, go to the Pies on <Jump time="2020-09-22T12:20:32Z">Day 21</Jump> in exchange for Nolanestophia Patterson stung, and there was a tragic irony in Cedric Spliff swapping for
           Quack Enjoyable, noted replacement of Kiki Familia, on <Jump time="2020-09-23T09:14:38Z">Day 42</Jump>. It wasn’t until the feedback of fan favorite Allison Abbott for Paula Mason on Day 56 that Garages fans
           reassessed and changed their tune internally.
         </p>
