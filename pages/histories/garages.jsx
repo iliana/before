@@ -27,9 +27,9 @@ export default function Page() {
       <Entry title="The Incineration of Unremarkable Derrick Krueger" season={3} day={80}>
         {/* insert data */}
         <p>
-          Season 3 lit the Garages’ roster on fire. Bennett Browning was incinerated on <Jump time="2020-08-03T22:20:53Z">Day 4</Jump> during BLASPHEMY{/* Red like index Shelled One color? */}, replaced by the beloved Tiana Cash, who would be incinerated on <Jump time="2020-08-05T17:04:08Z">Day 47</Jump>. Shaquille Torres was incinerated on Day 74 during the Shelled One's post-<Jump team="878c1bf6-0d21-4659-bfee-916c8314d69c" season={3} day={73}>Grand Unslam</Jump> monologue. The final incineration for the Garages
+          Season 3 lit the Garages’ roster on fire. Bennett Browning was Incinerated on <Jump time="2020-08-03T22:20:53Z">Day 4</Jump> during BLASPHEMY{/* Red like index Shelled One color? */}, replaced by the beloved Tiana Cash, who would be Incinerated on <Jump time="2020-08-05T17:04:08Z">Day 47</Jump>. Shaquille Torres was Incinerated on Day 74 during the Shelled One's post-<Jump team="878c1bf6-0d21-4659-bfee-916c8314d69c" season={3} day={73}>Grand Unslam</Jump> monologue. The final Incineration for the Garages
           this season would be Derrick “Klutch” Krueger, Jaylen Hotdogfingers’ replacement, tying the Garages with the
-          Charleston Shoe Thieves for the most incinerations this season. Most importantly, however, Krueger’s death was
+          Charleston Shoe Thieves for the most Incinerations this season. Most importantly, however, Krueger’s death was
           the final push the fans needed to realize that Mike Townsend was not a disappointment, but a credit to the
           team.
         </p>
@@ -78,7 +78,7 @@ export default function Page() {
           When most people think of the effects Jaylen Hotdogfingers had on the league, they remember her Season 7
           Instability Debt, her world tour, or her stint on the PODS and Hall Stars. Ask the Garages, however, and you
           might get a different answer: Season 8. After Season 7, Jaylen saw her Debt Refinanced, and her pitches marked
-          players as more likely to feedback, instead of facing incineration.
+          players as more likely to Feedback, instead of facing Incineration.
         </p>
         <p>
           While the Garages managed to escape Season 7 unscathed, they took a huge hit this season, with a total of 5
@@ -191,7 +191,7 @@ export default function Page() {
       <Entry date="Season 14 Elections" title="Chorby Soul Reenters the Ring" redirect="/offseason" time="2021-03-21T18:15:00Z">
         <p>
           As eDensity was examined during the beginnings of the Expansion Era, Chorby Soul drew attention. Some time
-          between their incineration on <Jump time="2020-08-04T08:15:44Z">Season 3, Day 14</Jump> and the Expansion Era, <Jump redirect="/player/a1628d97-16ca-4a75-b8df-569bae02bef9" season={12} day={1}>Chorby Soul’s soulscream</Jump> grew so long that, on certain
+          between their Incineration on <Jump time="2020-08-04T08:15:44Z">Season 3, Day 14</Jump> and the Expansion Era, <Jump redirect="/player/a1628d97-16ca-4a75-b8df-569bae02bef9" season={12} day={1}>Chorby Soul’s soulscream</Jump> grew so long that, on certain
           browsers, it would say “UNDEFINED” repeatedly, while in certain mobile browsers, it caused the phone to grow
           warmer until the page and browser were both closed.
         </p>
@@ -208,7 +208,7 @@ export default function Page() {
         <p>
           After finally succeeding in Exchanging Avila Guzman back onto the team during the <Jump redirect="/offseason" time="2021-05-16T18:15:00Z">Season 18 elections</Jump>, she promptly left once more, not even a full season later, on <Jump redirect="/league" time="2021-05-21T11:08:17Z">Day 91</Jump>. She feedbacked with Aldon Cashmoney IV, a replica, who would turn to dust at the end of the postseason.
           However, this was not the only loss the team would suffer this season. On Day 104, Sparks Beans became the
-          first player to be incinerated on the Garages since Season 8, replaced by Lenjamin Zhuge. Although the Garages
+          first player to be Incinerated on the Garages since Season 8, replaced by Lenjamin Zhuge. Although the Garages
           would go on to lose the Internet Series that season, Zhuge outperformed everyone’s expectations and became a
           beloved part of the team.
         </p>
@@ -237,10 +237,10 @@ export default function Page() {
       <Entry title="The End of an Era" redirect="/depth" season={24} day={98}>
         <p>
           With the team prepared to go out together for the Expansion Era’s finale, everyone was shocked when a series
-          of devastating events tore four of the Garages’ original players from the team early in the season. On <Jump redirect="/league" time="2021-07-26T20:02:19Z">Day 6</Jump>, Tot Clark entered the Secret Base before being incinerated, managing to steal third base from beyond the
+          of devastating events tore four of the Garages’ original players from the team early in the season. On <Jump redirect="/league" time="2021-07-26T20:02:19Z">Day 6</Jump>, Tot Clark entered the Secret Base before being Incinerated, managing to steal third base from beyond the
           grave when he exited it. Not long after his death, Oliver Mueller and Mike Townsend were both beaned by Niq
           Nyong’o on Day 19, Redacting them after play ended on Days <Jump redirect="/player/8b53ce82-4b1a-48f0-999d-1774b3719202" time="2021-07-27T10:25:00Z">20</Jump> and <Jump redirect="/player/c6a277c3-d2b5-4363-839b-950896a5ec5e" time="2021-07-27T11:25:00Z">21</Jump>, respectively. The team
-          lost yet another player on <Jump redirect="/league" time="2021-07-27T21:31:07Z">Day 30</Jump>, when Lenny Marijuana was stolen by the Cookout’s Thieves’ Guild and given to the Carolina Queens. <Jump redirect="/league" time="2021-07-27T22:25:26Z">A day later</Jump>, Marijuana Voicemailed out from the Shadows, briefly becoming the star of the Queens before getting incinerated on <Jump redirect="/league" time="2021-07-28T01:15:09Z">Day 34</Jump>.
+          lost yet another player on <Jump redirect="/league" time="2021-07-27T21:31:07Z">Day 30</Jump>, when Lenny Marijuana was stolen by the Cookout’s Thieves’ Guild and given to the Carolina Queens. <Jump redirect="/league" time="2021-07-27T22:25:26Z">A day later</Jump>, Marijuana Voicemailed out from the Shadows, briefly becoming the star of the Queens before getting Incinerated on <Jump redirect="/league" time="2021-07-28T01:15:09Z">Day 34</Jump>.
         </p>
         <p>
           Among the tragedies, the Garages decided to head to the Hall of Flame when the Navigate tab appeared during
