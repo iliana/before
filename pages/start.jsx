@@ -1,11 +1,22 @@
 import { useMemo } from "react";
-import { Peanut, Monitor, Wyatt, Alert, Coin, Reader, Lootcrates, Namerifeht, Parker } from "../components/being";
+import {
+  Quoted,
+  Peanut,
+  Monitor,
+  Wyatt,
+  Alert,
+  Coin,
+  Reader,
+  Lootcrates,
+  Namerifeht,
+  Parker,
+} from "../components/being";
 import { JumpDefaults } from "../components/jump";
 import { Era, Season, EventList, Event } from "../components/start";
 
 export default function Start() {
   return (
-    <>
+    <Quoted.Provider value="yes">
       <div className="tw-container">
         <div className="tw-flex tw-items-start lg:tw-items-end tw-font-bold tw-mt-2.5 tw-mb-5 lg:tw-mb-6">
           <h1 className="tw-text-xl lg:tw-text-6xl tw-leading-[1.2] lg:tw-leading-[1.2] tw-uppercase">Blaseball</h1>
@@ -20,7 +31,7 @@ export default function Start() {
       </div>
 
       <Era title="The Discipline Era" color="#ff0000">
-        <Season collapse number={2} days="July 27–August 2, 2020">
+        <Season number={2} days="July 27–August 2, 2020">
           <Event day={100}>Postseason</Event>
           <Event day={108}>The Internet Series</Event>
           <Event time="2020-08-02T19:15:00Z" redirect="/offseason">
@@ -742,6 +753,6 @@ export default function Start() {
           </Event>
         </Season>
       </Era>
-    </>
+    </Quoted.Provider>
   );
 }
