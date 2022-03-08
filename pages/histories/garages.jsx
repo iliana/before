@@ -27,7 +27,7 @@ export default function Page() {
       <Entry title="The Incineration of Unremarkable Derrick Krueger" season={3} day={80}>
         {/* insert data */}
         <p>
-          Season 3 lit the Garages’ roster on fire. Bennett Browning was incinerated on <Jump time="2020-08-03T22:20:53Z">Day 4</Jump>, replaced by the beloved Tiana Cash, who would be incinerated on <Jump time="2020-08-05T17:04:08Z">Day 47</Jump>. Shaquille Torres was incinerated on Day 74 during the Shelled One's post-<Jump team="878c1bf6-0d21-4659-bfee-916c8314d69c" season={3} day={73}>Grand Unslam</Jump> monologue. The final incineration for the Garages
+          Season 3 lit the Garages’ roster on fire. Bennett Browning was incinerated on <Jump time="2020-08-03T22:20:53Z">Day 4</Jump> during BLASPHEMY{/* Red like index Shelled One color? */}, replaced by the beloved Tiana Cash, who would be incinerated on <Jump time="2020-08-05T17:04:08Z">Day 47</Jump>. Shaquille Torres was incinerated on Day 74 during the Shelled One's post-<Jump team="878c1bf6-0d21-4659-bfee-916c8314d69c" season={3} day={73}>Grand Unslam</Jump> monologue. The final incineration for the Garages
           this season would be Derrick “Klutch” Krueger, Jaylen Hotdogfingers’ replacement, tying the Garages with the
           Charleston Shoe Thieves for the most incinerations this season. Most importantly, however, Krueger’s death was
           the final push the fans needed to realize that Mike Townsend was not a disappointment, but a credit to the
