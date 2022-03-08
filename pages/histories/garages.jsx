@@ -103,9 +103,9 @@ export default function Page() {
           Feedback weather.
         </p>
         <p>
-          Season 12 saw her world tour continue, going from the Lovers to the Yellowstone Magic on <Jump redirect="/league" time="2021-03-02T03:15:04Z">Day 12</Jump> for Yeong-Ho Garcia, the Hawaiʻi Fridays on <Jump redirect="/league" time="2021-03-04T00:00:51Z">Day 56</Jump> for James Mora, the Core Mechanics on <Jump redirect="/league" time="2021-03-09T20:12:21Z">Season 13, Day 28</Jump> for Lizzy Pasta, and back to Seattle on <Jump time="2021-03-11T08:06:08Z">Day 64</Jump> for Mindy Kugel. Fans elected to move Hotdogfingers to the Shadows, before she returned in <Jump redirect="/offseason" time="2021-04-11T18:30:00Z">Season 15’s
+          Season 12 saw her world tour continue, going from the Lovers to the Yellowstone Magic on <Jump redirect="/league" time="2021-03-02T03:15:04Z">Day 12</Jump> for Yeong-Ho Garcia, the Hawaiʻi Fridays on <Jump redirect="/league" time="2021-03-04T00:00:51Z">Day 56</Jump> for James Mora, the Core Mechanics on <Jump redirect="/league" time="2021-03-09T20:12:21Z">Season 13, Day 28</Jump> for Lizzy Pasta, and back to Seattle on <Jump redirect="/league" time="2021-03-11T08:06:08Z">Day 64</Jump> for Mindy Kugel. Fans elected to move Hotdogfingers to the Shadows, before she returned in <Jump redirect="/offseason" time="2021-04-11T18:30:00Z">Season 15’s
           election</Jump>. The next leg of her world tour started in Season 17, taking her to
-          Charleston again on <Jump time="2021-04-20T05:01:52Z">Day 15</Jump>, for Fitzgerald Wanderlust, and then to Yellowstone on <Jump time="2021-04-22T23:08:32Z">Day 79</Jump> for Inky Rutledge. Her world tour ended down in the Core, arriving on <Jump time="2021-04-23T10:10:39Z">Day 90</Jump> in exchange for Cravel Gesundheit, after Garages fans’ early-season votes to Reform her Fliickerrriiing paid
+          Charleston again on <Jump redirect="/league" time="2021-04-20T05:01:52Z">Day 15</Jump>, for Fitzgerald Wanderlust, and then to Yellowstone on <Jump redirect="/league" time="2021-04-22T23:08:32Z">Day 79</Jump> for Inky Rutledge. Her world tour ended down in the Core, arriving on <Jump redirect="/league" time="2021-04-23T10:10:39Z">Day 90</Jump> in exchange for Cravel Gesundheit, after Garages fans’ early-season votes to Reform her Fliickerrriiing paid
           off, <Jump redirect="/offseason" time="2021-04-25T18:15:00Z">rerolling the modification into Super Idol</Jump>.
         </p>
       </Entry>
@@ -117,7 +117,7 @@ export default function Page() {
         </p>
         <p>
           Besty Trombone, however, still refused to give in, and they managed to avoid partying until <Jump time="2021-05-14T15:01:12Z">Season 18, Day 92</Jump>. Conversely, one Garage has partied enough for the team to create a tradition out of it. Arturo Huerta has a
-          habit of partying on Day 97, having done so in <Jump time="2021-03-12T18:05:26Z">Season 13</Jump>, <Jump time="2021-03-19T17:11:37Z">Season 14</Jump>, and <Jump time="2021-07-02T18:31:23Z">Season 22</Jump>. Due to this pattern, fans of the team decided that Day 97 is their birthday, and celebrate it every season.
+          habit of partying on Day 97, having done so in <Jump redirect="/league" time="2021-03-12T18:05:26Z">Season 13</Jump>, <Jump redirect="/league" time="2021-03-19T17:11:37Z">Season 14</Jump>, and <Jump redirect="/league" time="2021-07-02T18:31:23Z">Season 22</Jump>. Due to this pattern, fans of the team decided that Day 97 is their birthday, and celebrate it every season.
         </p>
       </Entry>
       <Entry date="Season 11, Day 12" title="Goodwin Morin Gets Charmed" time="2020-10-20T03:00:36Z">
@@ -164,7 +164,7 @@ export default function Page() {
           Blood Hamburger</Jump>.
         </p>
         <p>
-          She would go on to have <Jump redirect="/league" time="2021-06-24T19:27:01Z">one of the highest scoring skateboard tricks</Jump> in the League, and, to cap off her streak of chaos on <Jump time="2021-07-21T04:12:28Z">Season 23, Day 37</Jump>, Alaynabella Hollywood stole Lucy Tokkan’s Underhanded Rock Helmet, which may or may not have cost the Philly
+          She would go on to have <Jump redirect="/league" time="2021-06-24T19:27:01Z">one of the highest scoring skateboard tricks</Jump> in the League, and, to cap off her streak of chaos on <Jump redirect="/league" time="2021-07-21T04:12:28Z">Season 23, Day 37</Jump>, Alaynabella Hollywood stole Lucy Tokkan’s Underhanded Rock Helmet, which may or may not have cost the Philly
           Pies their chance at an evolution-inducing third championship.
         </p>
       </Entry>
@@ -177,30 +177,30 @@ export default function Page() {
           a single game.
         </p>
         <p>
-          As the other Wyatts began to Echo each other into Static starting on <Jump time="2021-03-18T21:07:27Z">Day 77</Jump>, concern grew about the likelihood of MaX’s survival. Worried fans checked the schedule and plotted out which
+          As the other Wyatts began to Echo each other into Static starting on <Jump redirect="/league" time="2021-03-18T21:07:27Z">Day 77</Jump>, concern grew about the likelihood of MaX’s survival. Worried fans checked the schedule and plotted out which
           pairs would static and when, and if MaX could avoid a similar fate. As the number of Echoes dwindled, it
           looked likely that xe would be the last one standing and, by sheer luck, xe avoided a collision course with
           any other Wyatt.
         </p>
         <p>
-          Although MaX echoed Elsewhere on <Jump time="2021-03-19T17:14:13Z">Day 97</Jump>, starting a trend of echoing mod-heavy players and hanging out Elsewhere that would continue for most of xer
+          Although MaX echoed Elsewhere on <Jump redirect="/league" time="2021-03-19T17:14:13Z">Day 97</Jump>, starting a trend of echoing mod-heavy players and hanging out Elsewhere that would continue for most of xer
           career, xe gained a blessing that remained xer own in the <Jump redirect="/offseason" time="2021-03-21T18:15:00Z">Season 14 election</Jump>:
           Maximalist. Ten seasons later, despite numerous close calls, MaX was still on the Garages, even making it back
-          from xer seventh and latest trip Elsewhere on <Jump time="2021-07-30T12:12:58Z">Day 91</Jump> just in time for the Expansion Era to come to a close. No one expected MaX to stay, but xe managed to prove
+          from xer seventh and latest trip Elsewhere on <Jump redirect="/league" time="2021-07-30T12:12:58Z">Day 91</Jump> just in time for the Expansion Era to come to a close. No one expected MaX to stay, but xe managed to prove
           everyone wrong.
         </p>
       </Entry>
       <Entry date="Season 14 Elections" title="Chorby Soul Reenters the Ring" redirect="/offseason" time="2021-03-21T18:15:00Z">
         <p>
           As eDensity was examined during the beginnings of the Expansion Era, Chorby Soul drew attention. Some time
-          between their incineration on <Jump time="2020-08-04T08:15:44Z">Season 3, Day 14</Jump> and the Expansion Era, <Jump redirect="player/a1628d97-16ca-4a75-b8df-569bae02bef9" season={12} day={1}>Chorby Soul’s soulscream</Jump> grew so long that, on certain
+          between their incineration on <Jump time="2020-08-04T08:15:44Z">Season 3, Day 14</Jump> and the Expansion Era, <Jump redirect="/player/a1628d97-16ca-4a75-b8df-569bae02bef9" season={12} day={1}>Chorby Soul’s soulscream</Jump> grew so long that, on certain
           browsers, it would say “UNDEFINED” repeatedly, while in certain mobile browsers, it caused the phone to grow
           warmer until the page and browser were both closed.
         </p>
         <p>
           With a mere 200 votes, the Garages resurrected Soul during the Season 14 election, and the team’s new pitcher
           immediately drew the ire of Consumers. Their large soulscream made them their primary target, and each attack
-          made their stats drop. Before the end of the week, on <Jump time="2021-04-05T21:11:42Z">Day 7</Jump>, Soul’s stats dropped as low as they possibly could, displaying all zeroes. Their soulscream still made them
+          made their stats drop. Before the end of the week, on <Jump redirect="/league" time="2021-04-05T21:11:42Z">Day 7</Jump>, Soul’s stats dropped as low as they possibly could, displaying all zeroes. Their soulscream still made them
           a ripe target, though, and the team’s fans revered Soul, as they kept other players safe from the Consumers
           and potential Redaction. In the <Jump redirect="/offseason" time="2021-04-11T18:30:00Z">Season 15 election</Jump>, fans Reformed Soul’s
           Observation-causing Debt, then waved farewell as the New York Millennials Plundered the now-Unstable Soul.
@@ -217,7 +217,7 @@ export default function Page() {
       </Entry>
       <Entry title="We Don’t Want To Lose You" season={22} day={60}>
         <p>
-          After being marked Unstable back to back in Season 7, on Days <Jump time="2020-09-18T17:16:04Z">96</Jump> and <Jump time="2020-09-19T20:20:36Z">107</Jump> respectively, Tot Clark and Malik Destiny were marked unstable twice in Season 22, in that order. This first came on <Jump time="2021-06-30T01:21:07Z">Day 34</Jump>, where the week would finish without an Eclipse, and again on <Jump time="2021-07-01T01:01:05Z">Day 58</Jump>, followed two days later by a Solar Eclipse game. Fans from the Garages and across the league rallied in
+          After being marked Unstable back to back in Season 7, on Days <Jump time="2020-09-18T17:16:04Z">96</Jump> and <Jump time="2020-09-19T20:20:36Z">107</Jump> respectively, Tot Clark and Malik Destiny were marked unstable twice in Season 22, in that order. This first came on <Jump redirect="/league" time="2021-06-30T01:21:07Z">Day 34</Jump>, where the week would finish without an Eclipse, and again on <Jump redirect="/league" time="2021-07-01T01:01:05Z">Day 58</Jump>, followed two days later by a Solar Eclipse game. Fans from the Garages and across the league rallied in
           Discord, swearing in defiance of the gods and rogue umps so much that moderation tools in use at the time were
           ratelimited, in an event later dubbed “Soliswearity” by the team. Tot and Malik escaped unscathed.
         </p>
@@ -228,7 +228,7 @@ export default function Page() {
           the Shadows. Originally a disappointment against anyone but <Jump season={5} day={11}>Jessica Telephone</Jump>, he was sent to the Shadows <Jump redirect="/offseason" time="2020-09-13T19:30:00Z">after
           Jaylen Hotdogfingers’ resurrection</Jump>. Townsend was unshadowed in the <Jump redirect="/offseason" time="2020-10-11T19:15:00Z">Season 9
           election</Jump>, reshadowed in <Jump redirect="/offseason" time="2020-10-18T19:30:00Z">Season 10’s election</Jump>, pulled
-          back out in <Jump redirect="/offseason" time="2021-04-18T18:15:00Z">Season 16’s election</Jump>, and managed to avoid getting Faxed back in until <Jump time="2021-05-12T05:14:53Z">Season 18, Day 37</Jump>. He remained in the Shadows until <Jump time="2021-07-02T00:23:43Z">Season 22, Day 79</Jump>, when Townsend was Voicemailed to the roster as a batter. This was something of a meme amongst the team’s
+          back out in <Jump redirect="/offseason" time="2021-04-18T18:15:00Z">Season 16’s election</Jump>, and managed to avoid getting Faxed back in until <Jump redirect="/league" time="2021-05-12T05:14:53Z">Season 18, Day 37</Jump>. He remained in the Shadows until <Jump redirect="/league" time="2021-07-02T00:23:43Z">Season 22, Day 79</Jump>, when Townsend was Voicemailed to the roster as a batter. This was something of a meme amongst the team’s
           fans, and the meme paid off on the last day of the regular season.
         </p>
         <LineScore id="3d953e88-5749-4b1b-822b-336d4e3d01b5" />
@@ -239,10 +239,10 @@ export default function Page() {
       <Entry title="The End of an Era" redirect="/depth" season={24} day={98}>
         <p>
           With the team prepared to go out together for the Expansion Era’s finale, everyone was shocked when a series
-          of devastating events tore four of the Garages’ original players from the team early in the season. On <Jump time="2021-07-26T20:02:19Z">Day 6</Jump>, Tot Clark entered the Secret Base before being incinerated, managing to steal third base from beyond the
+          of devastating events tore four of the Garages’ original players from the team early in the season. On <Jump redirect="/league" time="2021-07-26T20:02:19Z">Day 6</Jump>, Tot Clark entered the Secret Base before being incinerated, managing to steal third base from beyond the
           grave when he exited it. Not long after his death, Oliver Mueller and Mike Townsend were both beaned by Niq
-          Nyong’o on Day 19, causing them to become Redacted after play ended on <Jump redirect="player/8b53ce82-4b1a-48f0-999d-1774b3719202" time="2021-07-27T11:25:00Z">Day 20</Jump> and <Jump redirect="player/c6a277c3-d2b5-4363-839b-950896a5ec5e" time="2021-07-27T12:25:00Z">Day 21</Jump>, respectively. The team
-          lost yet another player on <Jump time="2021-07-27T21:31:07Z">Day 30</Jump>, when Lenny Marijuana was stolen by the Cookout’s Thieves’ Guild and given to the Carolina Queens. <Jump time="2021-07-27T22:25:26Z">A day later</Jump>, Marijuana Voicemailed out from the Shadows, briefly becoming the star of the Queens before getting incinerated on <Jump time="2021-07-28T01:15:09Z">Day 34</Jump>.
+          Nyong’o on Day 19, causing them to become Redacted after play ended on <Jump redirect="/player/8b53ce82-4b1a-48f0-999d-1774b3719202" time="2021-07-27T11:25:00Z">Day 20</Jump> and <Jump redirect="/player/c6a277c3-d2b5-4363-839b-950896a5ec5e" time="2021-07-27T12:25:00Z">Day 21</Jump>, respectively. The team
+          lost yet another player on <Jump redirect="/league" time="2021-07-27T21:31:07Z">Day 30</Jump>, when Lenny Marijuana was stolen by the Cookout’s Thieves’ Guild and given to the Carolina Queens. <Jump redirect="/league" time="2021-07-27T22:25:26Z">A day later</Jump>, Marijuana Voicemailed out from the Shadows, briefly becoming the star of the Queens before getting incinerated on <Jump redirect="/league" time="2021-07-28T01:15:09Z">Day 34</Jump>.
         </p>
         <p>
           Among the tragedies, the Garages decided to head to the Hall of Flame when the Navigate tab appeared during
