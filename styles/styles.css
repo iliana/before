@@ -1,13 +1,20 @@
 @charset "utf-8";
 
+/* we explicitly do not want *any* tailwind rules to affect Blaseball's CSS. however, tailwind's `important` option
+ * does not namespace the base styles, including preflight/reset.
+ *
+ * this produces a warning because some of the resulting rules are nonsensical (see
+ * https://github.com/tailwindlabs/tailwindcss/pull/6011), but we don't care because it does what we need. */
 .tw-before-scope {
   @tailwind base;
   @tailwind components;
 }
 
+/* the utilities layer _is_ prefixed with the `important` class, so it shouldn't be nested. */
 @tailwind utilities;
 
 @layer base {
+  /* this rule becomes `.tw-before-scope` because of nesting */
   & {
     @apply tw-font-serif tw-antialiased;
 
