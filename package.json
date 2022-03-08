@@ -26,6 +26,10 @@
     "prettier": "^2.4.1",
     "tailwindcss": "^3.0.0"
   },
+  "browserslist": [
+    "defaults",
+    "since 2019-07-20"
+  ],
   "prettier": {
     "printWidth": 120,
     "importOrder": [
