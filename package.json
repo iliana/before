@@ -22,7 +22,7 @@
     "jsdom": "^19.0.0",
     "postcss": "^8.4.4",
     "postcss-cli": "^9.0.2",
-    "postcss-import": "^14.0.2",
+    "postcss-each": "^1.1.0",
     "postcss-nested": "^5.0.6",
     "prettier": "^2.4.1",
     "tailwindcss": "^3.0.0"
