@@ -73,9 +73,7 @@ export default function Page() {
           The Mints fanbase decided to cope with these events by rebranding themselves as the Death Mints, and being…
           you know, like mildly edgy by doing things like declaring they would exact their revenge and stuff. The Breath
           Mints would continue on to exact their revenge on the Steaks in Season 15 by{" "}
-          <Jump time="2021-04-09T19:45:00Z" redirect="/league">
-            knocking them out of postseason contention on Divine Favor tiebreaker
-          </Jump>
+          <Jump time="2021-04-09T19:45:00Z">knocking them out of postseason contention on Divine Favor tiebreaker</Jump>
           .
         </p>
       </Entry>

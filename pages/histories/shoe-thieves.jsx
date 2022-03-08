@@ -146,26 +146,20 @@ export default function Page() {
           </Jump>
           , with the mysterious Tad Seeth disappearing from their shadows simultaneously. While it may sound like
           Tillman’s shoes were hard to fill, newcomer Simba Davis easily took the mantle of terrible pitcher to new
-          limits, including{" "}
-          <Jump redirect="/league" time="2021-03-16T03:09:20Z">
-            allowing 2 grand slams in a single inning
-          </Jump>
-          .
+          limits, including <Jump time="2021-03-16T03:09:20Z">allowing 2 grand slams in a single inning</Jump>.
         </p>
       </Entry>
       <Entry date="Season 14 Elections" title="The Sneakers Alliance" redirect="/offseason" time="2021-03-21T18:15:00Z">
         <p>
-          <Jump redirect="/league" time="2021-03-16T12:01:20Z">
-            Sebastian Woodman’s incineration
-          </Jump>{" "}
-          hit hard, especially for their replacement Bennet Bluesky, a mediocre batter but a great pitcher, born in the
-          wrong position. With the help of partners in crime the Houston Spies, Shoe Thieves fans pulled a state of the
-          art mutually beneficial Exchange with notoriously bad pitcher Jordan Hildebert, finally taking a bat. Combined
-          with a Blood Hamburger-Simba Davis Foreshadow and Herring Winfield Infusion, the Thieves managed to pull off a
-          powerful set of Wills, only impaired by the comical amount of Roamers who would keep joining the team.
+          <Jump time="2021-03-16T12:01:20Z">Sebastian Woodman’s incineration</Jump> hit hard, especially for their
+          replacement Bennet Bluesky, a mediocre batter but a great pitcher, born in the wrong position. With the help
+          of partners in crime the Houston Spies, Shoe Thieves fans pulled a state of the art mutually beneficial
+          Exchange with notoriously bad pitcher Jordan Hildebert, finally taking a bat. Combined with a Blood
+          Hamburger-Simba Davis Foreshadow and Herring Winfield Infusion, the Thieves managed to pull off a powerful set
+          of Wills, only impaired by the comical amount of Roamers who would keep joining the team.
         </p>
       </Entry>
-      <Entry date="Season 17, Day 78" title="Yeet Bright Day" redirect="/league" time="2021-04-22T22:20:40Z">
+      <Entry date="Season 17, Day 78" title="Yeet Bright Day" time="2021-04-22T22:20:40Z">
         <p>
           Most teams had their iconic terrible pitchers, but few have seen as many as Charleston. Ironically{" "}
           <Jump team="eb67ae5e-c4bf-46ca-bbbc-425cd34182ff" redirect="/offseason" time="2021-03-21T18:15:00Z">
@@ -178,17 +172,14 @@ export default function Page() {
           from Bright’s unique pitching style.
         </p>
       </Entry>
-      <Entry date="Season 18, Day 53" title="The Games Swap" redirect="/league" time="2021-05-12T21:03:15Z">
+      <Entry date="Season 18, Day 53" title="The Games Swap" time="2021-05-12T21:03:15Z">
         <p>
           For about 13 seasons, the Shoe Thieves fans joked that they never heard of Reverb. The weather seemed harmless
-          when it hit and shuffled their rotation at{" "}
-          <Jump redirect="/league" time="2021-04-23T12:09:10Z">
-            the end of Season 17
-          </Jump>
-          . Thieves were not ready for what the sim had in store: Swapping a great pitcher with terrible batting stats
-          for a great batter incapable of pitching. For their history in and out of the game, Cornelius Games and
-          Richardson Games may have been the funniest Reverb targets possible. This event is likely what led to a
-          seemingly endless series of Shadow Faxes in Charleston.
+          when it hit and shuffled their rotation at <Jump time="2021-04-23T12:09:10Z">the end of Season 17</Jump>.
+          Thieves were not ready for what the sim had in store: Swapping a great pitcher with terrible batting stats for
+          a great batter incapable of pitching. For their history in and out of the game, Cornelius Games and Richardson
+          Games may have been the funniest Reverb targets possible. This event is likely what led to a seemingly endless
+          series of Shadow Faxes in Charleston.
         </p>
       </Entry>
       <Entry
@@ -207,15 +198,10 @@ export default function Page() {
           Fortune.
         </p>
       </Entry>
-      <Entry
-        date="Season 21, Day 17"
-        title="Richardson Games Steals the Fifth Base"
-        redirect="/league"
-        time="2021-06-22T07:06:20Z"
-      >
+      <Entry date="Season 21, Day 17" title="Richardson Games Steals the Fifth Base" time="2021-06-22T07:06:20Z">
         <p>
           On{" "}
-          <Jump team="7966eb04-efcc-499b-8f03-d13916330531" redirect="/league" time="2021-06-16T05:12:47Z">
+          <Jump team="7966eb04-efcc-499b-8f03-d13916330531" time="2021-06-16T05:12:47Z">
             Season 20, Day 38
           </Jump>
           , Jesús Koch placed the Fifth Base in the Oven. For almost a season, it sat there, forcing the Philly Pies to
@@ -233,25 +219,15 @@ export default function Page() {
           , though.
         </p>
       </Entry>
-      <Entry date="Season 23, Day 90" title="Gunther’s Death" redirect="/league" time="2021-07-23T10:04:50Z">
+      <Entry date="Season 23, Day 90" title="Gunther’s Death" time="2021-07-23T10:04:50Z">
         <p>
-          On{" "}
-          <Jump redirect="/league" time="2021-07-23T04:04:20Z">
-            Day 84
-          </Jump>
-          , the Shoe Thieves were hit by Reverb, swapping pitcher Gunther O’Brian for batter Richardson Games, who the
-          sim really wanted to see on the mound. On{" "}
-          <Jump redirect="/league" time="2021-07-23T08:03:40Z">
-            Day 88
-          </Jump>
-          , Debted player Silvaire Roadhouse made Gunther Unstable. Finally, on Day 90, Jazz weather turned into Solar
-          Eclipse. It took this series of unlikely events for the fan favorite to be incinerated, replaced by the
-          strangely consistent Orion Ultrabass. Fan love for Gunther throughout the community led them to be named an
-          MVP posthumously, joining the{" "}
-          <Jump redirect="/league" time="2021-07-25T01:58:06Z">
-            Semi-Centennial
-          </Jump>{" "}
-          to later be{" "}
+          On <Jump time="2021-07-23T04:04:20Z">Day 84</Jump>, the Shoe Thieves were hit by Reverb, swapping pitcher
+          Gunther O’Brian for batter Richardson Games, who the sim really wanted to see on the mound. On{" "}
+          <Jump time="2021-07-23T08:03:40Z">Day 88</Jump>, Debted player Silvaire Roadhouse made Gunther Unstable.
+          Finally, on Day 90, Jazz weather turned into Solar Eclipse. It took this series of unlikely events for the fan
+          favorite to be incinerated, replaced by the strangely consistent Orion Ultrabass. Fan love for Gunther
+          throughout the community led them to be named an MVP posthumously, joining the{" "}
+          <Jump time="2021-07-25T01:58:06Z">Semi-Centennial</Jump> to later be{" "}
           <Jump redirect="/team/b72f3061-f573-40d7-832a-5ad475bd7909" time="2021-07-25T03:55:55Z">
             redrafted into the League
           </Jump>
@@ -266,26 +242,15 @@ export default function Page() {
           Roamed out, yet another Thief escaped the Hall of Flame.
         </p>
       </Entry>
-      <Entry
-        date="Season 23, Day 103"
-        title="Richardson Games With the Steel Chair"
-        redirect="/league"
-        time="2021-07-24T00:04:40Z"
-      >
+      <Entry date="Season 23, Day 103" title="Richardson Games With the Steel Chair" time="2021-07-24T00:04:40Z">
         <p>
-          In{" "}
-          <Jump redirect="/league" time="2021-07-22T15:55:00Z">
-            Season 23
-          </Jump>
-          , the Gift Shop’s main surprise was a new item called Steel Chair, which, in Charleston, was given to
-          Richardson Games. The Choux’s Light Switch prevented the Shoe Thieves from needing protection against
-          Consumers. It was in the playoffs that Richardson would finally show off their moves, by defending the Seattle
-          Garages from repeated Consumer attacks attracted by Tot Clark’s Chorby’s Soul. The Charitable Steel Chair
-          broke during the{" "}
-          <Jump redirect="/league" time="2021-07-24T03:17:15Z">
-            final game of the series
-          </Jump>
-          , letting the Garages continue unharmed into the postseason.
+          In <Jump time="2021-07-22T15:55:00Z">Season 23</Jump>, the Gift Shop’s main surprise was a new item called
+          Steel Chair, which, in Charleston, was given to Richardson Games. The Choux’s Light Switch prevented the Shoe
+          Thieves from needing protection against Consumers. It was in the playoffs that Richardson would finally show
+          off their moves, by defending the Seattle Garages from repeated Consumer attacks attracted by Tot Clark’s
+          Chorby’s Soul. The Charitable Steel Chair broke during the{" "}
+          <Jump time="2021-07-24T03:17:15Z">final game of the series</Jump>, letting the Garages continue unharmed into
+          the postseason.
         </p>
       </Entry>
       <Entry
@@ -306,7 +271,7 @@ export default function Page() {
             Day 63
           </Jump>
           . The very next day,{" "}
-          <Jump team="b72f3061-f573-40d7-832a-5ad475bd7909" redirect="/league" time="2021-07-29T08:17:39Z">
+          <Jump team="b72f3061-f573-40d7-832a-5ad475bd7909" time="2021-07-29T08:17:39Z">
             Enhanced Party Time was nullified
           </Jump>
           . When Parker Roamed away on Day 72, leaving the team Unstable and triggering the Good Riddance modification,
