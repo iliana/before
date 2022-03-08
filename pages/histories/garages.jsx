@@ -122,8 +122,7 @@ export default function Page() {
       </Entry>
       <Entry date="Season 11, Day 12" title="Goodwin Morin Gets Charmed" time="2020-10-20T03:00:36Z">
         <p>
-          Getting Goodwin Morin to her star status was a labor of love, seasons in the making. She was boosted in the
-          <Jump redirect="/offseason" time="2020-10-11T19:15:00Z">Season 9 elections</Jump> with the Secret Weapon blessing, which maxed out her stats, then
+          Getting Goodwin Morin to her star status was a labor of love, seasons in the making. She was boosted in the <Jump redirect="/offseason" time="2020-10-11T19:15:00Z">Season 9 elections</Jump> with the Secret Weapon blessing, which maxed out her stats, then
           pulled out of the Shadows during the <Jump redirect="/offseason" time="2020-10-18T19:30:00Z">Season 10 elections</Jump> with the Dark Star
           blessing. All eyes were on this legendary all-star to perform. So, naturally, her response to all this
           pressure was to get charmed by Kichiro Guerra, <Jump time="2020-10-20T03:05:24Z">Don Mitchell</Jump>, and <Jump time="2020-10-20T03:06:21Z">Alexander Horne</Jump> during her second-ever appearance on the mound, losing the game to the San Francisco Lovers. This made her one
