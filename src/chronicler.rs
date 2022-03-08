@@ -109,6 +109,9 @@ pub(crate) struct Request<V> {
     #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
     game: Option<String>,
+    #[builder(default, setter(strip_option))]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pitcher: Option<String>,
 }
 
 impl<V: ApiVersion> RequestBuilder<V> {

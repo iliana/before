@@ -3,6 +3,7 @@ use crate::chronicler::{Order, RequestBuilder};
 use crate::config::Config;
 use crate::cookies::{AsCookie, CookieJarExt};
 use crate::favorite_team::FavoriteTeam;
+use crate::feed::{self, MinimalFeedEvent};
 use crate::idol::Idol;
 use crate::offset::OffsetTime;
 use crate::snacks::{Snack, SnackPack};
@@ -10,7 +11,9 @@ use crate::time::{datetime, DateTime};
 use crate::Result;
 use bincode::{DefaultOptions, Options};
 use itertools::Itertools;
+use rocket::futures::{future, stream::*};
 use rocket::http::CookieJar;
+use rocket::response::stream::stream;
 use rocket::serde::json::Json;
 use rocket::{get, post, Responder, State};
 use serde::{Deserialize, Serialize};
@@ -376,6 +379,7 @@ const AYCE_MODIFIERS: [f64; 25] = [
 
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct SnackPayoutInfo {
+    kind: PayoutKind,
     event_types: Vec<i32>,
     from: DateTime,
     #[serde(default)]
@@ -383,6 +387,12 @@ pub(crate) struct SnackPayoutInfo {
     template: &'static str,
     #[serde(default)]
     filters: Vec<(&'static str, &'static str)>,
+}
+
+#[derive(PartialEq, Debug, Deserialize, Serialize)]
+pub(crate) enum PayoutKind {
+    EventBased,
+    PitcherBased,
 }
 
 pub(crate) struct LastPayoutTime(DateTime);
@@ -445,19 +455,41 @@ pub(crate) async fn generate_snack_toasts(
                     None
                 }
             }
-            _ => {
-                event_based_snack(
-                    // long boy invocation
-                    config,
-                    cookies,
-                    last_snack_payout,
-                    time,
+            s if SNACK_CONDITIONS.contains_key(&snack) => {
+                let info = &SNACK_CONDITIONS[&s];
+                let to = info.to.map_or(time, |v| cmp::min(v, time));
+                let from = cmp::max(last_snack_payout, info.from);
+
+                let triggers = if info.kind == PayoutKind::EventBased {
+                    event_based_snack_triggers(config, cookies, last_snack_payout, from, to, info)
+                        .await?
+                } else if let Some(idol) = cookies.load::<Idol>().map(|v| v.to_string()) {
+                    pitcher_snack_triggers(config, to, from, &idol, info.event_types[0]).await?
+                } else {
+                    continue;
+                };
+
+                let paying_out_snack =
+                    if s == Snack::Incineration && time > datetime!(2021-07-25 17:50:00 UTC) {
+                        Snack::IncinerationMelted
+                    } else {
+                        s
+                    };
+
+                let payout = calculate_payout(
+                    triggers,
                     snack_modifier,
-                    snack,
-                    snack_amount,
-                )
-                .await?
+                    paying_out_snack,
+                    snack_amount as usize,
+                );
+
+                if payout > 0 {
+                    Some(format!("snack {} earned ya {}", snack, payout))
+                } else {
+                    None
+                }
             }
+            _ => None,
         };
         // i hate this - allie
         if let Some(toast) = result {
@@ -470,68 +502,129 @@ pub(crate) async fn generate_snack_toasts(
     Ok(toasts)
 }
 
-/// makes toasts for snacks that can be calculated off feed events
+async fn pitcher_snack_triggers(
+    config: &Config,
+    before: DateTime,
+    after: DateTime,
+    pitcher: &str,
+    event_type: i32,
+) -> anyhow::Result<usize> {
+    events_for_pitcher(config, before, after, pitcher)
+        .await?
+        .try_filter(|e| future::ready(e.etype == event_type))
+        .try_fold(0, |acc, _| future::ready(Ok(acc + 1)))
+        .await
+}
+
+async fn events_for_pitcher<'a>(
+    config: &'a Config,
+    before: DateTime,
+    after: DateTime,
+    pitcher: &'a str,
+) -> anyhow::Result<impl Stream<Item = anyhow::Result<MinimalFeedEvent>> + 'a> {
+    #[derive(Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    struct GameResult {
+        data: GameData,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    struct GameData {
+        id: String,
+        away_pitcher: String,
+        home_pitcher: String,
+    }
+
+    #[derive(PartialEq, Debug)]
+    enum InningHalf {
+        Top,
+        Bottom,
+    }
+
+    impl std::ops::Not for InningHalf {
+        type Output = Self;
+
+        fn not(self) -> Self::Output {
+            match self {
+                InningHalf::Top => InningHalf::Bottom,
+                InningHalf::Bottom => InningHalf::Top,
+            }
+        }
+    }
+
+    let games: Vec<GameResult> = RequestBuilder::v1("games")
+        .after(after - Duration::hours(1)) // this is a hack to catch games going on right now. it's bad and needs a fix - allie
+        .before(before)
+        .pitcher(pitcher.to_string())
+        .json(config)
+        .await?
+        .data;
+
+    Ok(stream! {
+        for game in games {
+            // todo: support event type 3, 'pitcher change'
+            let pitcher_team = if game.data.away_pitcher == pitcher { InningHalf::Top } else { InningHalf::Bottom };
+            // hack to get all events at once. impl paging?
+            let mut inning_half = InningHalf::Top;
+
+            for event in feed::all_events_for_game::<MinimalFeedEvent>(config, &game.data.id, before, after, "10000000").await? {
+                if event.etype == 2 {
+                    inning_half = !inning_half;
+                }
+
+                if inning_half == pitcher_team {
+                    yield Ok(event);
+                }
+            }
+        }
+    })
+}
+
+/// gets triggers for events that can be counted from feed events
+async fn event_based_snack_triggers(
+    config: &Config,
+    cookies: &CookieJar<'_>,
+    last_snack_payout: DateTime,
+    from: DateTime,
+    to: DateTime,
+    payout_info: &SnackPayoutInfo,
+) -> anyhow::Result<usize> {
+    feed::count_events(
+        config,
+        &payout_info.event_types,
+        from,
+        to,
+        payout_info.filters.iter().map(|(k, v)| {
+            (
+                (*k).to_string(),
+                v.replace(
+                    "::IDOL::",
+                    &cookies
+                        .load::<Idol>()
+                        .map(|v| v.to_string())
+                        .unwrap_or_default(),
+                )
+                .replace(
+                    "::FAV_TEAM::",
+                    &cookies
+                        .load::<FavoriteTeam>()
+                        .map(|v| v.to_string())
+                        .unwrap_or_default(),
+                ),
+            )
+        }),
+    )
+    .await
+}
+
+#[inline(always)]
 #[allow(
     clippy::cast_sign_loss,
     clippy::cast_precision_loss,
     clippy::cast_possible_truncation
 )]
-async fn event_based_snack(
-    config: &Config,
-    cookies: &CookieJar<'_>,
-    last_snack_payout: DateTime,
-    time: DateTime,
-    modifier: f64,
-    snack: Snack,
-    snack_amount: i64,
-) -> anyhow::Result<Option<String>> {
-    if let Some(payout_info) = SNACK_CONDITIONS.get(&snack) {
-        let to = payout_info.to.map_or(time, |v| cmp::min(v, time));
-        let from = cmp::max(last_snack_payout, payout_info.from);
-
-        let triggers = crate::feed::count_events(
-            config,
-            &payout_info.event_types,
-            from,
-            to,
-            payout_info.filters.iter().map(|(k, v)| {
-                (
-                    (*k).to_string(),
-                    v.replace(
-                        "::IDOL::",
-                        &cookies
-                            .load::<Idol>()
-                            .map(|v| v.to_string())
-                            .unwrap_or_default(),
-                    )
-                    .replace(
-                        "::FAV_TEAM::",
-                        &cookies
-                            .load::<FavoriteTeam>()
-                            .map(|v| v.to_string())
-                            .unwrap_or_default(),
-                    ),
-                )
-            }),
-        )
-        .await?;
-
-        let paying_out_snack =
-            if snack == Snack::Incineration && time > datetime!(2021-07-25 17:50:00 UTC) {
-                Snack::IncinerationMelted
-            } else {
-                snack
-            };
-
-        let payout = (triggers as f64
-            * modifier
-            * PAYOUT_CURVES[&paying_out_snack][snack_amount as usize] as f64)
-            .round() as i64;
-
-        if payout > 0 {
-            return Ok(Some(format!("snack {} earned ya {}", snack, payout)));
-        }
-    }
-
-    Ok(None)
+fn calculate_payout(triggers: usize, modifier: f64, snack: Snack, snack_amount: usize) -> i64 {
+    (triggers as f64 * modifier * PAYOUT_CURVES[&snack][snack_amount as usize] as f64).round()
+        as i64
 }
