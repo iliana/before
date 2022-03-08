@@ -76,7 +76,7 @@ export default function Page() {
       <Entry date="Season 8, Day 56" title="Expand Band" time="2020-09-23T23:03:38Z">
         <p>
           When most people think of the effects Jaylen Hotdogfingers had on the league, they remember her Season 7
-          Instability Debt, her world tour, or her stint on the Pods and Hall Stars. Ask the Garages, however, and you
+          Instability Debt, her world tour, or her stint on the PODS and Hall Stars. Ask the Garages, however, and you
           might get a different answer: Season 8. After Season 7, Jaylen saw her Debt Refinanced, and her pitches marked
           players as more likely to feedback, instead of facing incineration.
         </p>
@@ -239,7 +239,7 @@ export default function Page() {
           With the team prepared to go out together for the Expansion Era’s finale, everyone was shocked when a series
           of devastating events tore four of the Garages’ original players from the team early in the season. On <Jump redirect="/league" time="2021-07-26T20:02:19Z">Day 6</Jump>, Tot Clark entered the Secret Base before being incinerated, managing to steal third base from beyond the
           grave when he exited it. Not long after his death, Oliver Mueller and Mike Townsend were both beaned by Niq
-          Nyong’o on Day 19, causing them to become Redacted after play ended on <Jump redirect="/player/8b53ce82-4b1a-48f0-999d-1774b3719202" time="2021-07-27T10:25:00Z">Day 20</Jump> and <Jump redirect="/player/c6a277c3-d2b5-4363-839b-950896a5ec5e" time="2021-07-27T11:25:00Z">Day 21</Jump>, respectively. The team
+          Nyong’o on Day 19, Redacting them after play ended on Days <Jump redirect="/player/8b53ce82-4b1a-48f0-999d-1774b3719202" time="2021-07-27T10:25:00Z">20</Jump> and <Jump redirect="/player/c6a277c3-d2b5-4363-839b-950896a5ec5e" time="2021-07-27T11:25:00Z">21</Jump>, respectively. The team
           lost yet another player on <Jump redirect="/league" time="2021-07-27T21:31:07Z">Day 30</Jump>, when Lenny Marijuana was stolen by the Cookout’s Thieves’ Guild and given to the Carolina Queens. <Jump redirect="/league" time="2021-07-27T22:25:26Z">A day later</Jump>, Marijuana Voicemailed out from the Shadows, briefly becoming the star of the Queens before getting incinerated on <Jump redirect="/league" time="2021-07-28T01:15:09Z">Day 34</Jump>.
         </p>
         <p>
