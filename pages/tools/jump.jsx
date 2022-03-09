@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useCallback, useState, useEffect } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { HiOutlineClipboardCopy } from "react-icons/hi";
@@ -26,13 +27,15 @@ export default function Page() {
     if (loading) {
       setElement(<CgSpinner className="tw-animate-spin" />);
     } else if (timestamp) {
-      const time = new Date(timestamp).setUTCMilliseconds(0);
-      const timeStr = new Date(offset ? time - 5000 : time).toISOString().replace(/.000Z$/, "Z");
+      const time = dayjs(timestamp)
+        .subtract(offset ? 5 : 0, "seconds")
+        .toISOString()
+        .replace(/\.[0-9]{3}Z$/, "Z");
       setElement(
         <>
-          <Copy data={timeStr} />
-          <Copy data={`time="${timeStr}"`} />
-          <Copy data={`<Jump time="${timeStr}"></Jump>`} />
+          <Copy data={time} />
+          <Copy data={`time="${time}"`} />
+          <Copy data={`<Jump time="${time}"></Jump>`} />
         </>
       );
     } else {
