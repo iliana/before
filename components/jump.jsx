@@ -1,4 +1,7 @@
+import dayjs from "dayjs";
 import React, { useContext } from "react";
+
+const expansionEpoch = dayjs("2021-03-01T04:10:00Z");
 
 export const JumpDefaults = React.createContext({});
 
@@ -13,8 +16,7 @@ export function Jump({ children, className, ...jump }) {
   }
 
   if (params.redirect === undefined) {
-    const expansion =
-      (params.season && params.season >= 12) || (params.time && new Date(params.time).getTime() >= 1614571800000);
+    const expansion = (params.season && params.season >= 12) || (params.time && expansionEpoch.isBefore(params.time));
     params.redirect = expansion ? "/league" : "/";
   }
 
