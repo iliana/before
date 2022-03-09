@@ -8,6 +8,9 @@ import { teams, getTeamIndex } from "../lib/teams";
 import { Jump, JumpDefaults } from "./jump";
 import TeamIcon from "./team-icon";
 
+// Number of teams in the carousel. This is 25 to include the Data Witches.
+const c = 25;
+
 function contrastColor(color) {
   return contrast(color, "#000000") > contrast(color, "#ffffff") ? "#000000" : "#ffffff";
 }
@@ -17,8 +20,8 @@ export function History({ authors, children }) {
   const index = getTeamIndex({ slug });
   const team = teams[index];
 
-  const previous = teams[(((index - 1) % 24) + 24) % 24];
-  const next = teams[(index + 1) % 24];
+  const previous = teams[(((index - 1) % c) + c) % c]; // stares directly at camera
+  const next = teams[(index + 1) % c];
 
   const [favorite, setFavorite] = useState(false);
   useEffect(() => {
@@ -38,7 +41,7 @@ export function History({ authors, children }) {
           <TeamIcon size="teamCard" emoji={team.emoji} color={team.mainColor} />
           <div>
             <h2 className="tw-text-[1.375rem] tw-leading-[1.65rem] lg:tw-text-2xl lg:tw-leading-[1.8rem]">
-              {team.name}
+              {team.fullName}
             </h2>
             <div className="tw-italic tw-text-base">&quot;{team.slogan}&quot;</div>
           </div>

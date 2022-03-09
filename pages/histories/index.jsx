@@ -12,18 +12,22 @@ export default function Page() {
         Internet League Blaseball
       </h3>
       <div className="tw-w-fit lg:tw-w-[400px] tw-mx-auto tw-my-5 lg:tw-my-6">
-        {teams.map((team) => (
+        {teams.slice(0, 25).map((team) => (
           <Link key={team.id} href={`/histories/${team.slug}`} passHref>
             <a
               href="passedHref"
-              className="tw-block tw-px-[10px] tw-py-[7px] tw-mx-[6px] hover:tw-no-underline tw-rounded-[5px] odd:tw-bg-[#131313] hover:tw-bg-[#424242]"
+              className={`tw-block tw-px-[10px] tw-py-[7px] tw-mx-[6px] hover:tw-no-underline tw-rounded-[5px] odd:tw-bg-[#131313] hover:tw-bg-[#424242] ${
+                team.slug === "data-witches"
+                  ? "tw-opacity-0 focus:tw-opacity-100 tw-cursor-default focus:tw-cursor-pointer"
+                  : ""
+              }`.trim()}
             >
               <TeamIcon size="small" emoji={team.emoji} color={team.mainColor} />
               <span
                 className="tw-pl-[20px] tw-text-lg lg:tw-text-xl tw-leading-normal lg:tw-leading-normal"
                 style={{ color: team.secondaryColor }}
               >
-                {team.name}
+                {team.fullName}
               </span>
             </a>
           </Link>

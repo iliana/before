@@ -680,7 +680,7 @@ export default function Start() {
           extraTitle="Save Situation"
           extraColor="#64aadc"
           start="2021-07-26"
-    end="2021-07-30"
+          end="2021-07-30"
         >
           <Event time="2021-07-26T14:48:14Z">
             <Coin>In Light of Recent Events</Coin>
