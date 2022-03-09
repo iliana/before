@@ -14,5 +14,8 @@ export async function getStaticProps() {
 }
 
 export default function Page() {
-  return <History />;
+  return (
+    <History authors="YourGenderHere, Agent Blaze, OJ, Crop, Parish, Cloud, and Agent Willow">
+    </History>
+  );
 }

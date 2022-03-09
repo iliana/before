@@ -160,8 +160,7 @@ export default function Page() {
         {/* post-D99 standings page */}
         <p>
           Thanks to the much lauded and scorned Turntables, the Worms had one of their best and worst seasons to date.
-          Ending the season with an abysmal 38-61 record, the team was the top of the Wild Low. Secret Bases, mind
-          tricks, murderous crows; nothing could stop the Worms from doing what they did best: Wi-Lose! That is, until
+          Ending the season with an abysmal 38-61 record, the team was the top of the Wild Low. Secret Bases, Mind Tricks, murderous crows; nothing could stop the Worms from doing what they did best: Wi-Lose! That is, until
           the Postseason began and winners began to advance towards the Internet Series. Like all other postseason runs,
           the Ohio Worms would be knocked out in the first round. Unlike most postseason runs, it would be the Boston
           Flowers doing the bumping, <i>not</i> the Houston Spies. This was a divisive season for Worms fans, with some

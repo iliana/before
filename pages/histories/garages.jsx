@@ -4,6 +4,7 @@ import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
 import LineScore from "../../components/linescore";
 import loadLineScores from "../../lib/linescore";
+import { Peanut } from "../../components/being";
 
 export async function getStaticProps() {
   return {
@@ -28,7 +29,7 @@ export default function Page() {
         {/* insert data */}
         <p>
           Season 3 lit the Garages’ roster on fire. Bennett Browning was Incinerated on{" "}
-          <Jump time="2020-08-03T22:20:53Z">Day 4</Jump> during BLASPHEMY{/* Red like index Shelled One color? */},
+          <Jump time="2020-08-03T22:20:53Z">Day 4</Jump> during <Peanut>BLASPHEMY</Peanut>,
           replaced by the beloved Tiana Cash, who would be Incinerated on{" "}
           <Jump time="2020-08-05T17:04:08Z">Day 47</Jump>. Shaquille Torres was Incinerated on Day 74 during the Shelled
           One’s post-
@@ -63,7 +64,7 @@ export default function Page() {
           <Jump season={9} day={108}>
             Season 9’s MLCS
           </Jump>
-          . Season 11 saw the Garages in the
+          . Season 11 saw the Garages in the{" "}
           <Jump season={11} day={116}>
             Internet Series
           </Jump>{" "}
@@ -103,7 +104,7 @@ export default function Page() {
           Seattle would host Party Time the next two seasons, which also meant appearances in the Underbracket, a
           separate postseason tournament for the worst-performing teams, where the lowest scoring teams would win their
           games. Even here, the Garages failed to perform; they couldn’t perform well enough in the regular season to
-          make it to the Overbracket, but they were too good to lose to other teams and take the Underchampship. The
+          make it to the Overbracket, but they were too good to lose to other teams and take the Underchampionship. The
           Garages, as fans began to say, were “okay+.”
         </p>
       </Entry>
