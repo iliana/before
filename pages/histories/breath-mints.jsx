@@ -318,7 +318,7 @@ export default function Page() {
           game was a chaotic game to finish off the Mints championship run, but it was incredibly exciting to watch.
         </p>
       </Entry>
-      <Entry title="Breath Mints 20.3, Crabs 20.3" time="2021-07-22T01:24:22Z">
+      <Entry date="Season 23, Day 58" title="Breath Mints 20.3, Crabs 20.3" time="2021-07-22T01:24:22Z">
         <p>
           Towards the end of the Expansion Era, some rules were added to Blaseball that made it impossibly convoluted.
           One such rule was Equal Sun, which caused any home run hit with only one out left in the game to score enough
@@ -343,7 +343,7 @@ export default function Page() {
           , and nobody would miss him.
         </p>
       </Entry>
-      <Entry title="We Die" time="2021-07-26T17:13:23Z">
+      <Entry date="Season 24, Day 3" title="We Die" time="2021-07-26T17:13:23Z">
         <p>On Day 3 of Season 24, a rogue umpire incinerated the Kansas City Breath Mints. lmao</p>
       </Entry>
     </History>
