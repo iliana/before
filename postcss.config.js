@@ -3,6 +3,7 @@ module.exports = {
     "postcss-each": {},
     "postcss-nested": {},
     tailwindcss: {},
+    "./lib/squelch-nesting-warning": {},
     autoprefixer: {},
   },
 };
