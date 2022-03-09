@@ -29,7 +29,7 @@ export default function Start() {
       </div>
 
       <Era title="The Discipline Era" color="#ff0000">
-        <Season season={2} start={[2020, 7, 27]}>
+        <Season season={2} start="2020-07-27">
           <Event day={100}>Postseason</Event>
           <Event day={108}>The Internet Series</Event>
           <Event time="2020-08-02T19:15:00Z" redirect="/offseason">
@@ -37,7 +37,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={3} title="Peanut Plague" extraTitle="Uncertainty" color="#c4aa70" start={[2020, 8, 3]}>
+        <Season season={3} title="Peanut Plague" extraTitle="Uncertainty" color="#c4aa70" start="2020-08-03">
           <Event day={1}>Opening Day</Event>
           <Event time="2020-08-03T22:11:19Z">
             <Peanut>BLASPHEMY</Peanut>
@@ -64,7 +64,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={4} title="Feedback" color="#ff007b" start={[2020, 8, 24]}>
+        <Season season={4} title="Feedback" color="#ff007b" start="2020-08-24">
           <Event time="2020-08-24T15:45:03Z">
             <Peanut>TIME TO LISTEN</Peanut>
           </Event>
@@ -94,7 +94,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={5} title="Reverb" color="#61b3ff" start={[2020, 8, 31]}>
+        <Season season={5} title="Reverb" color="#61b3ff" start="2020-08-31">
           <Event day={1}>Opening Day</Event>
           <Event time="2020-08-31T20:16:16Z" team="979aee4a-6d80-4863-bf1c-ee1a78e06024">
             Hawaiʻi Fridays shuffled in the Reverb
@@ -109,7 +109,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={6} title="Idols" color="#ffe082" start={[2020, 9, 7]}>
+        <Season season={6} title="Idols" color="#ffe082" start="2020-09-07">
           <Event day={1}>Opening Day</Event>
           <Event time="2020-09-07T16:10:55Z" team="7966eb04-efcc-499b-8f03-d13916330531">
             The Blooddrain gurgles
@@ -127,7 +127,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={7} title="Getting Shelled" color="#ffe082" start={[2020, 9, 14]}>
+        <Season season={7} title="Getting Shelled" color="#ffe082" start="2020-09-14">
           <Event day={1}>Opening Day</Event>
           <Event time="2020-09-14T20:04:26Z" team="105bc3ff-1320-4e37-8ef0-8d595cb95dd0">
             Jaylen Hotdogfingers hits Dickerson Morse with a pitch
@@ -166,7 +166,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={8} title="Rest in Violence" color="#5988ff" start={[2020, 9, 21]}>
+        <Season season={8} title="Rest in Violence" color="#5988ff" start="2020-09-21">
           <Event day={1}>Opening Day</Event>
           <Event time="2020-09-21T20:16:35Z" team="105bc3ff-1320-4e37-8ef0-8d595cb95dd0">
             Jaylen Hotdogfingers hits Marquez Clark with a pitch
@@ -193,7 +193,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={9} title="Forecast" color="#576b8c" start={[2020, 10, 5]}>
+        <Season season={9} title="Forecast" color="#576b8c" start="2020-10-05">
           <Event day={1}>Opening Day</Event>
           <Event time="2020-10-05T16:30:15Z" team="b72f3061-f573-40d7-832a-5ad475bd7909">
             Crowvertime
@@ -220,7 +220,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={10} title="Backdraft" color="#ab383a" start={[2020, 10, 12]}>
+        <Season season={10} title="Backdraft" color="#ab383a" start="2020-10-12">
           <Event day={1}>Opening Day</Event>
           <Event time="2020-10-12T22:06:18Z" team="bfd38797-8404-4b38-8b82-341da28b1f83">
             Simon Haley hits a pentaslam
@@ -253,7 +253,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={11} title="Peace & Prosperity" color="#3cc28a" start={[2020, 10, 19]}>
+        <Season season={11} title="Peace & Prosperity" color="#3cc28a" start="2020-10-19">
           <Event day={1}>Opening Day</Event>
           <Event day={6} team="b72f3061-f573-40d7-832a-5ad475bd7909">
             Saboteur Jaylen Hotdogfingers pitches 23 home runs
@@ -272,7 +272,7 @@ export default function Start() {
         </Season>
       </Era>
 
-      <Season tournament={0} title="The Coffee Cup" color="#9a7b4f" start={[2020, 11, 17]} end={[2020, 12, 8]}>
+      <Season tournament={0} title="The Coffee Cup" color="#9a7b4f" start="2020-11-17" end="2020-12-08">
         <EventList>
           <Event day={1}>Round 1</Event>
           <Event time="2020-11-18T02:22:00Z" team="7fcb63bc-11f2-40b9-b465-f1d458692a63">
@@ -288,7 +288,7 @@ export default function Start() {
       </Season>
 
       <Era title="The Expansion Era" color="#ffbe00">
-        <Season season={12} title="The Return" color="#607e82" start={[2021, 3, 1]}>
+        <Season season={12} title="The Return" color="#607e82" start="2021-03-01">
           <Event time="2021-03-01T04:06:05Z">
             <Monitor>you want some snacks?</Monitor>
           </Event>
@@ -324,7 +324,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={13} title="Home Free" color="#b185de" start={[2021, 3, 8]}>
+        <Season season={13} title="Home Free" color="#b185de" start="2021-03-08">
           <Event time="2021-03-08T02:36:38Z">
             <Monitor>pretzels got wet</Monitor>
           </Event>
@@ -354,7 +354,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={14} title="The -ides" color="#bdb3c3" start={[2021, 3, 15]}>
+        <Season season={14} title="The -ides" color="#bdb3c3" start="2021-03-15">
           <Event time="2021-03-15T01:48:47Z">
             <Monitor>tides rising</Monitor>
           </Event>
@@ -387,7 +387,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={15} title="Live Bait" color="#ba7b97" start={[2021, 4, 5]}>
+        <Season season={15} title="Live Bait" color="#ba7b97" start="2021-04-05">
           <Event time="2021-04-05T14:50:16Z">
             <Coin>We need to level with you</Coin>
           </Event>
@@ -437,7 +437,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={16} title="Mass Production" color="#b3b3b3" start={[2021, 4, 12]}>
+        <Season season={16} title="Mass Production" color="#b3b3b3" start="2021-04-12">
           <Event day={1}>Opening Day</Event>
           <Event time="2021-04-12T15:22:02Z" team="8d87c468-699a-47a8-b40d-cfb73a5660ad">
             Baltimore Crabs Attract Brisket Friendo
@@ -469,7 +469,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={17} title="Collections" color="#c5a168" start={[2021, 4, 19]}>
+        <Season season={17} title="Collections" color="#c5a168" start="2021-04-19">
           <Event day={1}>Opening Day</Event>
           <Event time="2021-04-20T17:32:53Z">
             <Lootcrates>The Reader interjects</Lootcrates>
@@ -492,7 +492,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={18} title="New Editions" color="#ff2e2e" start={[2021, 5, 10]}>
+        <Season season={18} title="New Editions" color="#ff2e2e" start="2021-05-10">
           <Event time="2021-05-10T14:47:24Z">
             <Coin>Chorby Soul has been Preserved!</Coin>
           </Event>
@@ -521,7 +521,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={19} title="Undertow" color="#a16dc3" start={[2021, 5, 17]}>
+        <Season season={19} title="Undertow" color="#a16dc3" start="2021-05-17">
           <Event day={1}>Opening Day</Event>
           <Event day={14} team="a37f9158-7f82-46bc-908c-c9e2dda7c33b">
             Polarity weather
@@ -547,7 +547,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={20} title="Win(Win)" color="#3faf66" start={[2021, 6, 14]}>
+        <Season season={20} title="Win(Win)" color="#3faf66" start="2021-06-14">
           <Event time="2021-06-14T03:47:57Z">
             <Monitor>haven’t checked the hall in a bit</Monitor>
           </Event>
@@ -576,7 +576,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={21} title="Red Herring" color="#ea3f66" start={[2021, 6, 21]}>
+        <Season season={21} title="Red Herring" color="#ea3f66" start="2021-06-21">
           <Event day={1}>Opening Day</Event>
           <Event time="2021-06-22T17:34:48Z">
             <Monitor>who makes this stuff</Monitor>
@@ -605,7 +605,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={22} title="Overdue" color="#3c81d8" start={[2021, 6, 28]}>
+        <Season season={22} title="Overdue" color="#3c81d8" start="2021-06-28">
           <Event day={1}>Opening Day</Event>
           <Event day={13} team="36569151-a2fb-43c1-9df7-2df512424c82">
             New York Millennials get a Pitching Machine
@@ -634,7 +634,7 @@ export default function Start() {
           </Event>
         </Season>
 
-        <Season season={23} title="A Set Up" color="#d9d3d2" start={[2021, 7, 19]}>
+        <Season season={23} title="A Set Up" color="#d9d3d2" start="2021-07-19">
           <Event time="2021-07-19T14:50:56Z">
             <Coin>Following the Postseason, We’ll celebrate</Coin>
           </Event>
@@ -679,8 +679,8 @@ export default function Start() {
           color="#ea5b23"
           extraTitle="Save Situation"
           extraColor="#64aadc"
-          start={[2021, 7, 26]}
-          end={[2021, 7, 30]}
+          start="2021-07-26"
+    end="2021-07-30"
         >
           <Event time="2021-07-26T14:48:14Z">
             <Coin>In Light of Recent Events</Coin>
