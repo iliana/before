@@ -702,7 +702,7 @@ export default function Start() {
             <Coin>Okay no one panic</Coin>
           </Event>
           <Event time="2021-07-27T17:47:51Z" redirect="/depth">
-            <Parker>This is Parker MacMillan IIIII speaking</Parker>
+            <Parker>You deserve a say</Parker>
           </Event>
           <Event time="2021-07-27T18:00:00Z">Earlsiesta</Event>
           <Event time="2021-07-27T19:28:44Z" team="9debc64f-74b7-4ae1-a4d6-fce0144b6ea5">
