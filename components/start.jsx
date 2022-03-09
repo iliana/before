@@ -76,7 +76,7 @@ export function EventList({ children }) {
 
 export function Event({ children, ...jump }) {
   const className = `lg:tw-whitespace-nowrap ${
-    typeof children === "string" ? "hover:tw-no-underline tw-group" : ""
+    typeof children === "string" ? "" : "hover:tw-no-underline tw-group"
   }`.trim();
   return (
     <li>
