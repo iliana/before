@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import DateRange from "./date-range";
 import { Jump, JumpDefaults } from "./jump";
 
-export function Era({ title, color, start, end, children }) {
+export function Era({ title, color, children }) {
   // TODO: add "tw-h-32 lg:tw-h-48" and a backgroundImage to the <div> wrapping the <h2>
   return (
     <>
@@ -15,45 +15,53 @@ export function Era({ title, color, start, end, children }) {
         </h2>
       </div>
 
-      <div className="tw-container tw-text-center tw-mb-6 lg:tw-mb-8">
-        {start !== undefined && end !== undefined ? <Days start={start} end={end} /> : null}
-        {children}
-      </div>
+      {children}
     </>
   );
 }
 
-export function Season({ number, title, color, extraTitle, extraColor, start, end, children }) {
+export function Season({ season, tournament, title, color, extraTitle, extraColor, start, end, children }) {
+  const jumpDefaults = useMemo(
+    () => ({
+      ...(season === undefined ? {} : { season }),
+      ...(tournament === undefined ? {} : { tournament }),
+    }),
+    [season, tournament]
+  );
   return (
-    <JumpDefaults.Provider value={useMemo(() => ({ season: number }), [number])}>
-      {title ? (
-        <h3 className="tw-text-lg tw-leading-normal lg:tw-text-2xl lg:tw-leading-tight tw-font-bold tw-uppercase tw-mt-1.5 lg:tw-mt-2">
-          <Jump day={1} className="hover:tw-no-underline tw-group">
-            <span className="tw-block tw-text-sm lg:tw-text-base">
-              Season {number}
-              <span className="tw-sr-only">: </span>
-            </span>
-            <span className="group-hover:tw-underline" style={{ color }}>
-              {title}
-            </span>
-            {extraTitle ? (
-              <>
-                {" "}
-                —{" "}
-                <span className="group-hover:tw-underline" style={{ color: extraColor ?? color }}>
-                  {extraTitle}
+    <JumpDefaults.Provider value={jumpDefaults}>
+      <div className="tw-container tw-text-center tw-mb-6 lg:tw-mb-8">
+        {title ? (
+          <h3 className="tw-text-lg tw-leading-normal lg:tw-text-2xl lg:tw-leading-tight tw-font-bold tw-uppercase tw-mt-1.5 lg:tw-mt-2">
+            <Jump day={1} className="hover:tw-no-underline tw-group">
+              {season ? (
+                <span className="tw-block tw-text-sm lg:tw-text-base">
+                  Season {season}
+                  <span className="tw-sr-only">: </span>
                 </span>
-              </>
-            ) : null}
-          </Jump>
-        </h3>
-      ) : (
-        <h3 className="tw-text-sm lg:tw-text-base tw-leading-snug lg:tw-leading-normal tw-font-bold tw-uppercase">
-          Season {number}
-        </h3>
-      )}
-      <Days start={start} end={end} />
-      <EventList>{children}</EventList>
+              ) : null}
+              <span className="group-hover:tw-underline" style={{ color }}>
+                {title}
+              </span>
+              {extraTitle ? (
+                <>
+                  {" "}
+                  —{" "}
+                  <span className="group-hover:tw-underline" style={{ color: extraColor ?? color }}>
+                    {extraTitle}
+                  </span>
+                </>
+              ) : null}
+            </Jump>
+          </h3>
+        ) : (
+          <h3 className="tw-text-sm lg:tw-text-base tw-leading-snug lg:tw-leading-normal tw-font-bold tw-uppercase">
+            Season {season}
+          </h3>
+        )}
+        <Days start={start} end={end} />
+        <EventList>{children}</EventList>
+      </div>
     </JumpDefaults.Provider>
   );
 }
