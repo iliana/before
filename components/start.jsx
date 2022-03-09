@@ -1,7 +1,8 @@
 import { useMemo } from "react";
+import DateRange from "./date-range";
 import { Jump, JumpDefaults } from "./jump";
 
-export function Era({ title, color, days, children }) {
+export function Era({ title, color, start, end, children }) {
   return (
     <>
       <h2
@@ -12,14 +13,14 @@ export function Era({ title, color, days, children }) {
       </h2>
 
       <div className="tw-container tw-text-center tw-mb-6 lg:tw-mb-8">
-        {days ? <Days>{days}</Days> : null}
+        {start !== undefined && end !== undefined ? <Days start={start} end={end} /> : null}
         {children}
       </div>
     </>
   );
 }
 
-export function Season({ number, title, color, extraTitle, extraColor, days, children }) {
+export function Season({ number, title, color, extraTitle, extraColor, start, end, children }) {
   return (
     <JumpDefaults.Provider value={useMemo(() => ({ season: number }), [number])}>
       {title ? (
@@ -48,14 +49,22 @@ export function Season({ number, title, color, extraTitle, extraColor, days, chi
           Season {number}
         </h3>
       )}
-      <Days>{days}</Days>
+      <Days start={start} end={end} />
       <EventList>{children}</EventList>
     </JumpDefaults.Provider>
   );
 }
 
-function Days({ children }) {
-  return <p className="tw-text-sm lg:tw-text-base tw-font-medium tw-leading-normal lg:tw-leading-snug">{children}</p>;
+function Days({ start, end, children }) {
+  if (children) {
+    return <p className="tw-text-sm lg:tw-text-base tw-font-medium tw-leading-normal lg:tw-leading-snug">{children}</p>;
+  }
+
+  return (
+    <p className="tw-text-sm lg:tw-text-base tw-font-medium tw-leading-normal lg:tw-leading-snug">
+      <DateRange start={start} end={end} />
+    </p>
+  );
 }
 
 export function EventList({ children }) {

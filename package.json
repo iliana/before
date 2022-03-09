@@ -1,6 +1,7 @@
 {
   "private": true,
   "dependencies": {
+    "dayjs": "^1.10.8",
     "next": "^12.1.0",
     "next-plugin-preact": "^3.0.6",
     "preact": "^10.6.6",
