@@ -3,14 +3,17 @@ import DateRange from "./date-range";
 import { Jump, JumpDefaults } from "./jump";
 
 export function Era({ title, color, start, end, children }) {
+  // TODO: add "tw-h-32 lg:tw-h-48" and a backgroundImage to the <div> wrapping the <h2>
   return (
     <>
-      <h2
-        className="tw-text-2xl tw-leading-normal lg:tw-text-4xl lg:tw-leading-normal tw-text-center tw-font-bold tw-mt-6 lg:tw-mt-8 tw-uppercase tw-relative before:tw-absolute before:tw-left-0 before:tw-top-1/2 before:tw-w-full before:tw-h-px before:tw-bg-gray-700"
-        style={{ color }}
-      >
-        <span className="tw-inline-block tw-relative tw-bg-black tw-px-4 lg:tw-px-5">{title}</span>
-      </h2>
+      <div className="tw-max-w-5xl tw-mx-auto tw-flex tw-flex-col tw-justify-end tw-mt-8 lg:tw-mt-12 tw-bg-cover tw-bg-center">
+        <h2
+          className="tw-text-center tw-text-2xl tw-leading-normal lg:tw-text-4xl lg:tw-leading-normal tw-font-bold tw-uppercase"
+          style={{ color }}
+        >
+          {title}
+        </h2>
+      </div>
 
       <div className="tw-container tw-text-center tw-mb-6 lg:tw-mb-8">
         {start !== undefined && end !== undefined ? <Days start={start} end={end} /> : null}
@@ -68,21 +71,18 @@ function Days({ start, end, children }) {
 }
 
 export function EventList({ children }) {
-  return <ul className="tw-font-sans tw-mt-2 lg:tw-mt-2.5 tw-mb-5 lg:tw-mb-6 tw-before-list">{children}</ul>;
+  return <ul className="tw-text-left tw-font-sans tw-mt-2 lg:tw-mt-3 tw-mb-5 lg:tw-mb-7 tw-before-list">{children}</ul>;
 }
 
 export function Event({ children, ...jump }) {
+  const className = `lg:tw-whitespace-nowrap ${
+    typeof children === "string" ? "hover:tw-no-underline tw-group" : ""
+  }`.trim();
   return (
     <li>
-      {typeof children === "string" ? (
-        <Jump className="lg:tw-whitespace-nowrap" {...jump}>
-          {children}
-        </Jump>
-      ) : (
-        <Jump className="lg:tw-whitespace-nowrap hover:tw-no-underline tw-group" {...jump}>
-          {children}
-        </Jump>
-      )}
+      <Jump className={className} {...jump}>
+        {children}
+      </Jump>
     </li>
   );
 }
