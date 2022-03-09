@@ -10,6 +10,7 @@ module.exports = withPreact({
       test: /\.svg$/,
       loader: require.resolve("@svgr/webpack"),
     });
+    config.optimization.splitChunks.minSize = 6000; // specifically hit dayjs
     return config;
   },
 });
