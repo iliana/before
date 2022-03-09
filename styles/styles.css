@@ -51,9 +51,9 @@
     @apply tw-inline;
   }
 
-  .tw-before-list li:not(:first-child):before {
+  .tw-before-list li:not(:last-child):after {
     @apply tw-px-1 lg:tw-px-1.5;
-    content: " • ";
+    content: "\00a0• ";
   }
 
   .tw-before-history a {
