@@ -106,6 +106,21 @@ export default function Page() {
           most pitches, as well as having every other unfortunate thing possible happening to him.
         </p>
       </Entry>
+      <Entry title="The Tragedy of Headliners" season={7} day={96}>
+        <p>
+          In the Season 6 Election, the Breath Mints saw an amazing opportunity to improve our offense. The Headliners
+          blessing sorted the order of a teams line-up by order of idolatry, and with headliners looking like a
+          relatively uncontested blessing and the Mints being on the smaller sides of fanbases, the fanbase put it in a
+          lot of time organizing our idols to construct an offense around star batter, Boyfriend Monreal. Winning the
+          blessing catapulted the Mints to the top of the league, with the Mints finishing first in Mild League and
+          second in the entire league in the regular season. Unfortunately, the story of headliners ends in tragedy,
+          with Boyfriend Monreal being incinerated on Day 96 of the season. Without Boyfriend at the front, the Mints
+          offense reverted to a very unoptimized form, and the Mints lost to the Wild Wings in the quarterfinals. With
+          the Wild Wings going on to win the Internet Series, the Mints consider season 7 the ultimate what-if on if we
+          still had our Boyfriend. Without Boyfriend in the line-up, the Mints would fall further still and be one of
+          the hosts of party time in season 8, tied with the Magic.
+        </p>
+      </Entry>
       <Entry title="PDZ Chokes" season={10} day={105}>
         <p>
           It’s the quarterfinals of Postseason 10 and it looks like the Breath Mints might finally be able to punch
@@ -130,14 +145,7 @@ export default function Page() {
           months and seasons before the Mints would get there for the first time.
         </p>
       </Entry>
-      <Entry title="An Extra Innings Shootout" season={12} day={61}>
-        <p>
-          This game is probably one of the most exciting games of Blaseball the Mints ever played that did not rely on
-          the sim doing something silly to make it iconic. This game is just a back and forth slugfest that both teams
-          looked like they were definitely going to win at different points and is a good watch.
-        </p>
-      </Entry>
-      <Entry title="Leach&rsquo;s &ldquo;Shutout&rdquo;" season={12} day={71}>
+      <Entry title="Leach’s “Shutout”" season={12} day={71}>
         <p>
           Leach Ingram may not always have performed the best in the objective sense of winning the game, but certainly
           puts up some of the best performances in terms of being entertaining. This game, however, is not one of those
@@ -151,6 +159,16 @@ export default function Page() {
           a beloved Mint, because even when she plays bad, at least she does it in a way that’s funny, and in this case
           it even got us a win. Sure, it also took away two of our wins from the Black Hole and we’re net negative, but
           who’s counting?
+        </p>
+        <p>
+          This game was also the XXth game between Leach Ingram and Dallas Steaks pitcher Leach Herman, a rarely
+          long-lived Blaseball tradition that fans named the “Leach-Off”. The Breath Mints and the Steaks both started
+          Season 1 with a pitcher named Leach in the first slot of their rotations; since both pitchers were in the same
+          slot, they would commonly face each other when the two teams played. The Steaks and Mints were in the same
+          league for all 24 seasons of Beta, and the Leaches managed to hold onto to their slots for most of that period
+          as well, making Leach vs. Leach one of the most common pitching match-ups in blaseball. The Leach-Off is
+          viewed as a celebration between Steaks fans and Mints fans alike, and even if they’re not able to occur
+          anymore, it still bonds the fanbases to this day.
         </p>
       </Entry>
       <Entry title="An Easy Win for the Breath Mints" season={14} day={92}>
@@ -186,7 +204,7 @@ export default function Page() {
           <Jump season={15} day={31} team="36569151-a2fb-43c1-9df7-2df512424c82">
             entered the Shoe Thieves’ shadows to investigate
           </Jump>{" "}
-          at the start of a Millennials&ndash;Shoe Thieves game at the Choux. Witnessing this, the Mints came up with a
+          at the start of a Millennials–Shoe Thieves game at the Choux. Witnessing this, the Mints came up with a
           devious plan to recruit Uncle Plasma to the Breath Mints.
         </p>
         <p>
@@ -231,8 +249,8 @@ export default function Page() {
           the eighth inning, the first player to accomplish such a feat. Not only was everyone baffled at how such a
           terrible player managed to pull this off, but Marq also did it while wearing Shoes of Blaserunning, meaning
           each of those inexplicably stolen bases was worth an extra .2 runs. This game did not end up being
-          particularly close &mdash; the Mints won 16.4-1 &mdash; but the Mints were satisfied that this matchup was
-          able to happen at least once.
+          particularly close — the Mints won 16.4-1 — but the Mints were satisfied that this matchup was able to happen
+          at least once.
         </p>
       </Entry>
       <Entry title="The 4-20 Sclorigami" season={17} day={61}>
