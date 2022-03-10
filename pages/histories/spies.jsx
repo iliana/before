@@ -154,7 +154,7 @@ export default function Page() {
           Going into the Season 18 playoffs, there weren’t many reasons to be hopeful. Heading into Day 80 as the number
           one seed, the Spies would go on a devastating slide, only qualifying as the fourth seed due to the Georgias
           winning over the Tacos on{" "}
-          <Jump season={18} day={98}>
+          <Jump team="878c1bf6-0d21-4659-bfee-916c8314d69c" season={18} day={98}>
             Day 98
           </Jump>
           . Additionally, the Wild Card pit the Spies against the worst possible matchup, the Sunbeams, making things
@@ -166,7 +166,7 @@ export default function Page() {
           However, an unexpected factor arose, as Salmon swam upstream, resetting the inning. The Salmon were,
           unexpectedly, thorough enough to erase Home Field Advantage as well. Whatever hopes the fanbase had were now
           dashed. This would mark the first, and only, instance where Salmon eliminated a pre-game advantage. Despite
-          the series ending 2-1 in the Sunbeams’ favor, they were in fact outscored 7-10, without factoring Home Field
+          the series ending 2-1 in the Sunbeams’ favor, they were in fact outscored 7-11 across the three games, without factoring Home Field
           Advantage.
         </p>
         <LineScore
