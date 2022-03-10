@@ -27,7 +27,11 @@ export async function getStaticProps() {
 export default function Page() {
   return (
     <History authors="Sour, King Solomon, deafhobbit, and the Orion System">
-      <Entry date="Season 2, Day 104" title="Where Were You When Comfort Septemberish Stole Home?" time="2020-08-01T17:20:03Z">
+      <Entry
+        date="Season 2, Day 104"
+        title="Where Were You When Comfort Septemberish Stole Home?"
+        time="2020-08-01T17:20:03Z"
+      >
         <p>
           On the precipice of elimination from the divisional series, the Jazz Hands would see their luck turn around
           when Comfort Septemberish stole home in the bottom of the 9th, opening the door for Aldon Cashmoney to deliver
@@ -39,9 +43,13 @@ export default function Page() {
       <Entry title="The First Jazzbeams Double Incineration" season={3} day={23}>
         <p>
           It was an eclipse game like any other, at first. The sun had gone out and there was always a chance someone
-          was going to go out in flames, but it seemed standard at first. When <Jump time="2020-08-04T17:07:15Z">Jazz Hands player Ogden Mendoza burned</Jump>, fans thought that had to be the end of it. Then <Jump time="2020-08-04T17:15:49Z">Velasquez Meadows of the Sunbeams was incinerated too</Jump>, the first instance of multiple players incinerated in the same game and the first Jazzbeams to die together.
-          The first Jazzbeams double Incineration would not be the last, however, and would hover over both teams for
-          many seasons to come.
+          was going to go out in flames, but it seemed standard at first. When{" "}
+          <Jump time="2020-08-04T17:07:15Z">Jazz Hands player Ogden Mendoza burned</Jump>, fans thought that had to be
+          the end of it. Then{" "}
+          <Jump time="2020-08-04T17:15:49Z">Velasquez Meadows of the Sunbeams was incinerated too</Jump>, the first
+          instance of multiple players incinerated in the same game and the first Jazzbeams to die together. The first
+          Jazzbeams double Incineration would not be the last, however, and would hover over both teams for many seasons
+          to come.
         </p>
       </Entry>
       <Entry title="Lowe Tames the Tigers" season={5} day={102}>
@@ -63,7 +71,11 @@ export default function Page() {
         </p>
         <LineScore id="bbf1b3d0-de4a-4248-a67f-5ec69378bc43" />
       </Entry>
-      <Entry date="Season 5, Day 112" title="Declan Suzanne Eats a Peanut, Causes a Win Anyway" time="2020-09-06T01:26:42Z">
+      <Entry
+        date="Season 5, Day 112"
+        title="Declan Suzanne Eats a Peanut, Causes a Win Anyway"
+        time="2020-09-06T01:26:42Z"
+      >
         {" "}
         {/*  */}
         <p>
@@ -94,29 +106,38 @@ export default function Page() {
           there.
         </p>
         <p>
-          From the 10th inning onwards, <Jump time="2021-03-04T10:34:27Z">a Baby Doyle double</Jump> was the only hit for 10 more innings. That’s it. The game goes for an absurd 21 innings, until the deadlock is broken by <Jump time="2021-03-04T10:43:50Z">the
-          most unlikely of Conrad Vaughan homers</Jump>. Pothos held on for one more inning to seal the deal for the Jazz Hands.
+          From the 10th inning onwards, <Jump time="2021-03-04T10:34:27Z">a Baby Doyle double</Jump> was the only hit
+          for 10 more innings. That’s it. The game goes for an absurd 21 innings, until the deadlock is broken by{" "}
+          <Jump time="2021-03-04T10:43:50Z">the most unlikely of Conrad Vaughan homers</Jump>. Pothos held on for one
+          more inning to seal the deal for the Jazz Hands.
         </p>
         <LineScore id="78d3a18f-c368-41b8-bff6-d4e1304dcc87" />
       </Entry>
       <Entry title="Combs Estes and the Thursday Blues" season={13} day={98}>
         <p>
-          Season 13 had been unkind to the Jazz Hands, and to Combs Estes in particular. <Jump time="2021-03-11T08:24:41Z">A devastating Reverb shuffled
-          the entire roster</Jump>, allergic reactions decimated stat lines, and Blooddrain added insult to injury. Combs had gone from a
-          4.5-star pitcher to a 0-star batter two games from a rest.
+          Season 13 had been unkind to the Jazz Hands, and to Combs Estes in particular.{" "}
+          <Jump time="2021-03-11T08:24:41Z">A devastating Reverb shuffled the entire roster</Jump>, allergic reactions
+          decimated stat lines, and Blooddrain added insult to injury. Combs had gone from a 4.5-star pitcher to a
+          0-star batter two games from a rest.
         </p>
         <p>
-          Day 98 was an Eclipse game against the Sunbeams. <Jump time="2021-03-12T19:16:41Z">Combs was Incinerated</Jump>, Sunbeams player Sutton Bishop <Jump time="2021-03-12T19:30:54Z">following close behind</Jump>, the second Jazzbeams to die together. Dubbed “The Thursday Blues” by fans, this unfortunate season taught
-          fans that The Tower Always Looms, an important lesson that they would come to fear and embrace.
+          Day 98 was an Eclipse game against the Sunbeams.{" "}
+          <Jump time="2021-03-12T19:16:41Z">Combs was Incinerated</Jump>, Sunbeams player Sutton Bishop{" "}
+          <Jump time="2021-03-12T19:30:54Z">following close behind</Jump>, the second Jazzbeams to die together. Dubbed
+          “The Thursday Blues” by fans, this unfortunate season taught fans that The Tower Always Looms, an important
+          lesson that they would come to fear and embrace.
         </p>
       </Entry>
       <Entry title="Lowe Forbes Good???" season={15} day={79}>
         <p>
           Lowe Forbes was never the best Jazz Hands player. However, they were a far better pitcher than batter. After
           the devastating Season 13 Reverb, Lowe was a batter, and not a very good one. For one game, however, Lowe was
-          on fire, with a <Jump time="2021-04-08T23:05:23Z">triple</Jump>, a <Jump time="2021-04-08T23:11:04Z">sac bunt</Jump>, a <Jump time="2021-04-08T23:15:30Z">3-run home run</Jump>, a <Jump time="2021-04-08T23:20:41Z">single</Jump>, and a <Jump time="2021-04-08T23:25:48Z">walk</Jump>. This was the play of a competent batter, one that knew how to hit a blaseball with a bat, which was a task
-          Lowe struggled with otherwise. For this one game, Lowe was a competent batter. Lowe’s surprising plays
-          markedly contributed to that game’s 12-4 defeat of the Atlantis Georgias.
+          on fire, with a <Jump time="2021-04-08T23:05:23Z">triple</Jump>, a{" "}
+          <Jump time="2021-04-08T23:11:04Z">sac bunt</Jump>, a <Jump time="2021-04-08T23:15:30Z">3-run home run</Jump>,
+          a <Jump time="2021-04-08T23:20:41Z">single</Jump>, and a <Jump time="2021-04-08T23:25:48Z">walk</Jump>. This
+          was the play of a competent batter, one that knew how to hit a blaseball with a bat, which was a task Lowe
+          struggled with otherwise. For this one game, Lowe was a competent batter. Lowe’s surprising plays markedly
+          contributed to that game’s 12-4 defeat of the Atlantis Georgias.
         </p>
         <LineScore id="613ef50b-ef18-47d2-acbf-fcd8c6515a7c" />
       </Entry>
@@ -126,7 +147,11 @@ export default function Page() {
           Sports. This, understandably, put the Jazz Hands’ perfectly normal man and team dad into the spotlight for a
           bit. The Leg Ring and it’s rather silly name became an immediate joke with Jazz Hands fans, who figured Walton
           probably thought it was French or something in confusion and called “Le Gring.” The item would be associated
-          with Walton for most of the rest of the era, despite dropping it for the Cape of Containment in <Jump redirect="/offseason" time="2021-05-16T18:15:00Z">Season 18’s election</Jump>.
+          with Walton for most of the rest of the era, despite dropping it for the Cape of Containment in{" "}
+          <Jump redirect="/offseason" time="2021-05-16T18:15:00Z">
+            Season 18’s election
+          </Jump>
+          .
         </p>
       </Entry>
       <Entry title="Hype Builds in The Pocket!" season={19} day={1}>
@@ -144,12 +169,14 @@ export default function Page() {
       <Entry date="Season 21, Day 22" title="The Firewall" time="2021-06-22T12:18:34Z">
         <p>
           Silvaire Roadhouse’s Instability-causing Debt and Eclipse weather were a bad mix. The Jazz Hands had gotten
-          lucky; Silvaire’s first flyout <Jump time="2021-06-22T12:10:07Z">had been caught by a Fire Eater</Jump>, but that luck was going to run out if someone didn’t do something.
+          lucky; Silvaire’s first flyout <Jump time="2021-06-22T12:10:07Z">had been caught by a Fire Eater</Jump>, but
+          that luck was going to run out if someone didn’t do something.
         </p>
         <p>
-          In the bottom of the 8th, Silvaire stepped up to plate and Riley Firewall stepped onto the mound. Riley threw a shutout up to this point, and it’d be easy to keep it going. Riley hds a legacy to uphold as The
-          Firewall, however, as he was preceded by beloved Fire Protector Raúl Leal. Four balls. Silvaire walked. No one
-          died. The Firewall held.
+          In the bottom of the 8th, Silvaire stepped up to plate and Riley Firewall stepped onto the mound. Riley threw
+          a shutout up to this point, and it’d be easy to keep it going. Riley hds a legacy to uphold as The Firewall,
+          however, as he was preceded by beloved Fire Protector Raúl Leal. Four balls. Silvaire walked. No one died. The
+          Firewall held.
         </p>
       </Entry>
       <Entry title="Melonconomy" season={23} day={1}>
@@ -159,9 +186,13 @@ export default function Page() {
         </p>
         <LineScore id="a193f2f0-0fe7-423b-9387-da91626dffd5" />
         <p>
-          This one game was the culmination of Collins Melon becoming ridiculously big after <Jump redirect="/offseason" time="2021-03-21T18:15:00Z">an Infuse in Season 14</Jump> and a number of parties, while somehow flying under the radar until <Jump time="2021-04-13T18:50:00Z">the Reader
-          removed their Alternate modification</Jump>. Once they were noticed, fans leaguewide went “why
-          does Collins Melon have 25 stars?”
+          This one game was the culmination of Collins Melon becoming ridiculously big after{" "}
+          <Jump redirect="/offseason" time="2021-03-21T18:15:00Z">
+            an Infuse in Season 14
+          </Jump>{" "}
+          and a number of parties, while somehow flying under the radar until{" "}
+          <Jump time="2021-04-13T18:50:00Z">the Reader removed their Alternate modification</Jump>. Once they were
+          noticed, fans leaguewide went “why does Collins Melon have 25 stars?”
         </p>
         <p>
           Previously a <Spoiler>Spy</Spoiler>, Jazz Hands fans gave them the moniker “Agent M” while they flew under the
@@ -173,13 +204,18 @@ export default function Page() {
       <Entry title="LCD Soundsystem Fraud" season={23} day={95}>
         <p>
           During the Season 23 Latesiesta, Spears Rogers received a Fliickerrriiing Potion from the Gift Shop. During
-          the Feedback game on Day 95, <Jump time="2021-07-23T15:05:24Z">Spears switched places with Famous Owens</Jump>, resulting in the Tigers’ roster becoming entirely Ship of Theseused, losing their last original player. The
+          the Feedback game on Day 95, <Jump time="2021-07-23T15:05:24Z">Spears switched places with Famous Owens</Jump>
+          , resulting in the Tigers’ roster becoming entirely Ship of Theseused, losing their last original player. The
           panic of Jazz Hands fans and the despair of the Tigers fans, watching together on Discord, led to both teams
           being allowed to swear without filtration.
         </p>
         <p>
           As if hearing the fans’ profanity-laden cries, Spears stepped up for one final at-bat, with two outs on the
-          board. Strike, looking. Strike, looking. <Jump time="2021-07-23T15:28:14Z">Spears Rogers and Famous Owens swapped places in the Feedback at that moment</Jump>. Famous struck out looking and the game ended. The Tigers’ last original player returned. Since The Pocket
+          board. Strike, looking. Strike, looking.{" "}
+          <Jump time="2021-07-23T15:28:14Z">
+            Spears Rogers and Famous Owens swapped places in the Feedback at that moment
+          </Jump>
+          . Famous struck out looking and the game ended. The Tigers’ last original player returned. Since The Pocket
           had an LCD Soundsystem, the dramatic duo even received two boosts as their teams swore at them. Appreciate the
           hustle.
         </p>
@@ -190,7 +226,8 @@ export default function Page() {
           Stars and, unlike Collins Melon, returned. However, Baby did not return as a batter, but as a pitcher. Baby
           cannot pitch. In their first game on the mound, while Perked in Coffee weather, the Magnified Baby Doyle was
           faxed after 5 ⅔ innings after allowing 12 runs. 10 of those runs were from the rival Baby, the Magnified
-          Triumphant, the rival Baby. Doyle did not pitch again and, luckily, Voicemailed back onto the lineup on <Jump time="2021-07-27T04:21:23Z">Day 14</Jump>.
+          Triumphant, the rival Baby. Doyle did not pitch again and, luckily, Voicemailed back onto the lineup on{" "}
+          <Jump time="2021-07-27T04:21:23Z">Day 14</Jump>.
         </p>
       </Entry>
     </History>

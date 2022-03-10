@@ -67,8 +67,8 @@ export default function Page() {
       </Entry>
       <Entry title="The Season 9 Reverb" season={9} day={52} time="2020-10-07T19:22:06Z">
         <p>
-          The Spies and their legendary defense had been on track for the Internet Series. Instead, a catastrophic
-          {" "}<Jump time="2020-10-07T19:23:06Z" redirect="/team/9debc64f-74b7-4ae1-a4d6-fce0144b6ea5">
+          The Spies and their legendary defense had been on track for the Internet Series. Instead, a catastrophic{" "}
+          <Jump time="2020-10-07T19:23:06Z" redirect="/team/9debc64f-74b7-4ae1-a4d6-fce0144b6ea5">
             full-team Reverb
           </Jump>{" "}
           put all three of the Replacement Elbows, a pitching Blessing won in just{" "}
@@ -166,8 +166,8 @@ export default function Page() {
           However, an unexpected factor arose, as Salmon swam upstream, resetting the inning. The Salmon were,
           unexpectedly, thorough enough to erase Home Field Advantage as well. Whatever hopes the fanbase had were now
           dashed. This would mark the first, and only, instance where Salmon eliminated a pre-game advantage. Despite
-          the series ending 2-1 in the Sunbeams’ favor, they were in fact outscored 7-11 across the three games, without factoring Home Field
-          Advantage.
+          the series ending 2-1 in the Sunbeams’ favor, they were in fact outscored 7-11 across the three games, without
+          factoring Home Field Advantage.
         </p>
         <LineScore
           id="3445c14f-87ee-49a0-8fa0-53bcb940bc02"
@@ -191,8 +191,8 @@ export default function Page() {
         </p>
         <p>
           These two plots came together on <Jump time="2021-07-21T14:22:20Z">Season 23, Day 47</Jump>. Chark had just
-          Voicemailed back out onto the Spies lineup{" "}
-          <Jump time="2021-07-21T13:23:41Z">the game before</Jump>, and Hayes had returned to the Georgias after{" "}
+          Voicemailed back out onto the Spies lineup <Jump time="2021-07-21T13:23:41Z">the game before</Jump>, and Hayes
+          had returned to the Georgias after{" "}
           <Jump season={22} day={19} redirect="/player/b7267aba-6114-4d53-a519-bf6c99f4e3a9">
             a brief Fifth Base-induced stint on the Dale
           </Jump>

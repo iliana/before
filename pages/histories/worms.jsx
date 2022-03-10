@@ -49,30 +49,48 @@ export default function Page() {
           her honor.
         </p>
       </Entry>
-      <Entry date="Season 13 Election" title="Pitching Machine Self-Plunder" redirect="/offseason" time="2021-03-14T19:15:00Z">
+      <Entry
+        date="Season 13 Election"
+        title="Pitching Machine Self-Plunder"
+        redirect="/offseason"
+        time="2021-03-14T19:15:00Z"
+      >
         <p>
-          Pitching Machine had joined the batting lineup <Jump redirect="/offseason" time="2021-03-07T19:15:00Z">the previous Election</Jump>, and became a
-          Batting Machine beloved by many early Ohio Worms fans. There was a creeping worry in the minds of many,
-          though: Pitching Machine, being on the Idol Board, was a potential target for Plundering. In a last-ditch
-          attempt to keep Pitching Machine on the team, Ohio Worms fans voted to plunder PM themselves. If another team
-          had plundered Pitching Machine before them, they would be able to take them back immediately. However, fans’
-          fears were unfounded, and so the Worms Plundered PM from the Worms. From this point on, whether it was an
-          actual option or not, Worms fans would suggest Plundering PM almost any time Election options were discussed.
+          Pitching Machine had joined the batting lineup{" "}
+          <Jump redirect="/offseason" time="2021-03-07T19:15:00Z">
+            the previous Election
+          </Jump>
+          , and became a Batting Machine beloved by many early Ohio Worms fans. There was a creeping worry in the minds
+          of many, though: Pitching Machine, being on the Idol Board, was a potential target for Plundering. In a
+          last-ditch attempt to keep Pitching Machine on the team, Ohio Worms fans voted to plunder PM themselves. If
+          another team had plundered Pitching Machine before them, they would be able to take them back immediately.
+          However, fans’ fears were unfounded, and so the Worms Plundered PM from the Worms. From this point on, whether
+          it was an actual option or not, Worms fans would suggest Plundering PM almost any time Election options were
+          discussed.
         </p>
       </Entry>
       <Entry date="Season 14, Day 67" title="Feedback Detected" time="2021-03-18T10:11:49Z">
         <p>
           Throughout Wormstory, the Ohio Worms faced weather-based roster changes fairly rarely. The only two times the
           Worms experienced Feedback swaps during the main season was in Season 14 and Season 17. In season 14, NaN, a
-          Worm at the time, swapped places with Rivers Rosa, and on <Jump time="2021-04-20T19:14:38Z">Season 17, Day 28</Jump>, original Worm Kaz Fiasco was swapped with the Sunbeams’ Igneus Delacruz.
+          Worm at the time, swapped places with Rivers Rosa, and on{" "}
+          <Jump time="2021-04-20T19:14:38Z">Season 17, Day 28</Jump>, original Worm Kaz Fiasco was swapped with the
+          Sunbeams’ Igneus Delacruz.
         </p>
         <p>
           Worms fans get attached to players extremely quickly, and so both Rivers Rosa and Iggy became valued Worms
           almost immediately. And so, it was with great pain that Worms fans watched the eventual fates of these two
-          players: Rivers Rosa was targeted by Consumers three times during Season 18, on Days <Jump time="2021-05-13T02:07:13Z">58</Jump>, <Jump time="2021-05-13T20:09:24Z">75</Jump>, and <Jump time="2021-05-14T08:20:41Z">87</Jump>, and was subsequently
-          stolen by the Tacos’ Phantom Thieves Guild in <Jump time="2021-07-02T15:23:29Z">Season 22</Jump>. Iggy was Incinerated in <Jump time="2021-05-18T12:12:18Z">Season 19</Jump>. In the case of Rivers Rosa, Worms were so desperate to get her out of harm’s way that fans used both Wills
-          in the <Jump redirecet="/offseason" time="2021-06-20T18:15:00Z">Season 20 Election</Jump> to move Rivers into the shadows, first by Foreshadowing
-          Xandra Pancakes for Rosa, and then Moving Rosa to the shadows&#8230; from the shadows.
+          players: Rivers Rosa was targeted by Consumers three times during Season 18, on Days{" "}
+          <Jump time="2021-05-13T02:07:13Z">58</Jump>, <Jump time="2021-05-13T20:09:24Z">75</Jump>, and{" "}
+          <Jump time="2021-05-14T08:20:41Z">87</Jump>, and was subsequently stolen by the Tacos’ Phantom Thieves Guild
+          in <Jump time="2021-07-02T15:23:29Z">Season 22</Jump>. Iggy was Incinerated in{" "}
+          <Jump time="2021-05-18T12:12:18Z">Season 19</Jump>. In the case of Rivers Rosa, Worms were so desperate to get
+          her out of harm’s way that fans used both Wills in the{" "}
+          <Jump redirecet="/offseason" time="2021-06-20T18:15:00Z">
+            Season 20 Election
+          </Jump>{" "}
+          to move Rivers into the shadows, first by Foreshadowing Xandra Pancakes for Rosa, and then Moving Rosa to the
+          shadows&#8230; from the shadows.
         </p>
       </Entry>
       <Entry date="Season 14, Day 99" title="Divine Disfavor" redirect="/standings" time="2021-03-19T19:45:00Z">
@@ -89,13 +107,16 @@ export default function Page() {
       </Entry>
       <Entry date="Season 15, Day 16" title="Scratch Comes Back" time="2021-04-06T06:18:40Z">
         <p>
-          Scratch Deleuze, star player and beloved Worm, was initially swept Elsewhere on <Jump time="2021-03-17T17:07:48Z">Season 14, Day 50</Jump>. Worms fans waited patiently for their return. And waited. And waited. And waited. Play, of course,
-          continued. The Worms entered Party Time without their favorite opossum, still lost Elsewhere. On <Jump time="2021-03-19T16:19:15Z">Day 96</Jump>, to fans’ delight, Scratch Deleuze partied while still Elsewhere. Even though they were out of our reach, at
-          least Scratch was having a great time out there. The relief was short-lived, however, when the season ended
-          and Scratch was still Elsewhere. Fans quickly realized that, with an extended offseason due to the
-          implementation of the All You Can Eat decree, it would be several weeks before seeing Scratch’s return. By the
-          time Scratch Deleuze came back from Elsewhere almost entirely Scattered, they had been missing for a total of
-          20 days on the material plane, from March 17th to April 6th.
+          Scratch Deleuze, star player and beloved Worm, was initially swept Elsewhere on{" "}
+          <Jump time="2021-03-17T17:07:48Z">Season 14, Day 50</Jump>. Worms fans waited patiently for their return. And
+          waited. And waited. And waited. Play, of course, continued. The Worms entered Party Time without their
+          favorite opossum, still lost Elsewhere. On <Jump time="2021-03-19T16:19:15Z">Day 96</Jump>, to fans’ delight,
+          Scratch Deleuze partied while still Elsewhere. Even though they were out of our reach, at least Scratch was
+          having a great time out there. The relief was short-lived, however, when the season ended and Scratch was
+          still Elsewhere. Fans quickly realized that, with an extended offseason due to the implementation of the All
+          You Can Eat decree, it would be several weeks before seeing Scratch’s return. By the time Scratch Deleuze came
+          back from Elsewhere almost entirely Scattered, they had been missing for a total of 20 days on the material
+          plane, from March 17th to April 6th.
         </p>
       </Entry>
       <Entry title="Spies and Worms, Enemies For Life (affectionate)" season={16} day={106}>
@@ -151,10 +172,10 @@ export default function Page() {
       </Entry>
       <Entry date="Season 21, Day 75" title="SHABOOM! Gatecrash." redirect="/depth" time="2021-06-24T19:00:30Z">
         <p>
-          Season 21's <Jump time="2021-06-24T15:40:43Z">Latesiesta</Jump> brought the Worms a fantastical four-pack of gifts from
-          their friends in the ILB. Thanks to the newly-added replica of Chorby Soul, wielding Chorby’s Soul, and the
-          Worms’ Heavy-Handed modification, the team began to plummet down through the Immateria. Their safety was
-          ensured by the now-Yolked Uncle Plasma and Liquid Friend who, finally together, tag-team SHABOOMED any
+          Season 21’s <Jump time="2021-06-24T15:40:43Z">Latesiesta</Jump> brought the Worms a fantastical four-pack of
+          gifts from their friends in the ILB. Thanks to the newly-added replica of Chorby Soul, wielding Chorby’s Soul,
+          and the Worms’ Heavy-Handed modification, the team began to plummet down through the Immateria. Their safety
+          was ensured by the now-Yolked Uncle Plasma and Liquid Friend who, finally together, tag-team SHABOOMED any
           Consumer brave enough to charge the field. In the depths, the Worms encountered and broke through the gate
           located in Blaseball 2{/* Blaseball 2 archive as of this date? */} due to their eDensity, releasing pickled
           herring for the League’s enjoyment.
@@ -167,20 +188,31 @@ export default function Page() {
           Chorby Replica alike, the Worms descended. SMASH.
         </p>
       </Entry>
-      <Entry date="Season 23, Day 65" title="The (Temporary) Incineration of Pudge (and Consequences Thereof)" time="2021-07-22T08:08:57Z"><p>
+      <Entry
+        date="Season 23, Day 65"
+        title="The (Temporary) Incineration of Pudge (and Consequences Thereof)"
+        time="2021-07-22T08:08:57Z"
+      >
+        <p>
           Over the seasons, many players have been incinerated and afterwards could be seen in the Hall of Flame. Pudge
-          Nakamoto joined them on <Jump time="2021-04-20T02:18:14Z">Season 17, Day 12</Jump>. Little did fans know that just two seasons later they would just&#8230; leave. With the help of their
-          Roaming modification, they left the Hall and joined the Spies, and after the next Election they roamed to the
-          Worms, where they decided to stay for a while. On Season 23, Day 65, a rogue umpire sought to correct this
-          anomaly and once again Incinerated Pudge. Fans were sad to see them go, but sure they would return later.
+          Nakamoto joined them on <Jump time="2021-04-20T02:18:14Z">Season 17, Day 12</Jump>. Little did fans know that
+          just two seasons later they would just&#8230; leave. With the help of their Roaming modification, they left
+          the Hall and joined the Spies, and after the next Election they roamed to the Worms, where they decided to
+          stay for a while. On Season 23, Day 65, a rogue umpire sought to correct this anomaly and once again
+          Incinerated Pudge. Fans were sad to see them go, but sure they would return later.
         </p>
         <p>
           Alongside this bittersweet departure, the Worms were perhaps more impacted by Pudge’s replacement, Scoobert
           Toast. Their arrival was controversial, to be light, with fans either adoring or despising their new player.
-          This escalated when Scoobert picked up a pair of Golden Rock Shoes on <Jump time="2021-07-22T23:21:45Z">Season 23, Day 79</Jump>{" "}
-          which gave them Super Idol, and then winning the Credit To the Team blessing in the <Jump redirect="/offseason" time="2021-07-25T18:15:00Z">Season 23 Election</Jump>. This fooled both Worms fans and the League alike into believing that Soobert
-          might be the new economy, until it was revealed that the two mods only gave a 6x payout, instead of 10x.
-          Scoobert was such a mediocre player on a large lineup, so it didn’t really matter anyways.
+          This escalated when Scoobert picked up a pair of Golden Rock Shoes on{" "}
+          <Jump time="2021-07-22T23:21:45Z">Season 23, Day 79</Jump> which gave them Super Idol, and then winning the
+          Credit To the Team blessing in the{" "}
+          <Jump redirect="/offseason" time="2021-07-25T18:15:00Z">
+            Season 23 Election
+          </Jump>
+          . This fooled both Worms fans and the League alike into believing that Soobert might be the new economy, until
+          it was revealed that the two mods only gave a 6x payout, instead of 10x. Scoobert was such a mediocre player
+          on a large lineup, so it didn’t really matter anyways.
         </p>
       </Entry>
       <Entry title="Wild Champions, Ohio Worms" season={23} day={111}>
@@ -213,9 +245,12 @@ export default function Page() {
           The Ohio Worms, surprising literally zero people, spotted the newly formed Black Hole (Black Hole) on the Map
           upon its reveal and made a dash for the celestial tear. The decision was immediate and practically unanimous:
           This Worm Hole will be their new Worm Home. They were the first to arrive on the scene of the phenomena and
-          remained there until <Jump redirect="/depth" time="2021-07-30T03:07:00Z">the Horizon expanded and swallowed them</Jump>, along
-          with several other teams. Their arrival triggered “HARVEST TRACKING”, which allowed the League to look into
-          the ever-growing Black Hole (Black Hole) to see what rules it had swallowed.
+          remained there until{" "}
+          <Jump redirect="/depth" time="2021-07-30T03:07:00Z">
+            the Horizon expanded and swallowed them
+          </Jump>
+          , along with several other teams. Their arrival triggered “HARVEST TRACKING”, which allowed the League to look
+          into the ever-growing Black Hole (Black Hole) to see what rules it had swallowed.
         </p>
       </Entry>
     </History>
