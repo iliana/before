@@ -2,6 +2,7 @@ const withPreact = require("next-plugin-preact");
 
 module.exports = withPreact({
   basePath: "/_before",
+  images: { loader: "custom" },
   reactStrictMode: true,
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule) => rule.test && rule.test.test(".svg"));

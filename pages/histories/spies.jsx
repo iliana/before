@@ -9,7 +9,10 @@ import loadLineScores from "../../lib/linescore";
 export async function getStaticProps() {
   return {
     props: {
-      linescores: await loadLineScores(["7f079f80-ceef-404b-b3fa-997c1b2c2469"]),
+      linescores: await loadLineScores([
+        "3445c14f-87ee-49a0-8fa0-53bcb940bc02",
+        "7f079f80-ceef-404b-b3fa-997c1b2c2469",
+      ]),
     },
   };
 }
@@ -166,6 +169,10 @@ export default function Page() {
           the series ending 2-1 in the Sunbeams’ favor, they were in fact outscored 7-10, without factoring Home Field
           Advantage.
         </p>
+        <LineScore
+          id="3445c14f-87ee-49a0-8fa0-53bcb940bc02"
+          salmon={[{ inning: 1, away: [0, 0, 1], home: [1, -1, 0] }]}
+        />
       </Entry>
       <Entry title="Sosa Hayes and Siobhan Chark Execute the Plan" season={19} day={2} time="2021-05-17T16:06:23Z">
         <p>
