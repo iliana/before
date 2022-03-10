@@ -20,7 +20,7 @@ export default function LineScore({ id, salmon = {} }) {
               ((salmon.away ?? {})[index + 1] ?? [0]).map((_2, salmonIndex) => (
                 <Header key={`${index}.${salmonIndex}`}>
                   {salmonIndex % 2 ? (
-                    <div className="tw-h-2.5 lg:tw-h-3.5 tw-px-1">
+                    <div className="tw-h-2.5 lg:tw-h-3.5 tw-px-0.5 lg:tw-px-1">
                       <Image alt="Salmon" src={salmonIcon} />
                     </div>
                   ) : (
@@ -83,7 +83,7 @@ function Header({ children }) {
 function Cell({ bold, children }) {
   return (
     <td
-      className={`tw-text-center tw-w-6 tw-min-w-[1.5rem] lg:tw-w-7 lg:tw-min-w-[1.75rem] tw-tabular-nums ${
+      className={`tw-text-center tw-px-1 tw-w-6 tw-min-w-[1.5rem] lg:tw-w-7 lg:tw-min-w-[1.75rem] tw-tabular-nums ${
         bold ? "tw-font-bold" : ""
       }`.trim()}
     >
