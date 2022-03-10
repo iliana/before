@@ -12,14 +12,24 @@ export default function Page() {
 
   useEffect(() => {
     if (linkData) {
-      const [game, hash] = linkData.split("#");
+      const [kind, remainder] = linkData.split("/");
+      const [game, hash] = remainder.split("#");
       setLoading(true);
-      fetch(`https://api.sibr.dev/chronicler/v1/games/updates?count=2000&game=${game}&started=true`)
-        .then((response) => response.json())
-        .then(({ data }) => {
-          setLoading(false);
-          setTimestamp(data.find((datum) => datum.hash === hash)?.timestamp);
-        });
+      if (kind === "bossfight") {
+        fetch(`https://api.sibr.dev/chronicler/v2/versions?type=Bossfight&count=1000&id=${game}`)
+          .then((response) => response.json())
+          .then(({ items }) => {
+            setLoading(false);
+            setTimestamp(items.find((item) => item.hash === hash)?.validFrom);
+          });
+      } else {
+        fetch(`https://api.sibr.dev/chronicler/v1/games/updates?count=2000&game=${game}&started=true`)
+          .then((response) => response.json())
+          .then(({ data }) => {
+            setLoading(false);
+            setTimestamp(data.find((datum) => datum.hash === hash)?.timestamp);
+          });
+      }
     }
   }, [linkData]);
 
@@ -54,7 +64,7 @@ export default function Page() {
           className="tw-bg-black tw-border tw-border-gray-800 tw-p-1 tw-ml-2 tw-w-96 tw-rounded"
           onFocus={(event) => event.target.select()}
           onInput={(event) => {
-            const match = event.target.value.match(/reblase.sibr.dev\/game\/([0-9a-f-]{36}#[0-9a-f-]{36})/);
+            const match = event.target.value.match(/reblase.sibr.dev\/((game|bossfight)\/[0-9a-f-]{36}#[0-9a-f-]{36})/);
             setLinkData(match ? match[1] : undefined);
           }}
           ref={useCallback((node) => {
