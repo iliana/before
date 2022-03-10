@@ -29,7 +29,7 @@ export default function LineScore({ id, salmon = [] }) {
                       index + 1
                     ) : (
                       <div className="tw-h-3 lg:tw-h-3.5 tw-align-bottom">
-                        <Image alt="Salmon" src={salmonIcon} loader={({ src }) => src} />
+                        <Image alt="Salmon" src={salmonIcon} loader={({ src }) => src} unoptimized />
                       </div>
                     )}
                   </th>
