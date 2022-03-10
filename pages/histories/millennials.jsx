@@ -194,7 +194,7 @@ export default function Page() {
           mostly walking players. Beck Whitney, batting for the Hawaiʻi Fridays, advanced off Lady Matsuyama’s
           sacrifice, sending Lil Pitchy <Jump time="2021-06-29T03:23:18Z">back through the Fax Machine</Jump> and returning Cervantes to the mound. During the game, Mills fans hosted an impromptu baby shower on behalf of
           its parents, Cervantes and the Fax Machine, and fans from all over the ILB brought gifts for the new baby, the
-          darling of the league, now safe in the New York Shadows.
+          darling of the league, now safe in the New York shadows.
         </p>
       </Entry>
       <Entry title="The New York Perennial Bridesmaids" season={22} day={116}>
@@ -228,10 +228,10 @@ export default function Page() {
           The Strange Attractor blessing, which would randomly recruit a player with Attractor to the team, appearing on
           the ballot complicated things. As one of only a few available Attractors, Chorby Short had a decent chance of
           not being in New York after the Election. Furthermore, the Flowers planned to attempt a yo-yo with their extra
-          will: A Roster Swap to move Short to the Shadows, an Equivalent Exchange to trade Short and Turner, and a Move
-          to return Short to the Shadows once more. This would leave Short safe from Attractor and end the New
+          will: A Roster Swap to move Short to the shadows, an Equivalent Exchange to trade Short and Turner, and a Move
+          to return Short to the shadows once more. This would leave Short safe from Attractor and end the New
           York-Boston Exchange Program. The only other risk to the Flowers’ plan was the Gachapon blessing, where one
-          team would get a random player from the other 23 teams’ Shadows.
+          team would get a random player from the other 23 teams’ shadows.
         </p>
         <p>
           There was nothing the Millennials could do to guarantee keeping either player, so the fans looked elsewhere
@@ -247,8 +247,8 @@ export default function Page() {
           Despite the anxiety, the Election fired without a hitch for the Mills: Castillo Turner was traded for Beck
           Whitney and Undertaker rerolled&#8230; into Siphon. Thomas Dracaena, who was not a vampire, could now legally
           drink blood during Blooddrain. The Flowers’ yo-yo worked, with both Chorby Short and Castillo Turner in the
-          Shadows, where Turner was immediately taken at random by the Seattle Garages, winners of Gachapon. Short would
-          fax out of the Shadows on <Jump time="2021-07-19T17:12:12Z">Season 23, Day 3</Jump> before stealing the Super Roamin’ Fifth Base on <Jump time="2021-07-19T22:20:31Z">Day 8</Jump> and Roaming off the Flowers on <Jump redirect="/player/a3947fbc-50ec-45a4-bca4-49ffebb77dbe" time="2021-07-19T23:30:00Z">Day 9</Jump>. Her first tour stop? New York.
+          shadows, where Turner was immediately taken at random by the Seattle Garages, winners of Gachapon. Short would
+          fax out of the shadows on <Jump time="2021-07-19T17:12:12Z">Season 23, Day 3</Jump> before stealing the Super Roamin’ Fifth Base on <Jump time="2021-07-19T22:20:31Z">Day 8</Jump> and Roaming off the Flowers on <Jump redirect="/player/a3947fbc-50ec-45a4-bca4-49ffebb77dbe" time="2021-07-19T23:30:00Z">Day 9</Jump>. Her first tour stop? New York.
           This was the funniest end to the funniest season the Millennials had during Beta.
         </p>
       </Entry>
