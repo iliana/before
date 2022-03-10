@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import Link from "next/link";
+import { Peanut } from "../../components/being";
 import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
 import LineScore from "../../components/linescore";
 import loadLineScores from "../../lib/linescore";
-import { Peanut } from "../../components/being";
 
 export async function getStaticProps() {
   return {
@@ -29,10 +29,9 @@ export default function Page() {
         {/* insert data */}
         <p>
           Season 3 lit the Garages’ roster on fire. Bennett Browning was Incinerated on{" "}
-          <Jump time="2020-08-03T22:20:53Z">Day 4</Jump> during <Peanut>BLASPHEMY</Peanut>,
-          replaced by the beloved Tiana Cash, who would be Incinerated on{" "}
-          <Jump time="2020-08-05T17:04:08Z">Day 47</Jump>. Shaquille Torres was Incinerated on Day 74 during the Shelled
-          One’s post-
+          <Jump time="2020-08-03T22:20:53Z">Day 4</Jump> during <Peanut>BLASPHEMY</Peanut>, replaced by the beloved
+          Tiana Cash, who would be Incinerated on <Jump time="2020-08-05T17:04:08Z">Day 47</Jump>. Shaquille Torres was
+          Incinerated on Day 74 during the Shelled One’s post-
           <Jump team="878c1bf6-0d21-4659-bfee-916c8314d69c" season={3} day={73}>
             Grand Unslam
           </Jump>{" "}
