@@ -120,7 +120,7 @@ export default function Page() {
           Millennials are proud to have helped kill.
         </p>
       </Entry>
-      <Entry date="Season 10 Election" title="An Actual Airplane and some BIRD SEED" time="2020-10-18T19:30:00Z">
+      <Entry date="Season 10 Election" title="An Actual Airplane and some BIRD SEED" redirect="/offseason" time="2020-10-18T19:30:00Z">
         <p>
           By the Season 10 Election, things were looking up. The return and subsequent release of beloved former captain
           Dominic Marijuana did much to buoy the spirits of a team who sorely missed him. To top it all off, the
