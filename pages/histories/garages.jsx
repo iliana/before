@@ -172,7 +172,7 @@ export default function Page() {
           for Lizzy Pasta, and back to Seattle on <Jump time="2021-03-11T08:06:08Z">Day 64</Jump> for Mindy Kugel. Fans
           elected to move Hotdogfingers to the Shadows, before she returned in{" "}
           <Jump redirect="/offseason" time="2021-04-11T18:30:00Z">
-            Season 15’s election
+            the Season 15 Election
           </Jump>
           . The next leg of her world tour started in Season 17, taking her to Charleston again on{" "}
           <Jump time="2021-04-20T05:01:52Z">Day 15</Jump>, for Fitzgerald Wanderlust, and then to Yellowstone on{" "}
@@ -195,7 +195,7 @@ export default function Page() {
         <p>
           Despite Enhanced Party Time passing during the{" "}
           <Jump redirect="/offseason" time="2020-09-13T19:30:00Z">
-            Season 6 elections
+            Season 6 Election
           </Jump>
           , Garages players remained wallflowers for the three following seasons as the team made it to the postseason.
           This streak was broken by Summers Pony on Season 10, Day 91, becoming the first Garage to ever party.
@@ -213,11 +213,11 @@ export default function Page() {
         <p>
           Getting Goodwin Morin to her star status was a labor of love, seasons in the making. She was boosted in the{" "}
           <Jump redirect="/offseason" time="2020-10-11T19:15:00Z">
-            Season 9 elections
+            Season 9 Election
           </Jump>{" "}
           with the Secret Weapon blessing, which maxed out her stats, then pulled out of the Shadows during the{" "}
           <Jump redirect="/offseason" time="2020-10-18T19:30:00Z">
-            Season 10 elections
+            Season 10 Election
           </Jump>{" "}
           with the Dark Star blessing. All eyes were on this legendary all-star to perform. So, naturally, her response
           to all this pressure was to get charmed by Kichiro Guerra,{" "}
@@ -250,7 +250,7 @@ export default function Page() {
         <LineScore id="47bcac42-f651-4fc9-9f93-5567a7b10daf" />
       </Entry>
       <Entry
-        date="Season 12 Elections"
+        date="Season 12 Election"
         title="Alaynabella Hollywood, an Entity Fueled By Chaos"
         redirect="/offseason"
         time="2021-03-07T19:15:00Z"
@@ -258,7 +258,7 @@ export default function Page() {
         <p>
           There was perhaps no Garage that owned the Expansion Era quite like Alaynabella Hollywood, starting the era at
           a paltry 4.7 combined stars and ending it with 21.3. Even her arrival to the team during the Season 12
-          elections was an event, with star players Nagomi Mcdaniel and Goodwin Morin caught in the crossfire and
+          Election was an event, with star players Nagomi Mcdaniel and Goodwin Morin caught in the crossfire and
           Hollywood ending up one of the worst pitchers in the league. She wouldn’t see a win until{" "}
           <Jump season={13} day={96}>
             Season 13, Day 96
@@ -277,7 +277,7 @@ export default function Page() {
           </Jump>
           . During the{" "}
           <Jump redirect="/offseason" time="2021-04-18T18:15:00Z">
-            Season 16 elections
+            Season 16 Election
           </Jump>
           , she managed to avoid getting shadowed a second time, by being shadowed for Mike Townsend and <i>then</i>{" "}
           moved to the lineup. On Season 17, Day 21, she was{" "}
@@ -313,7 +313,7 @@ export default function Page() {
           mod-heavy players and hanging out Elsewhere that would continue for most of xer career, xe gained a blessing
           that remained xer own in the{" "}
           <Jump redirect="/offseason" time="2021-03-21T18:15:00Z">
-            Season 14 election
+            Season 14 Election
           </Jump>
           : Maximalist. Ten seasons later, despite numerous close calls, MaX was still on the Garages, even making it
           back from xer seventh and latest trip Elsewhere on <Jump time="2021-07-30T12:12:58Z">Day 91</Jump> just in
@@ -322,7 +322,7 @@ export default function Page() {
         </p>
       </Entry>
       <Entry
-        date="Season 14 Elections"
+        date="Season 14 Election"
         title="Chorby Soul Reenters the Ring"
         redirect="/offseason"
         time="2021-03-21T18:15:00Z"
@@ -337,14 +337,14 @@ export default function Page() {
           it caused the phone to grow warmer until the page and browser were both closed.
         </p>
         <p>
-          With a mere 200 votes, the Garages resurrected Soul during the Season 14 election, and the team’s new pitcher
+          With a mere 200 votes, the Garages resurrected Soul during the Season 14 Election, and the team’s new pitcher
           immediately drew the ire of Consumers. Their large soulscream made them their primary target, and each attack
           made their stats drop. Before the end of the week, on <Jump time="2021-04-05T21:11:42Z">Day 7</Jump>, Soul’s
           stats dropped as low as they possibly could, displaying all zeroes. Their soulscream still made them a ripe
           target, though, and the team’s fans revered Soul, as they kept other players safe from the Consumers and
           potential Redaction. In the{" "}
           <Jump redirect="/offseason" time="2021-04-11T18:30:00Z">
-            Season 15 election
+            Season 15 Election
           </Jump>
           , fans Reformed Soul’s Observation-causing Debt, then waved farewell as the New York Millennials Plundered the
           now-Unstable Soul.
@@ -354,7 +354,7 @@ export default function Page() {
         <p>
           After finally succeeding in Exchanging Avila Guzman back onto the team during the{" "}
           <Jump redirect="/offseason" time="2021-05-16T18:15:00Z">
-            Season 18 elections
+            Season 18 Election
           </Jump>
           , she promptly left once more, not even a full season later, on{" "}
           <Jump time="2021-05-21T11:08:17Z">Day 91</Jump>. She feedbacked with Aldon Cashmoney IV, a replica, who would
@@ -388,15 +388,15 @@ export default function Page() {
           </Jump>
           . Townsend was unshadowed in the{" "}
           <Jump redirect="/offseason" time="2020-10-11T19:15:00Z">
-            Season 9 election
+            Season 9 Election
           </Jump>
           , reshadowed in{" "}
           <Jump redirect="/offseason" time="2020-10-18T19:30:00Z">
-            Season 10’s election
+            the Season 10 Election
           </Jump>
           , pulled back out in{" "}
           <Jump redirect="/offseason" time="2021-04-18T18:15:00Z">
-            Season 16’s election
+            the Season 16 Election
           </Jump>
           , and managed to avoid getting Faxed back in until <Jump time="2021-05-12T05:14:53Z">Season 18, Day 37</Jump>.
           He remained in the Shadows until <Jump time="2021-07-02T00:23:43Z">Season 22, Day 79</Jump>, when Townsend was
