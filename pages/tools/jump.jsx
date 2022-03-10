@@ -89,7 +89,6 @@ function Copy({ data }) {
   return (
     <p>
       <button
-        className="tw-mr-2"
         type="button"
         title="Copy"
         aria-label="Copy"
@@ -99,9 +98,9 @@ function Copy({ data }) {
           setTimeout(() => setCopied(), 2000);
         }}
       >
-        <HiOutlineClipboardCopy aria-hidden="true" focusable="false" />
+        <HiOutlineClipboardCopy className="tw-mr-2 tw-inline" aria-hidden="true" focusable="false" />
+        <code>{data}</code>
       </button>
-      <code>{data}</code>
       {copied}
     </p>
   );
