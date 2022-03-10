@@ -30,14 +30,8 @@ export function History({ authors, children }) {
 
   return (
     <JumpDefaults.Provider value={useMemo(() => ({ team: team.id }), [team.id])}>
-      <div className="tw-container tw-my-3 lg:tw-my-4">
-        <div className="lg:tw-max-w-prose tw-mx-auto tw-flex tw-justify-between">
-          <WebRing team={previous} previous />
-          <WebRing team={next} />
-        </div>
-      </div>
-      <div className="tw-font-client-serif tw-w-96 tw-max-w-max tw-mx-auto tw-my-6 lg:tw-my-8 tw-text-center">
-        <div className="tw-flex tw-justify-center tw-gap-x-2.5 tw-text-left">
+      <div className="tw-container tw-flex tw-gap-y-6 tw-flex-wrap lg:tw-flex-nowrap tw-justify-between tw-mt-3 lg:tw-mt-6">
+        <div className="tw-order-3 tw-basis-full lg:tw-basis-auto lg:tw-order-2 tw-font-client-serif tw-flex tw-justify-center tw-gap-x-2.5 tw-text-left">
           <TeamIcon size="teamCard" emoji={team.emoji} color={team.mainColor} />
           <div>
             <h2 className="tw-text-[1.375rem] tw-leading-[1.65rem] lg:tw-text-2xl lg:tw-leading-[1.8rem]">
@@ -46,6 +40,10 @@ export function History({ authors, children }) {
             <div className="tw-italic tw-text-base">&quot;{team.slogan}&quot;</div>
           </div>
         </div>
+        <WebRing className="tw-order-1 lg:tw-basis-48" team={previous} previous />
+        <WebRing className="tw-order-2 lg:tw-basis-48 lg:tw-order-3 lg:tw-justify-end" team={next} />
+      </div>
+      <div className="tw-container tw-font-client-serif lg:tw-max-w-xl tw-mb-6 lg:tw-mb-8 tw-text-center">
         <button
           type="button"
           disabled={favorite}
@@ -91,10 +89,10 @@ export function Entry({ date, title, children, ...jump }) {
   );
 }
 
-function WebRing({ team, previous }) {
+function WebRing({ className, team, previous }) {
   return (
     <Link href={`/histories/${team.slug}`} passHref>
-      <a href="passedHref" className="tw-flex tw-items-center tw-gap-2 hover:tw-no-underline tw-group">
+      <a href="passedHref" className={`${className} tw-flex tw-items-center tw-gap-2 hover:tw-no-underline tw-group`}>
         {previous ? <HiArrowLeft className="tw-h-4 tw-w-4" /> : null}
         <TeamIcon size="small" emoji={team.emoji} color={team.mainColor} />
         <span className="group-hover:tw-underline">{team.nickname}</span>
