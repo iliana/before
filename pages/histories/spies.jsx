@@ -68,7 +68,7 @@ export default function Page() {
       <Entry title="The Season 9 Reverb" season={9} day={52} time="2020-10-07T19:22:06Z">
         <p>
           The Spies and their legendary defense had been on track for the Internet Series. Instead, a catastrophic
-          <Jump time="2020-10-07T19:23:06Z" redirect="/team/9debc64f-74b7-4ae1-a4d6-fce0144b6ea5">
+          {" "}<Jump time="2020-10-07T19:23:06Z" redirect="/team/9debc64f-74b7-4ae1-a4d6-fce0144b6ea5">
             full-team Reverb
           </Jump>{" "}
           put all three of the Replacement Elbows, a pitching Blessing won in just{" "}
@@ -191,7 +191,7 @@ export default function Page() {
         </p>
         <p>
           These two plots came together on <Jump time="2021-07-21T14:22:20Z">Season 23, Day 47</Jump>. Chark had just
-          Voicemailed back out onto the Spies lineup
+          Voicemailed back out onto the Spies lineup{" "}
           <Jump time="2021-07-21T13:23:41Z">the game before</Jump>, and Hayes had returned to the Georgias after{" "}
           <Jump season={22} day={19} redirect="/player/b7267aba-6114-4d53-a519-bf6c99f4e3a9">
             a brief Fifth Base-induced stint on the Dale
@@ -200,14 +200,14 @@ export default function Page() {
           Hayes, returning both back to the teams they were originally on before Season 19. This time, though, Hayes was
           6.84 total stars better than they were when they left, and were now a league-leading hitter and baserunner,
           something impossible without their initial absence. Within Spies culture, this series of events is heralded as
-          proof that the Plan, the idea that everything, including the bad, is part of a greater plot to help the Spies
+          proof that the Plan, the idea that everything, including the bad, is part of a greater plot to help the Spies{" "}
           <Spoiler>win</Spoiler>, was very much real.
         </p>
       </Entry>
       <Entry title="I Simply Refuse to Die" date="Season 19 Election" time="2021-05-23T18:15:00Z">
         <p>
           Seeing an opportunity to cure their lineup of a long-standing blemish, the Kansas City Breath Mints voted to
-          Revoke a 6.4 star Pudge Nakamoto during the{" "}
+          Revoke a 6.4-star Pudge Nakamoto during the{" "}
           <Jump time="2021-03-07T19:15:00Z" team="adc5b394-8f76-416d-9ce9-813706877b84">
             Season 12 Election
           </Jump>
