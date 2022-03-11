@@ -30,7 +30,7 @@ export function History({ authors, children }) {
 
   return (
     <JumpDefaults.Provider value={useMemo(() => ({ team: team.id }), [team.id])}>
-      <div className="tw-container tw-flex tw-gap-y-6 tw-flex-wrap lg:tw-flex-nowrap tw-justify-between tw-mt-3 lg:tw-mt-6">
+      <div className="tw-container tw-flex tw-gap-y-6 tw-flex-wrap lg:tw-flex-nowrap tw-justify-between print:tw-justify-center tw-mt-3 lg:tw-mt-6">
         <div className="tw-order-3 tw-basis-full lg:tw-basis-auto lg:tw-order-2 tw-font-client-serif tw-flex tw-justify-center tw-gap-x-2.5 tw-text-left">
           <TeamIcon size="teamCard" emoji={team.emoji} color={team.mainColor} />
           <div>
@@ -92,7 +92,10 @@ export function Entry({ date, title, children, ...jump }) {
 function WebRing({ className, team, previous }) {
   return (
     <Link href={`/histories/${team.slug}`} passHref>
-      <a href="passedHref" className={`${className} tw-flex tw-items-center tw-gap-2 hover:tw-no-underline tw-group`}>
+      <a
+        href="passedHref"
+        className={`${className} tw-flex tw-items-center tw-gap-2 hover:tw-no-underline tw-group print:tw-hidden`}
+      >
         {previous ? <HiArrowLeft className="tw-h-4 tw-w-4" /> : null}
         <TeamIcon size="small" emoji={team.emoji} color={team.mainColor} />
         <span className="group-hover:tw-underline">{team.nickname}</span>
