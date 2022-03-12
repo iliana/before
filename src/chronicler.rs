@@ -97,6 +97,9 @@ pub(crate) struct Request<V> {
     #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
     started: Option<bool>,
+    #[builder(default)] // this doesn't have strip option to account for code in bet.rs
+    #[serde(skip_serializing_if = "Option::is_none")]
+    finished: Option<bool>,
     #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
     sim: Option<&'static str>,

@@ -11,7 +11,7 @@ use crate::time::{datetime, DateTime};
 use crate::Result;
 use bincode::{DefaultOptions, Options};
 use itertools::Itertools;
-use rocket::futures::{future, stream::*};
+use rocket::futures::{self, future, stream::*};
 use rocket::http::CookieJar;
 use rocket::response::stream::stream;
 use rocket::serde::json::Json;
@@ -455,6 +455,43 @@ pub(crate) async fn generate_snack_toasts(
                     None
                 }
             }
+            Snack::IdolShutouts => {
+                if let Some(idol) = cookies.load::<Idol>().map(|v| v.to_string()) {
+                    let info = &SNACK_CONDITIONS[&Snack::IdolShutouts];
+                    let to = info.to.map_or(time, |v| cmp::min(v, time));
+                    let from = cmp::max(last_snack_payout, info.from);
+
+                    let mut triggers: usize = 0;
+                    let mut stream = events_for_pitcher(config, to, from, &idol, true)
+                        .await?
+                        .boxed();
+                    'outer: while let Some(game_feed) = stream.next().await {
+                        for e in game_feed? {
+                            if e.etype == 9 {
+                                continue 'outer;
+                            }
+                        }
+
+                        // if no homers happened in this game, add a shutout trigger
+                        triggers += 1;
+                    }
+
+                    let payout = calculate_payout(
+                        triggers,
+                        snack_modifier,
+                        Snack::IdolShutouts,
+                        snack_amount as usize,
+                    );
+
+                    if payout > 0 {
+                        Some(format!("snack {} earned ya {}", snack, payout))
+                    } else {
+                        None
+                    }
+                } else {
+                    continue;
+                }
+            }
             s if SNACK_CONDITIONS.contains_key(&snack) => {
                 let info = &SNACK_CONDITIONS[&s];
                 let to = info.to.map_or(time, |v| cmp::min(v, time));
@@ -509,11 +546,19 @@ async fn pitcher_snack_triggers(
     pitcher: &str,
     event_type: i32,
 ) -> anyhow::Result<usize> {
-    events_for_pitcher(config, before, after, pitcher)
+    let mut count: usize = 0;
+    let mut stream = events_for_pitcher(config, before, after, pitcher, false)
         .await?
-        .try_filter(|e| future::ready(e.etype == event_type))
-        .try_fold(0, |acc, _| future::ready(Ok(acc + 1)))
-        .await
+        .boxed();
+    while let Some(game_feed) = stream.next().await {
+        for e in game_feed? {
+            if e.etype == event_type {
+                count += 1;
+            }
+        }
+    }
+
+    Ok(count)
 }
 
 async fn events_for_pitcher<'a>(
@@ -521,7 +566,8 @@ async fn events_for_pitcher<'a>(
     before: DateTime,
     after: DateTime,
     pitcher: &'a str,
-) -> anyhow::Result<impl Stream<Item = anyhow::Result<MinimalFeedEvent>> + 'a> {
+    only_finished_games: bool,
+) -> anyhow::Result<impl Stream<Item = anyhow::Result<Vec<MinimalFeedEvent>>> + 'a> {
     #[derive(Deserialize)]
     #[serde(rename_all = "camelCase")]
     struct GameResult {
@@ -557,11 +603,19 @@ async fn events_for_pitcher<'a>(
         .after(after - Duration::hours(1)) // this is a hack to catch games going on right now. it's bad and needs a fix - allie
         .before(before)
         .pitcher(pitcher.to_string())
+        .finished(if only_finished_games {
+            Some(true)
+        } else {
+            None
+        })
         .json(config)
         .await?
         .data;
 
     Ok(stream! {
+        // yield all events for a game at once at once, so we can do per-game counts like shut outs
+        let mut events: Vec<MinimalFeedEvent> = Vec::new();
+
         for game in games {
             // todo: support event type 3, 'pitcher change'
             let pitcher_team = if game.data.away_pitcher == pitcher { InningHalf::Top } else { InningHalf::Bottom };
@@ -574,9 +628,11 @@ async fn events_for_pitcher<'a>(
                 }
 
                 if inning_half == pitcher_team {
-                    yield Ok(event);
+                    events.push(event);
                 }
             }
+
+            yield Ok(events.drain(..).collect());
         }
     })
 }
