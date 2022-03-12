@@ -195,7 +195,7 @@ export default function Page() {
           <Jump time="2021-04-09T01:15:13Z">Uncle Plasma</Jump>, <Jump time="2021-04-09T07:06:02Z">Glabe Moon</Jump>,{" "}
           <Jump time="2021-04-09T13:22:50Z">Thomas Dracaena</Jump>,{" "}
           <Jump time="2021-04-09T19:22:21Z">Theodore Cervantes</Jump>, and finally{" "}
-          <Jump time="2021-04-10T01:15:45Z">Sandie Turner</Jump>
+          <Jump time="2021-04-10T01:15:45Z">Sandie Turner</Jump>{" "}
           eyrself. The attacks ultimately ended the Mills’ championship dreams; they would lose the divisional series
           against the eventual Internet Series Champions, the Canada Moist Talkers, and went into the Election
           determined to win it all next season.
