@@ -127,11 +127,8 @@ export default function Page() {
           They had two former captains return as members of the Hall Stars: Scrap Murphy and Dominic Marijuana. Murphy,
           the Millennials’ captain when Blaseball returned in Season 1, was an early casualty on{" "}
           <Jump time="2020-07-29T05:59:55Z">Season 2, Day 40</Jump>. He replaced Sebastian Telephone mid-game when
-          Telephone was incinerated a second time
-          {/* https://reblase.sibr.dev/bossfight/9bb560d9-4925-4845-ad03-26012742ee23#f9538c60-83bb-8b6c-6720-3d666594cb75 */}
-          . Over the course of the game, Marijuana, Murphy’s successor, hit three home runs against THE SHELLED ONE’S
-          PODS, the final of which
-          {/* https://reblase.sibr.dev/bossfight/9bb560d9-4925-4845-ad03-26012742ee23#bddd9a75-9259-451a-066f-a52b01924d6f */}{" "}
+          Telephone was <Jump time="2020-10-18T00:49:30Z">Incinerated a second time</Jump>. Over the course of the game, Marijuana, Murphy’s successor, hit three home runs against THE SHELLED ONE’S
+          PODS, the <Jump time="2020-10-18T01:06:50Z">final of which</Jump>{" "}
           dealt 2,039,516 damage to THE PODS and ended the game, adding Blaseball Gods to the list of industries the
           Millennials are proud to have helped kill.
         </p>
