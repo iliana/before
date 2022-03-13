@@ -1,5 +1,8 @@
 {
   "private": true,
+  "scripts": {
+    "build": "next build --no-lint && next export && node util/fix-fragment.js out/fragment/nav.html"
+  },
   "dependencies": {
     "dayjs": "^1.10.8",
     "next": "^12.1.0",

@@ -5,7 +5,7 @@ COPY --from=node:16-buster-slim /usr/local/bin /usr/local/bin
 ENV STATIC_DIR=/var/www/before
 WORKDIR /usr/src/before
 COPY . .
-RUN npm ci
+RUN npm ci && npm run build
 RUN cargo test --release
 RUN cargo install --path .
 RUN objcopy --compress-debug-sections /usr/local/cargo/bin/before
