@@ -52,7 +52,13 @@ export default function Page() {
           come.
         </p>
       </Entry>
-      <Entry date="Season 4, Day 108" title="TDHAGOTET" time="2020-08-29T21:22:02Z">
+      <Entry
+        date="Season 4, Day 108"
+        title={
+          <abbr title="Thomas Dracaena hit a ground out to Edric Tosser">TDHAGOTET</abbr>
+        }
+        time="2020-08-29T21:22:02Z"
+      >
         <p>
           The New York Millennials were poised for a strong playoff showing in Season 4. In the Good League Championship
           Series, they would face their future Blood Donor rivals, the Chicago Firefighters. At the top of the 9th
