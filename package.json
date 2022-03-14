@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "build": "next build --no-lint && next export && node util/fix-fragment.js out/fragment/nav.html"
+    "build": "next build --no-lint && next export && node util/fix-assets.js out/fragment/nav.html",
+    "fix": "prettier -w . && next lint --fix"
   },
   "dependencies": {
     "dayjs": "^1.10.8",
@@ -22,6 +23,7 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "12.1.0",
     "eslint-config-prettier": "^8.4.0",
+    "glob": "^7.2.0",
     "jsdom": "^19.0.0",
     "postcss": "^8.4.4",
     "postcss-cli": "^9.0.2",

@@ -1,20 +1,19 @@
 use crate::media::{self, Range, Static};
 use crate::{offset::OffsetTime, time::DateTime, Config};
-use anyhow::{Context, Result};
+use anyhow::{bail, Context, Result};
+use rocket::futures::stream::Stream;
 use rocket::futures::{future::ready, StreamExt};
+use rocket::response::stream::stream;
 use rocket::{get, request::FromParam, State};
-use serde::Deserialize;
 use std::collections::BTreeSet;
+use std::ffi::OsString;
 use std::path::{Path, PathBuf};
 use std::str::FromStr;
 
-#[derive(Debug, Clone, Copy, Deserialize)]
+#[derive(Debug, Clone, Copy)]
 pub(crate) enum Site {
-    #[serde(rename = "www.blaseball2.com")]
     Blaseball2,
 }
-
-serde_plain::derive_fromstr_from_deserialize!(Site);
 
 impl Site {
     fn as_str(self) -> &'static str {
@@ -25,10 +24,13 @@ impl Site {
 }
 
 impl<'a> FromParam<'a> for Site {
-    type Error = serde_plain::Error;
+    type Error = anyhow::Error;
 
-    fn from_param(param: &'a str) -> Result<Site, serde_plain::Error> {
-        param.parse()
+    fn from_param(param: &'a str) -> Result<Site> {
+        match param {
+            "www.blaseball2.com" => Ok(Site::Blaseball2),
+            _ => bail!("{:?} didn't match any sites", param),
+        }
     }
 }
 
@@ -47,14 +49,15 @@ pub(crate) async fn offsite(
             }
 
             let time = time.context("time required for this site")?;
-            let entries = media::read_dir_static(config, domain.as_str())
+            let entries = read_dir_static(config, domain)
                 .filter_map(|s| ready(s.to_str().and_then(|s| DateTime::from_str(s).ok())))
                 .collect::<BTreeSet<_>>()
                 .await;
             if let Some(entry) = entries.range(..time.0).rev().next() {
                 media::static_root(
                     config,
-                    Path::new(domain.as_str())
+                    Path::new("offsite")
+                        .join(domain.as_str())
                         .join(entry.to_string())
                         .join(path),
                     range,
@@ -62,6 +65,26 @@ pub(crate) async fn offsite(
                 .await
             } else {
                 Ok(None)
+            }
+        }
+    }
+}
+
+fn read_dir_static(config: &State<Config>, domain: Site) -> impl Stream<Item = OsString> + '_ {
+    stream! {
+        if let Some(zip) = config.static_zip.as_ref().cloned() {
+            for file in zip.file_names() {
+                if let Some(f) = file.strip_prefix(&format!("offsite/{}/", domain.as_str())) {
+                    if !f.contains('/') {
+                        yield f.into();
+                    }
+                }
+            }
+        }
+
+        if let Ok(mut rd) = tokio::fs::read_dir(config.static_dir.join("offsite").join(domain.as_str())).await {
+            while let Ok(Some(entry)) = rd.next_entry().await {
+                yield entry.file_name();
             }
         }
     }
