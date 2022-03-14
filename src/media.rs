@@ -39,6 +39,8 @@ pub(crate) enum Static {
         ct: ContentType,
         etag: ETag,
     },
+    #[response(status = 404, content_type = "html")]
+    Future(String),
     #[response(status = 206)]
     Range {
         content: Vec<u8>,
@@ -138,6 +140,7 @@ pub(crate) async fn fetch_static_str(config: &State<Config>, path: &str) -> anyh
                 file.read_to_string(&mut s).await?;
                 s
             }
+            Static::Future(s) => s, // unreachable, but also trivial
             Static::Range { .. } => unreachable!("did not request range"),
         },
     )

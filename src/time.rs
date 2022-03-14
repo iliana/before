@@ -104,3 +104,9 @@ macro_rules! datetime {
 }
 
 pub(crate) use datetime;
+
+#[cfg(test)]
+#[test]
+fn test_from_empty_str() {
+    assert!(DateTime::from_str("").is_err());
+}

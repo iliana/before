@@ -8,7 +8,7 @@ import Forward30s from "./forward-30s.svg";
 export default function Nav({ open, hideSkip }) {
   return (
     <div className="tw-before-scope">
-      <div className="tw-bg-gray-900 tw-text-white print:tw-hidden tw-text-sm lg:tw-text-base tw-border-b tw-border-gray-800 tw-z-[9999]">
+      <div className="tw-bg-gray-900 tw-text-white print:tw-hidden tw-text-sm lg:tw-text-base tw-border-b tw-border-gray-800 tw-relative tw-z-[9999]">
         <div className="tw-relative tw-container tw-py-1.5 lg:tw-py-2">
           <details open={open ?? false}>
             <summary className="tw-group tw-space-x-1.5 tw-inline-block tw-font-bold tw-cursor-pointer">
@@ -49,6 +49,7 @@ export default function Nav({ open, hideSkip }) {
             >
               <JumpInput name="season" placeholder="Season" />
               <JumpInput name="day" placeholder="Day" />
+              {hideSkip ? <input type="hidden" name="redirect" value="/" /> : null}
               <input
                 className="tw-bg-gray-700 tw-text-center tw-font-bold tw-rounded-full tw-hidden lg:tw-block tw-px-2.5 tw-py-px"
                 type="submit"

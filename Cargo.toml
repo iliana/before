@@ -73,9 +73,5 @@ version = "0.5"
 default-features = false
 features = ["deflate"]
 
-[build-dependencies]
-anyhow = "1"
-cmd_lib = "1"
-
 [dev-dependencies]
 maplit = "1"
