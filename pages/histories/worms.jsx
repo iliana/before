@@ -178,7 +178,7 @@ export default function Page() {
           was ensured by the now-Yolked Uncle Plasma and Liquid Friend who, finally together, tag-team SHABOOMED any
           Consumer brave enough to charge the field. In the depths, the Worms encountered and broke through the gate
           located in{" "}
-          <Jump redirect="/_before/www.blaseball2.com/" time="2021-06-24T19:00:30Z">
+          <Jump redirect="/_before/www.blaseball2.com/" time="2021-06-24T19:10:30Z">
             Blaseball 2
           </Jump>{" "}
           due to their eDensity, releasing pickled herring for the League’s enjoyment.
