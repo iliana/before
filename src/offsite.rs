@@ -66,6 +66,12 @@ pub(crate) async fn offsite(
                     range,
                 )
                 .await
+            } else if let Some(first) = entries.iter().next() {
+                Ok(Some(Static::Future(
+                    media::fetch_static_str(config, "fragment/future.html")
+                        .await?
+                        .replace("@@BEFORE_TIME@@", &first.to_string()),
+                )))
             } else {
                 Ok(None)
             }

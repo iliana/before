@@ -1,5 +1,5 @@
 use crate::config::Config;
-use crate::media;
+use crate::media::{self, Static};
 use crate::offset::OffsetTime;
 use crate::site::AssetSet;
 use crate::time::{datetime, DateTime};
@@ -72,6 +72,9 @@ pub(crate) async fn index(
 #[catch(404)]
 pub(crate) async fn index_default<'a>(req: &'a Request<'_>) -> Result<Response<'a>> {
     let path = req.uri().path();
+    let time = <Option<OffsetTime>>::from_request(req).await.unwrap();
+    let config = <&State<Config>>::from_request(req).await.unwrap();
+
     if [
         "/api",
         "/auth",
@@ -83,13 +86,11 @@ pub(crate) async fn index_default<'a>(req: &'a Request<'_>) -> Result<Response<'
     .iter()
     .any(|p| path.starts_with(p))
     {
-        Ok(Response::NotFound(()))
+        media::static_root(config, "404.html".into(), None)
+            .await
+            .map(Response::NotFound)
     } else {
-        index(
-            <Option<OffsetTime>>::from_request(req).await.unwrap(),
-            <&State<Config>>::from_request(req).await.unwrap(),
-        )
-        .await
+        index(time, config).await
     }
 }
 
@@ -105,7 +106,7 @@ pub(crate) enum Response<'a> {
     },
     Redirect(Redirect),
     #[response(status = 404)]
-    NotFound(()),
+    NotFound(Option<Static>),
 }
 
 pub(crate) struct ContentSecurityPolicy<'a> {
