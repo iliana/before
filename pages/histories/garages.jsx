@@ -24,7 +24,7 @@ export async function getStaticProps() {
 
 export default function Page() {
   return (
-    <History authors="fionna adams, Riley “Navi” Murphy, squirrel, and Leo Mathonwy">
+    <History authors="fionna adams of the Tautology System, Riley “Navi” Murphy, squirrel, and Leo Mathonwy">
       <Entry title="The Incineration of Unremarkable Derrick Krueger" season={3} day={80}>
         {/* insert data */}
         <p>
