@@ -1,5 +1,7 @@
 const withPreact = require("next-plugin-preact");
 
+/* eslint-disable no-param-reassign */
+
 module.exports = withPreact({
   basePath: "/_before",
   reactStrictMode: true,
