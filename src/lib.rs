@@ -19,6 +19,7 @@ mod idol;
 mod jump;
 mod media;
 mod offset;
+mod offsite;
 mod players;
 mod redirect;
 mod settings;
@@ -115,6 +116,7 @@ pub async fn build(figment: &Figment) -> anyhow::Result<Rocket<Build>> {
                 jump::relative,
                 media::static_media,
                 media::static_root,
+                offsite::offsite,
                 players::player_names_ids,
                 players::players,
                 settings::update_settings,

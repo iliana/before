@@ -1,11 +1,13 @@
 use crate::{http::ETag, Config, Result};
 use anyhow::{anyhow, ensure, Context};
 use http_range::{HttpRange, HttpRangeParseError};
+use rocket::futures::stream::Stream;
 use rocket::http::hyper::header::{CONTENT_RANGE, RANGE};
 use rocket::http::{ContentType, Header, Status};
 use rocket::request::{FromRequest, Outcome, Request};
+use rocket::response::stream::stream;
 use rocket::{get, Responder, State};
-use std::ffi::OsStr;
+use std::ffi::{OsStr, OsString};
 use std::io::{Read, SeekFrom};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
@@ -141,6 +143,31 @@ pub(crate) async fn fetch_static_str(config: &State<Config>, path: &str) -> anyh
             Static::Range { .. } => unreachable!("did not request range"),
         },
     )
+}
+
+// =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
+
+pub(crate) fn read_dir_static<'a>(
+    config: &'a State<Config>,
+    path: &'a str,
+) -> impl Stream<Item = OsString> + 'a {
+    stream! {
+        if let Some(zip) = config.static_zip.as_ref().cloned() {
+            for file in zip.file_names() {
+                if let Some(f) = file.strip_prefix(&format!("{}/", path)) {
+                    if !f.contains('/') {
+                        yield f.into();
+                    }
+                }
+            }
+        }
+
+        if let Ok(mut rd) = tokio::fs::read_dir(config.static_dir.join(path)).await {
+            while let Ok(Some(entry)) = rd.next_entry().await {
+                yield entry.file_name();
+            }
+        }
+    }
 }
 
 // =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=   =^..^=
