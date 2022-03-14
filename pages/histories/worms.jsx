@@ -177,7 +177,7 @@ export default function Page() {
           and the Worms’ Heavy-Handed modification, the team began to plummet down through the Immateria. Their safety
           was ensured by the now-Yolked Uncle Plasma and Liquid Friend who, finally together, tag-team SHABOOMED any
           Consumer brave enough to charge the field. In the depths, the Worms encountered and broke through the gate
-          located in Blaseball 2{/* Blaseball 2 archive as of this date? */} due to their eDensity, releasing pickled
+          located in <Jump redirect="/_before/www.blaseball2.com/" time="2021-06-24T19:00:30Z">Blaseball 2</Jump> due to their eDensity, releasing pickled
           herring for the League’s enjoyment.
         </p>
         <p>
