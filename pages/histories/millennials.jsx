@@ -54,9 +54,7 @@ export default function Page() {
       </Entry>
       <Entry
         date="Season 4, Day 108"
-        title={
-          <abbr title="Thomas Dracaena hit a ground out to Edric Tosser">TDHAGOTET</abbr>
-        }
+        title={<abbr title="Thomas Dracaena hit a ground out to Edric Tosser">TDHAGOTET</abbr>}
         time="2020-08-29T21:22:02Z"
       >
         <p>
@@ -133,10 +131,10 @@ export default function Page() {
           They had two former captains return as members of the Hall Stars: Scrap Murphy and Dominic Marijuana. Murphy,
           the Millennials’ captain when Blaseball returned in Season 1, was an early casualty on{" "}
           <Jump time="2020-07-29T05:59:55Z">Season 2, Day 40</Jump>. He replaced Sebastian Telephone mid-game when
-          Telephone was <Jump time="2020-10-18T00:49:30Z">Incinerated a second time</Jump>. Over the course of the game, Marijuana, Murphy’s successor, hit three home runs against THE SHELLED ONE’S
-          PODS, the <Jump time="2020-10-18T01:06:50Z">final of which</Jump>{" "}
-          dealt 2,039,516 damage to THE PODS and ended the game, adding Blaseball Gods to the list of industries the
-          Millennials are proud to have helped kill.
+          Telephone was <Jump time="2020-10-18T00:49:30Z">Incinerated a second time</Jump>. Over the course of the game,
+          Marijuana, Murphy’s successor, hit three home runs against THE SHELLED ONE’S PODS, the{" "}
+          <Jump time="2020-10-18T01:06:50Z">final of which</Jump> dealt 2,039,516 damage to THE PODS and ended the game,
+          adding Blaseball Gods to the list of industries the Millennials are proud to have helped kill.
         </p>
       </Entry>
       <Entry
@@ -198,10 +196,9 @@ export default function Page() {
           <Jump time="2021-04-09T01:15:13Z">Uncle Plasma</Jump>, <Jump time="2021-04-09T07:06:02Z">Glabe Moon</Jump>,{" "}
           <Jump time="2021-04-09T13:22:50Z">Thomas Dracaena</Jump>,{" "}
           <Jump time="2021-04-09T19:22:21Z">Theodore Cervantes</Jump>, and finally{" "}
-          <Jump time="2021-04-10T01:15:45Z">Sandie Turner</Jump>{" "}
-          eyrself. The attacks ultimately ended the Mills’ championship dreams; they would lose the divisional series
-          against the eventual Internet Series Champions, the Canada Moist Talkers, and went into the Election
-          determined to win it all next season.
+          <Jump time="2021-04-10T01:15:45Z">Sandie Turner</Jump> eyrself. The attacks ultimately ended the Mills’
+          championship dreams; they would lose the divisional series against the eventual Internet Series Champions, the
+          Canada Moist Talkers, and went into the Election determined to win it all next season.
         </p>
       </Entry>
       <Entry date="Season 16, Day 88" title="The Second Death of Chorby Soul" time="2021-04-16T10:19:28Z">

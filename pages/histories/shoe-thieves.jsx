@@ -50,8 +50,7 @@ export default function Page() {
           Incinerated, after having an allergic reaction on <Jump time="2020-08-05T22:22:50Z">Day 52</Jump>. To add
           insult to injury, their replacement was 0 star pitcher Gunther O’Brian. Gunther immediately claimed the title
           of worst pitcher in the League by blowing a 6-3 lead into a 16-21 defeat, setting a new record for most runs
-          scored in a game. Gunther later became a fan favorite, and the community celebrated their
-          shutout on{" "}
+          scored in a game. Gunther later became a fan favorite, and the community celebrated their shutout on{" "}
           <Jump season={6} day={22}>
             Season 6, Day 22
           </Jump>{" "}
