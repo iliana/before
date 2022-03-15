@@ -14,6 +14,7 @@ use std::str::FromStr;
 pub(crate) enum Site {
     Blaseball0,
     Blaseball2,
+    Glitter,
 }
 
 impl Site {
@@ -21,6 +22,7 @@ impl Site {
         match self {
             Site::Blaseball0 => "www.blaseball0.com",
             Site::Blaseball2 => "www.blaseball2.com",
+            Site::Glitter => "glitter.sibr.dev",
         }
     }
 }
@@ -32,6 +34,7 @@ impl<'a> FromParam<'a> for Site {
         match param {
             "www.blaseball0.com" => Ok(Site::Blaseball0),
             "www.blaseball2.com" => Ok(Site::Blaseball2),
+            "glitter.sibr.dev" => Ok(Site::Glitter),
             _ => bail!("{:?} didn't match any sites", param),
         }
     }
@@ -75,6 +78,18 @@ pub(crate) async fn offsite(
             } else {
                 Ok(None)
             }
+        }
+        Site::Glitter => {
+            if path.file_name().is_none() {
+                path = path.with_file_name("index.html");
+            }
+
+            media::static_root(
+                config,
+                Path::new("offsite").join(domain.as_str()).join(path),
+                range,
+            )
+            .await
         }
     }
 }
