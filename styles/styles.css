@@ -27,23 +27,6 @@
   a {
     @apply hover:tw-underline;
   }
-
-  details > summary {
-    @apply tw-list-none;
-  }
-
-  details > summary::marker,
-  details > summary::-webkit-details-marker {
-    @apply tw-hidden;
-  }
-
-  details dl dt {
-    @apply tw-inline tw-font-bold tw-pr-1.5 lg:tw-pr-2 after:tw-content-[":"];
-  }
-
-  details dl dd {
-    @apply tw-inline;
-  }
 }
 
 @layer components {
@@ -62,6 +45,17 @@
 
   .tw-before-history p {
     @apply tw-my-2 lg:tw-my-3;
+  }
+}
+
+@layer utilities {
+  .tw-before-hide-marker {
+    @apply tw-list-none;
+
+    &::marker,
+    &::-webkit-details-marker {
+      @apply tw-hidden;
+    }
   }
 }
 

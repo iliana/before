@@ -11,7 +11,7 @@ export default function Nav({ open, hideSkip }) {
       <div className="tw-bg-gray-900 tw-text-white print:tw-hidden tw-text-sm lg:tw-text-base tw-border-b tw-border-gray-800 tw-relative tw-z-[9999]">
         <div className="tw-relative tw-container tw-py-1.5 lg:tw-py-2">
           <details open={open ?? false}>
-            <summary className="tw-group tw-space-x-1.5 tw-inline-block tw-font-bold tw-cursor-pointer">
+            <summary className="tw-before-hide-marker tw-group tw-space-x-1.5 tw-inline-block tw-font-bold tw-cursor-pointer">
               <MdMenu
                 viewBox="3 3 21 21"
                 preserveAspectRatio="none"

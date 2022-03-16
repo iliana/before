@@ -1,0 +1,56 @@
+<!DoCtYpE hTmL>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            :root {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                background-color: black;
+                overflow: hidden;
+            }
+
+            body {
+                margin: 0;
+            }
+
+            .dot {
+                position: absolute;
+                border-radius: 50%;
+                animation: sparkle infinite;
+            }
+
+            @keyframes sparkle {
+                0% { transform: scale(1); }
+                50% { transform: scale(0.5); }
+                to { transform: scale(1); }
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            (() => {
+              const colors = new URLSearchParams(window.location.search).get('colors')
+                ?.split(',')?.map((s) => /^([0-9a-fA-F]{3}){1,2}$/.test(s) ? `#${s}` : s)
+                ?? ['#9578f1', '#e65cc9', '#f4daf1', '#872579', '#f44ec9'];
+
+              // Original version appears to have 250 dots for a 1000x500px canvas (one dot per 2000px).
+              [...Array(Math.floor(window.innerHeight * window.innerWidth / 2000))].forEach(() => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                const size = Math.floor(6 * Math.random());
+                Object.assign(dot.style, {
+                  height: `${size}px`,
+                  width: `${size}px`,
+                  top: `${Math.floor(window.innerHeight * Math.random())}px`,
+                  left: `${Math.floor(window.innerWidth * Math.random())}px`,
+                  background: colors[Math.floor(colors.length * Math.random())],
+                  animationDuration: `${Math.floor(5 * Math.random()) + 2}s`,
+                });
+                document.body.appendChild(dot);
+              });
+            })();
+        </script>
+    </body>
+</html>
