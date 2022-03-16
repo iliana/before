@@ -46,7 +46,7 @@ export default function Page() {
           resounding success, but the real test would be facing the leader of Wild High, and one of the biggest teams to
           beat, in the Wild League Champion Series, the Baltimore Crabs. With notable pitching from the likes of
           Percival Wheeler, Milo Brown, and Parker Meng, the Lovers would win in a harrowing five-game series, sending
-          them to the finals against the Mexico City ||Wild|| Mild Wings.
+          them to the finals against the Mexico City Wild Wings.
         </p>
         <LineScore id="e4b98dce-a9aa-4934-b5f0-0b2b35e9f8dd" />
       </Entry>
