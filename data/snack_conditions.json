@@ -1,0 +1,138 @@
+{
+    "Idol_Hits": {
+        "kind": "EventBased",
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            10
+        ],
+        "filters": [
+            [
+                "playerTags",
+                "::IDOL::"
+            ]
+        ],
+        "template": "sure"
+    },
+    "Team_Win": {
+        "kind": "EventBased",
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            11
+        ],
+        "filters": [
+            [
+                "metadata.winner",
+                "::FAV_TEAM::"
+            ]
+        ],
+        "template": "sure"
+    },
+    "Team_Loss": {
+        "kind": "EventBased",
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            11
+        ],
+        "filters": [
+            [
+                "metadata.winner!",
+                "::FAV_TEAM::"
+            ],
+            [
+                "teamTags",
+                "::FAV_TEAM::"
+            ]
+        ],
+        "template": "sure"
+    },
+    "Incineration": {
+        "kind": "EventBased",
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            54
+        ],
+        "template": "sure"
+    },
+    "Idol_Strikeouts": {
+        "kind": "PitcherBased",
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            6
+        ],
+        "template": "sure"
+    },
+    "Idol_Homer_Allowed": {
+        "kind": "PitcherBased",
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            9
+        ],
+        "template": "sure"
+    },
+    "Idol_Steal": {
+        "kind": "EventBased",
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            4
+        ],
+        "filters": [
+            [
+                "playerTags",
+                "::IDOL::"
+            ]
+        ],
+        "template": "sure"
+    },
+    "Sun_2": {
+        "kind": "EventBased",
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            31
+        ],
+        "template": "sure"
+    },
+    "Black_Hole": {
+        "kind": "EventBased",
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            30
+        ],
+        "template": "sure"
+    },
+    "Consumer_Attacks": {
+        "kind": "EventBased",
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            67
+        ],
+        "template": "sure"
+    },
+    "Team_Shamed": {
+        "kind": "EventBased",
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            154
+        ],
+        "filters": [
+            [
+                "metadata.winner",
+                "::FAV_TEAM::"
+            ]
+        ],
+        "template": "sure"
+    },
+    "Team_Shaming": {
+        "kind": "EventBased",
+        "from": "1970-01-01T00:00:01.000Z",
+        "event_types": [
+            155
+        ],
+        "filters": [
+            [
+                "metadata.winner",
+                "::FAV_TEAM::"
+            ]
+        ],
+        "template": "sure"
+    }
+}      

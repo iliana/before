@@ -251,6 +251,9 @@ pub(crate) enum Snack {
     #[serde(rename = "Sun_2")]
     Sun2,
     Incineration,
+    #[serde(rename = "Incineration_Melted")]
+    // for internal use; not a real snack - simply for easier key-ing of snack date post-melting-of-sundaes
+    IncinerationMelted,
     #[serde(rename = "Consumer_Attacks")]
     ConsumerAttacks,
     Votes,
@@ -291,7 +294,7 @@ impl Snack {
             TeamShaming => "Taffy",
             Breakfast => "Breakfast",
             Sun2 => "Doughnut",
-            Incineration => {
+            Incineration | IncinerationMelted => {
                 if time >= datetime!(2021-07-25 17:50:00 UTC) {
                     "Melted Sundae"
                 } else {
@@ -318,7 +321,7 @@ impl Snack {
             MaxBet | TeamWin | IdolHits | IdolHomers | IdolStrikeouts | IdolShutouts | TeamLoss
             | IdolSteal | BlackHole | TeamSlush | IdolHomerAllowed | Breakfast | Sun2
             | IdolPitcherWin | IdolPitcherLoss | TeamShamed | TeamShaming | Incineration
-            | ConsumerAttacks => 0,
+            | ConsumerAttacks | IncinerationMelted => 0,
             _ => 1,
         }
     }
