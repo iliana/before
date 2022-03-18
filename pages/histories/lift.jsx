@@ -45,7 +45,7 @@ export default function Page() {
           Before Magnification, before Hoops, before absurd scoring Suns, there were two ways to modify runs in Blaseball: Coffee weather Modifications and Big Buckets. Rookie Engine Eberhardt, brought out in the <Jump redirect="/offseason" time="2021-03-14T19:15:00Z">Season 13 Election</Jump>, went on to be one of the greatest extra base hitters to ever pick up a bat, hitting 295 triples by the end of Beta, barely trailing the greatest Season 1 players.
         </p>
         <p>
-          In this case, however, Eberhardt hit a 3-run home run, into the Sixth Circle Amphitheatre's Big Buckets, while Wired. This totalled 6 runs, a record over the previous 5-run Pentaslam and the first sign of systems interlocking to form the Expansion Era's unprecedented scoring plays.
+          In this case, however, Eberhardt hit a 3-run home run, into the Sixth Circle Amphitheatre's Big Buckets, while Wired. This totalled 6 runs, a record over the previous <Jump team="bfd38797-8404-4b38-8b82-341da28b1f83" time="2020-10-12T22:06:18Z">5-run Pentaslam</Jump> and the first sign of systems interlocking to form the Expansion Era's unprecedented scoring plays.
         </p>
       </Entry>
       <Entry date="Season 14, Day 99" title="ECHO STATIC" time="2021-03-19T19:20:19Z">
