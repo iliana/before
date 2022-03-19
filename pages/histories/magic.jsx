@@ -273,7 +273,7 @@ export default function Page() {
         <p>
           The end result: A record high, and very “As Above, So Below”, season for the Magic, ending with 72 wins at the
           top of Mild League in record, if not in title. The Magic were eliminated in the Mild League Division Series
-          against the Hawaii Fridays; Telephone suffered a debilitating Consumer attack on{" "}
+          against the Hawaiʻi Fridays; Telephone suffered a debilitating Consumer attack on{" "}
           <Jump time="2021-04-24T01:13:19Z">Day 104</Jump>, and simply could not perform to their usual standard on the
           last day of{" "}
           <Jump season={17} day={105}>

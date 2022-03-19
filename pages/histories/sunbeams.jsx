@@ -88,7 +88,7 @@ export default function Page() {
       </Entry>
       <Entry title="Moon’s Haunted?" season={10} day={100}>
         <p>
-          On track for their worst record ever, the Sunbeams tied the Hawai’i Fridays to be the first teams to enter
+          On track for their worst record ever, the Sunbeams tied the Hawaiʻi Fridays to be the first teams to enter
           Party Time in Season 10, co-hosting the party with them on the moon. They went on to enjoy their first-ever
           parties, with seven of their players partying. They were then unexpectedly drawn as Wild Cards alongside the
           Millennials, the first instance of what would become known as the Hellennial Wild Cards. After knocking the
