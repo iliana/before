@@ -24,8 +24,8 @@ export default function Page() {
         <p>
           In accord with the Spies’ perennial role as “the team that a new mechanic happened to for the first time”,
           Spies pitcher Donia Bailey was struck by the “Party Line” Blessing, which promised the winning team a brand
-          new clone. Donia was sent to the Shadows at the same time as the considerably more famous Mike Townsend&#8212; a
-          dimension from which she, unlike Mike, has never returned from.
+          new clone. Donia was sent to the Shadows at the same time as the considerably more famous Mike Townsend&#8212;
+          a dimension from which she, unlike Mike, has never returned from.
         </p>
         <p>
           This was to make room for Evelton McBlase II, a clone of{" "}
@@ -180,14 +180,16 @@ export default function Page() {
           time, this was frustrating, but not awful: Hayes had just been moved to the lineup in the previous Election
           for their excellent baserunning, but Chark wasn’t horrendous. Chark later Feedbacked to the Sunbeams for Quack
           Enjoyable on <Jump time="2021-05-19T08:22:10Z">Day 41</Jump>, and{" "}
-          <Jump time="2021-06-18T10:21:01Z" team="f02aeae2-5e6a-4098-9842-02d2273f25c7">gained Flickering Socks</Jump> during their time in the Hellmouth. These
-          socks made them more likely to Feedback, which the Spies ended up on the other end of when they swapped with
-          Comfort Septemberish on <Jump time="2021-06-21T19:31:43Z">Season 21, Day 5</Jump>. Septemberish returned that
-          Election, but was traded for Enjoyable rather than Chark. This left Chark on the Spies as the worst batter,
-          meaning that they eventually ended up Voicemailed into the shadows on{" "}
-          <Jump time="2021-07-02T02:23:48Z">Season 22, Day 81</Jump>. In the meantime, Hayes got to Party a total of 5
-          times while on the Georgias and, later, the Miami Dale, an absurd rate compared to the amount of Parties the
-          Spies typically have.
+          <Jump time="2021-06-18T10:21:01Z" team="f02aeae2-5e6a-4098-9842-02d2273f25c7">
+            gained Flickering Socks
+          </Jump>{" "}
+          during their time in the Hellmouth. These socks made them more likely to Feedback, which the Spies ended up on
+          the other end of when they swapped with Comfort Septemberish on{" "}
+          <Jump time="2021-06-21T19:31:43Z">Season 21, Day 5</Jump>. Septemberish returned that Election, but was traded
+          for Enjoyable rather than Chark. This left Chark on the Spies as the worst batter, meaning that they
+          eventually ended up Voicemailed into the shadows on <Jump time="2021-07-02T02:23:48Z">Season 22, Day 81</Jump>
+          . In the meantime, Hayes got to Party a total of 5 times while on the Georgias and, later, the Miami Dale, an
+          absurd rate compared to the amount of Parties the Spies typically have.
         </p>
         <p>
           These two plots came together on <Jump time="2021-07-21T14:22:20Z">Season 23, Day 47</Jump>. Chark had just
