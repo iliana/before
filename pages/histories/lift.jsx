@@ -196,7 +196,7 @@ export default function Page() {
         <p>
           The Hellmouth Sunbeams hatched the Capri Sunset plan, a long-term gambit for Party Time gains which would see
           their strongest players strategically shadowed and 0.5-star batter Joe Voorhees promoted to the active roster.
-          Lift batter Jessica Telephone was a seasoned&#8212; specifically, Honey Roasted &#8212;veteran and would not
+          Lift batter Jessica Telephone was a seasoned &mdash; specifically, Honey Roasted &mdash; veteran and would not
           let the home team tank without a fight. In the top of the 9th, she tasted the infinite and Shelled Voorhees.
           Shorn of his talents, the Sunbeams collapsed and the Lift took a 2-0 victory. This was Telephone’s first
           experience Shelling another player, and the Lift’s last Shelling before the departure of their remaining Honey
@@ -208,10 +208,10 @@ export default function Page() {
           Fan favorite <Jump time="2021-05-13T00:02:31Z">Rylan O’Lantern</Jump>, star player{" "}
           <Jump time="2021-05-13T00:14:58Z">Jessica Telephone</Jump>, and heavy hitter{" "}
           <Jump time="2021-05-13T00:29:06Z">Gerund Pantheocide</Jump> were all fired Elsewhere by Salmon Cannons in a
-          single game. While a triple Elsewhere isn’t particularly special&#8212; the Pies had four players swept away
-          on <Jump time="2021-03-19T07:01:51Z">Season 14, Day 87</Jump> &#8212;Day 56 is notable for being the last time
-          that the renowned Jessica Telephone saw play before her Alternate was called. O’Lantern and Pantheocide both
-          returned within a few days, but Telephone remained Elsewhere through the{" "}
+          single game. While a triple Elsewhere isn’t particularly special &mdash; the Pies had four players swept away
+          on <Jump time="2021-03-19T07:01:51Z">Season 14, Day 87</Jump> &mdash; Day 56 is notable for being the last
+          time that the renowned Jessica Telephone saw play before her Alternate was called. O’Lantern and Pantheocide
+          both returned within a few days, but Telephone remained Elsewhere through the{" "}
           <Jump redirect="/offseason" time="2021-05-16T18:15:00Z">
             Season 18 Election
           </Jump>

@@ -29,12 +29,12 @@ export default function Page() {
       </Entry>
       <Entry title="Party Time Speedrun" season={13} day={67}>
         <p>
-          Mostly due to the Ohio Worms having pitchers with fairly abysmal Ruthlessness&#8212; Patchwork Southwick, with
-          the most pitching stars, had around .4 Ruthlessness &#8212;the Worms managed to enter Party Time on Day 67.
-          This set a new record for the earliest day a team entered Party Time. This was also the first time the team’s
-          modification Bottom Dweller activated, due to coming last in Wild Low, which boosted the stats of every player
-          on the team. While some considered this season a wash with the team’s poor newly generated players, others
-          consider this the first step in their long-term plan of gradual improvement. Worms to the moon!
+          Mostly due to the Ohio Worms having pitchers with fairly abysmal Ruthlessness &mdash; Patchwork Southwick,
+          with the most pitching stars, had around .4 Ruthlessness &mdash; the Worms managed to enter Party Time on Day
+          67. This set a new record for the earliest day a team entered Party Time. This was also the first time the
+          team’s modification Bottom Dweller activated, due to coming last in Wild Low, which boosted the stats of every
+          player on the team. While some considered this season a wash with the team’s poor newly generated players,
+          others consider this the first step in their long-term plan of gradual improvement. Worms to the moon!
         </p>
       </Entry>
       <Entry date="Season 13, Day 89" title="The Incineration of Augusta Chadwell" time="2021-03-12T10:06:27Z">
@@ -90,7 +90,7 @@ export default function Page() {
             Season 20 Election
           </Jump>{" "}
           to move Rivers into the shadows, first by Foreshadowing Xandra Pancakes for Rosa, and then Moving Rosa to the
-          shadows&#8230; from the shadows.
+          shadows&hellip; from the shadows.
         </p>
       </Entry>
       <Entry date="Season 14, Day 99" title="Divine Disfavor" redirect="/standings" time="2021-03-19T19:45:00Z">
@@ -130,7 +130,7 @@ export default function Page() {
         <p>
           The game proved to be a roller coaster of emotions for Worms fans. The Spies looped in inning 5, bringing them
           to 3 wins, so the only way the Worms could stay in would be to loop and win. And, lo and behold, they somehow
-          managed it, ending the game at both teams at 3-3, forcing a fifth game&#8212; that the Spies won, eliminating
+          managed it, ending the game at both teams at 3-3, forcing a fifth game &mdash; that the Spies won, eliminating
           the Worms from the postseason anyway. This is often considered by Worms fans to be the start of Patchwork
           Southwick’s Wild Ride, or, at least, the start of Worms fans no longer wanting off Patchwork Southwick’s Wild
           Ride. It was also the first of many times the Spies eliminated the Worms from the Postseason. To date, the
@@ -199,7 +199,7 @@ export default function Page() {
         <p>
           Over the seasons, many players have been incinerated and afterwards could be seen in the Hall of Flame. Pudge
           Nakamoto joined them on <Jump time="2021-04-20T02:18:14Z">Season 17, Day 12</Jump>. Little did fans know that
-          just two seasons later they would just&#8230; leave. With the help of their Roaming modification, they left
+          just two seasons later they would just&hellip; leave. With the help of their Roaming modification, they left
           the Hall and joined the Spies, and after the next Election they roamed to the Worms, where they decided to
           stay for a while. On Season 23, Day 65, a rogue umpire sought to correct this anomaly and once again
           Incinerated Pudge. Fans were sad to see them go, but sure they would return later.

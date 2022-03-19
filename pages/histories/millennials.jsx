@@ -325,7 +325,7 @@ export default function Page() {
         </p>
         <p>
           Despite the anxiety, the Election fired without a hitch for the Mills: Castillo Turner was traded for Beck
-          Whitney and Undertaker rerolled&#8230; into Siphon. Thomas Dracaena, who was not a vampire, could now legally
+          Whitney and Undertaker rerolled&hellip; into Siphon. Thomas Dracaena, who was not a vampire, could now legally
           drink blood during Blooddrain. The Flowers’ yo-yo worked, with both Chorby Short and Castillo Turner in the
           shadows, where Turner was immediately taken at random by the Seattle Garages, winners of Gachapon. Short would
           fax out of the shadows on <Jump time="2021-07-19T17:12:12Z">Season 23, Day 3</Jump> before stealing the Super

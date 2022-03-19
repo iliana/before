@@ -130,14 +130,14 @@ export default function Page() {
           <Jump redirect="/depth" time="2021-06-24T20:00:30Z">
             reaching Cactus Land
           </Jump>{" "}
-          utilizing a quirk of eDensity&#8212; with the team Modification Light-Handed, all items Georgias players held
+          utilizing a quirk of eDensity &mdash; with the team Modification Light-Handed, all items Georgias players held
           had negative eDensity, including the{" "}
           <Jump redirect="/item/04749f19-e782-40e2-9077-e79baa6236f6" season={21} day={99}>
             Chorby’s Soul
           </Jump>{" "}
-          held by Chorby Soul Replicas &#8212;the Georgias were rather interested in staying there. After all, Blaseball
-          0 was safe from Consumers and gave teams a funny little purple circle on the Depth Chart. Luckily enough,
-          Flowers player Gloria Bugsnax stole a Chorby’s Soul from a Replica and, with the Georgias planning on
+          held by Chorby Soul Replicas &mdash; the Georgias were rather interested in staying there. After all,
+          Blaseball 0 was safe from Consumers and gave teams a funny little purple circle on the Depth Chart. Luckily
+          enough, Flowers player Gloria Bugsnax stole a Chorby’s Soul from a Replica and, with the Georgias planning on
           shadowing player Clove Ji-Eun the same season, the gambit was clear: Take Bugsnax’s Chorby’s Soul, give it to
           Ji-Eun, and claim a place in the heavens free from sharks&hellip; <i>forever</i>. What a stroke of luck that
           it worked!
