@@ -271,7 +271,12 @@ export default function Page() {
       </Entry>
       <Entry
         date="Season 24, Day 79"
-        title="Val Hitherto Epic Victory Royale End of the World Beefwings Hell Revenge Speedrun Cringe Compilation (Not Clickbait)"
+        title={
+          <>
+            Val Hitherto Epic Victory Royale End of the World Beefwings <br className="tw-hidden lg:tw-inline" />
+            Hell Revenge Speedrun Cringe Compilation (Not Clickbait)
+          </>
+        }
         time="2021-07-30T00:21:01Z"
       >
         <p>

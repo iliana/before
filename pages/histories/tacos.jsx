@@ -115,7 +115,12 @@ export default function Page() {
       </Entry>
       <Entry
         date="Season 8, Day 47"
-        title="Sexton Wheerer, the Pitching Machine (Except Not That One, It’s in a Peanut Shell Right Now)"
+        title={
+          <>
+            Sexton Wheerer, the Pitching Machine <br className="tw-hidden lg:tw-inline" />
+            (Except Not That One, It’s in a Peanut Shell Right Now)
+          </>
+        }
       >
         <p>
           Following the Snackrifice, the Tacos were graced by the ILB with a Pitching Machine, who immediately became
