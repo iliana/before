@@ -24,7 +24,7 @@ export default function Page() {
         <p>
           In accord with the Spies’ perennial role as “the team that a new mechanic happened to for the first time”,
           Spies pitcher Donia Bailey was struck by the “Party Line” Blessing, which promised the winning team a brand
-          new clone. Donia was sent to the Shadows at the same time as the considerably more famous Mike Townsend— a
+          new clone. Donia was sent to the Shadows at the same time as the considerably more famous Mike Townsend&#8212; a
           dimension from which she, unlike Mike, has never returned from.
         </p>
         <p>

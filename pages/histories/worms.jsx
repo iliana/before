@@ -29,8 +29,8 @@ export default function Page() {
       </Entry>
       <Entry title="Party Time Speedrun" season={13} day={67}>
         <p>
-          Mostly due to the Ohio Worms having pitchers with fairly abysmal Ruthlessness— Patchwork Southwick, with the
-          most pitching stars, had around .4 Ruthlessness —the Worms managed to enter Party Time on Day 67. This set a
+          Mostly due to the Ohio Worms having pitchers with fairly abysmal Ruthlessness&#8212; Patchwork Southwick, with the
+          most pitching stars, had around .4 Ruthlessness &#8212;the Worms managed to enter Party Time on Day 67. This set a
           new record for the earliest day a team entered Party Time. This was also the first time the team’s
           modification Bottom Dweller activated, due to coming last in Wild Low, which boosted the stats of every player
           on the team. While some considered this season a wash with the team’s poor newly generated players, others
