@@ -65,7 +65,7 @@
   .tw-before-linescore-fade:before,
   .tw-before-linescore-fade:after {
     content: "";
-    @apply tw-w-6 tw-h-full tw-absolute tw-inset-y-0 tw-from-black tw-opacity-0 tw-transition-opacity;
+    @apply tw-w-8 lg:tw-w-12 tw-h-full tw-absolute tw-inset-y-0 tw-from-black tw-opacity-0 tw-transition-opacity;
   }
 
   .tw-before-linescore-fade:before {
