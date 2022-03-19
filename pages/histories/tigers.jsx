@@ -252,7 +252,7 @@ export default function Page() {
       <Entry date="Season 24, Day 63" title="Ayanna Dumpington Molotovs a Rogue Ump" time="2021-07-29T07:22:54Z">
         <p>
           Up until Season 24, the Tigers had a drought of Rogue Umpire kills, despite the fact that they intentionally
-          built their ballpark to increase the frequency of Solar Eclipses{/* get details */}. Fans partied with other
+          built their ballpark to increase the frequency of Incineration attempts during Solar Eclipses. Fans partied with other
           teams that Incinerated Rogue Umpires with their seasonal Fireproof Modifications. Despite all of their
           efforts, the Tigers got nothing. Likewise, Ayanna Dumpington was going through her own journey to find her
           place on the Hades Tigers, but she did <em>not</em> let that stop her from shining. With the amount of times
