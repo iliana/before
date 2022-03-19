@@ -157,7 +157,11 @@ export default function Page() {
             Season 23, Day 22
           </Jump>
           , Chiclawgo once again reunited for the first time in six seasons. With the exception of Day 22’s Eclipse, the
-          weather seemed fairly uneventful, with a [Sum Sun game] followed by a Sun .1 game.
+          weather seemed fairly uneventful, with a{" "}
+          <Jump season={23} day={23}>
+            Sum Sun game
+          </Jump>{" "}
+          followed by a Sun .1 game.
         </p>
         <p>
           The final game on Day 24 was drawing to a close. The Firefighters, with some assistance from the Crab’s
@@ -215,10 +219,10 @@ export default function Page() {
       </Entry>
       <Entry title="Finnstability" season={24} day={14}>
         <p>
-          Finn James was a pitcher who loved to make Crabs fans sweat. Well known for their&hellip; <em>unusual</em> pitching
-          style, it wasn’t uncommon to see James load up the bases only to end the inning with no score. Alternatively,
-          it also wasn’t uncommon to see her give up runs that were completely unjustifiable. This game, however, took
-          Finn’s brinkmanship to levels she had never reached before.
+          Finn James was a pitcher who loved to make Crabs fans sweat. Well known for their&hellip; <em>unusual</em>{" "}
+          pitching style, it wasn’t uncommon to see James load up the bases only to end the inning with no score.
+          Alternatively, it also wasn’t uncommon to see her give up runs that were completely unjustifiable. This game,
+          however, took Finn’s brinkmanship to levels she had never reached before.
         </p>
         <p>
           The Breath Mints had already{" "}
