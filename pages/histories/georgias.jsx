@@ -222,12 +222,7 @@ export default function Page() {
           seasons, a record likely, and hopefully, to never be matched.
         </p>
       </Entry>
-      <Entry date="Season 24, Day 16" title="Ghost Redaction" time="2021-07-27T06:10:45Z">
-        {/*
-        as per original document:
-
-        If this event is not eligible for Georgias Moments due to not actually involving the Georgias, the event below can be subbed in instead!
-      */}
+      <Entry date="Season 24, Day 16" title="Ghost Redaction" time="2021-07-27T06:10:45Z" team="23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7">
         <p>
           Georgias fans didn’t help bring Niq Nyong’o back from the Hall to not watch her play on her new team, the
           Philly Pies. With Observation Debt, Niq Nyong’o beaned Dimi Blather, a dead player on the Maryland Squirrels,
