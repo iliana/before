@@ -25,17 +25,15 @@ export default function Page() {
         <p>
           For a terrifying two seasons before the Alternate Reality Decree hit the league, Kichiro Guerra stood at the
           top as the best of the best. Thanks to Bloodlust hitting her in the{" "}
-          <Jump time="2020-08-02T19:15:00Z" redirect="/offseason">
-            Season 2 Election
-          </Jump>
-          , Kichiro joined the coveted list of maxed-out batters. She proved her worth by becoming the first player to
-          hit for the cycle in a game against the Boston Flowers, with a <Jump time="2020-08-05T05:01:33Z">triple</Jump>
-          , a <Jump time="2020-08-05T05:05:45Z">double</Jump>, a <Jump time="2020-08-05T05:12:37Z">home run</Jump>, and
-          a <Jump time="2020-08-05T05:21:01Z">single</Jump> in <em>four</em> at bats. Though she may no longer have
-          Bloodlust, or even be on the Lovers, Kichiro Guerra still stands as one of the most iconic early season
-          players of Blaseball and one of the most iconic Lovers players of all time. After the Society for Internet
-          Blaseball Research discovered she was the first player generated out of all original 280 Internet League
-          Blaseball players, it only made sense that she had such a tremendous record and achievement.
+          <Jump election={2}>Season 2 Election</Jump>, Kichiro joined the coveted list of maxed-out batters. She proved
+          her worth by becoming the first player to hit for the cycle in a game against the Boston Flowers, with a{" "}
+          <Jump time="2020-08-05T05:01:33Z">triple</Jump>, a <Jump time="2020-08-05T05:05:45Z">double</Jump>, a{" "}
+          <Jump time="2020-08-05T05:12:37Z">home run</Jump>, and a <Jump time="2020-08-05T05:21:01Z">single</Jump> in{" "}
+          <em>four</em> at bats. Though she may no longer have Bloodlust, or even be on the Lovers, Kichiro Guerra still
+          stands as one of the most iconic early season players of Blaseball and one of the most iconic Lovers players
+          of all time. After the Society for Internet Blaseball Research discovered she was the first player generated
+          out of all original 280 Internet League Blaseball players, it only made sense that she had such a tremendous
+          record and achievement.
         </p>
       </Entry>
       <Entry title="Cracking the Crabs" season={7} day={109}>

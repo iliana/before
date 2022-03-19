@@ -45,7 +45,7 @@ export default function Page() {
           the first of many peanuts, proving the legume to be a true enemy of the team.
         </p>
       </Entry>
-      <Entry title="Against All Odds" date="Season 3 Election" time="2020-08-09T19:30:00Z" redirect="/offseason">
+      <Entry title="Against All Odds" election={3}>
         <p>
           Coming off a season decimated by peanuts, the Firefighters managed to win three Blessings, despite extremely
           low odds on all of them, with the Firefighters casting 7% of the vote or less. It was a miraculous turnaround
@@ -74,7 +74,7 @@ export default function Page() {
         </p>
         <LineScore id="9298a48f-c2fc-4821-9466-1ecacfd35a56" />
       </Entry>
-      <Entry title="Fireproof Jacket" date="Season 7 Election" time="2020-09-20T19:30:00Z" redirect="/offseason">
+      <Entry title="Fireproof Jacket" election={7}>
         <p>
           This particular election shaped the Firefighters’ history and culture much more than it seemed at the time.
           After two seasons of casting 47% of the votes to try and nab the Fireproof Jacket, said by many a Chicagoan to
@@ -95,12 +95,9 @@ export default function Page() {
       <Entry title="No Dogs in Chicago" date="Season 8, Day 36" time="2020-09-23T03:05:04Z">
         <p>
           On Season 8, Day 36, José Haley was incinerated, leaving Kennedy Rodgers the team’s only remaining player who
-          joined the team via the Champs in the Making Blessing from{" "}
-          <Jump time="2020-09-20T19:30:00Z" redirect="/offseason">
-            the prior Election
-          </Jump>
-          . Their replacement would go on to be one of the most beloved Firefighters players in the team’s history:
-          Goobie Ballson.
+          joined the team via the Champs in the Making Blessing from <Jump election={7}>the prior Election</Jump>. Their
+          replacement would go on to be one of the most beloved Firefighters players in the team’s history: Goobie
+          Ballson.
         </p>
       </Entry>
       <Entry

@@ -79,12 +79,9 @@ export default function Page() {
       </Entry>
       <Entry title="The First Beaning" season={7} day={5}>
         <p>
-          In the{" "}
-          <Jump redirect="/offseason" time="2020-09-13T19:30:00Z">
-            Season 6 Election
-          </Jump>
-          , Jaylen Hotdogfingers was resurrected and given the Debted modifier, and it was kind of a big deal? Anyway,
-          Jaylen’s first game pitching that season was against the Breath Mints. In the second inning,{" "}
+          In the <Jump election={6}>Season 6 Election</Jump>, Jaylen Hotdogfingers was resurrected and given the Debted
+          modifier, and it was kind of a big deal? Anyway, Jaylen’s first game pitching that season was against the
+          Breath Mints. In the second inning,{" "}
           <Jump time="2020-09-14T20:04:26Z">Jaylen hit Mints batter Dickerson Morse with a pitch</Jump>, giving him the
           Unstable modifier. What does Unstable do? At the time, we had no idea what it did, there was no description
           given to the modifier and the website, and we were all very scared.
@@ -186,17 +183,11 @@ export default function Page() {
       </Entry>
       <Entry title="The Plansma" season={15} day={52}>
         <p>
-          During the{" "}
-          <Jump redirect="/offseason" time="2021-03-14T19:15:00Z">
-            Season 13 Election
-          </Jump>
-          , Brisket Friendo and Tad Seeth disappeared from the Breath Mints and Shoe Thieves shadows, respectively,
-          possibly in connection to Sutton Picklestein and Tillman Henderson returning to the Hall of Flame. In the{" "}
-          <Jump redirect="/offseason" time="2021-03-21T18:15:00Z">
-            Season 14 Election
-          </Jump>
-          , the Mints and Thieves’ Stadiums, the Meadow and the Choux, were declared Crime Scenes, and two
-          investigators, Uncle Plasma and Liquid Friend, were hired to investigate the disappearances.
+          During the <Jump election={13}>Season 13 Election</Jump>, Brisket Friendo and Tad Seeth disappeared from the
+          Breath Mints and Shoe Thieves shadows, respectively, possibly in connection to Sutton Picklestein and Tillman
+          Henderson returning to the Hall of Flame. In the <Jump election={14}>Season 14 Election</Jump>, the Mints and
+          Thieves’ Stadiums, the Meadow and the Choux, were declared Crime Scenes, and two investigators, Uncle Plasma
+          and Liquid Friend, were hired to investigate the disappearances.
         </p>
         <p>
           How the investigators intended to investigate was revealed when Uncle Plasma, currently a pitcher for the
@@ -217,11 +208,7 @@ export default function Page() {
         </p>
         <p>
           In the 35 minutes that Uncle Plasma was in the Mints shadows, the Mints managed to put in 252,180 votes into
-          the plan, which{" "}
-          <Jump redirect="/offseason" time="2021-04-11T18:30:00Z">
-            ended up being 45% of our Will votes
-          </Jump>{" "}
-          for that season.
+          the plan, which <Jump election={15}>ended up being 45% of our Will votes</Jump> for that season.
         </p>
       </Entry>
       <Entry title="The Dot-Off" season={17} day={40}>
@@ -233,10 +220,7 @@ export default function Page() {
         </p>
         <p>
           Neither PolkaDot was at the peak of their career at this point, with Patterson{" "}
-          <Jump redirect="/offseason" time="2021-04-18T18:15:00Z">
-            having been Alternated to mediocrity in the Season 16 Election
-          </Jump>
-          , and Zavala{" "}
+          <Jump election={16}>having been Alternated to mediocrity in the Season 16 Election</Jump>, and Zavala{" "}
           <Jump season={17} time="2021-04-20T10:15:25Z">
             suffering an allergic reaction on Season 17, Day 20
           </Jump>

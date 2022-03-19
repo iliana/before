@@ -67,10 +67,18 @@ export function History({ authors, children }) {
   );
 }
 
+function defaultDate(jump) {
+  if (jump.election !== undefined) {
+    return `Season ${jump.election} Election`;
+  }
+  if (jump.season !== undefined && jump.day !== undefined) {
+    return `Season ${jump.season}, Day ${jump.day}`;
+  }
+  return undefined;
+}
+
 export function Entry({ date, title, children, ...jump }) {
-  const theDate =
-    date ??
-    (jump.season !== undefined && jump.day !== undefined ? `Season ${jump.season}, Day ${jump.day}` : undefined);
+  const theDate = date ?? defaultDate(jump);
   return (
     <div className="tw-my-6 lg:tw-my-8">
       <h3 className="tw-text-center tw-font-bold tw-text-xl lg:tw-text-2xl tw-mb-1.5 lg:tw-mb-2">

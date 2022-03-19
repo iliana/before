@@ -19,7 +19,7 @@ export async function getStaticProps() {
 export default function Page() {
   return (
     <History authors="Yurts, Clowne, and Lucien">
-      <Entry title="Five Blessings" date="Season 5 Election" time="2020-09-06T19:15:00Z" redirect="/offseason">
+      <Entry title="Five Blessings" election={5}>
         <p>
           Reveling in their influence, both in fan count and Votes accumulated, the Crabs went on to have extraordinary
           influence in the Season 5 Election due to their resources and a heavy dose of luck. The Crabs either won or
@@ -38,12 +38,7 @@ export default function Page() {
           swept every team they played against and claimed their first championship.
         </p>
       </Entry>
-      <Entry
-        title="Old Fae Seasoning Buys Night Vision Goggles"
-        date="Season 6 Election"
-        time="2020-09-13T19:30:00Z"
-        redirect="/offseason"
-      >
+      <Entry title="Old Fae Seasoning Buys Night Vision Goggles" election={6}>
         <p>
           A large part of early Crabs culture was trying to figure out how to optimize winning Coins, and Crabs fans
           often found themselves generating a ton of Coins on top of having the largest fanbase at the time. Old Fae
@@ -126,11 +121,7 @@ export default function Page() {
           test, finally having two opportunities in Season 16, on Days 16 and{" "}
           <Jump time="2021-04-15T01:21:20Z">56</Jump>, both against the Moist Talkers and both with star hitter Alston
           Cerveza. Fans had to mobilize a massive amount of votes in minutes, and the chance could come at any moment.
-          The plan was successful, and{" "}
-          <Jump time="2021-04-18T18:15:00Z" redirect="/offseason">
-            the Crabs pinched Cerveza
-          </Jump>{" "}
-          from the Moist Talkers.
+          The plan was successful, and <Jump election={16}>the Crabs pinched Cerveza</Jump> from the Moist Talkers.
         </p>
       </Entry>
       <Entry title="Fish Summer Salmon Cannon" date="Season 16, Day 75" time="2021-04-15T21:05:37Z">
@@ -190,13 +181,11 @@ export default function Page() {
       <Entry title="float var = 20.3" season={23} day={58}>
         <p>
           Jon Halifax, scammer and nemesis of Crab-kind, had been banished to Kansas City in the{" "}
-          <Jump time="2021-07-04T18:20:00Z" redirect="/offseason">
-            previous season’s Election
-          </Jump>
-          . His crimes finally reached their peak on Day 58 when he activated the Equal Sun by scoring a home run in the
-          last out of the game, which the Crabs had previously been winning by over 20 points. While this should have
-          tied the game, a floating point error in the Breath Mints’ favor awarded them the win. The Crabs lost the
-          game, 20.3-20.300000000000001. This was the final straw for the Crabs, who demanded his head.
+          <Jump election={22}>previous season’s Election</Jump>. His crimes finally reached their peak on Day 58 when he
+          activated the Equal Sun by scoring a home run in the last out of the game, which the Crabs had previously been
+          winning by over 20 points. While this should have tied the game, a floating point error in the Breath Mints’
+          favor awarded them the win. The Crabs lost the game, 20.3-20.300000000000001. This was the final straw for the
+          Crabs, who demanded his head.
         </p>
       </Entry>
       <Entry

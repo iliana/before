@@ -32,7 +32,7 @@ export default function Page() {
           as both a blessing and a deliverance for Millennials players. Sandie Turner, Soul’s replacement, would go on
           to become a powerhouse of the Millennials’ batting lineup for seasons to come. Chorby Soul would spend the
           next eleven seasons in the Hall of Flame until they were Plundered by the Seattle Garages in the{" "}
-          <Jump redirect="/offseason" team="105bc3ff-1320-4e37-8ef0-8d595cb95dd0" time="2021-03-21T18:15:00Z">
+          <Jump election={14} team="105bc3ff-1320-4e37-8ef0-8d595cb95dd0">
             Season 14 Election
           </Jump>
           .
@@ -91,16 +91,13 @@ export default function Page() {
       </Entry>
       <Entry date="Season 8, Day 18" title="Red Hot!" time="2020-09-22T09:09:04Z">
         <p>
-          In the{" "}
-          <Jump redirect="/offseason" time="2020-09-20T19:30:00Z">
-            Season 7 Election
-          </Jump>
-          , the New York Millennials won the Hot Sauce Packet blessing with 2% of the vote, making Sandie Turner Spicy.
-          During this game against the Baltimore Crabs, Turner got three consecutive hits, turning em Red Hot! for the
-          first time. The phrase “Sandie Turner is Red Hot!” is immortalized as part of the Mills Cycle, a graph
-          measuring the team’s collective hubris over the course of a typical season. It marks a time in the first half
-          of the season when the Millennials are playing well and the fans are confident in the team’s postseason
-          chances, and is followed by “Sandie Turner is no longer Red Hot!” when the team inevitably falters.
+          In the <Jump election={7}>Season 7 Election</Jump>, the New York Millennials won the Hot Sauce Packet blessing
+          with 2% of the vote, making Sandie Turner Spicy. During this game against the Baltimore Crabs, Turner got
+          three consecutive hits, turning em Red Hot! for the first time. The phrase “Sandie Turner is Red Hot!” is
+          immortalized as part of the Mills Cycle, a graph measuring the team’s collective hubris over the course of a
+          typical season. It marks a time in the first half of the season when the Millennials are playing well and the
+          fans are confident in the team’s postseason chances, and is followed by “Sandie Turner is no longer Red Hot!”
+          when the team inevitably falters.
         </p>
       </Entry>
       <Entry title="Patty Fox’s Third Miracle" season={8} day={61}>
@@ -137,12 +134,7 @@ export default function Page() {
           adding Blaseball Gods to the list of industries the Millennials are proud to have helped kill.
         </p>
       </Entry>
-      <Entry
-        date="Season 10 Election"
-        title="An Actual Airplane and some BIRD SEED"
-        redirect="/offseason"
-        time="2020-10-18T19:30:00Z"
-      >
+      <Entry election={10} title="An Actual Airplane and some BIRD SEED">
         <p>
           By the Season 10 Election, things were looking up. The return and subsequent release of beloved former captain
           Dominic Marijuana did much to buoy the spirits of a team who sorely missed him. To top it all off, the
@@ -172,13 +164,11 @@ export default function Page() {
         </p>
         <p>
           However, no one had a better season than Sandie Turner. Turner, Infused in the{" "}
-          <Jump redirect="/offseason" time="2021-03-07T19:15:00Z">
-            Season 12 Election
-          </Jump>
-          , ended this season with the highest batting average, on-base percentage, slugging percentage, and number of
-          total bases. On Day 86, ey also broke the ILB’s single season home run record with eyr 48th, finishing the
-          season with 53 total home runs. Turner’s record remained in place until it was broken by the Tacos’ Mcdowell
-          Mason on <Jump time="2021-05-13T04:13:18Z">Season 18, Day 60</Jump>.
+          <Jump election={12}>Season 12 Election</Jump>, ended this season with the highest batting average, on-base
+          percentage, slugging percentage, and number of total bases. On Day 86, ey also broke the ILB’s single season
+          home run record with eyr 48th, finishing the season with 53 total home runs. Turner’s record remained in place
+          until it was broken by the Tacos’ Mcdowell Mason on <Jump time="2021-05-13T04:13:18Z">Season 18, Day 60</Jump>
+          .
         </p>
         <p>
           Among fans, the common explanation of the team’s stellar performance was “Mills Mad!”, due to a series of
@@ -204,17 +194,12 @@ export default function Page() {
       <Entry date="Season 16, Day 88" title="The Second Death of Chorby Soul" time="2021-04-16T10:19:28Z">
         <p>
           The “Mills Mad” furor quickly gave way to “Mills Sad” with the firing of an unexpected Will in{" "}
-          <Jump redirect="/offseason" time="2021-04-11T18:30:00Z">
-            the Season 15 Election
-          </Jump>
-          . Chorby Soul, a Millennial since Blaseball’s return, was Plundered back to the team, this time as a pitcher,
-          sending Penelope Mathews to the Seattle Garages. In{" "}
-          <Jump redirect="/offseason" time="2021-03-21T18:15:00Z">
-            the previous Election
-          </Jump>
-          , Soul had become the fourth player to return from the Hall of Flame saddled with Debt. Their return was not a
-          peaceful one. Chorby Soul’s soul was uniquely heavy, which plunged their team deep into the Immateria and
-          subjected both the team and Soul themself to constant Consumer attacks.
+          <Jump election={15}>the Season 15 Election</Jump>. Chorby Soul, a Millennial since Blaseball’s return, was
+          Plundered back to the team, this time as a pitcher, sending Penelope Mathews to the Seattle Garages. In{" "}
+          <Jump election={14}>the previous Election</Jump>, Soul had become the fourth player to return from the Hall of
+          Flame saddled with Debt. Their return was not a peaceful one. Chorby Soul’s soul was uniquely heavy, which
+          plunged their team deep into the Immateria and subjected both the team and Soul themself to constant Consumer
+          attacks.
         </p>
         <p>
           In an attempt to avoid further Redactions, the Seattle Garages Reformed Soul’s Debt, unfortunately rerolling
@@ -277,32 +262,17 @@ export default function Page() {
           , both lost to the Hades Tigers.
         </p>
       </Entry>
-      <Entry
-        date="Season 22 Election"
-        title="The Law of Take Backsies and The Sim’s Sense of Humor"
-        redirect="/offseason"
-        time="2021-07-04T18:20:00Z"
-      >
+      <Entry election={22} title="The Law of Take Backsies and The Sim’s Sense of Humor">
         <p>
           The Season 22 Election brought with it a couple of problems. For starters, Castillo Turner and Chorby Short
           had partied within Equivalent Exchange range of each other once again, promising another season of the New
-          York-Boston Exchange Program. During the{" "}
-          <Jump redirect="/offseason" time="2021-04-25T18:15:00Z">
-            Season 17 Election
-          </Jump>
-          , the Millennials spent two Wills on Short. The first reformed her Instability to Friend of Crows, and the
-          second used her inflated star count to trade for Castillo Turner of the Boston Flowers, a very large and very
-          powerful cactus. Castillo Turner then partied out of Equivalent Exchange range and would remain in New York
-          until the{" "}
-          <Jump redirect="/offseason" time="2021-06-20T18:15:00Z">
-            Season 20 Election
-          </Jump>{" "}
-          when the Flowers reversed the swap. Short and Turner would once again travel between Boston and New York as a
-          result of the{" "}
-          <Jump redirect="/offseason" time="2021-06-27T18:15:00Z">
-            Season 21 Election
-          </Jump>
-          , with Short in Boston and Turner in New York.
+          York-Boston Exchange Program. During the <Jump election={17}>Season 17 Election</Jump>, the Millennials spent
+          two Wills on Short. The first reformed her Instability to Friend of Crows, and the second used her inflated
+          star count to trade for Castillo Turner of the Boston Flowers, a very large and very powerful cactus. Castillo
+          Turner then partied out of Equivalent Exchange range and would remain in New York until the{" "}
+          <Jump election={20}>Season 20 Election</Jump> when the Flowers reversed the swap. Short and Turner would once
+          again travel between Boston and New York as a result of the <Jump election={21}>Season 21 Election</Jump>,
+          with Short in Boston and Turner in New York.
         </p>
         <p>
           The Strange Attractor blessing, which would randomly recruit a player with Attractor to the team, appearing on

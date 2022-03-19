@@ -30,7 +30,7 @@ export default function Page() {
           .
         </p>
       </Entry>
-      <Entry date="Season 5 Election" title="Scorpler’s Jacket" redirect="/offseason" time="2020-09-06T19:15:00Z">
+      <Entry election={5} title="Scorpler’s Jacket">
         <p>
           When Mclaughlin Scorpler snatched the Fireproof Jacket with an unexpected 8% of the Vote, it caught everyone
           by surprise. Scorpler then doubled down by winning the Noise-Cancelling Headphones with the very next
@@ -42,7 +42,7 @@ export default function Page() {
           into grim irony. Without the Jacket, Scorpler was Incinerated during the game, doomed by the Headphones.
           However, there was a wholesome coda for the Canada Moist Talkers, the other victims of Ruby Tuesday. A Season
           7 Blessing that brought back Scorpler’s Memorial Fireproof Jacket, and the Talkers’ Jesús Koch{" "}
-          <Jump redirect="/offseason" time="2020-09-20T19:30:00Z" team="eb67ae5e-c4bf-46ca-bbbc-425cd34182ff">
+          <Jump election={7} team="eb67ae5e-c4bf-46ca-bbbc-425cd34182ff">
             won it with 3% of the vote
           </Jump>
           .
@@ -118,24 +118,17 @@ export default function Page() {
           Cashmoney.
         </p>
         <p>
-          As a result of the Based Evolution Decree passing in the{" "}
-          <Jump redirect="/offseason" time="2021-03-07T19:15:00Z">
-            Season 12 Election
-          </Jump>
-          , the Tigers Evolved and gained the Ambush Modification.
+          As a result of the Based Evolution Decree passing in the <Jump election={12}>Season 12 Election</Jump>, the
+          Tigers Evolved and gained the Ambush Modification.
         </p>
       </Entry>
       <Entry date="Season 13, Day 1" title="Mummy Melcon Melt-ons a Rogue Umpire" time="2021-03-08T16:20:36Z">
         <p>
-          In the{" "}
-          <Jump redirect="/offseason" time="2020-10-18T19:30:00Z">
-            Season 10 Election
-          </Jump>
-          , the Hades Tigers won the Umpire Cream Blessing, making the entire team Fireproof. This first came into play
-          in the first game of Season 13, in the 7th inning at the Dale’s Worldwide Field. Trying to get umpires to
-          target their players for Incineration, and instead get destroyed themselves, was something Tigers fans would
-          continue to call for during the Expansion Era. This was the first time it happened, and it was cathartic;
-          Mummy Melcon started playing in Season 7 as{" "}
+          In the <Jump election={10}>Season 10 Election</Jump>, the Hades Tigers won the Umpire Cream Blessing, making
+          the entire team Fireproof. This first came into play in the first game of Season 13, in the 7th inning at the
+          Dale’s Worldwide Field. Trying to get umpires to target their players for Incineration, and instead get
+          destroyed themselves, was something Tigers fans would continue to call for during the Expansion Era. This was
+          the first time it happened, and it was cathartic; Mummy Melcon started playing in Season 7 as{" "}
           <Jump time="2020-09-17T15:05:31Z">Yazmin Mason’s replacement</Jump>. It could be seen as vengeance.
         </p>
       </Entry>
@@ -144,11 +137,8 @@ export default function Page() {
           As of Season 14, the Hades Tigers’ rotation saw a total of three player changes since the Return of Blaseball:
           Nicholas Mora swapped for Yazmin Mason in the Season 1 Election, without an associated Blessing. Mason was{" "}
           <Jump time="2020-09-17T15:05:31Z">Incinerated during Season 7</Jump>. Nagomi Meng was sent to the shadows due
-          to{" "}
-          <Jump redirect="/offseason" time="2020-09-27T19:30:00Z">
-            Season 8’s Composite Blessing
-          </Jump>
-          . When the Tigers played against a Flickering NaN in Feedback, fans knew it might be time for another change.
+          to <Jump election={8}>Season 8’s Composite Blessing</Jump>. When the Tigers played against a Flickering NaN in
+          Feedback, fans knew it might be time for another change.
         </p>
         <p>
           Tigers fans held their breath as the game went on but, unfortunately, the odds were not in their favor. In the
@@ -156,11 +146,8 @@ export default function Page() {
           struck out Nicholas Mora to end the inning but, when the time came for the Firefighters to return to the
           dugout, xe refused to leave the stage. Figueroa would go on to pitch the remainder of the game for both teams,
           granting their now-former team one last hurrah before leaving for Chicago. The Tigers went on to dedicate one
-          of their Wills in the{" "}
-          <Jump redirect="/offseason" time="2021-03-21T18:15:00Z">
-            Season 14 Election
-          </Jump>{" "}
-          to getting Figueroa back, and were ultimately successful.
+          of their Wills in the <Jump election={14}>Season 14 Election</Jump> to getting Figueroa back, and were
+          ultimately successful.
         </p>
       </Entry>
       <Entry season={18} day={99} title="Aldon’s Last Game and Vaulting">
@@ -169,11 +156,8 @@ export default function Page() {
           two <Jump time="2021-05-14T20:11:48Z">home</Jump> <Jump time="2021-05-14T20:22:53Z">runs</Jump>, and{" "}
           <Jump time="2021-05-14T20:17:33Z">a triple</Jump> off of one of the strongest pitchers in the league to end
           one of the best batting seasons, and possibly the best batting career, in Blaseball. Since the{" "}
-          <Jump redirect="/offseason" time="2020-09-27T19:30:00Z">
-            Season 8 Election
-          </Jump>
-          , with no interruption except for{" "}
-          <Jump redirect="/offseason" time="2021-03-07T19/15/00Z" team="f02aeae2-5e6a-4098-9842-02d2273f25c7">
+          <Jump election={8}>Season 8 Election</Jump>, with no interruption except for{" "}
+          <Jump election={12} team="f02aeae2-5e6a-4098-9842-02d2273f25c7">
             a brief trip to the Hellmouth
           </Jump>
           , Cashmoney played for the Hades Tigers. Ve was consistently one of the league’s best and most exciting
@@ -182,7 +166,7 @@ export default function Page() {
           inextricably tied to the Tigers.
         </p>
       </Entry>
-      <Entry date="Season 18 Election" title="The Vault Heist" redirect="/offseason" time="2021-05-16T18:15:00Z">
+      <Entry election={18} title="The Vault Heist">
         <p>
           Aldon Cashmoney was Vaulted after Season 18, Day 99, removing vim from play. Before that happened, though, the
           Tigers voted to Move Aldon to their lineup. Fans didn’t know what would happen; this was the first time anyone
@@ -201,7 +185,7 @@ export default function Page() {
         </p>
         <p>
           12 seasons later, Jaylen’s Debt was paid, and she was Exchanged to the Boston Flowers during the{" "}
-          <Jump redirect="/offseason" time="2021-05-16T18:15:00Z" team="3f8bbb15-61c0-4e3f-8e4a-907a5fb1565e">
+          <Jump election={18} team="3f8bbb15-61c0-4e3f-8e4a-907a5fb1565e">
             Season 18 Election
           </Jump>
           . Jaylen was arguably the most famous pitcher in the league, but she ended up 10th in Boston’s 12-player
@@ -218,24 +202,17 @@ export default function Page() {
         </p>
         <p>One for Moody. One for Scorpler.</p>
       </Entry>
-      <entry date="Season 19 Election" title="The Hubris Reborm" redirect="/offseason" time="2021-05-23T18:15:00Z">
+      <entry election={19} title="The Hubris Reborm">
         <p>
-          In the{" "}
-          <Jump redirect="/offseason" time="2021-05-16T18:15:00Z">
-            Season 18 Election
-          </Jump>
-          , long time fan favorite Paula Turnip won the Center Of Attention blessing, despite most of the Tigers not
-          voting for it. It made her a Super Idol, doubling Snack payouts and instantly making her the most profitable
-          player in the league. In the Expansion Era, bad things happened to players who were consistently very
-          profitable, so the Tigers tried to Reform Super Idol.
+          In the <Jump election={18}>Season 18 Election</Jump>, long time fan favorite Paula Turnip won the Center Of
+          Attention blessing, despite most of the Tigers not voting for it. It made her a Super Idol, doubling Snack
+          payouts and instantly making her the most profitable player in the league. In the Expansion Era, bad things
+          happened to players who were consistently very profitable, so the Tigers tried to Reform Super Idol.
         </p>
         <p>
           It succeeded, turning Turnip from a Super Idol to a Credit To The Team, which quintupled Snack payouts, making
-          her even more profitable. Later,{" "}
-          <Jump redirect="/offseason" time="2021-06-20T18:15:00Z">
-            fans would again Reform Paula Turnip
-          </Jump>{" "}
-          so she would no longer be the economy, but it was too little, too late. She was eventually{" "}
+          her even more profitable. Later, <Jump election={20}>fans would again Reform Paula Turnip</Jump> so she would
+          no longer be the economy, but it was too little, too late. She was eventually{" "}
           <Jump time="2021-07-23T20:03:51Z">Vaulted in Season 23</Jump>. League officials later confirmed that this was
           entirely random; out of the over 200 known Modifications, the sim decided to pick the only one that punished
           the Tigers for their hubris.

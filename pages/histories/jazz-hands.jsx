@@ -147,11 +147,8 @@ export default function Page() {
           Sports. This, understandably, put the Jazz Hands’ perfectly normal man and team dad into the spotlight for a
           bit. The Leg Ring and it’s rather silly name became an immediate joke with Jazz Hands fans, who figured Walton
           probably thought it was French or something in confusion and called “Le Gring.” The item would be associated
-          with Walton for most of the rest of the era, despite dropping it for the Cape of Containment in{" "}
-          <Jump redirect="/offseason" time="2021-05-16T18:15:00Z">
-            Season 18’s election
-          </Jump>
-          .
+          with Walton for most of the rest of the era, despite dropping it for the Cape of Containment in the{" "}
+          <Jump election={18}>Season 18 Election</Jump>.
         </p>
       </Entry>
       <Entry title="Hype Builds in The Pocket!" season={19} day={1}>
@@ -187,12 +184,9 @@ export default function Page() {
         <LineScore id="a193f2f0-0fe7-423b-9387-da91626dffd5" />
         <p>
           This one game was the culmination of Collins Melon becoming ridiculously big after{" "}
-          <Jump redirect="/offseason" time="2021-03-21T18:15:00Z">
-            an Infuse in Season 14
-          </Jump>{" "}
-          and a number of parties, while somehow flying under the radar until{" "}
-          <Jump time="2021-04-13T18:50:00Z">the Reader removed their Alternate modification</Jump>. Once they were
-          noticed, fans leaguewide went “why does Collins Melon have 25 stars?”
+          <Jump election={14}>an Infuse in Season 14</Jump> and a number of parties, while somehow flying under the
+          radar until <Jump time="2021-04-13T18:50:00Z">the Reader removed their Alternate modification</Jump>. Once
+          they were noticed, fans leaguewide went “why does Collins Melon have 25 stars?”
         </p>
         <p>
           Previously a <Spoiler>Spy</Spoiler>, Jazz Hands fans gave them the moniker “Agent M” while they flew under the

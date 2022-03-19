@@ -149,12 +149,8 @@ export default function Page() {
           <Jump redirect="/leaderboard" season={10} day={100}>
             Season 10
           </Jump>
-          ,{" "}
-          <Jump redirect="/offseason" time="time=2020-10-18T19%3A30%3A00Z">
-            she landed on the San Francisco Lovers
-          </Jump>{" "}
-          after the disbanding of THE SHELLED ONE’S PODS and played Season 11 on only one team, due to a lack of
-          Feedback weather.
+          , <Jump election={10}>she landed on the San Francisco Lovers</Jump> after the disbanding of THE SHELLED ONE’S
+          PODS and played Season 11 on only one team, due to a lack of Feedback weather.
         </p>
         <p>
           Season 12 saw her world tour continue, going from the Lovers to the Yellowstone Magic on{" "}
@@ -171,11 +167,9 @@ export default function Page() {
           </Jump>{" "}
           for Lizzy Pasta, and back to Seattle on <Jump time="2021-03-11T08:06:08Z">Day 64</Jump> for Mindy Kugel. Fans
           elected to move Hotdogfingers to the Shadows, before she returned in{" "}
-          <Jump redirect="/offseason" time="2021-04-11T18:30:00Z">
-            the Season 15 Election
-          </Jump>
-          . The next leg of her world tour started in Season 17, taking her to Charleston again on{" "}
-          <Jump time="2021-04-20T05:01:52Z">Day 15</Jump>, for Fitzgerald Wanderlust, and then to Yellowstone on{" "}
+          <Jump election={15}>the Season 15 Election</Jump>. The next leg of her world tour started in Season 17, taking
+          her to Charleston again on <Jump time="2021-04-20T05:01:52Z">Day 15</Jump>, for Fitzgerald Wanderlust, and
+          then to Yellowstone on{" "}
           <Jump team="bfd38797-8404-4b38-8b82-341da28b1f83" time="2021-04-22T23:08:32Z">
             Day 79
           </Jump>{" "}
@@ -184,21 +178,14 @@ export default function Page() {
             Day 90
           </Jump>{" "}
           in exchange for Cravel Gesundheit, after Garages fans’ early-season votes to Reform her Fliickerrriiing paid
-          off,{" "}
-          <Jump redirect="/offseason" time="2021-04-25T18:15:00Z">
-            rerolling the modification into Super Idol
-          </Jump>
-          .
+          off, <Jump election={17}>rerolling the modification into Super Idol</Jump>.
         </p>
       </Entry>
       <Entry date="Season 10, Day 91" title="No Parties in Seattle" time="2020-10-16T11:15:38Z">
         <p>
-          Despite Enhanced Party Time passing during the{" "}
-          <Jump redirect="/offseason" time="2020-09-13T19:30:00Z">
-            Season 6 Election
-          </Jump>
-          , Garages players remained wallflowers for the three following seasons as the team made it to the postseason.
-          This streak was broken by Summers Pony on Season 10, Day 91, becoming the first Garage to ever party.
+          Despite Enhanced Party Time passing during the <Jump election={6}>Season 6 Election</Jump>, Garages players
+          remained wallflowers for the three following seasons as the team made it to the postseason. This streak was
+          broken by Summers Pony on Season 10, Day 91, becoming the first Garage to ever party.
         </p>
         <p>
           Besty Trombone, however, still refused to give in, and they managed to avoid partying until{" "}
@@ -212,16 +199,10 @@ export default function Page() {
       <Entry date="Season 11, Day 12" title="Goodwin Morin Gets Charmed" time="2020-10-20T03:00:36Z">
         <p>
           Getting Goodwin Morin to her star status was a labor of love, seasons in the making. She was boosted in the{" "}
-          <Jump redirect="/offseason" time="2020-10-11T19:15:00Z">
-            Season 9 Election
-          </Jump>{" "}
-          with the Secret Weapon blessing, which maxed out her stats, then pulled out of the Shadows during the{" "}
-          <Jump redirect="/offseason" time="2020-10-18T19:30:00Z">
-            Season 10 Election
-          </Jump>{" "}
-          with the Dark Star blessing. All eyes were on this legendary all-star to perform. So, naturally, her response
-          to all this pressure was to get charmed by Kichiro Guerra,{" "}
-          <Jump time="2020-10-20T03:05:24Z">Don Mitchell</Jump>, and{" "}
+          <Jump election={9}>Season 9 Election</Jump> with the Secret Weapon blessing, which maxed out her stats, then
+          pulled out of the Shadows during the <Jump election={10}>Season 10 Election</Jump> with the Dark Star
+          blessing. All eyes were on this legendary all-star to perform. So, naturally, her response to all this
+          pressure was to get charmed by Kichiro Guerra, <Jump time="2020-10-20T03:05:24Z">Don Mitchell</Jump>, and{" "}
           <Jump time="2020-10-20T03:06:21Z">Alexander Horne</Jump> during her second-ever appearance on the mound,
           losing the game to the San Francisco Lovers. This made her one of the only two pitchers in the league to get
           charmed this many times in the season.
@@ -249,12 +230,7 @@ export default function Page() {
         </p>
         <LineScore id="47bcac42-f651-4fc9-9f93-5567a7b10daf" />
       </Entry>
-      <Entry
-        date="Season 12 Election"
-        title="Alaynabella Hollywood, an Entity Fueled By Chaos"
-        redirect="/offseason"
-        time="2021-03-07T19:15:00Z"
-      >
+      <Entry election={12} title="Alaynabella Hollywood, an Entity Fueled By Chaos">
         <p>
           There was perhaps no Garage that owned the Expansion Era quite like Alaynabella Hollywood, starting the era at
           a paltry 4.7 combined stars and ending it with 21.3. Even her arrival to the team during the Season 12
@@ -275,12 +251,8 @@ export default function Page() {
           <Jump season={15} day={59}>
             Day 59
           </Jump>
-          . During the{" "}
-          <Jump redirect="/offseason" time="2021-04-18T18:15:00Z">
-            Season 16 Election
-          </Jump>
-          , she managed to avoid getting shadowed a second time, by being shadowed for Mike Townsend and <i>then</i>{" "}
-          moved to the lineup. On Season 17, Day 21, she was{" "}
+          . During the <Jump election={16}>Season 16 Election</Jump>, she managed to avoid getting shadowed a second
+          time, by being shadowed for Mike Townsend and <i>then</i> moved to the lineup. On Season 17, Day 21, she was{" "}
           <Jump time="2021-04-20T11:11:50Z">Blooddrained by Richardson Games</Jump>, and, in one of the only documented
           demonstrations of revenge, Hollywood returned the favor and{" "}
           <Jump time="2021-04-20T11:24:48Z">drained Blood Hamburger</Jump>.
@@ -311,22 +283,13 @@ export default function Page() {
         <p>
           Although MaX echoed Elsewhere on <Jump time="2021-03-19T17:14:13Z">Day 97</Jump>, starting a trend of echoing
           mod-heavy players and hanging out Elsewhere that would continue for most of xer career, xe gained a blessing
-          that remained xer own in the{" "}
-          <Jump redirect="/offseason" time="2021-03-21T18:15:00Z">
-            Season 14 Election
-          </Jump>
-          : Maximalist. Ten seasons later, despite numerous close calls, MaX was still on the Garages, even making it
-          back from xer seventh and latest trip Elsewhere on <Jump time="2021-07-30T12:12:58Z">Day 91</Jump> just in
-          time for the Expansion Era to come to a close. No one expected MaX to stay, but xe managed to prove everyone
-          wrong.
+          that remained xer own in the <Jump election={14}>Season 14 Election</Jump>: Maximalist. Ten seasons later,
+          despite numerous close calls, MaX was still on the Garages, even making it back from xer seventh and latest
+          trip Elsewhere on <Jump time="2021-07-30T12:12:58Z">Day 91</Jump> just in time for the Expansion Era to come
+          to a close. No one expected MaX to stay, but xe managed to prove everyone wrong.
         </p>
       </Entry>
-      <Entry
-        date="Season 14 Election"
-        title="Chorby Soul Reenters the Ring"
-        redirect="/offseason"
-        time="2021-03-21T18:15:00Z"
-      >
+      <Entry election={14} title="Chorby Soul Reenters the Ring">
         <p>
           As eDensity was examined during the beginnings of the Expansion Era, Chorby Soul drew attention. Some time
           between their Incineration on <Jump time="2020-08-04T08:15:44Z">Season 3, Day 14</Jump> and the Expansion Era,{" "}
@@ -342,21 +305,14 @@ export default function Page() {
           made their stats drop. Before the end of the week, on <Jump time="2021-04-05T21:11:42Z">Day 7</Jump>, Soul’s
           stats dropped as low as they possibly could, displaying all zeroes. Their soulscream still made them a ripe
           target, though, and the team’s fans revered Soul, as they kept other players safe from the Consumers and
-          potential Redaction. In the{" "}
-          <Jump redirect="/offseason" time="2021-04-11T18:30:00Z">
-            Season 15 Election
-          </Jump>
-          , fans Reformed Soul’s Observation-causing Debt, then waved farewell as the New York Millennials Plundered the
-          now-Unstable Soul.
+          potential Redaction. In the <Jump election={15}>Season 15 Election</Jump>, fans Reformed Soul’s
+          Observation-causing Debt, then waved farewell as the New York Millennials Plundered the now-Unstable Soul.
         </p>
       </Entry>
       <Entry date="Season 19, Day 104" title="Tables Turned" time="2021-05-22T01:20:39Z">
         <p>
           After finally succeeding in Exchanging Avila Guzman back onto the team during the{" "}
-          <Jump redirect="/offseason" time="2021-05-16T18:15:00Z">
-            Season 18 Election
-          </Jump>
-          , she promptly left once more, not even a full season later, on{" "}
+          <Jump election={18}>Season 18 Election</Jump>, she promptly left once more, not even a full season later, on{" "}
           <Jump time="2021-05-21T11:08:17Z">Day 91</Jump>. She feedbacked with Aldon Cashmoney IV, a replica, who would
           turn to dust at the end of the postseason. However, this was not the only loss the team would suffer this
           season. On Day 104, Sparks Beans became the first player to be Incinerated on the Garages since Season 8,
@@ -382,26 +338,14 @@ export default function Page() {
           <Jump season={5} day={11}>
             Jessica Telephone
           </Jump>
-          , he was sent to the Shadows{" "}
-          <Jump redirect="/offseason" time="2020-09-13T19:30:00Z">
-            after Jaylen Hotdogfingers’ resurrection
-          </Jump>
-          . Townsend was unshadowed in the{" "}
-          <Jump redirect="/offseason" time="2020-10-11T19:15:00Z">
-            Season 9 Election
-          </Jump>
-          , reshadowed in{" "}
-          <Jump redirect="/offseason" time="2020-10-18T19:30:00Z">
-            the Season 10 Election
-          </Jump>
-          , pulled back out in{" "}
-          <Jump redirect="/offseason" time="2021-04-18T18:15:00Z">
-            the Season 16 Election
-          </Jump>
-          , and managed to avoid getting Faxed back in until <Jump time="2021-05-12T05:14:53Z">Season 18, Day 37</Jump>.
-          He remained in the Shadows until <Jump time="2021-07-02T00:23:43Z">Season 22, Day 79</Jump>, when Townsend was
-          Voicemailed to the roster as a batter. This was something of a meme amongst the team’s fans, and the meme paid
-          off on the last day of the regular season.
+          , he was sent to the Shadows <Jump election={6}>after Jaylen Hotdogfingers’ resurrection</Jump>. Townsend was
+          unshadowed in the <Jump election={9}>Season 9 Election</Jump>, reshadowed in{" "}
+          <Jump election={10}>the Season 10 Election</Jump>, pulled back out in{" "}
+          <Jump election={16}>the Season 16 Election</Jump>, and managed to avoid getting Faxed back in until{" "}
+          <Jump time="2021-05-12T05:14:53Z">Season 18, Day 37</Jump>. He remained in the Shadows until{" "}
+          <Jump time="2021-07-02T00:23:43Z">Season 22, Day 79</Jump>, when Townsend was Voicemailed to the roster as a
+          batter. This was something of a meme amongst the team’s fans, and the meme paid off on the last day of the
+          regular season.
         </p>
         <LineScore id="3d953e88-5749-4b1b-822b-336d4e3d01b5" />
         <p>

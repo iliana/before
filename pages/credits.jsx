@@ -7,7 +7,7 @@ export default function Credits() {
         <p className="tw-font-sans tw-mb-4 lg:tw-mb-6">
           View credits for Blaseball:
           <br />
-          <Jump time="2020-10-25T19:15:00Z" redirect="/offseason" className="tw-underline">
+          <Jump election={11} className="tw-underline">
             The Discipline Era
           </Jump>{" "}
           &middot;{" "}

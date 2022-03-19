@@ -20,7 +20,7 @@ export async function getStaticProps() {
 export default function Page() {
   return (
     <History authors="YourGenderHere, Agent Blaze, OJ, Crop, Parish, Cloud, and Agent Willow">
-      <Entry title="The Clone" date="Season 6 Election" time="2020-09-13T19:30:00Z" redirect="/offseason">
+      <Entry title="The Clone" election={6}>
         <p>
           In accord with the Spies’ perennial role as “the team that a new mechanic happened to for the first time”,
           Spies pitcher Donia Bailey was struck by the “Party Line” Blessing, which promised the winning team a brand
@@ -39,11 +39,8 @@ export default function Page() {
           roster, Alexandria Rosales.
         </p>
         <p>
-          Eviltwin would later be traded away to the Fridays in{" "}
-          <Jump time="2020-09-20T19:30:00Z" redirect="/offseason">
-            a dastardly election scheme
-          </Jump>
-          ; Alexandria would later become the Spies’ ace pitcher and subsequently star batter. Season 6 marked a turning
+          Eviltwin would later be traded away to the Fridays in <Jump election={7}>a dastardly election scheme</Jump>;
+          Alexandria would later become the Spies’ ace pitcher and subsequently star batter. Season 6 marked a turning
           point for the Spies in terms of plot, being Perceived by it for the first time, and performance, with an
           actually good rotation.
         </p>
@@ -72,12 +69,10 @@ export default function Page() {
             full-team Reverb
           </Jump>{" "}
           put all three of the Replacement Elbows, a pitching Blessing won in just{" "}
-          <Jump time="2020-09-27T19:30:00Z" redirect="/offseason">
-            the previous Election
-          </Jump>
-          , into the lineup, and replaced them with batters who did not know how to pitch. This destroyed the Spies’
-          chances, starting a ten-season streak of repeated chokes on the way to the Internet Series, as well as
-          confirming a superstition about the cursedness of Wednesdays that persists to this day.
+          <Jump election={8}>the previous Election</Jump>, into the lineup, and replaced them with batters who did not
+          know how to pitch. This destroyed the Spies’ chances, starting a ten-season streak of repeated chokes on the
+          way to the Internet Series, as well as confirming a superstition about the cursedness of Wednesdays that
+          persists to this day.
         </p>
       </Entry>
       <Entry title="Denzel Scott’s Shelling" season={12} day={37} time="2021-03-03T05:12:02Z">

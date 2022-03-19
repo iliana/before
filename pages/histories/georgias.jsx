@@ -36,10 +36,7 @@ export default function Page() {
           qualities, McKinley was a quick target for Alternation in one of the Georgias’ first Election. This did make
           her better&hellip; at <i>batting</i>, which was unfortunate as McKinley was in the rotation at the time and,
           against all odds, even worse at pitching now. For the next few seasons, the Georgias were desperate to move
-          McKinley to the lineup, something they finally achieved in the{" "}
-          <Jump redirect="/offseason" time="2021-04-11T18:30:00Z">
-            Season 15 Election
-          </Jump>
+          McKinley to the lineup, something they finally achieved in the <Jump election={15}>Season 15 Election</Jump>
           &hellip; but only for a moment. Watch in terror, as seasons of Election progress are erased in the blink of an
           eye!
         </p>
@@ -61,7 +58,7 @@ export default function Page() {
           triply cursed.
         </p>
       </Entry>
-      <Entry date="Season 17 Election" title="Triple Trade" redirect="/offseason" time="2021-04-25T18:15:00Z">
+      <Entry election={17} title="Triple Trade">
         <p>
           While Georgias fans quickly became attached to their original roster, there was always talk of which players
           on other teams would fit in best in Atlantis. A perpetual candidate was “Hot”{" "}
@@ -124,7 +121,7 @@ export default function Page() {
           Five, baby!
         </p>
       </Entry>
-      <Entry date="Season 21 Election" title="The Clove Gambit" redirect="/offseason" time="2021-06-27T18:15:00Z">
+      <Entry election={21} title="The Clove Gambit">
         <p>
           After{" "}
           <Jump redirect="/depth" time="2021-06-24T20:00:30Z">
@@ -214,25 +211,15 @@ export default function Page() {
         <p>
           Although Neerie McCloud was a big fan favorite on the original Georgias roster, she was swept Elsewhere before
           even a full season of play on <Jump time="2021-03-12T05:25:00Z">Season 13, Day 84</Jump>, and was later
-          shadowed in a wimdy during the{" "}
-          <Jump redirect="/offseason" time="2021-03-14T19:15:00Z">
-            Season 13 Election
-          </Jump>{" "}
-          in exchange for capable batter Slosh Truk. Never quite good enough to be pulled out, she sat there for a long
-          time.
+          shadowed in a wimdy during the <Jump election={13}>Season 13 Election</Jump> in exchange for capable batter
+          Slosh Truk. Never quite good enough to be pulled out, she sat there for a long time.
         </p>
         <p>
-          To her advantage, a wimdied Shadow Infuse in the{" "}
-          <Jump redirect="/offseason" time="2021-05-23T18:15:00Z">
-            Season 19 Election
-          </Jump>{" "}
-          and the Shots in the Dark Blessing in the{" "}
-          <Jump redirect="/offseason" time="2021-06-20T18:15:00Z">
-            Season 20 Election
-          </Jump>{" "}
-          left McCloud first in line for Voicemail. On <Jump time="2021-07-23T12:24:27Z">Season 23, Day 92</Jump>, she
-          replaced Lachlan Shelton on the lineup. On Day 97, she <i>finally</i> made her triumphant return from
-          Elsewhere after 133 days and over ten seasons, a record likely, and hopefully, to never be matched.
+          To her advantage, a wimdied Shadow Infuse in the <Jump election={19}>Season 19 Election</Jump> and the Shots
+          in the Dark Blessing in the <Jump election={20}>Season 20 Election</Jump> left McCloud first in line for
+          Voicemail. On <Jump time="2021-07-23T12:24:27Z">Season 23, Day 92</Jump>, she replaced Lachlan Shelton on the
+          lineup. On Day 97, she <i>finally</i> made her triumphant return from Elsewhere after 133 days and over ten
+          seasons, a record likely, and hopefully, to never be matched.
         </p>
       </Entry>
       <Entry date="Season 24, Day 16" title="Ghost Redaction" time="2021-07-27T06:10:45Z">
@@ -252,17 +239,13 @@ export default function Page() {
       </Entry>
       <Entry season={24} day={28} title="Reunion Special">
         <p>
-          In the{" "}
-          <Jump redirect="/offseason" time="2021-07-25T18:15:00Z">
-            Season 23 Election
-          </Jump>
-          , the Georgias finally got just what they wanted: They managed to bring Niq Nyong’o back from the dead, and
-          they made it the rest of the league’s problem. The Georgias got treated to one last reunion special, where
-          they got to play a game against Nyong’o in Philly. It was like the whole gang was back together, except for
-          Mint Shupe and Siobhan Chark and Hercules Alighieri and Gita Biscuits and Erin Jesaulenko and Ankle Halifax
-          and all the other Georgias who were lost along the way. Maybe Randy Dennis{" "}
-          <Jump time="2021-07-27T19:28:32Z">got beaned</Jump>, but they made it out of the week fine, so it was okay! It
-          was fine! Everything was fine.
+          In the <Jump election={23}>Season 23 Election</Jump>, the Georgias finally got just what they wanted: They
+          managed to bring Niq Nyong’o back from the dead, and they made it the rest of the league’s problem. The
+          Georgias got treated to one last reunion special, where they got to play a game against Nyong’o in Philly. It
+          was like the whole gang was back together, except for Mint Shupe and Siobhan Chark and Hercules Alighieri and
+          Gita Biscuits and Erin Jesaulenko and Ankle Halifax and all the other Georgias who were lost along the way.
+          Maybe Randy Dennis <Jump time="2021-07-27T19:28:32Z">got beaned</Jump>, but they made it out of the week fine,
+          so it was okay! It was fine! Everything was fine.
         </p>
       </Entry>
     </History>

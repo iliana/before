@@ -19,7 +19,7 @@ export async function getStaticProps() {
 export default function Page() {
   return (
     <History>
-      <Entry date="Season 10 Election" title="Heart and Swole" redirect="/offseason" time="2020-10-18T19:30:00Z">
+      <Entry election={10} title="Heart and Swole">
         <p>
           After a climactic Internet Series and an even more climactic{" "}
           <Jump time="2020-10-18T00:33:04Z">Season 10, Day X</Jump>, the Baltimore Crabs became the first team to earn
@@ -60,26 +60,17 @@ export default function Page() {
           Lift narrative.
         </p>
         <p>
-          Though Di Batterino was soon{" "}
-          <Jump redirect="/offseason" time="2021-03-14T19:15:00Z">
-            the target of an accidental Foreshadow
-          </Jump>
-          , he was brought out as a pitcher in{" "}
-          <Jump redirect="/offseason" time="2021-03-21T18:15:00Z">
-            the following Election
-          </Jump>
-          , where the Lift would devote much of their energy and Votes to allow him to recover and shine. After{" "}
-          <Jump redirect="/offseason" time="2021-05-23T18:15:00Z" team="eb67ae5e-c4bf-46ca-bbbc-425cd34182ff">
+          Though Di Batterino was soon <Jump election={13}>the target of an accidental Foreshadow</Jump>, he was brought
+          out as a pitcher in <Jump election={14}>the following Election</Jump>, where the Lift would devote much of
+          their energy and Votes to allow him to recover and shine. After{" "}
+          <Jump election={19} team="eb67ae5e-c4bf-46ca-bbbc-425cd34182ff">
             an unexpected Exchange
           </Jump>{" "}
           with the Moist Talkers, the Lift tried and eventually succeeded in{" "}
-          <Jump redirect="/offseason" time="2021-06-27T18:15:00Z">
-            Exchanging him back
-          </Jump>
-          , once again making him a batter. Though his unique Intuitive Modification nearly restored his hitting stats
-          to what they were before the allergic reaction, those stats were very low for that point in the late Expansion
-          Era. He still managed to perform as one of the Lift’s top batters in a surprising recovery and return to the
-          Di Batterino of Season 11, only for him to get Shelled{" "}
+          <Jump election={21}>Exchanging him back</Jump>, once again making him a batter. Though his unique Intuitive
+          Modification nearly restored his hitting stats to what they were before the allergic reaction, those stats
+          were very low for that point in the late Expansion Era. He still managed to perform as one of the Lift’s top
+          batters in a surprising recovery and return to the Di Batterino of Season 11, only for him to get Shelled{" "}
           <Jump time="2021-06-29T15:17:33Z">25 days into the season</Jump> and never freed before the end of Beta.
         </p>
       </Entry>
@@ -97,11 +88,8 @@ export default function Page() {
         <p>
           Before Magnification, before Hoops, before absurd scoring Suns, there were two ways to modify runs in
           Blaseball: Coffee weather Modifications and Big Buckets. Rookie Engine Eberhardt, brought out in the{" "}
-          <Jump redirect="/offseason" time="2021-03-14T19:15:00Z">
-            Season 13 Election
-          </Jump>
-          , went on to be one of the greatest extra base hitters to ever pick up a bat, hitting 295 triples by the end
-          of Beta, barely trailing the greatest Season 1 players.
+          <Jump election={13}>Season 13 Election</Jump>, went on to be one of the greatest extra base hitters to ever
+          pick up a bat, hitting 295 triples by the end of Beta, barely trailing the greatest Season 1 players.
         </p>
         <p>
           In this case, however, Eberhardt hit a 3-run home run, into the Sixth Circle Stadium’s Big Buckets, while
@@ -136,12 +124,10 @@ export default function Page() {
         <p>
           Nandy Slumps, the single biggest hole in the Lift’s leaky pitching rotation, had a well-earned reputation for
           confounding team strategy. She already dodged one concerted shadowing attempt,{" "}
-          <Jump redirect="/offseason" time="2021-03-07T19:15:00Z">
-            letting Concrete Mandible take the fall
-          </Jump>{" "}
-          on a 0% wimdy. In Season 15, though, she virtually monopolized Party Time to become a promising batter. As the
-          Election approached, there was genuine enthusiasm for her planned Move into the lineup. In the last game of
-          the season, she was attacked by Consumers while staring directly at previously excited fans.
+          <Jump election={12}>letting Concrete Mandible take the fall</Jump> on a 0% wimdy. In Season 15, though, she
+          virtually monopolized Party Time to become a promising batter. As the Election approached, there was genuine
+          enthusiasm for her planned Move into the lineup. In the last game of the season, she was attacked by Consumers
+          while staring directly at previously excited fans.
         </p>
       </Entry>
       <Entry
@@ -161,7 +147,7 @@ export default function Page() {
           14 days into Season 17, Roamin’ player Alejandro Leaf pitched against her first team, the LA Unlimited Tacos.
           After allowing 6 runs with little run support from her own team to balance the score, Leaf tasted the infinite
           and Shelled Felix Garbage, a former Mills teammate from before{" "}
-          <Jump redirect="/offseason" time="2021-03-14T19:15:00Z" team="36569151-a2fb-43c1-9df7-2df512424c82">
+          <Jump election={13} team="36569151-a2fb-43c1-9df7-2df512424c82">
             Leaf was Revoked
           </Jump>
           . This, in itself, was somewhat notable: Although Leaf was not the first pitcher to taste the infinite,
@@ -212,11 +198,8 @@ export default function Page() {
           on <Jump time="2021-03-19T07:01:51Z">Season 14, Day 87</Jump> &mdash; Day 56 is notable for being the last
           time that the renowned Jessica Telephone saw play before her Alternate was called. O’Lantern and Pantheocide
           both returned within a few days, but Telephone remained Elsewhere through the{" "}
-          <Jump redirect="/offseason" time="2021-05-16T18:15:00Z">
-            Season 18 Election
-          </Jump>
-          , when she was hit by Lift’s Alternate Trust Will. A different Jessica Telephone returned on{" "}
-          <Jump time="2021-05-17T16:14:25Z">Season 19, Day 2</Jump>.
+          <Jump election={18}>Season 18 Election</Jump>, when she was hit by Lift’s Alternate Trust Will. A different
+          Jessica Telephone returned on <Jump time="2021-05-17T16:14:25Z">Season 19, Day 2</Jump>.
         </p>
       </Entry>
       <Entry date="Season 19, Day 117" title="The Shampionship" time="2021-05-23T00:27:04Z">
@@ -294,29 +277,20 @@ export default function Page() {
         <p>
           Val Hitherto was often the butt of Lift fans’ jokes, due to his common portrayal in lore as a disaster of a
           person and Blaseball player to boot. After Hitherto’s Foreshadowing for Cudi Di Batterino in{" "}
-          <Jump redirect="/offseason" time="2021-03-21T18:15:00Z">
-            Season 14
-          </Jump>
-          , many Lift fans would often jokingly propose either bringing Hitherto back in a Will or Revoking him to
-          inflict him and his food stall, “the Beef Wings stand,” onto the league. These would become serious proposals,
-          which would then be thrown aside for proposals involving better players. This cycle repeated about every other
-          season, culminating in Season 18 and the introduction of the Shadow Infuse will. After some debate, it was
-          determined Hitherto was among the best hitting prospects in the Lift’s mediocre shadows, and a plan was made
-          to Shadow Infuse his batting to finally bring him back into the light.
+          <Jump election={14}>Season 14</Jump>, many Lift fans would often jokingly propose either bringing Hitherto
+          back in a Will or Revoking him to inflict him and his food stall, “the Beef Wings stand,” onto the league.
+          These would become serious proposals, which would then be thrown aside for proposals involving better players.
+          This cycle repeated about every other season, culminating in Season 18 and the introduction of the Shadow
+          Infuse will. After some debate, it was determined Hitherto was among the best hitting prospects in the Lift’s
+          mediocre shadows, and a plan was made to Shadow Infuse his batting to finally bring him back into the light.
         </p>
         <p>
-          However,{" "}
-          <Jump redirect="/offseason" time="2021-05-16T18:15:00Z">
-            the shadowed Kit Honey received the boost instead
-          </Jump>
-          , with just 1% of the Vote, and Silvaire Semiquaver was Foreshadowed to bring Honey to the lineup{" "}
-          <Jump redirect="/offseason" time="2021-05-23T18:15:00Z">
-            the next season
-          </Jump>
-          , in the spot that rightfully belonged to Hitherto. Cut to Season 24, Day 79, the league’s moment of need:
-          Five minutes prior, the Philly Pies were nullified by the looming Black Hole (Black Hole). Fans were silent.
-          Suddenly, Deep Darkness takes Kit Honey. The crowd gasped. Out of the shadows, the Lift’s Beef-Wing MVP’nt
-          clocked in. Was it an act of vengeance? Justice?
+          However, <Jump election={18}>the shadowed Kit Honey received the boost instead</Jump>, with just 1% of the
+          Vote, and Silvaire Semiquaver was Foreshadowed to bring Honey to the lineup{" "}
+          <Jump election={19}>the next season</Jump>, in the spot that rightfully belonged to Hitherto. Cut to Season
+          24, Day 79, the league’s moment of need: Five minutes prior, the Philly Pies were nullified by the looming
+          Black Hole (Black Hole). Fans were silent. Suddenly, Deep Darkness takes Kit Honey. The crowd gasped. Out of
+          the shadows, the Lift’s Beef-Wing MVP’nt clocked in. Was it an act of vengeance? Justice?
         </p>
         <p>
           <Jump redirect="/depth" time="2021-07-30T03:10:00Z">

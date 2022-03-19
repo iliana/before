@@ -99,18 +99,11 @@ export default function Page() {
         time="2020-10-15T10:15:10Z"
       >
         <p>
-          Ever since the{" "}
-          <Jump redirect="/offseason" time="2020-08-30T19:15:00Z">
-            Season 4 election
-          </Jump>{" "}
-          when they were equipped with the Grappling Hook, Richardson Games had been quite an anomaly: low batting and
-          pitching stars, but excelling in baserunning and defense. While this should be enough to satiate any
-          reasonable player, becoming a Siphon in the{" "}
-          <Jump redirect="/offseason" time="2020-10-11T19:15:00Z">
-            Season 9 election
-          </Jump>{" "}
-          made Richardson hungry for blood. In season 10, they would go from 5.5 to an absurd 8 defense stars by sipping
-          the entire League. Notable victims included beloved Magic player{" "}
+          Ever since the <Jump election={4}>Season 4 election</Jump> when they were equipped with the Grappling Hook,
+          Richardson Games had been quite an anomaly: low batting and pitching stars, but excelling in baserunning and
+          defense. While this should be enough to satiate any reasonable player, becoming a Siphon in the{" "}
+          <Jump election={9}>Season 9 election</Jump> made Richardson hungry for blood. In season 10, they would go from
+          5.5 to an absurd 8 defense stars by sipping the entire League. Notable victims included beloved Magic player{" "}
           <Jump time="2020-10-14T22:13:10Z">Chorby Short</Jump> and the very player who{" "}
           <Jump time="2020-08-28T12:27:30Z">originally swapped teams</Jump> with Richardson,{" "}
           <Jump time="2020-10-13T22:07:10Z">Ren Hunter</Jump>.
@@ -118,24 +111,16 @@ export default function Page() {
       </Entry>
       <Entry date="Season 11, Day 1" title="Esme’s Haunted" time="2020-10-19T16:05:50Z">
         <p>
-          In the{" "}
-          <Jump redirect="/offseason" time="2020-10-18T19:30:00Z">
-            Season 10 election
-          </Jump>
-          , the Gods were particularly generous to the Shoe Thieves, granting them five Blessings. Among these were the
-          infamous Noise-Canceling Headphones, the Traveling team modification, and the mysterious “Haunt a random
-          player”. The initial surprise of Esme Ramsey becoming “Haunted” was nowhere near the fans’ collective shock
-          when, on their first plate appearance, Esme instead left their place to none other than Atlas Jonbois, ghost
-          of a renowned Shoe Thief who survived less than three days in the League in Season 3, from{" "}
-          <Jump time="2020-08-05T10:19:15Z">Day 40</Jump> to <Jump time="2020-08-05T13:29:50Z">Day 43</Jump>.
+          In the <Jump election={10}>Season 10 election</Jump>, the Gods were particularly generous to the Shoe Thieves,
+          granting them five Blessings. Among these were the infamous Noise-Canceling Headphones, the Traveling team
+          modification, and the mysterious “Haunt a random player”. The initial surprise of Esme Ramsey becoming
+          “Haunted” was nowhere near the fans’ collective shock when, on their first plate appearance, Esme instead left
+          their place to none other than Atlas Jonbois, ghost of a renowned Shoe Thief who survived less than three days
+          in the League in Season 3, from <Jump time="2020-08-05T10:19:15Z">Day 40</Jump> to{" "}
+          <Jump time="2020-08-05T13:29:50Z">Day 43</Jump>.
         </p>
       </Entry>
-      <Entry
-        date="Season 13 Elections"
-        title="Tillman is Called Back to the Void"
-        redirect="/offseason"
-        time="2021-03-14T19:15:00Z"
-      >
+      <Entry title="Tillman is Called Back to the Void" election={13}>
         <p>
           As the Shoe Thieves implemented the first stage of their multi-season “Pitcher of Blood” plan, to get the
           Flinching Blood Hamburger on the mound in Tillman Henderson’s place, Tillman’s Returned modification finally
@@ -148,7 +133,7 @@ export default function Page() {
           limits, including <Jump time="2021-03-16T03:09:20Z">allowing 2 grand slams in a single inning</Jump>.
         </p>
       </Entry>
-      <Entry date="Season 14 Elections" title="The Sneakers Alliance" redirect="/offseason" time="2021-03-21T18:15:00Z">
+      <Entry title="The Sneakers Alliance" election={14}>
         <p>
           <Jump time="2021-03-16T12:01:20Z">Sebastian Woodman’s incineration</Jump> hit hard, especially for their
           replacement Bennet Bluesky, a mediocre batter but a great pitcher, born in the wrong position. With the help
@@ -161,7 +146,7 @@ export default function Page() {
       <Entry date="Season 17, Day 78" title="Yeet Bright Day" time="2021-04-22T22:20:40Z">
         <p>
           Most teams had their iconic terrible pitchers, but few have seen as many as Charleston. Ironically{" "}
-          <Jump team="eb67ae5e-c4bf-46ca-bbbc-425cd34182ff" redirect="/offseason" time="2021-03-21T18:15:00Z">
+          <Jump team="eb67ae5e-c4bf-46ca-bbbc-425cd34182ff" election={14}>
             Revoked
           </Jump>{" "}
           from “sister team” Canada Moist Talkers, Bright Zimmerman was the latest dent in the Thieves’ rotation, as
@@ -181,12 +166,7 @@ export default function Page() {
           series of Shadow Faxes in Charleston.
         </p>
       </Entry>
-      <Entry
-        date="Season 18 Elections"
-        title="A Blood and Bon Voyage!"
-        redirect="/offseason"
-        time="2021-05-16T18:15:00Z"
-      >
+      <Entry title="A Blood and Bon Voyage!" election={18}>
         <p>
           Name an unfortunate Blaseball event, and it likely happened to the Shoe Thieves in the Expansion Era. With
           players looking so volatile, the community had their eyes on permanent team modifications. Having hosted more
@@ -206,16 +186,10 @@ export default function Page() {
           , Jesús Koch placed the Fifth Base in the Oven. For almost a season, it sat there, forcing the Philly Pies to
           play five base Blaseball for every home game. Richardson Games was the first player to try picking it up by
           stealing fifth, becoming Super Roamin’ in the process, to the horror of Thieves fans who had{" "}
-          <Jump redirect="/offseason" time="2021-06-20T18:15:00Z">
-            just recently
-          </Jump>{" "}
-          put them back in the lineup. Immediately after faxing Beans McBlase with a 10th run, Richardson simply put the
-          base back in the very same game, happy to have dropped the impairing Coasting Jersey. Not fast enough to avoid
-          panic votes moving Games to the bottom of the lineup in{" "}
-          <Jump redirect="/offseason" time="2021-06-27T18:15:00Z">
-            that season’s election
-          </Jump>
-          , though.
+          <Jump election={20}>just recently</Jump> put them back in the lineup. Immediately after faxing Beans McBlase
+          with a 10th run, Richardson simply put the base back in the very same game, happy to have dropped the
+          impairing Coasting Jersey. Not fast enough to avoid panic votes moving Games to the bottom of the lineup in{" "}
+          <Jump election={21}>that season’s election</Jump>, though.
         </p>
       </Entry>
       <Entry date="Season 23, Day 90" title="Gunther’s Death" time="2021-07-23T10:04:50Z">
@@ -230,15 +204,8 @@ export default function Page() {
           <Jump redirect="/team/b72f3061-f573-40d7-832a-5ad475bd7909" time="2021-07-25T03:55:55Z">
             redrafted into the League
           </Jump>
-          . After{" "}
-          <Jump redirect="/offseason" time="2021-05-23T18:15:00Z">
-            Pudge
-          </Jump>{" "}
-          and{" "}
-          <Jump redirect="/offseason" time="2021-07-04T18:20:00Z">
-            Alejandro
-          </Jump>{" "}
-          Roamed out, yet another Thief escaped the Hall of Flame.
+          . After <Jump election={19}>Pudge</Jump> and <Jump election={22}>Alejandro</Jump> Roamed out, yet another
+          Thief escaped the Hall of Flame.
         </p>
       </Entry>
       <Entry date="Season 23, Day 103" title="Richardson Games With the Steel Chair" time="2021-07-24T00:04:40Z">
@@ -259,13 +226,10 @@ export default function Page() {
         time="2021-07-29T16:35:15Z"
       >
         <p>
-          During the{" "}
-          <Jump redirect="/offseason" time="2021-07-25T18:15:00Z">
-            Season 23 election
-          </Jump>
-          , the Shoe Thieves fans made a clear choice by voting for Containment rather than Roamless: If this was the
-          final season, they’d go out in style. “Party till we die” became the unofficial fan chant for the season, and
-          reached its apex when Parker MacMillan finally Roamed to the team on{" "}
+          During the <Jump election={23}>Season 23 Election</Jump>, the Shoe Thieves fans made a clear choice by voting
+          for Containment rather than Roamless: If this was the final season, they’d go out in style. “Party till we
+          die” became the unofficial fan chant for the season, and reached its apex when Parker MacMillan finally Roamed
+          to the team on{" "}
           <Jump redirect="/team/bfd38797-8404-4b38-8b82-341da28b1f83" time="2021-07-29T07:34:30Z">
             Day 63
           </Jump>

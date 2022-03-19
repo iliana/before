@@ -49,24 +49,15 @@ export default function Page() {
           her honor.
         </p>
       </Entry>
-      <Entry
-        date="Season 13 Election"
-        title="Pitching Machine Self-Plunder"
-        redirect="/offseason"
-        time="2021-03-14T19:15:00Z"
-      >
+      <Entry election={13} title="Pitching Machine Self-Plunder">
         <p>
-          Pitching Machine had joined the batting lineup{" "}
-          <Jump redirect="/offseason" time="2021-03-07T19:15:00Z">
-            the previous Election
-          </Jump>
-          , and became a Batting Machine beloved by many early Ohio Worms fans. There was a creeping worry in the minds
-          of many, though: Pitching Machine, being on the Idol Board, was a potential target for Plundering. In a
-          last-ditch attempt to keep Pitching Machine on the team, Ohio Worms fans voted to plunder PM themselves. If
-          another team had plundered Pitching Machine before them, they would be able to take them back immediately.
-          However, fans’ fears were unfounded, and so the Worms Plundered PM from the Worms. From this point on, whether
-          it was an actual option or not, Worms fans would suggest Plundering PM almost any time Election options were
-          discussed.
+          Pitching Machine had joined the batting lineup <Jump election={12}>the previous Election</Jump>, and became a
+          Batting Machine beloved by many early Ohio Worms fans. There was a creeping worry in the minds of many,
+          though: Pitching Machine, being on the Idol Board, was a potential target for Plundering. In a last-ditch
+          attempt to keep Pitching Machine on the team, Ohio Worms fans voted to plunder PM themselves. If another team
+          had plundered Pitching Machine before them, they would be able to take them back immediately. However, fans’
+          fears were unfounded, and so the Worms Plundered PM from the Worms. From this point on, whether it was an
+          actual option or not, Worms fans would suggest Plundering PM almost any time Election options were discussed.
         </p>
       </Entry>
       <Entry date="Season 14, Day 67" title="Feedback Detected" time="2021-03-18T10:11:49Z">
@@ -85,11 +76,8 @@ export default function Page() {
           <Jump time="2021-05-14T08:20:41Z">87</Jump>, and was subsequently stolen by the Tacos’ Phantom Thieves Guild
           in <Jump time="2021-07-02T15:23:29Z">Season 22</Jump>. Iggy was Incinerated in{" "}
           <Jump time="2021-05-18T12:12:18Z">Season 19</Jump>. In the case of Rivers Rosa, Worms were so desperate to get
-          her out of harm’s way that fans used both Wills in the{" "}
-          <Jump redirecet="/offseason" time="2021-06-20T18:15:00Z">
-            Season 20 Election
-          </Jump>{" "}
-          to move Rivers into the shadows, first by Foreshadowing Xandra Pancakes for Rosa, and then Moving Rosa to the
+          her out of harm’s way that fans used both Wills in the <Jump election={20}>Season 20 Election</Jump> to move
+          Rivers into the shadows, first by Foreshadowing Xandra Pancakes for Rosa, and then Moving Rosa to the
           shadows&hellip; from the shadows.
         </p>
       </Entry>
@@ -209,13 +197,10 @@ export default function Page() {
           Toast. Their arrival was controversial, to be light, with fans either adoring or despising their new player.
           This escalated when Scoobert picked up a pair of Golden Rock Shoes on{" "}
           <Jump time="2021-07-22T23:21:45Z">Season 23, Day 79</Jump> which gave them Super Idol, and then winning the
-          Credit To the Team blessing in the{" "}
-          <Jump redirect="/offseason" time="2021-07-25T18:15:00Z">
-            Season 23 Election
-          </Jump>
-          . This fooled both Worms fans and the League alike into believing that Soobert might be the new economy, until
-          it was revealed that the two mods only gave a 6x payout, instead of 10x. Scoobert was such a mediocre player
-          on a large lineup, so it didn’t really matter anyways.
+          Credit To the Team blessing in the <Jump election={23}>Season 23 Election</Jump>. This fooled both Worms fans
+          and the League alike into believing that Soobert might be the new economy, until it was revealed that the two
+          mods only gave a 6x payout, instead of 10x. Scoobert was such a mediocre player on a large lineup, so it
+          didn’t really matter anyways.
         </p>
       </Entry>
       <Entry title="Wild Champions, Ohio Worms" season={23} day={111}>

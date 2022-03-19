@@ -32,9 +32,7 @@ export default function Start() {
         <Season season={2} start="2020-07-27">
           <Event day={100}>Postseason</Event>
           <Event day={108}>The Internet Series</Event>
-          <Event time="2020-08-02T19:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={3} title="Peanut Plague" extraTitle="Uncertainty" color="#c4aa70" start="2020-08-03">
@@ -59,9 +57,7 @@ export default function Start() {
           <Event time="2020-08-09T00:16:56Z" team="747b8e4a-7e50-4638-a973-ea7950a3e739">
             Landry Violence incinerated
           </Event>
-          <Event time="2020-08-09T19:30:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={4} title="Feedback" color="#ff007b" start="2020-08-24">
@@ -89,9 +85,7 @@ export default function Start() {
           <Event time="2020-08-30T19:09:47Z" redirect="/offseason">
             <Peanut>IT IS TOO LOUD</Peanut>
           </Event>
-          <Event time="2020-08-30T19:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={5} title="Reverb" color="#61b3ff" start="2020-08-31">
@@ -104,9 +98,7 @@ export default function Start() {
           <Event time="2020-09-06T19:00:21Z" redirect="/offseason">
             <Peanut>YOU WORSHIP THEM WHEN I WALK AMONG YOU?</Peanut>
           </Event>
-          <Event time="2020-09-06T19:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={6} title="Idols" color="#ffe082" start="2020-09-07">
@@ -122,9 +114,7 @@ export default function Start() {
           <Event time="2020-09-13T19:18:07Z" redirect="/offseason">
             <Peanut>HOTDOGFINGERS? AMUSING</Peanut>
           </Event>
-          <Event time="2020-09-13T19:30:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={7} title="Getting Shelled" color="#ffe082" start="2020-09-14">
@@ -161,9 +151,7 @@ export default function Start() {
           <Event time="2020-09-20T19:15:36Z" redirect="/offseason">
             <Monitor>i will make you a deal</Monitor>
           </Event>
-          <Event time="2020-09-20T19:30:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={8} title="Rest in Violence" color="#5988ff" start="2020-09-21">
@@ -188,9 +176,7 @@ export default function Start() {
           <Event time="2020-09-27T18:59:23Z" redirect="/offseason">
             <Peanut>STRIKE FOUR</Peanut>
           </Event>
-          <Event time="2020-09-27T19:30:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={9} title="Forecast" color="#576b8c" start="2020-10-05">
@@ -215,9 +201,7 @@ export default function Start() {
           <Event time="2020-10-11T02:47:22Z">
             <Monitor>did i miss something?</Monitor>
           </Event>
-          <Event time="2020-10-11T19:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={10} title="Backdraft" color="#ab383a" start="2020-10-12">
@@ -248,9 +232,7 @@ export default function Start() {
           <Event time="2020-10-18T19:10:27Z">
             <Coin>We’re fans, just like you.</Coin>
           </Event>
-          <Event time="2020-10-18T19:30:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={11} title="Peace & Prosperity" color="#3cc28a" start="2020-10-19">
@@ -266,9 +248,7 @@ export default function Start() {
           <Event time="2020-10-25T19:01:13Z" redirect="/offseason">
             <Monitor>your fates are sealed or something</Monitor>
           </Event>
-          <Event time="2020-10-25T19:15:00Z" redirect="/offseason">
-            Election Results & Credits
-          </Event>
+          <Event election>Election Results & Credits</Event>
         </Season>
       </Era>
 
@@ -319,9 +299,7 @@ export default function Start() {
           <Event time="2021-03-07T18:59:07Z" redirect="/offseason">
             <Coin>Smooth sailing ahead.</Coin>
           </Event>
-          <Event time="2021-03-07T19:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={13} title="Home Free" color="#b185de" start="2021-03-08">
@@ -349,9 +327,7 @@ export default function Start() {
           </Event>
           <Event day={100}>Postseason</Event>
           <Event day={114}>The Internet Series</Event>
-          <Event time="2021-03-14T19:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={14} title="The -ides" color="#bdb3c3" start="2021-03-15">
@@ -382,9 +358,7 @@ export default function Start() {
           <Event time="2021-03-21T18:01:42Z" redirect="/offseason">
             <Monitor>somebody better do something</Monitor>
           </Event>
-          <Event time="2021-03-21T18:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={15} title="Live Bait" color="#ba7b97" start="2021-04-05">
@@ -432,9 +406,7 @@ export default function Start() {
           <Event time="2021-04-11T18:18:42Z" redirect="/offseason">
             <Lootcrates>Witnesses shape the Current</Lootcrates>
           </Event>
-          <Event time="2021-04-11T18:30:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={16} title="Mass Production" color="#b3b3b3" start="2021-04-12">
@@ -464,9 +436,7 @@ export default function Start() {
           <Event time="2021-04-18T18:03:24Z" redirect="/offseason">
             <Coin>We will Preserve what We Love.</Coin>
           </Event>
-          <Event time="2021-04-18T18:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={17} title="Collections" color="#c5a168" start="2021-04-19">
@@ -487,9 +457,7 @@ export default function Start() {
           <Event time="2021-04-25T18:03:48Z" redirect="/offseason">
             <Lootcrates>The Stacks Remember</Lootcrates>
           </Event>
-          <Event time="2021-04-25T18:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={18} title="New Editions" color="#ff2e2e" start="2021-05-10">
@@ -516,9 +484,7 @@ export default function Start() {
           <Event time="2021-05-16T18:03:02Z" redirect="/offseason">
             <Coin>Today’s Results are disappointing.</Coin>
           </Event>
-          <Event time="2021-05-16T18:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={19} title="Undertow" color="#a16dc3" start="2021-05-17">
@@ -542,9 +508,7 @@ export default function Start() {
           <Event time="2021-05-23T18:04:49Z" redirect="/offseason">
             <Coin>We’ve been forced to make a Deal</Coin>
           </Event>
-          <Event time="2021-05-23T18:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={20} title="Win(Win)" color="#3faf66" start="2021-06-14">
@@ -571,9 +535,7 @@ export default function Start() {
           <Event time="2021-06-20T18:02:09Z" redirect="/offseason">
             <Coin>We must deepen our investments</Coin>
           </Event>
-          <Event time="2021-06-20T18:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={21} title="Red Herring" color="#ea3f66" start="2021-06-21">
@@ -600,9 +562,7 @@ export default function Start() {
           <Event time="2021-06-27T18:04:36Z" redirect="/offseason">
             <Coin>Classified information has been Leaked</Coin>
           </Event>
-          <Event time="2021-06-27T18:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={22} title="Overdue" color="#3c81d8" start="2021-06-28">
@@ -629,9 +589,7 @@ export default function Start() {
           <Event time="2021-07-04T18:02:55Z" redirect="/offseason">
             <Coin>An Exhibition Match for the Ages</Coin>
           </Event>
-          <Event time="2021-07-04T18:20:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season season={23} title="A Set Up" color="#d9d3d2" start="2021-07-19">
@@ -668,9 +626,7 @@ export default function Start() {
           <Event time="2021-07-25T18:02:39Z" redirect="/offseason">
             <Namerifeht>Credit Denied</Namerifeht>
           </Event>
-          <Event time="2021-07-25T18:15:00Z" redirect="/offseason">
-            Election Results
-          </Event>
+          <Event election>Election Results</Event>
         </Season>
 
         <Season
