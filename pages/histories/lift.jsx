@@ -104,7 +104,7 @@ export default function Page() {
           of Beta, barely trailing the greatest Season 1 players.
         </p>
         <p>
-          In this case, however, Eberhardt hit a 3-run home run, into the Sixth Circle Amphitheatre’s Big Buckets, while
+          In this case, however, Eberhardt hit a 3-run home run, into the Sixth Circle Stadium’s Big Buckets, while
           Wired. This totalled 6 runs, a record over the previous{" "}
           <Jump team="bfd38797-8404-4b38-8b82-341da28b1f83" time="2020-10-12T22:06:18Z">
             5-run Pentaslam
