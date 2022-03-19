@@ -64,7 +64,9 @@ export default function Page() {
           className="tw-bg-black tw-border tw-border-gray-800 tw-p-1 tw-ml-2 tw-w-96 tw-rounded"
           onFocus={(event) => event.target.select()}
           onInput={(event) => {
-            const match = event.target.value.match(/reblase.sibr.dev\/((game|bossfight)\/[0-9a-f-]{36}#[0-9a-f-]{36})/);
+            const match = event.target.value.match(
+              /reblase.sibr.dev\/((game|bossfight|semicentennial)\/[0-9a-f-]{36}#[0-9a-f-]{36})/
+            );
             setLinkData(match ? match[1] : undefined);
           }}
           ref={useCallback((node) => {
