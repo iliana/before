@@ -35,8 +35,8 @@ export default function Page() {
         <p>
           On the precipice of elimination from the divisional series, the Jazz Hands would see their luck turn around
           when Comfort Septemberish stole home in the bottom of the 9th, opening the door for Aldon Cashmoney to deliver
-          a two-run home run death blow to the Tigers. This knocked the Tigers out of contention so hard it got into the
-          Blaseball Beat. Jazz Hands fans still ask to this day, “Where were you when Comfort Septemberish stole home?”
+          a two-run home run death blow to the Tigers. This knocked the Tigers out of contention so hard it got into The
+          Blaseball Beat{/* Link to issue when in archive */}. Jazz Hands fans still ask to this day, “Where were you when Comfort Septemberish stole home?”
         </p>
         <LineScore id="e83806f4-1d8c-4c61-815a-884f31bfd9a9" />
       </Entry>
@@ -45,29 +45,27 @@ export default function Page() {
           It was an eclipse game like any other, at first. The sun had gone out and there was always a chance someone
           was going to go out in flames, but it seemed standard at first. When{" "}
           <Jump time="2020-08-04T17:07:15Z">Jazz Hands player Ogden Mendoza burned</Jump>, fans thought that had to be
-          the end of it. Then{" "}
-          <Jump time="2020-08-04T17:15:49Z">Velasquez Meadows of the Sunbeams was incinerated too</Jump>, the first
-          instance of multiple players incinerated in the same game and the first Jazzbeams to die together. The first
-          Jazzbeams double Incineration would not be the last, however, and would hover over both teams for many seasons
-          to come.
+          the end of it. Then Velasquez Meadows of the <Link href="sunbeams">Sunbeams</Link>{" "}
+          <Jump time="2020-08-04T17:15:49Z">was Incinerated too</Jump>, the first
+          instance of multiple players incinerated in the same game and the first Jazzbeams to die together. This first double Incineration would not be the last, however, and would hover over both the Jazz Hands and the Sunbeams for many seasons to come.
         </p>
       </Entry>
       <Entry title="Lowe Tames the Tigers" season={5} day={102}>
         <p>
-          The Tigers were on a hot streak. They had just won back-to-back championships and were potentially on track
+          The <Link href="tigers">Tigers</Link> were on a hot streak. They had just won back-to-back championships and were potentially on track
           for their third and the Ascension that came with it. The only thing standing in their way was Jazz Hands
           pitcher Lowe Forbes, at the time possessing only a single pitching star. If the Jazz Hands lost this game,
-          they’d be up against the Tigers’ best pitchers. Against all odds, Lowe held the Tigers to 2 runs, with the
+          they’d be up against the Tigers’ best pitchers. Against all odds, Forbes held the Tigers to 2 runs, with the
           Tigers ultimately losing 2-10 and cementing Lowe Forbes as one of the Jazz Hands pitchers of all time.
         </p>
         <LineScore id="477f451a-7bc0-4c4d-887d-a3e2d057569c" />
       </Entry>
       <Entry title="August Sky vs. PolkaDot Patterson" season={5} day={106}>
         <p>
-          August Sky was an ace for the Jazz Hands, but she was up against 5-star PolkaDot Patterson. August and the
+          August Sky was an ace for the Jazz Hands, but she was up against 5-star pitcher PolkaDot Patterson. Sky and the
           team would go on not only to hold on, but to do so for a then-record 23 innings. Ultimately, the Jazz Hands
           would lose this game, but before they did, the entire league was held hostage by an absurd-for-the-time
-          pitcher’s duel.
+          pitchers’ duel.
         </p>
         <LineScore id="bbf1b3d0-de4a-4248-a67f-5ec69378bc43" />
       </Entry>
@@ -76,15 +74,13 @@ export default function Page() {
         title="Declan Suzanne Eats a Peanut, Causes a Win Anyway"
         time="2020-09-06T01:26:42Z"
       >
-        {" "}
-        {/*  */}
         <p>
-          Season 5’s postseason was going great for the Jazz Hands. They had tamed the Tigers, thrown a 23-inning game
+          Postseason 5 was going great for the Jazz Hands. They had tamed the <Link href="tigers">Tigers</Link>, went 23 innings
           against PolkaDot Patterson, and now were one win away from their first championship. The score was tied up and
           it looked like the Jazz Hands had a chance to win it all.
         </p>
         <p>
-          Firefighters batter Declan Suzanne then ate a peanut and had an allergic reaction. Declan ended up reaching
+          <Link href="firefighters">Firefighters</Link> batter Declan Suzanne then ate a peanut and had an allergic reaction. Suzanne ended up reaching
           first on a fielder’s choice despite this, pushing Justice Spoon home and winning the game for the
           Firefighters. The Jazz Hands would ultimately lose their first and only Internet Series to the Firefighters.
         </p>
@@ -93,7 +89,7 @@ export default function Page() {
       <Entry title="No Eyes Eleven Hearts Can’t Lose" season={6} day={95}>
         <p>
           Day 95 marked the final game of Campos Arias’ undefeated 19-0 season. Such a feat likely never would have
-          happened if Campos wasn’t alternated during the Season 4 election, which tripled her pitching stars and helped
+          happened if Campos wasn’t Alternated during the <Jump election={4}>Season 4 Election</Jump>, which tripled her pitching stars and helped
           round out the Jazz Hands’ rotation.
         </p>
         <LineScore id="50d1d815-1b16-45bc-a1fb-6b357736c13a" />
@@ -101,7 +97,7 @@ export default function Page() {
       <Entry title="The Burke/Pothos Showdown" season={12} day={66}>
         <p>
           When two of the best pitchers in the league go head-to-head, fans take notice. But they weren’t ready for the
-          ridiculous pitcher duel that the Jazz Hands and Wild Wings would get caught up in as Wyatt Pothos and Burke
+          ridiculous pitchers’ duel that the Jazz Hands and <Link href="wild-wings">Wild Wings</Link> would get caught up in as Wyatt Pothos and Burke
           Gonzales faced off. A 0-0 tie going into extras was fairly predictable, but things only got weirder from
           there.
         </p>
@@ -121,10 +117,10 @@ export default function Page() {
           0-star batter two games from a rest.
         </p>
         <p>
-          Day 98 was an Eclipse game against the Sunbeams.{" "}
-          <Jump time="2021-03-12T19:16:41Z">Combs was Incinerated</Jump>, Sunbeams player Sutton Bishop{" "}
-          <Jump time="2021-03-12T19:30:54Z">following close behind</Jump>, the second Jazzbeams to die together. Dubbed
-          “The Thursday Blues” by fans, this unfortunate season taught fans that The Tower Always Looms, an important
+          Day 98 was an Eclipse game against the <Link href="sunbeams">Sunbeams</Link>.{" "}
+          <Jump time="2021-03-12T19:16:41Z">Combs was Incinerated</Jump> and the Sunbeams’ Sutton Bishop{" "}
+          <Jump time="2021-03-12T19:30:54Z">followed close behind</Jump> as the second Jazzbeams to die together. Dubbed
+          “The Thursday Blues” by fans, this unfortunate season taught fans that <Jump election={11}>The Tower</Jump> Always Looms, an important
           lesson that they would come to fear and embrace.
         </p>
       </Entry>
@@ -135,15 +131,15 @@ export default function Page() {
           on fire, with a <Jump time="2021-04-08T23:05:23Z">triple</Jump>, a{" "}
           <Jump time="2021-04-08T23:11:04Z">sac bunt</Jump>, a <Jump time="2021-04-08T23:15:30Z">3-run home run</Jump>,
           a <Jump time="2021-04-08T23:20:41Z">single</Jump>, and a <Jump time="2021-04-08T23:25:48Z">walk</Jump>. This
-          was the play of a competent batter, one that knew how to hit a blaseball with a bat, which was a task Lowe
-          struggled with otherwise. For this one game, Lowe was a competent batter. Lowe’s surprising plays markedly
-          contributed to that game’s 12-4 defeat of the Atlantis Georgias.
+          was the play of a competent batter, one that knew how to hit a ball bat, which was a task Lowe
+          struggled with otherwise. Lowe’s surprising plays markedly
+          contributed to that game’s 12-4 win over the <Link href="georgias">Atlantis Georgias</Link>.
         </p>
         <LineScore id="613ef50b-ef18-47d2-acbf-fcd8c6515a7c" />
       </Entry>
       <Entry date="Season 16, Day 14" title="Le Gring" time="2021-04-13T04:11:38Z">
         <p>
-          The very first item to ever be granted to a player from Glitter weather was a Leg Ring, given to Walton
+          The very first item to ever be granted to a player from Glitter weather was a <Jump redirect="/item/c85b3ae3-b6f5-4a0a-a4ed-67476c02ca6f" time="2021-04-13T04:13:00Z">Leg Ring</Jump>, given to Walton
           Sports. This, understandably, put the Jazz Hands’ perfectly normal man and team dad into the spotlight for a
           bit. The Leg Ring and it’s rather silly name became an immediate joke with Jazz Hands fans, who figured Walton
           probably thought it was French or something in confusion and called “Le Gring.” The item would be associated
@@ -160,13 +156,13 @@ export default function Page() {
         <LineScore id="d1daa9db-b7c2-4352-b993-da1505684bda" />
         <p>
           The Jazz Hands ended the season with a 50-7 home record and an 8-37 away record. The unstoppable Jazz Hands
-          Hype Train started right out of the gate on Day 1 and didn’t stop, even as it drove the team to -55 Wins.
+          Hype Train started right out of the gate on Day 1 and didn’t stop, even as it drove the team to &minus;55 Wins.
         </p>
       </Entry>
       <Entry date="Season 21, Day 22" title="The Firewall" time="2021-06-22T12:18:34Z">
         <p>
           Silvaire Roadhouse’s Instability-causing Debt and Eclipse weather were a bad mix. The Jazz Hands had gotten
-          lucky; Silvaire’s first flyout <Jump time="2021-06-22T12:10:07Z">had been caught by a Fire Eater</Jump>, but
+          lucky; Silvaire’s first flyout <Jump time="2021-06-22T12:10:07Z">was caught by a Fire Eater</Jump>, but
           that luck was going to run out if someone didn’t do something.
         </p>
         <p>
@@ -189,7 +185,7 @@ export default function Page() {
           they were noticed, fans leaguewide went “why does Collins Melon have 25 stars?”
         </p>
         <p>
-          Previously a <Spoiler>Spy</Spoiler>, Jazz Hands fans gave them the moniker “Agent M” while they flew under the
+          Previously a <Spoiler><Link href="spies">Spy</Link></Spoiler>, Jazz Hands fans gave them the moniker “Agent M” while they flew under the
           league’s radar, seemingly no one outside of Breckenridge noticing they had more stars than contemporaries
           Castillo Turner and Winnie Hess. This was the perfect start to the end of the Era of Melon, their final season
           in the ILB, as well: Disrupt the economy, refuse to elaborate, and then leave.
@@ -197,11 +193,11 @@ export default function Page() {
       </Entry>
       <Entry title="LCD Soundsystem Fraud" season={23} day={95}>
         <p>
-          During the Season 23 Latesiesta, Spears Rogers received a Fliickerrriiing Potion from the Gift Shop. During
+          During the <Jump time="2021-07-22T15:55:00Z">Season 23 Latesiesta</Jump>, Spears Rogers received a <Jump redirect="/item/554aa743-458a-40eb-bc76-4008193b7ca3" season={23} day={95}>Fliickerrriiing Greedy Potion of the Famine</Jump> from the Gift Shop. During
           the Feedback game on Day 95, <Jump time="2021-07-23T15:05:24Z">Spears switched places with Famous Owens</Jump>
-          , resulting in the Tigers’ roster becoming entirely Ship of Theseused, losing their last original player. The
+          , resulting in the <Link href="tigers">Tigers’</Link> roster becoming entirely Ship of Theseused, losing their last original player. The
           panic of Jazz Hands fans and the despair of the Tigers fans, watching together on Discord, led to both teams
-          being allowed to swear without filtration.
+          being allowed to swear without moderation.
         </p>
         <p>
           As if hearing the fans’ profanity-laden cries, Spears stepped up for one final at-bat, with two outs on the
@@ -216,11 +212,11 @@ export default function Page() {
       </Entry>
       <Entry date="Season 24, Day 5" title="They Faxed a Baby" time="2021-07-26T19:21:06Z">
         <p>
-          The ILB Semi-Centennial was kind of a Big Deal. The Jazz Hands’ very own Baby Doyle played for the Rising
-          Stars and, unlike Collins Melon, returned. However, Baby did not return as a batter, but as a pitcher. Baby
+          The <Jump time="2021-07-25T01:58:06Z">ILB Semi-Centennial</Jump> was kind of a Big Deal. The Jazz Hands’ very own Baby Doyle played for the Rising
+          Stars and, unlike Collins Melon, returned. However, Baby did not return as a batter, but as a pitcher. Doyle
           cannot pitch. In their first game on the mound, while Perked in Coffee weather, the Magnified Baby Doyle was
-          faxed after 5 ⅔ innings after allowing 12 runs. 10 of those runs were from the rival Baby, the Magnified
-          Triumphant, the rival Baby. Doyle did not pitch again and, luckily, Voicemailed back onto the lineup on{" "}
+          faxed after 5 ⅔ innings after allowing 12 runs. 10 of those runs were from the rival Baby, the also-Magnified
+          Triumphant. Doyle did not pitch again and, luckily, voicemailed back onto the lineup on{" "}
           <Jump time="2021-07-27T04:21:23Z">Day 14</Jump>.
         </p>
       </Entry>

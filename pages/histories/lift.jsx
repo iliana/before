@@ -18,8 +18,8 @@ export async function getStaticProps() {
 
 export default function Page() {
   return (
-    <History>
-      <Entry election={10} title="Heart and Swole">
+    <History authors="Train, elmonstro, Spotter Pandora, Mags, and Buzzard">
+      <Entry election={10} title="Lifted Up">
         <p>
           After a climactic Internet Series and an even more climactic{" "}
           <Jump time="2020-10-18T00:33:04Z">Season 10, Day X</Jump>, the Baltimore Crabs became the first team to earn
@@ -265,7 +265,7 @@ export default function Page() {
           </Jump>
           . They only made the Overbracket by drawing the Wild Card, and won the Wild League Champion Series through the
           use of Black Hole and Sun(Sun). On Day 114, the Lift allowed the Kansas City Breath Mints to 10 ten runs,
-          activating the Tokyo Fitness Center’s Fax Machine and replacing Uncle Plasma XIV with Cudi di Batterino, who
+          activating their ballpark’s Fax Machine and replacing Uncle Plasma XIV with Cudi di Batterino, who
           was Shelled on <Jump time="2021-06-29T15:17:33Z">Day 25</Jump>.
         </p>
       </Entry>
