@@ -202,7 +202,7 @@ export default function Page() {
         </p>
         <p>One for Moody. One for Scorpler.</p>
       </Entry>
-      <entry election={19} title="The Hubris Reborm">
+      <Entry election={19} title="The Hubris Reform">
         <p>
           In the <Jump election={18}>Season 18 Election</Jump>, long time fan favorite Paula Turnip won the Center Of
           Attention blessing, despite most of the Tigers not voting for it. It made her a Super Idol, doubling Snack
@@ -217,7 +217,7 @@ export default function Page() {
           entirely random; out of the over 200 known Modifications, the sim decided to pick the only one that punished
           the Tigers for their hubris.
         </p>
-      </entry>
+      </Entry>
       <Entry date="Season 23, Day 95" title="Famous “Feedback” Owens" time="2021-07-23T15:05:24Z">
         <p>
           The Hades Tigers were no strangers to star players leaving through Feedback; Jessica Telephone and Fish Summer
