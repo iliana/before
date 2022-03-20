@@ -15,7 +15,7 @@ export async function getStaticProps() {
 
 export default function Page() {
   return (
-    <History authors="Archranger Beatrice">
+    <History authors="Beatrice">
       <Entry title="Old Man Logan’s Inning" season={2} day={97} time="2020-07-31T17:59:55Z">
         <p>
           Season 2, Day 97 was the first recorded game in which Logan Rodriguez, the Yellowstone Magic’s “spiteful”

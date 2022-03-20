@@ -19,7 +19,7 @@ export async function getStaticProps() {
 
 export default function Page() {
   return (
-    <History authors="YourGenderHere, Agent Blaze, OJ, Crop, Parish, Cloud, and Agent Willow">
+    <History authors="YourGenderHere, Blaze, OJ, Crop, Parish, Cloud, and Willow">
       <Entry title="The Clone" election={6}>
         <p>
           In accord with the Spies’ perennial role as “the team that a new mechanic happened to for the first time”,
