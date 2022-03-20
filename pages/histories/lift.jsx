@@ -18,7 +18,7 @@ export async function getStaticProps() {
 
 export default function Page() {
   return (
-    <History authors="Train, elmonstro, Spotter Pandora, Mags, and Buzzard">
+    <History authors="Train, elmonstro, Pandora, Mags, and Buzzard">
       <Entry election={10} title="Lifted Up">
         <p>
           After a climactic Internet Series and an even more climactic{" "}
