@@ -80,7 +80,7 @@ export default function Page() {
       </Entry>
       <Entry title="Hendricks Richardson Hit a Ground Out to Joshua Butt" season={9} day={100}>
         <p>
-          During the first game of the Season 9 postseason, Sunbeams batter Hendricks Richardson hit a ground out to
+          During the first game of Postseason 9, Sunbeams batter Hendricks Richardson hit a ground out to
           <Link href="firefighters">Firefighter</Link> Joshua Butt, distorting time itself. In those seven minutes spent staring at the game log,
           something happened. The Hellmouth Sunbeams and Chicago Firefighters realized they had an unbreakable bond:
           They had to destroy each other&hellip; or was it something else? They still don’t know, really.

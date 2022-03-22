@@ -156,7 +156,7 @@ export default function Page() {
         <p>
           Although SIBR’s historical data shows that the Magic actually only played King Weatherman once in Season 1,
           near the beginning of the season rather than in their Good League Division Series, Weatherman was nevertheless
-          blamed for their elimination from the Season 1 postseason. This began a rivalry that spanned the whole of the
+          blamed for their elimination from Postseason 1. This began a rivalry that spanned the whole of the
           Discipline Era, and even caused Magic fans to donate money to a zoo to feed bugs named “Weatherman” to various
           zoo animals.
         </p>

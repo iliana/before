@@ -121,8 +121,8 @@ export default function Page() {
           managed it, ending the game at both teams at 3-3, forcing a fifth game &mdash; that the Spies won, eliminating
           the Worms from the postseason anyway. This is often considered by Worms fans to be the start of Patchwork
           Southwick’s Wild Ride, or, at least, the start of Worms fans no longer wanting off Patchwork Southwick’s Wild
-          Ride. It was also the first of many times the Spies eliminated the Worms from the Postseason. To date, the
-          Worms have been eliminated by the Spies every single time they faced off in the Postseason.
+          Ride. It was also the first of many times the Spies eliminated the Worms from the postseason. To date, the
+          Worms have been eliminated by the Spies every single time they faced off in the postseason.
         </p>
       </Entry>
       <Entry title="The Ride Never Ends (A.K.A. ¡SNALE!)" season={18} day={12}>
@@ -151,7 +151,7 @@ export default function Page() {
           Thanks to the much lauded and scorned Turntables, the Worms had one of their best and worst seasons to date.
           Ending the season with an abysmal 38-61 record, the team was the top of the Wild Low. Secret Bases, Mind
           Tricks, murderous crows; nothing could stop the Worms from doing what they did best: Wi-Lose! That is, until
-          the Postseason began and winners began to advance towards the Internet Series. Like all other postseason runs,
+          the postseason began and winners began to advance towards the Internet Series. Like all other postseason runs,
           the Ohio Worms would be knocked out in the first round. Unlike most postseason runs, it would be the Boston
           Flowers doing the bumping, <i>not</i> the Houston Spies. This was a divisive season for Worms fans, with some
           delighted by the strange new mechanic, and others disappointed that they were denied a Bottom Dweller boost;
@@ -205,7 +205,7 @@ export default function Page() {
       </Entry>
       <Entry title="Wild Champions, Ohio Worms" season={23} day={111}>
         <p>
-          Worms, privileged to not face the Spies in Season 23’s postseason, made it farther than they ever had before.
+          Worms, privileged to not face the Spies in Postseason 23, made it farther than they ever had before.
           Fans swarmed the team’s watch party channel on Discord to see all their efforts pay off. It all came down to
           one final match against the Sunbeams, in a very familiar situation: Patchwork Southwick pitching in Sun 2
           weather, just like their Spies postseason game in Season 16. Same as it ever was.
