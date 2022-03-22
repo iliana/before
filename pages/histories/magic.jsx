@@ -68,7 +68,7 @@ export default function Page() {
       <Entry title="Chorby Short, Lottery Pick" election={8}>
         <p>
           In the Season 1 Election, the results stated that the Magic won a 10% hitting boost to their entire lineup.
-          However, due to the confusion around that Season’s election, three elections ran simultaneously. In the
+          However, due to the confusion around that Season’s Election, three Elections ran simultaneously. In the
           displayed reality, the Magic won the vast majority of Blessings, but the enacted reality gave the boost to
           another team entirely.
         </p>
@@ -111,7 +111,7 @@ export default function Page() {
           To prove the efficacy of O No Blood’s actual effect, preventing players from striking out if there were no
           balls in the count, the Magic not only managed a 10 win jump from the season prior, but{" "}
           <Jump season={11} day={110}>
-            made it to the Mild League Championship Series
+            made it to the Mild League Champion Series
           </Jump>{" "}
           off of{" "}
           <Jump season={11} day={100}>
@@ -137,8 +137,8 @@ export default function Page() {
         <p>
           And so, on Season 12, Day 1, another funny result of O No Blood reared its head. Short would swing at
           anything. Patterson would not throw anything Chorby could hit, let alone a pitch outside the strike zone.
-          During her first at bat in the 2nd inning, Chorby Short held the stadium hostage for 112 foul balls, just
-          under 10 real-life minutes. The other two at-bats Chorby had foul streaks on were less impressive, at a mere{" "}
+          During her first at bat in the 2nd inning, Chorby Short held the ballpark hostage for 112 foul balls, just
+          under 10 real-life minutes. The other two at bats Chorby had foul streaks on were less impressive, at a mere{" "}
           <Jump time="2021-03-01T16:24:21Z">37</Jump> and <Jump time="2021-03-01T16:34:01Z">52</Jump>, respectively.
           Nevertheless, out of all the foul balls with two strikes on the count that game, Chorby Short accounted for
           roughly 95% of them.
@@ -167,7 +167,7 @@ export default function Page() {
           imagined as a lunar rover inspired geological survey robot, retrofitted with a mitt and a wizard hat.
         </p>
         <p>
-          This debate came to a head in the Season 12 Election, the first election with Wills. As the worst player on
+          This debate came to a head in the Season 12 Election, the first Election with Wills. As the worst player on
           the team, Twelve presented a hot button issue, with some fans wanting to Revoke Twelve to then-unknown
           consequences, while others wanted to try to Exchange or Alternate them.
         </p>
@@ -264,7 +264,7 @@ export default function Page() {
         <p>
           However, a pair of clever roster shifts prepped Magic for a highlight season: First, there was James Mora, a
           Feedback transfer from Jaylen Hotdogfingers’s much-discussed Fliickerrriiing world tour. Mora was an
-          acceptable pitcher, but had stellar batting stats. The fans cast a significant amount of Votes since they
+          acceptable pitcher, but had stellar batting stats. The fans cast a significant amount of votes since they
           acquired him to make the Catboy Batboy bat, and it finally stuck. Second, there was Melton Telephone, who
           Francisco Preston was Foreshadowed for. Melton was a strong pitcher with “good bones;” they had strong
           Ruthlessness and especially high Unthwackability. The newly tiny Magic roster suddenly had good defense to
@@ -388,7 +388,7 @@ export default function Page() {
         <p>
           Thanks to various reasons, including Eizabeth Elliot being a frankly terrible pitcher, Bevan Wise being worse,
           Francisco Preston’s Subtractor and Logan Rodriguez’s Skipping, the Yellowstone Magic secured the Mild League’s
-          third seed in the Underbracket. In the Underbracket’s Mild League Champion Series, the Magic unwon against the
+          third seed in the Underbracket. In the Mild League Underchampion Series, the Magic unwon against the
           Kansas City Breath Mints, 3-1.
         </p>
         <p>

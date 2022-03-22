@@ -22,7 +22,7 @@ export default function Page() {
     <History authors="Rudy and Clip Clipperson">
       <Entry date="Season 3, Day 14" title="The First Death of Chorby Soul" time="2020-08-04T08:15:44Z">
         <p>
-          To save then-captain Dominic Marijuana from incineration, Chorby Soul threw themself in front of an umpire’s
+          To save then-captain Dominic Marijuana from incineration, Chorby Soul threw themself in front of a Rogue Umpire’s
           fire and chose to burn instead. This would be the first time, but not the last, that an umpire would
           Incinerate them. Before this, Soul had cultivated a unique fanbase among Millennials fans, who would chant
           “Chorby Yes!” and “Chorby No!” during games based on their in-game performance.
@@ -137,7 +137,7 @@ export default function Page() {
         <p>
           By the Season 10 Election, things were looking up. The return and subsequent release of beloved former captain
           Dominic Marijuana did much to buoy the spirits of a team who sorely missed him. To top it all off, the
-          Millennials managed to win two blessings this Election. The first, An Actual Airplane, equipped Mills slugger
+          Millennials managed to win two Blessings this Election. The first, An Actual Airplane, equipped Mills slugger
           Thomas Dracaena with Blaserunning which allowed him to score the first recorded fractional run in ILB history
           on <Jump time="2020-10-21T16:05:14Z">Season 11, Day 48</Jump>.
         </p>
@@ -146,10 +146,10 @@ export default function Page() {
           Dracaena’s baserunning stat was a paltry 1.02 stars at the time of the Election, but would be boosted to 2.25
           stars as part of the compensation owed from the verdict of <i>New York Millennials v. Parker MacMillan III</i>
           , where the Coin was found guilty of wire fraud for failing to redistribute the top 1% of players’ wealth
-          after Season 10, as per <Jump election={3}>Season 3’s Eat The Rich decree</Jump>.
+          after Season 10, as per <Jump election={3}>Season 3’s Eat The Rich Decree</Jump>.
         </p>
         <p>
-          The team also won the Bird Seed blessing which, during Beta, never came into effect, as no Millennials player
+          The team also won the Bird Seed Blessing which, during Beta, never came into effect, as no Millennials player
           was Shelled while an active player. Despite this, fans of the Millennials profess their undying love for the
           modification by chanting “BIRD SEED”, with many line breaks between the two words.
         </p>
@@ -186,7 +186,7 @@ export default function Page() {
           <Jump time="2021-04-09T13:22:50Z">Thomas Dracaena</Jump>,{" "}
           <Jump time="2021-04-09T19:22:21Z">Theodore Cervantes</Jump>, and finally{" "}
           <Jump time="2021-04-10T01:15:45Z">Sandie Turner</Jump> eyrself. The attacks ultimately ended the Mills’
-          championship dreams; they would lose the divisional series against the eventual Internet Series Champions, the
+          championship dreams; they would lose the Wild League Division Series against the eventual Internet Series Champions, the
           <Link href="moist-talkers">Canada Moist Talkers</Link>, and went into the Election determined to win it all next season.
         </p>
       </Entry>
@@ -248,7 +248,7 @@ export default function Page() {
           might pull off a championship after all. Unfortunately, Anathema Elemefayo and Clare Ballard II wanted to
           non-lose at any cost, stealing <Jump time="2021-07-03T23:18:31Z">two</Jump>{" "}
           <Jump time="2021-07-03T23:23:02Z">runs</Jump> from the Dale through Battin’ Island’s tunnels, and allowing
-          Miami to lose the game and unwin the Underbracket Championship Series. This marked the third time the
+          Miami to lose the game and unwin the Underbracket Internet Series. This marked the third time the
           Millennials, perennially knocked out in the Wild Card round, made it to the Internet Series only to falter;
           their first two attempts were{" "}
           <Jump season={3} day={109}>
@@ -277,9 +277,9 @@ export default function Page() {
           The Strange Attractor Blessing, which would randomly recruit a player with Attractor to the team, appearing on
           the ballot complicated things. As one of only a few available Attractors, Chorby Short had a decent chance of
           not being in New York after the Election. Furthermore, the Flowers planned to attempt a yo-yo with their extra
-          will: A Roster Swap to move Short to the shadows, an Equivalent Exchange to trade Short and Turner, and a Move
+          Will: A Roster Swap to move Short to the shadows, an Equivalent Exchange to trade Short and Turner, and a Move
           to return Short to the shadows once more. This would leave Short safe from Attractor and end the New
-          York-Boston Exchange Program. The only other risk to the Flowers’ plan was the Gachapon blessing, where one
+          York-Boston Exchange Program. The only other risk to the Flowers’ plan was the Gachapon Blessing, where one
           team would get a random player from the other 23 teams’ shadows.
         </p>
         <p>

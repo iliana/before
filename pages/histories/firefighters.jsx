@@ -78,7 +78,7 @@ export default function Page() {
       </Entry>
       <Entry title="Fireproof Jacket" election={7}>
         <p>
-          This particular election shaped the Firefighters’ history and culture much more than it seemed at the time.
+          This particular Election shaped the Firefighters’ history and culture much more than it seemed at the time.
           After two seasons of casting 47% of the votes to try and nab the Fireproof Jacket, said by many a Chicagoan to
           once belong to former Firefighter Tyreek Olive, they finally managed to get it. Conversely, the other Blessing
           they managed to win that Election was from a single fan’s votes, stealing players from the <Link href="wild-wings">Mexico City Wild Wings</Link> and creating a friendship that would last the ages in the process.

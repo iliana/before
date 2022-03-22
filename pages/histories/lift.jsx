@@ -62,7 +62,7 @@ export default function Page() {
         <p>
           Though Di Batterino was soon <Jump election={13}>the target of an accidental Foreshadow</Jump>, he was brought
           out as a pitcher in <Jump election={14}>the following Election</Jump>, where the Lift would devote much of
-          their energy and Votes to allow him to recover and shine. After{" "}
+          their energy and votes to allow him to recover and shine. After{" "}
           <Jump election={19} team="eb67ae5e-c4bf-46ca-bbbc-425cd34182ff">
             an unexpected Exchange
           </Jump>{" "}
@@ -286,12 +286,12 @@ export default function Page() {
           back in a Will or Revoking him to inflict him and his food stall, “the Beef Wings stand,” onto the league.
           These would become serious proposals, which would then be thrown aside for proposals involving better players.
           This cycle repeated about every other season, culminating in Season 18 and the introduction of the Shadow
-          Infuse will. After some debate, it was determined Hitherto was among the best hitting prospects in the Lift’s
+          Infuse Will. After some debate, it was determined Hitherto was among the best hitting prospects in the Lift’s
           mediocre shadows, and a plan was made to Shadow Infuse his batting to finally bring him back into the light.
         </p>
         <p>
           However, <Jump election={18}>the shadowed Kit Honey received the boost instead</Jump>, with just 1% of the
-          Vote, and Silvaire Semiquaver was Foreshadowed to bring Honey to the lineup{" "}
+          vote, and Silvaire Semiquaver was Foreshadowed to bring Honey to the lineup{" "}
           <Jump election={19}>the next season</Jump>, in the spot that rightfully belonged to Hitherto. Cut to Season
           24, Day 79, the league’s moment of need: Five minutes prior, the Philly Pies were nullified by the looming
           Black Hole (Black Hole). Fans were silent. Suddenly, Deep Darkness takes Kit Honey. The crowd gasped. Out of

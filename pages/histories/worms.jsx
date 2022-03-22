@@ -102,7 +102,7 @@ export default function Page() {
           Scratch Deleuze partied while still Elsewhere. Even though they were out of our reach, at least Scratch was
           having a great time out there. The relief was short-lived, however, when the season ended and Scratch was
           still Elsewhere. Fans quickly realized that, with an extended offseason due to the implementation of the All
-          You Can Eat decree, it would be several weeks before seeing Scratch’s return. By the time Scratch Deleuze came
+          You Can Eat Decree, it would be several weeks before seeing Scratch’s return. By the time Scratch Deleuze came
           back from Elsewhere almost entirely Scattered, they had been missing for a total of 20 days on the material
           plane, from March 17th to April 6th.
         </p>
@@ -130,7 +130,7 @@ export default function Page() {
           It was a seemingly normal game, with the Dale at the Wormhole. Patchwork Southwick was pitching for the Ohio
           Worms, and Liam Snail was pitching for the Miami Dale. As the game progressed, the Worms responded to every
           run the Dale scored in kind. By the bottom of the 9th, the Worms and Dale were tied 3-3. And so, the game went
-          into overtime. To the delight of all the Worms fans present, the game just kept going, and going, and going.
+          into extra innings. To the delight of all the Worms fans present, the game just kept going, and going, and going.
           No one wanted off Patchwork Southwick’s Wild Ride, and the fact that the Dale’s pitcher was Liam Snail of all
           players just added to the hilarity. After spilling over with a whopping 67 minutes 56 seconds runtime, the
           game ended in the 22nd inning with a final score of Dale 5, Worms 4, breaking the previous record of longest
@@ -141,7 +141,7 @@ export default function Page() {
       <Entry date="Season 19, Day 22" title="The Incineration of Iggy Delacruz" time="2021-05-18T12:12:18Z">
         <p>
           Igneus Delacruz, notable scamp and former Hellmouth Sunbeam, beloved by all, was unceremoniously incinerated
-          by the heartless and unknowable rogue umpires. Worms fans were devastated by the loss of Iggy, who just joined
+          by the heartless and unknowable Rogue Umpires. Worms fans were devastated by the loss of Iggy, who just joined
           the team 2 seasons ago. An international day of mourning is called and statues were erected in their honor in
           every city in the ILB. Millipede Aqualuft could not be reached for comment.
         </p>
@@ -153,7 +153,7 @@ export default function Page() {
           Tricks, murderous crows; nothing could stop the Worms from doing what they did best: Wi-Lose! That is, until
           the postseason began and winners began to advance towards the Internet Series. Like all other postseason runs,
           the Ohio Worms would be knocked out in the first round. Unlike most postseason runs, it would be the Boston
-          Flowers doing the bumping, <i>not</i> the Houston Spies. This was a divisive season for Worms fans, with some
+          Flowers doing the bumping, <em>not</em> the Houston Spies. This was a divisive season for Worms fans, with some
           delighted by the strange new mechanic, and others disappointed that they were denied a Bottom Dweller boost;
           without Turntables, the Worms would’ve been at the bottom of the Wild Low.
         </p>
@@ -189,7 +189,7 @@ export default function Page() {
           Nakamoto joined them on <Jump time="2021-04-20T02:18:14Z">Season 17, Day 12</Jump>. Little did fans know that
           just two seasons later they would just&hellip; leave. With the help of their Roaming modification, they left
           the Hall and joined the Spies, and after the next Election they roamed to the Worms, where they decided to
-          stay for a while. On Season 23, Day 65, a rogue umpire sought to correct this anomaly and once again
+          stay for a while. On Season 23, Day 65, a Rogue Umpire sought to correct this anomaly and once again
           Incinerated Pudge. Fans were sad to see them go, but sure they would return later.
         </p>
         <p>
@@ -197,7 +197,7 @@ export default function Page() {
           Toast. Their arrival was controversial, to be light, with fans either adoring or despising their new player.
           This escalated when Scoobert picked up a pair of Golden Rock Shoes on{" "}
           <Jump time="2021-07-22T23:21:45Z">Season 23, Day 79</Jump> which gave them Super Idol, and then winning the
-          Credit To the Team blessing in the <Jump election={23}>Season 23 Election</Jump>. This fooled both Worms fans
+          Credit To the Team Blessing in the <Jump election={23}>Season 23 Election</Jump>. This fooled both Worms fans
           and the League alike into believing that Soobert might be the new economy, until it was revealed that the two
           mods only gave a 6x payout, instead of 10x. Scoobert was such a mediocre player on a large lineup, so it
           didn’t really matter anyways.
@@ -207,7 +207,7 @@ export default function Page() {
         <p>
           Worms, privileged to not face the Spies in Postseason 23, made it farther than they ever had before.
           Fans swarmed the team’s watch party channel on Discord to see all their efforts pay off. It all came down to
-          one final match against the Sunbeams, in a very familiar situation: Patchwork Southwick pitching in Sun 2
+          one final game against the Sunbeams, in a very familiar situation: Patchwork Southwick pitching in Sun 2
           weather, just like their Spies postseason game in Season 16. Same as it ever was.
         </p>
         <p>

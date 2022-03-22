@@ -23,7 +23,7 @@ export default function Page() {
       <Entry title="The Clone" election={6}>
         <p>
           In accord with the Spies’ perennial role as “the team that a new mechanic happened to for the first time”,
-          Spies pitcher Donia Bailey was struck by the “Party Line” Blessing, which promised the winning team a brand
+          Spies pitcher Donia Bailey was struck by the Party Line Blessing, which promised the winning team a brand
           new clone. Donia was sent to the shadows at the same time as the considerably more famous Mike Townsend
           &mdash; a dimension from which she, unlike Mike, has never returned from.
         </p>
@@ -39,7 +39,7 @@ export default function Page() {
           roster, Alexandria Rosales.
         </p>
         <p>
-          Eviltwin was later traded to the <Link href="fridays">Fridays</Link> in <Jump election={7}>a dastardly election scheme</Jump>;
+          Eviltwin was later traded to the <Link href="fridays">Fridays</Link> in <Jump election={7}>a dastardly Election scheme</Jump>;
           Rosales later became the Spies’ ace pitcher and, later, star batter. Season 6 marked a turning
           point for the Spies in terms of both the plot, being perceived by it for the first time, and performance, with an
           actually good rotation.
@@ -89,8 +89,8 @@ export default function Page() {
       </Entry>
       <Entry title="Operation Nullpark" date="Season 13 Earlsiesta" time="2021-03-09T18:50:00Z">
         <p>
-          Refusing to trust the Coin’s newly unveiled shiny thing, Ballparks, the Spies launched Operation Nullpark, an effort to avoid funding the construction of a ballpark by refusing to contribute to plant a flag. While this did not succeed in preventing ILB contractors from finding An Undisclosed Location, the
-          Spies did manage to avoid the million-Coin mark for over 19 hours.
+          Refusing to trust the Coin’s newly unveiled shiny thing, ballparks, the Spies launched Operation Nullpark, an effort to avoid funding the construction of a ballpark by refusing to contribute to plant a flag. While this did not succeed in preventing ILB contractors from finding An Undisclosed Location, the
+          Spies did manage to avoid the million-coin mark for over 19 hours.
         </p>
       </Entry>
       <Entry title="Son Scotch’s Incineration" season={14} day={36} time="2021-03-17T03:07:13Z">
@@ -130,7 +130,7 @@ export default function Page() {
       </Entry>
       <Entry title="Psychic Blood" date="Season 16 Election" time="2021-04-18T18:15:00Z">
         <p>
-          Season 16’s Election came with three new Blood Types for teams to vote for; the Mind Trick Blessing offered Psychic Blood. The Houston Spies campaigned hard for this blessing, launching a propaganda
+          Season 16’s Election came with three new Blood Types for teams to vote for; the Mind Trick Blessing offered Psychic Blood. The Houston Spies campaigned hard for this Blessing, launching a propaganda
           war against the Tokyo Lift and other teams. When the Election results came in, the Spies won the
           Blessing with 19% of the vote. All players on the Spies’ roster at the time gained Psychic Blood as their
           Blood Type. This allowed them to use Mind Tricks to change outcomes in a game for their
@@ -170,7 +170,7 @@ export default function Page() {
           <Jump time="2021-06-21T19:31:43Z">Season 21, Day 5</Jump>. Septemberish <Jump election={21}>returned that Election</Jump>, but was Exchanged
           for Enjoyable rather than Chark. This left Chark on the Spies as the worst batter, and
           eventually ended up voicemailed into the shadows on <Jump time="2021-07-02T02:23:48Z">Season 22, Day 81</Jump>
-          . In the meantime, Hayes got to Party a total of 5 times while on the Georgias and the <Link href="dale">Miami Dale</Link>, an
+          . In the meantime, Hayes got to party a total of 5 times while on the Georgias and the <Link href="dale">Miami Dale</Link>, an
           absurdly high rate compared to the amount of parties the Spies typically have.
         </p>
         <p>
@@ -221,7 +221,7 @@ export default function Page() {
           . The Spies went into the postseason with a chart-topping 70-29 record, but were immediately tested by a
           triple whammy in Game 2 against the <Link href="dale">Miami Dale</Link>: Black Hole weather under Sun(Sun), the Dale Underperforming,
           and an incompetent Chorby Soul Replica on the pitcher’s mound meant that scoring too many runs could end the
-          Spies’ chance to move to the semifinals on the spot.
+          Spies’ chance to move to the Wild League Champion Series on the spot.
         </p>
         <LineScore id="7f079f80-ceef-404b-b3fa-997c1b2c2469" />
         <p>

@@ -54,10 +54,10 @@ export default function Page() {
           <Jump season={7} day={105}>
             their first game
           </Jump>{" "}
-          in the Mild League Championship Series against Mexico City, before the Wild Wings won the next three. The Pies
+          in the Mild League Champion Series against Mexico City, before the Wild Wings won the next three. The Pies
           swept the Garages in{" "}
           <Jump season={8} day={100}>
-            Season 8’s divisional series
+            Season 8’s Mild League Division Series
           </Jump>
           , and the Shoe Thieves beat the Garages in 4 during{" "}
           <Jump season={9} day={108}>
@@ -199,9 +199,9 @@ export default function Page() {
       <Entry date="Season 11, Day 12" title="Goodwin Morin Gets Charmed" time="2020-10-20T03:00:36Z">
         <p>
           Getting Goodwin Morin to her star status was a labor of love, seasons in the making. She was boosted in the{" "}
-          <Jump election={9}>Season 9 Election</Jump> with the Secret Weapon blessing, which maxed out her stats, then
+          <Jump election={9}>Season 9 Election</Jump> with the Secret Weapon Blessing, which maxed out her stats, then
           pulled out of the shadows during the <Jump election={10}>Season 10 Election</Jump> with the Dark Star
-          blessing. All eyes were on this legendary all-star to perform. So, naturally, her response to all this
+          Blessing. All eyes were on this legendary all-star to perform. So, naturally, her response to all this
           pressure was to get charmed by Kichiro Guerra, <Jump time="2020-10-20T03:05:24Z">Don Mitchell</Jump>, and{" "}
           <Jump time="2020-10-20T03:06:21Z">Alexander Horne</Jump> during her second-ever appearance on the mound,
           losing the game to the San Francisco Lovers. This made her one of the only two pitchers in the league to get
@@ -252,7 +252,7 @@ export default function Page() {
             Day 59
           </Jump>
           . During the <Jump election={16}>Season 16 Election</Jump>, she managed to avoid getting shadowed a second
-          time, by being shadowed for Mike Townsend and <i>then</i> moved to the lineup. On Season 17, Day 21, she was{" "}
+          time, by being shadowed for Mike Townsend and <em>then</em> moved to the lineup. On Season 17, Day 21, she was{" "}
           <Jump time="2021-04-20T11:11:50Z">Blooddrained by Richardson Games</Jump>, and, in one of the only documented
           demonstrations of revenge, Hollywood returned the favor and{" "}
           <Jump time="2021-04-20T11:24:48Z">drained Blood Hamburger</Jump>.
@@ -282,7 +282,7 @@ export default function Page() {
         </p>
         <p>
           Although MaX echoed Elsewhere on <Jump time="2021-03-19T17:14:13Z">Day 97</Jump>, starting a trend of echoing
-          mod-heavy players and hanging out Elsewhere that would continue for most of xer career, xe gained a blessing
+          mod-heavy players and hanging out Elsewhere that would continue for most of xer career, xe gained a Blessing
           that remained xer own in the <Jump election={14}>Season 14 Election</Jump>: Maximalist. Ten seasons later,
           despite numerous close calls, MaX was still on the Garages, even making it back from xer seventh and latest
           trip Elsewhere on <Jump time="2021-07-30T12:12:58Z">Day 91</Jump> just in time for the Expansion Era to come
@@ -327,7 +327,7 @@ export default function Page() {
           twice in Season 22, in that order. This first came on <Jump time="2021-06-30T01:21:07Z">Day 34</Jump>, where
           the week would finish without an Eclipse, and again on <Jump time="2021-07-01T01:01:05Z">Day 58</Jump>,
           followed two days later by a Solar Eclipse game. Fans from the Garages and across the league rallied in
-          Discord, swearing in defiance of the gods and rogue umps so much that moderation tools in use at the time were
+          Discord, swearing in defiance of the Gods and Rogue Umps so much that moderation tools in use at the time were
           ratelimited, in an event later dubbed “Soliswearity” by the team. Tot and Malik escaped unscathed.
         </p>
       </Entry>
@@ -341,9 +341,9 @@ export default function Page() {
           , he was sent to the shadows <Jump election={6}>after Jaylen Hotdogfingers’ resurrection</Jump>. Townsend was
           unshadowed in the <Jump election={9}>Season 9 Election</Jump>, reshadowed in{" "}
           <Jump election={10}>the Season 10 Election</Jump>, pulled back out in{" "}
-          <Jump election={16}>the Season 16 Election</Jump>, and managed to avoid getting Faxed back in until{" "}
+          <Jump election={16}>the Season 16 Election</Jump>, and managed to avoid getting faxed back in until{" "}
           <Jump time="2021-05-12T05:14:53Z">Season 18, Day 37</Jump>. He remained in the shadows until{" "}
-          <Jump time="2021-07-02T00:23:43Z">Season 22, Day 79</Jump>, when Townsend was Voicemailed to the roster as a
+          <Jump time="2021-07-02T00:23:43Z">Season 22, Day 79</Jump>, when Townsend was voicemailed to the roster as a
           batter. This was something of a meme amongst the team’s fans, and the meme paid off on the last day of the
           regular season.
         </p>
@@ -368,7 +368,7 @@ export default function Page() {
           </Jump>
           , respectively. The team lost yet another player on <Jump time="2021-07-27T21:31:07Z">Day 30</Jump>, when
           Lenny Marijuana was stolen by the Cookout’s Phantom Thieves’ Guild and given to the Carolina Queens.{" "}
-          <Jump time="2021-07-27T22:25:26Z">A day later</Jump>, Marijuana Voicemailed out from the shadows, briefly
+          <Jump time="2021-07-27T22:25:26Z">A day later</Jump>, Marijuana voicemailed out from the shadows, briefly
           becoming the star of the Queens before getting Incinerated on <Jump time="2021-07-28T01:15:09Z">Day 34</Jump>.
         </p>
         <p>

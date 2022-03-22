@@ -39,7 +39,7 @@ export default function Page() {
       </Entry>
       <Entry title="Old Fae Seasoning Buys Night Vision Goggles" election={6}>
         <p>
-          A large part of early Crabs culture was trying to figure out how to optimize winning Coins, and Crabs fans
+          A large part of early Crabs culture was trying to figure out how to optimize winning coins, and Crabs fans
           often found themselves generating a ton of coins on top of having the largest fanbase at the time. Old Fae
           Seasoning, a Crab fan who knew how to earn a coin, performed an experiment, asking other Crabs to let them
           exclusively vote for Night Vision Goggles. In the Season 6 Election, the Crabs won the Night Vision Goggles, with

@@ -31,7 +31,7 @@ export default function Page() {
       </Entry>
       <Entry election={5} title="Scorpler’s Jacket">
         <p>
-          When Mclaughlin Scorpler snatched the Fireproof Jacket with an unexpected 8% of the Vote, it caught everyone
+          When Mclaughlin Scorpler snatched the Fireproof Jacket with an unexpected 8% of the vote, it caught everyone
           by surprise. Scorpler then doubled down by winning the Noise-Cancelling Headphones with the very next
           Blessing. The Headphones immediately replaced the Jacket, sending it out into the ether. Fans laughed it off
           as a funny Scorpler moment.
@@ -204,7 +204,7 @@ export default function Page() {
       <Entry election={19} title="The Hubris Reform">
         <p>
           In the <Jump election={18}>Season 18 Election</Jump>, long time fan favorite Paula Turnip won the Center of
-          Attention blessing, despite most of the Tigers not voting for it. It made her a Super Idol, doubling Snack
+          Attention Blessing, despite most of the Tigers not voting for it. It made her a Super Idol, doubling Snack
           payouts and instantly making her the most profitable player in the league. In the Expansion Era, bad things
           happened to players who were consistently very profitable, so the Tigers tried to Reform Super Idol.
         </p>

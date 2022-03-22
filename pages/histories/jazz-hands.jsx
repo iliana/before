@@ -33,7 +33,7 @@ export default function Page() {
         time="2020-08-01T17:20:03Z"
       >
         <p>
-          On the precipice of elimination from the divisional series, the Jazz Hands would see their luck turn around
+          On the precipice of elimination from the Evil League Division Series, the Jazz Hands would see their luck turn around
           when Comfort Septemberish stole home in the bottom of the 9th, opening the door for Aldon Cashmoney to deliver
           a two-run home run death blow to the Tigers. This knocked the Tigers out of contention so hard it got into The
           Blaseball Beat{/* Link to issue when in archive */}. Jazz Hands fans still ask to this day, “Where were you when Comfort Septemberish stole home?”
@@ -200,7 +200,7 @@ export default function Page() {
           being allowed to swear without moderation.
         </p>
         <p>
-          As if hearing the fans’ profanity-laden cries, Spears stepped up for one final at-bat, with two outs on the
+          As if hearing the fans’ profanity-laden cries, Spears stepped up for one final at bat, with two outs on the
           board. Strike, looking. Strike, looking.{" "}
           <Jump time="2021-07-23T15:28:14Z">
             Spears Rogers and Famous Owens swapped places in the Feedback at that moment

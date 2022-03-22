@@ -29,7 +29,7 @@ export default function Page() {
         </p>
         <LineScore id="c76a00d6-3f28-484a-b0e0-7976b9bc6bfa" />
         <p>
-          In the Good League Championship Series, the <Link href="flowers">Flowers</Link> couldn’t score against Prestige on{" "}
+          In the Good League Champion Series, the <Link href="flowers">Flowers</Link> couldn’t score against Prestige on{" "}
           <Jump season={2} day={107}>
             Day 107
           </Jump>{" "}
@@ -153,7 +153,7 @@ export default function Page() {
           </Jump>{" "}
           from “sister team” <Link href="moist-talkers">Canada Moist Talkers</Link>, Bright Zimmerman was the latest dent in the Thieves’ rotation, as
           they had just Foreshadowed Simba Davis. When Fax Machines were installed, the community was ecstatic to
-          finally see this problem resolve itself. Zimmerman became the Shoe Thieves’ first Faxed pitcher, with nothing
+          finally see this problem resolve itself. Zimmerman became the Shoe Thieves’ first faxed pitcher, with nothing
           less than a grand slam. This event was celebrated with Moist Talkers and <Link href="pies">Pies</Link> fans, other teams who suffered
           from Zimmerman's’s unique pitching style.
         </p>
@@ -165,7 +165,7 @@ export default function Page() {
           Thieves were not ready for what the sim had in store: swapping a great pitcher with terrible batting stats for
           a great batter incapable of pitching. For their history in and out of the game, Cornelius Games and Richardson
           Games may have been the funniest Reverb targets possible. This event is likely what led to a seemingly endless
-          series of Shadow Faxes in Charleston.
+          series of shadow faxes in Charleston.
         </p>
       </Entry>
       <Entry title="A Blood and Bon Voyage!" election={18}>
@@ -240,7 +240,7 @@ export default function Page() {
             Enhanced Party Time was nullified
           </Jump>
           . When <Jump redirect="/player/38a1e7ce-64ed-433d-b29c-becc4720caa1" time="2021-07-29T16:40:00Z">Parker Roamed away</Jump> on Day 72, leaving the team Unstable and triggering the Good Riddance Modification,
-          the Shoe Thieves were the only team able to Party. With Castillo Turner Roaming in at the same time, fans knew
+          the Shoe Thieves were the only team able to party. With Castillo Turner Roaming in at the same time, fans knew
           the party wouldn’t end there.
         </p>
       </Entry>

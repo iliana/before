@@ -70,7 +70,7 @@ export default function Page() {
           instead was an impressive, if not concerning, feat of 21 plate appearances among the angry flock. The Lovers
           would score 7 runs and gain 16 additional outs before{" "}
           <Jump time="2020-10-05T16:37:06Z">Helga Moreno got caught stealing second base</Jump>, ending the half inning
-          and eventually resulting in the Lovers winning the match. Interestingly, no other bird encounters would take
+          and eventually resulting in the Lovers winning the game. Interestingly, no other bird encounters would take
           place for the rest of the season.
         </p>
         <LineScore id="d8b6e7e6-ad7f-4220-88de-c8e235f337f1" />
@@ -128,7 +128,7 @@ export default function Page() {
           Theo King, longtime source of Lovers’ enthusiasm and ire, was unboxable and forever destined to be boxed.
           Lovers’ fans tried to put Theo King in the shadows for the entirety of the Expansion Era, and, each time, Theo
           would dodge and weave and survive, being utterly mediocre and contributing very little to the team. Fitting,
-          then, that in the Lovers’ run up to their underchampionship, Theo Partied twice and then, in a move that to
+          then, that in the Lovers’ run up to their underchampionship, Theo partied twice and then, in a move that to
           this day remains shrouded in mystery, ate the{" "}
           <Jump season={20} day={104} redirect="/item/dead1271-e77b-49bc-b339-f0277039d9cc">
             Charitable Ring of the Famine
@@ -175,14 +175,14 @@ export default function Page() {
       <Entry title="Crowvertime 2" season={24} day={38}>
         <p>
           Fans of the Discipline Era fondly remembered Season 9’s Crowvertime, but the Expansion Era ended with a
-          Crowvertime to rival it. This regular season match against the Philly Pies served as the record holder for the
-          longest ILB match in Beta at a whopping 88 minutes and 12 seconds on the material plane. Lored as a collective
+          Crowvertime to rival it. This regular season game against the Philly Pies served as the record holder for the
+          longest ILB game in Beta at a whopping 88 minutes and 12 seconds on the material plane. Lored as a collective
           effort of the bird-loving Lovers and new pitcher Reece Saetang to hold up the end of the world in the safest
           way they could, this matchup would ring home something the Lovers knew well after their underchampionship in
           Season 20: Sometimes, being bad at Blaseball led to the best outcome.
         </p>
         <p>
-          The match was tied 9-9 after{" "}
+          The game was tied 9-9 after{" "}
           <Jump time="2021-07-28T05:25:41Z">a late homer drew favor from the Equal Sun</Jump>, sending the game to extra
           innings. It was a heated duel between a Lovers lineup that could not hit and a Pies lineup that was literally
           not allowed to hit, due to their Avoidance Modification. After walking them home twice over,{" "}

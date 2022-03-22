@@ -50,7 +50,7 @@ export default function Page() {
           runs and being shamed into a final score of Breath Mints 21, Shoe Thieves 16. This game is notable for holding
           the record for the highest scoring game for many seasons, at least for as long as scoring in Blaseball was
           logical. Gunther’s first game is remembered by the Mints as a chaotic chapter in the rivalry, and over time as
-          Gunther improved from blessings, a yummy reaction, and parties into a worthy adversary, Gunther became a
+          Gunther improved from Blessings, a yummy reaction, and parties into a worthy adversary, Gunther became a
           fixture of the rivalry.
         </p>
       </Entry>
@@ -106,10 +106,10 @@ export default function Page() {
       <Entry title="The Tragedy of Headliners" season={7} day={96}>
         <p>
           In the Season 6 Election, the Breath Mints saw an amazing opportunity to improve our offense. The Headliners
-          blessing sorted the order of a teams line-up by order of idolatry, and with headliners looking like a
-          relatively uncontested blessing and the Mints being on the smaller sides of fanbases, the fanbase put it in a
+          Blessing sorted the order of a teams line-up by order of idolatry, and with headliners looking like a
+          relatively uncontested Blessing and the Mints being on the smaller sides of fanbases, the fanbase put it in a
           lot of time organizing our idols to construct an offense around star batter, Boyfriend Monreal. Winning the
-          blessing catapulted the Mints to the top of the league, with the Mints finishing first in Mild League and
+          Blessing catapulted the Mints to the top of the league, with the Mints finishing first in Mild League and
           second in the entire league in the regular season. Unfortunately, the story of headliners ends in tragedy,
           with Boyfriend Monreal being incinerated on Day 96 of the season. Without Boyfriend at the front, the Mints
           offense reverted to a very unoptimized form, and the Mints lost to the Wild Wings in the quarterfinals. With
@@ -121,7 +121,7 @@ export default function Page() {
       <Entry title="PDZ Chokes" season={10} day={105}>
         <p>
           It’s the quarterfinals of Postseason 10 and it looks like the Breath Mints might finally be able to punch
-          their ticket to their first semifinals appearance ever. The Mints took the first two games of the series
+          their ticket to their first Mild League Champion Series appearance ever. The Mints took the first two games of the series
           against the <Link href="shoe-theives">Charleston Shoe Thieves</Link>, and only needed one more win to take the
           series. The game seemed to be going well for the Mints, with the Mints holding a 1-(-1) lead (oh yeah, all the
           teams not in Wild Low had Targeted Shame and the Mints shamed the Thieves in the previous game) going into the
@@ -132,13 +132,13 @@ export default function Page() {
           scrappy underdog for most of her career. PDZ was able to rack up two outs, but also allowed three runners on
           base, having runners at second, third and fourth (oh yeah, all the teams not in Wild High had five bases for
           all of Season 10), leaving a tense situation with only one out needed for the Mints to move on to the
-          semifinals. Unfortunately PDZ was unable to hold it together, with Thieves batter Simon Haley hitting a
+          MLCS. Unfortunately PDZ was unable to hold it together, with Thieves batter Simon Haley hitting a
           quadruple that drove in three runs, shaming the Mints with a final score of Shoe Thieves 2, Breath Mints 1.
         </p>
         <LineScore id="0a5ad466-78c6-4139-a1f5-b479b9e29c29" />
         <p>
           The Breath Mints would go on to lose the next two games and be eliminated from the playoffs. This is a game of
-          what could have been, with the Mints being inches away from getting to the semifinals. It would be many more
+          what could have been, with the Mints being inches away from getting to the MLCS. It would be many more
           months and seasons before the Mints would get there for the first time.
         </p>
       </Entry>
@@ -163,7 +163,7 @@ export default function Page() {
           Season 1 with a pitcher named Leach in the first slot of their rotations; since both pitchers were in the same
           slot, they would commonly face each other when the two teams played. The Steaks and Mints were in the same
           league for all 24 seasons of Beta, and the Leaches managed to hold onto to their slots for most of that period
-          as well, making Leach vs. Leach one of the most common pitching match-ups in blaseball. The Leach-Off is
+          as well, making Leach vs. Leach one of the most common pitching matchups in blaseball. The Leach-Off is
           viewed as a celebration between Steaks fans and Mints fans alike, and even if they’re not able to occur
           anymore, it still bonds the fanbases to this day.
         </p>
@@ -186,7 +186,7 @@ export default function Page() {
           During the <Jump election={13}>Season 13 Election</Jump>, Brisket Friendo and Tad Seeth disappeared from the
           Breath Mints and Shoe Thieves shadows, respectively, possibly in connection to Sutton Picklestein and Tillman
           Henderson returning to the Hall of Flame. In the <Jump election={14}>Season 14 Election</Jump>, the Mints and
-          Thieves’ Stadiums, the Meadow and the Choux, were declared Crime Scenes, and two investigators, Uncle Plasma
+          Thieves’ ballparks, the Meadow and the Choux, were declared Crime Scenes, and two investigators, Uncle Plasma
           and Liquid Friend, were hired to investigate the disappearances.
         </p>
         <p>
@@ -201,7 +201,7 @@ export default function Page() {
         <p>
           Knowing that the Mints played the Millennials at the Meadow on Day 52, the Mints planned to cast a ton of
           votes on the Foreshadow Will to swap Uncle Plasma in the shadows with Oscar Vaughan on the Mints rotation.
-          Since wills are executed as written, the trade would still go off, even after Uncle Plasma returned to the
+          Since Wills were executed as written, the trade would still go off, even after Uncle Plasma returned to the
           Millennials. The whole thing is a little complicated but{" "}
           <a href="https://www.youtube.com/watch?v=si3Ab71-bso">an explanatory video</a> by{" "}
           <a href="https://twitter.com/rostilicious">@rostilicious</a> describes the process pretty well.
@@ -224,7 +224,7 @@ export default function Page() {
           <Jump season={17} time="2021-04-20T10:15:25Z">
             suffering an allergic reaction on Season 17, Day 20
           </Jump>
-          , but Mints fans were still excited to see the match-up at least once.
+          , but Mints fans were still excited to see the matchup at least once.
         </p>
         <LineScore id="c35c2ad0-c403-41f8-8394-549b8a4654f8" />
         <p>
@@ -240,7 +240,7 @@ export default function Page() {
       <Entry title="The 4-20 Sclorigami" season={17} day={61}>
         <LineScore id="73523330-bff4-463f-a2b8-2ebe60dc06e5" />
         <p>
-          This game truly highlights the insanity of the Meadow as a stadium. The Mints built their stadium to have low
+          This game truly highlights the insanity of the Meadow as a ballpark. The Mints built their ballpark to have low
           Fortification (making weather events happen more often), have Reverb weather much more often, and also have an
           Echo Chamber that occasionally gave batters Reverberating or Repeating for the game. In this particular game,
           the weather just kept happening.
@@ -253,9 +253,9 @@ export default function Page() {
           Kennedy Loser.
         </p>
         <p>
-          This game featured a lot of players taking multiple at-bats in a row, particularly Rodriguez Internet, who was
-          the only batter to have an at-bat for the Mints in the seventh inning, and continued to take all of the
-          at-bats but one in the eight inning, taking seven at-bats in a row. The final score was Crabs 4, Breath Mints
+          This game featured a lot of players taking multiple at bats in a row, particularly Rodriguez Internet, who was
+          the only batter to have an at bat for the Mints in the seventh inning, and continued to take all of the
+          at bats but one in the eight inning, taking seven at bats in a row. The final score was Crabs 4, Breath Mints
           20, the first game of Blaseball to end with this score.
         </p>
       </Entry>
@@ -283,7 +283,7 @@ export default function Page() {
           dominance caused many Blaseball fans to take to Twitter spamming the Mints famous phrase “The Breath Mints.”
           to celebrate the victory. The repetition went so far that the Breath Mints ended up trending on Twitter, going
           as high as #6 on the list. This entire chronicle might’ve be a gigantic premature celebration, since we
-          trended for winning the <em>semifinals</em> for the first time, with still one more series to play for the
+          trended for winning the <em>Mild League Champion Series</em> for the first time, with still one more series to play for the
           championship. But the Mints were so dominant that it seemed all but assured that we would take it home.
         </p>
       </Entry>
@@ -346,7 +346,7 @@ export default function Page() {
         </p>
       </Entry>
       <Entry date="Season 24, Day 3" title="We Die" time="2021-07-26T17:13:23Z">
-        <p>On Day 3 of Season 24, a rogue umpire incinerated the Kansas City Breath Mints. lmao</p>
+        <p>On Day 3 of Season 24, a Rogue Umpire incinerated the Kansas City Breath Mints. lmao</p>
       </Entry>
     </History>
   );

@@ -59,14 +59,14 @@ export default function Page() {
           <Jump time="2020-09-11T03:13:59Z">40 days later</Jump>. The swift loss of two favorites led to fears of a
           “Precog Curse” and concerns that Nava would soon suffer the same fate. Instead, she became a Fire Eater during
           the <Jump election={9}>Season 9 Election</Jump>, and, on{" "}
-          <Jump time="2020-10-12T16:03:27Z">Season 10, Day 1</Jump>, became the first player to swallow an umpire’s
+          <Jump time="2020-10-12T16:03:27Z">Season 10, Day 1</Jump>, became the first player to swallow a Rogue Umpire’s
           fire. Randy and Emmett were later resurrected and Released as players on the Hall Stars, prompting speculation
           that they had known their fates all along.
         </p>
       </Entry>
       <Entry title="Walking on Sunshine" election={8}>
         <p>
-          During the Season 8 Elections, the Sunbeams won Base Instincts, a team Modification that gave batters a chance
+          During the Season 8 Election, the Sunbeams won Base Instincts, a team Modification that gave batters a chance
           to draw walks past first base. Sunbeams fans embraced the walking lifestyle, going all in at every opportunity
           they could to boost their players’ walking prowess. This has led to moments such as Nagomi Nava walking three
           runners in at once on <Jump time="2020-10-06T16:14:08Z">Season 9, Day 25</Jump>, and the fans choosing to pull
@@ -104,7 +104,7 @@ export default function Page() {
       </Entry>
       <Entry title="The Nut Button" election={10}>
         <p>
-          The Season 10 battle for the Nut Button blessing was fierce, but the Sunbeams ultimately won, curing all of
+          The Season 10 battle for the Nut Button Blessing was fierce, but the Sunbeams ultimately won, curing all of
           their allergic players and giving Sandoval Crossing the Superyummy Modification. Fans were excited until they
           learned Sandy would Underperform in every weather but Peanuts. When Peanut Misters were presented as a
           ballpark renovation in Season 14, it was less appealing than other options offered and fans didn’t build it, a
@@ -131,7 +131,7 @@ export default function Page() {
             games
           </Jump>
           , before saving their longtime anti-rivals, the <Link href="tigers">Hades Tigers</Link>, from Ascension after winning Game 6 of the Wild
-          League Championship Series on Day 115. The team went on to drag out the Internet Series against the <Link href="garages">Seattle Garages</Link> as long as possible with two Black Hole loops, to the point that fans across the league were
+          League Champion Series on Day 115. The team went on to drag out the Internet Series against the <Link href="garages">Seattle Garages</Link> as long as possible with two Black Hole loops, to the point that fans across the league were
           crying out for them to end it. The score was up to 9 runs once again before the Sunbeams’ famously bad pitcher
           “Lone Star” Lars Taylor was able to bring them the win and the title during Game 5 on Day 120.
         </p>
