@@ -24,7 +24,7 @@ export default function Page() {
         <p>
           In accord with the Spies’ perennial role as “the team that a new mechanic happened to for the first time”,
           Spies pitcher Donia Bailey was struck by the “Party Line” Blessing, which promised the winning team a brand
-          new clone. Donia was sent to the Shadows at the same time as the considerably more famous Mike Townsend
+          new clone. Donia was sent to the shadows at the same time as the considerably more famous Mike Townsend
           &mdash; a dimension from which she, unlike Mike, has never returned from.
         </p>
         <p>
@@ -120,7 +120,7 @@ export default function Page() {
         </p>
         <p>
           While things did go according to The Plan (of course), things did not go as originally intended, with
-          Becker Solis on the rotation, star batter Fitzgerald Blackburn in the Shadows, and former <Link href="fridays">Friday</Link> Karato Bean
+          Becker Solis on the rotation, star batter Fitzgerald Blackburn in the shadows, and former <Link href="fridays">Friday</Link> Karato Bean
           pitching for the <Link href="lovers">Lovers</Link>. After initial confusion, Spies fans reacted by loring Becker as a possible “saboteur”
           who forged documents to get onto the roster instead of Donia, possibly out of a desire to reunite with former
           Spy and ostensible sibling Andrew Solis. The Incident stands simultaneously as an example of Donia Bailey’s

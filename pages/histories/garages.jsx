@@ -166,7 +166,7 @@ export default function Page() {
             Season 13, Day 28
           </Jump>{" "}
           for Lizzy Pasta, and back to Seattle on <Jump time="2021-03-11T08:06:08Z">Day 64</Jump> for Mindy Kugel. Fans
-          elected to move Hotdogfingers to the Shadows, before she returned in{" "}
+          elected to move Hotdogfingers to the shadows, before she returned in{" "}
           <Jump election={15}>the Season 15 Election</Jump>. The next leg of her world tour started in Season 17, taking
           her to Charleston again on <Jump time="2021-04-20T05:01:52Z">Day 15</Jump>, for Fitzgerald Wanderlust, and
           then to Yellowstone on{" "}
@@ -200,7 +200,7 @@ export default function Page() {
         <p>
           Getting Goodwin Morin to her star status was a labor of love, seasons in the making. She was boosted in the{" "}
           <Jump election={9}>Season 9 Election</Jump> with the Secret Weapon blessing, which maxed out her stats, then
-          pulled out of the Shadows during the <Jump election={10}>Season 10 Election</Jump> with the Dark Star
+          pulled out of the shadows during the <Jump election={10}>Season 10 Election</Jump> with the Dark Star
           blessing. All eyes were on this legendary all-star to perform. So, naturally, her response to all this
           pressure was to get charmed by Kichiro Guerra, <Jump time="2020-10-20T03:05:24Z">Don Mitchell</Jump>, and{" "}
           <Jump time="2020-10-20T03:06:21Z">Alexander Horne</Jump> during her second-ever appearance on the mound,
@@ -334,15 +334,15 @@ export default function Page() {
       <Entry date="Season 22, Day 99" title="Mike Townsend Hits a Grand Slam!" time="2021-07-02T20:06:44Z">
         <p>
           Mike Townsend has had a storied career, with epithets that rotated as often as he was called into and out of
-          the Shadows. Originally a disappointment against anyone but{" "}
+          the shadows. Originally a disappointment against anyone but{" "}
           <Jump season={5} day={11}>
             Jessica Telephone
           </Jump>
-          , he was sent to the Shadows <Jump election={6}>after Jaylen Hotdogfingers’ resurrection</Jump>. Townsend was
+          , he was sent to the shadows <Jump election={6}>after Jaylen Hotdogfingers’ resurrection</Jump>. Townsend was
           unshadowed in the <Jump election={9}>Season 9 Election</Jump>, reshadowed in{" "}
           <Jump election={10}>the Season 10 Election</Jump>, pulled back out in{" "}
           <Jump election={16}>the Season 16 Election</Jump>, and managed to avoid getting Faxed back in until{" "}
-          <Jump time="2021-05-12T05:14:53Z">Season 18, Day 37</Jump>. He remained in the Shadows until{" "}
+          <Jump time="2021-05-12T05:14:53Z">Season 18, Day 37</Jump>. He remained in the shadows until{" "}
           <Jump time="2021-07-02T00:23:43Z">Season 22, Day 79</Jump>, when Townsend was Voicemailed to the roster as a
           batter. This was something of a meme amongst the team’s fans, and the meme paid off on the last day of the
           regular season.
@@ -368,7 +368,7 @@ export default function Page() {
           </Jump>
           , respectively. The team lost yet another player on <Jump time="2021-07-27T21:31:07Z">Day 30</Jump>, when
           Lenny Marijuana was stolen by the Cookout’s Phantom Thieves’ Guild and given to the Carolina Queens.{" "}
-          <Jump time="2021-07-27T22:25:26Z">A day later</Jump>, Marijuana Voicemailed out from the Shadows, briefly
+          <Jump time="2021-07-27T22:25:26Z">A day later</Jump>, Marijuana Voicemailed out from the shadows, briefly
           becoming the star of the Queens before getting Incinerated on <Jump time="2021-07-28T01:15:09Z">Day 34</Jump>.
         </p>
         <p>

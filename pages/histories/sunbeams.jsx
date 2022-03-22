@@ -70,7 +70,7 @@ export default function Page() {
           to draw walks past first base. Sunbeams fans embraced the walking lifestyle, going all in at every opportunity
           they could to boost their players’ walking prowess. This has led to moments such as Nagomi Nava walking three
           runners in at once on <Jump time="2020-10-06T16:14:08Z">Season 9, Day 25</Jump>, and the fans choosing to pull
-          Paula Reddick and hir high Moxie from the Shadows during the <Jump election={15}>Season 15 Election</Jump>.
+          Paula Reddick and hir high Moxie from the shadows during the <Jump election={15}>Season 15 Election</Jump>.
           Additionally, Hendricks Richardson became the first player to combine Blood abilities when, on{" "}
           <Jump time="2021-04-23T11:21:50Z">Season 17, Day 91</Jump>, he echoed the <Link href="spies">Houston Spies’</Link> Psychic Blood and
           convinced the umpire to allow a walk, then triggered Base Instincts, allowing Richardson to continue on to
