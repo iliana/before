@@ -19,7 +19,7 @@ export default function Page() {
     <History authors="dasyuridae, iznj, KT Ellen, licomice, Luquos, and Olive">
       <Entry title="The Hellmouth Opens" date="Season 1 Election">
         <p>
-          The Season 1 Election may have been small, but they packed a punch: A pitcher died, Blessings were won,
+          The Season 1 Election may have been small, but it packed a punch: A pitcher died, Blessings were won,
           players were traded. Moab, home of the Moab Sunbeams, was swallowed by the Hellmouth. In-game, this event
           changed nothing but the name of the team, but it became the foundation for the Sunbeams’ home, lore, identity,
           and narratives moving forward. The players may have mostly forgotten Moab, but the fans never did.
@@ -39,7 +39,7 @@ export default function Page() {
       </Entry>
       <Entry title="2 Incin 2 Furious" season={3} day={23}>
         <p>
-          The Hellmouth Sunbeams and Breckenridge Jazz Hands had the unfortunate pleasure of sharing Blaseball’s first
+          The Hellmouth Sunbeams and <Link href="jazz-hands">Breckenridge Jazz Hands</Link> had the unfortunate pleasure of sharing Blaseball’s first
           game with more than one Incineration on Season 3, Day 23, when Sunbeams batter{" "}
           <Jump time="2020-08-04T17:15:49Z">Velasquez Meadows</Jump> was Incinerated mere innings after Jazz Hands
           pitcher <Jump time="2020-08-04T17:07:15Z">Ogden Mendoza</Jump>. While double Incinerations were rare in Beta,
@@ -54,7 +54,7 @@ export default function Page() {
           The Sunbeams won their first Blessing during the Season 4 Election: The hotly contested Precognition, which
           granted Randall “Randy” Marijuana, Emmett Internet, and Nagomi Nava with a 20% hitting boost. Tragically, the
           team barely got to enjoy the fruits of their victory before Emmett’s Incineration on{" "}
-          <Jump time="2020-09-04T10:17:22Z">Season 5, Day 91</Jump>, followed by Randy’s Feedback to the Jazz Hands on{" "}
+          <Jump time="2020-09-04T10:17:22Z">Season 5, Day 91</Jump>, followed by Randy’s Feedback to the <Link href="jazz-hands">Jazz Hands</Link> on{" "}
           <Jump time="2020-09-09T11:01:43Z">Season 6, Day 44</Jump>, and subsequent Incineration{" "}
           <Jump time="2020-09-11T03:13:59Z">40 days later</Jump>. The swift loss of two favorites led to fears of a
           “Precog Curse” and concerns that Nava would soon suffer the same fate. Instead, she became a Fire Eater during
@@ -71,8 +71,8 @@ export default function Page() {
           they could to boost their players’ walking prowess. This has led to moments such as Nagomi Nava walking three
           runners in at once on <Jump time="2020-10-06T16:14:08Z">Season 9, Day 25</Jump>, and the fans choosing to pull
           Paula Reddick and hir high Moxie from the Shadows during the <Jump election={15}>Season 15 Election</Jump>.
-          Additionally, Hendricks Richardson became the first player to combine Blood abilities, when, on{" "}
-          <Jump time="2021-04-23T11:21:50Z">Season 17, Day 91</Jump>, he echoed the Houston Spies’ Psychic Blood and
+          Additionally, Hendricks Richardson became the first player to combine Blood abilities when, on{" "}
+          <Jump time="2021-04-23T11:21:50Z">Season 17, Day 91</Jump>, he echoed the <Link href="spies">Houston Spies’</Link> Psychic Blood and
           convinced the umpire to allow a walk, then triggered Base Instincts, allowing Richardson to continue on to
           second. The Sunbeams were consistently on the walks leaderboard during Beta, with Nagomi Nava becoming the
           first player to record 1,000 walks on <Jump time="2021-07-22T12:10:59Z">Season 23, Day 69</Jump>.
@@ -81,19 +81,19 @@ export default function Page() {
       <Entry title="Hendricks Richardson Hit a Ground Out to Joshua Butt" season={9} day={100}>
         <p>
           During the first game of the Season 9 postseason, Sunbeams batter Hendricks Richardson hit a ground out to
-          Firefighter Joshua Buttt, distorting time itself. In those seven minutes spent staring at the game log,
+          <Link href="firefighters">Firefighter</Link> Joshua Butt, distorting time itself. In those seven minutes spent staring at the game log,
           something happened. The Hellmouth Sunbeams and Chicago Firefighters realized they had an unbreakable bond:
           They had to destroy each other&hellip; or was it something else? They still don’t know, really.
         </p>
       </Entry>
       <Entry title="Moon’s Haunted?" season={10} day={100}>
         <p>
-          On track for their worst record ever, the Sunbeams tied the Hawaiʻi Fridays to be the first teams to enter
+          On track for their worst record ever, the Sunbeams tied the <Link href="fridays">Hawaiʻi Fridays</Link> to be the first teams to enter
           Party Time in Season 10, co-hosting the party with them on the moon. They went on to enjoy their first-ever
           parties, with seven of their players partying. They were then unexpectedly drawn as Wild Cards alongside the
-          Millennials, the first instance of what would become known as the Hellennial Wild Cards. After knocking the
-          Unlimited Tacos out of their first postseason in the Wild Card Round, they were then swept by future champions
-          the Baltimore Crabs. They returned happily to the moon party just in time for it to be swallowed by the Black
+          <Link href="millennials">Millennials</Link>, the first instance of what would become known as the Hellennial Wild Cards. After knocking the
+          <Link href="tacos">Unlimited Tacos</Link> out of their first postseason in the Wild Card Round, they were then swept by future champions
+          the <Link href="crabs">Baltimore Crabs</Link>. They returned happily to the moon party just in time for it to be swallowed by the Black
           Hole Tot Fox opened early on{" "}
           <Jump season={10} day={113}>
             Day 113
@@ -122,7 +122,7 @@ export default function Page() {
         <p>
           During Season 11, the Sunbeams thrived in the new Black Hole/Sun 2 binary, earning their greatest win-loss
           record to date and giving them an easy road to the postseason. Once there, they left their mark in every round
-          they played. During the Wild League Division Series, they shamed the Spies, ending the series 3-&minus;1 and
+          they played. During the Wild League Division Series, they shamed the <Link href="spies">Spies</Link>, ending the series 3-&minus;1 and
           advancing after only{" "}
           <Jump season={11} day={103}>
             two
@@ -130,9 +130,8 @@ export default function Page() {
           <Jump season={11} day={104}>
             games
           </Jump>
-          , before saving their longtime anti-rivals, the Hades Tigers, from Ascension after winning Game 6 of the Wild
-          League Championship Series on Day 115. The team went on to drag out the Internet Series against the Seattle
-          Garages as long as possible with two triggers of the Black Hole, to the point that fans across the league were
+          , before saving their longtime anti-rivals, the <Link href="tigers">Hades Tigers</Link>, from Ascension after winning Game 6 of the Wild
+          League Championship Series on Day 115. The team went on to drag out the Internet Series against the <Link href="garages">Seattle Garages</Link> as long as possible with two Black Hole loops, to the point that fans across the league were
           crying out for them to end it. The score was up to 9 runs once again before the Sunbeams’ famously bad pitcher
           “Lone Star” Lars Taylor was able to bring them the win and the title during Game 5 on Day 120.
         </p>
@@ -142,11 +141,11 @@ export default function Page() {
           Original Sunbeam batter Nerd Pacheco was launched into league-wide relevance during the Expansion Era, despite
           only playing 76 games total. They became one of the first players to be Shelled by a Honey Roasted player when
           Peanut Bong tasted the infinite on <Jump time="2021-03-04T00:26:17Z">Season 12, Day 56</Jump>. Still Shelled,
-          Pacheco was traded to the Hades Tigers during the{" "}
+          Pacheco was traded to the <Link href="tigers">Hades Tigers</Link> during the{" "}
           <Jump election={12} team="747b8e4a-7e50-4638-a973-ea7950a3e739">
             Season 12 Election
           </Jump>
-          , then to the Philly Pies during the{" "}
+          , then to the <Link href="pies">Philly Pies</Link> during the{" "}
           <Jump election={13} team="23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7">
             Season 13 Election
           </Jump>
@@ -170,12 +169,12 @@ export default function Page() {
           .
         </p>
       </Entry>
-      <Entry title="Bickle Batter Plan (with a side of Trebuchets)" election={13}>
+      <Entry title="Bickle Batter Plan (With a Side of Trebuchets)" election={13}>
         <p>
           During the Expansion Era, the Sunbeams took advantage of newly-introduced Wills and made strides to optimize
           their player positions, starting with original pitcher Eugenia Bickle. A decent pitcher, Bickle’s hitting
           stats were intriguing enough for them to be shadowed for rookie Jayden Wright in the Season 13 Election.
-          Bickle was brought back out of the shadows and onto the lineup the next Election in exchange for Sigmund
+          Bickle was brought back out of the shadows and onto the lineup <Jump election={14}>the next Election</Jump> in exchange for Sigmund
           Castillo. Still, the Sunbeams weren’t done, going on to Shadow Infuse Castillo during the{" "}
           <Jump election={18}>Season 18 Election</Jump>, then again in the <Jump election={19}>Season 19 Election</Jump>{" "}
           while simultaneously bringing them out of the shadows as a pitcher in exchange for Lars Taylor. Armed with new
@@ -196,9 +195,9 @@ export default function Page() {
           <Jump season={21} day={99}>
             their final game
           </Jump>{" "}
-          to the Ohio Worms. When the Sunbeams were pulled as an Underbracket Wild Card, they surprised everyone by
-          sweeping the Miami Dale in just one game thanks to Sun 30. The team continued through the Underbracket to
-          finally face their fellow Wild Cards, the Canada Moist Talkers, in the Underbracket Internet Series. On{" "}
+          to the <Link href="worms">Ohio Worms</Link>. When the Sunbeams were pulled as an Underbracket Wild Card, they surprised everyone by
+          sweeping the <Link href="dale">Miami Dale</Link> in just one game thanks to Sun 30. The team continued through the Underbracket to
+          finally face their fellow Wild Cards, the <Link href="moist-talkers">Canada Moist Talkers</Link>, in the Underbracket Internet Series. On{" "}
           <Jump season={21} day={113}>
             Day 113
           </Jump>
@@ -208,7 +207,7 @@ export default function Page() {
           <Jump season={21} day={114}>
             Day 114
           </Jump>
-          , the Sunbeams’ secured the achievement of being the first team to collect both an Overbracket and
+          , the Sunbeams secured the achievement of being the first team to collect both an Overbracket and
           Underbracket championship title.
         </p>
       </Entry>
@@ -223,14 +222,14 @@ export default function Page() {
           pitcher for the Rising Stars, only to end up Forged by the Vault Legends, forcing it to remain in the Vault at
           the end of the game. Just when the fans thought their plan had failed, during the{" "}
           <Jump election={23} team="3f8bbb15-61c0-4e3f-8e4a-907a5fb1565e">
-            Season 23 Elections
+            Season 23 Election
           </Jump>
           , the Boston Flowers won a Blessing that traded one of their players with a random Vaulted player. The player
           that was Unvaulted? Sutton Bishop.
         </p>
       </Entry>
       <Entry
-        title="The Sunbeams Misunderstand Instructions So Heavily The Coin Dies"
+        title="The Sunbeams Misunderstand Instructions So Heavily the Coin Dies"
         season={24}
         day={51}
         time="2021-07-28T19:34:01Z"
@@ -268,7 +267,7 @@ export default function Page() {
           which became “Lone Star Lars” after gaining a star in the <Jump election={6}>Season 6 Election</Jump>. Taylor
           continued to be terrible at the game, but would occasionally pull off miracles. In the Expansion Era, fans
           gave Taylor their love through the Trust Will in the <Jump election={12}>Season 12 Election</Jump> to give the
-          pitcher&hellip; Flippers? A batting Modification. During the <Jump election={19}>Season 19 Election</Jump>,
+          pitcher&hellip; Flippers? A batting Modification.{/* consider reword when glossary function gets added */} During the <Jump election={19}>Season 19 Election</Jump>,
           fans made the difficult decision to Foreshadow Taylor for Sigmund Castillo. There he remained until Season 24,
           Day 88 when, in the midst of the team being Scattered and Blaseball itself being consumed by a Black Hole
           (Black Hole), Taylor surprised fans by clocking in for a Night Shift, taking Paula Reddick spot in the lineup.

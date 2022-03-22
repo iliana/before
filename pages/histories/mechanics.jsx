@@ -170,8 +170,8 @@ export default function Page() {
       </Entry>
       <Entry election={21} title="The Mechanics Have Their Hands Full">
         <p>
-          The Handful Alternate Trust Blessing left four staples of the lineup&mdash;Cannonball Sports, Gia Bolbrook,
-          Mira Lemma, and Christian Combs&mdash;unable to play small ball. The team would go from one of the strongest
+          The Handful Alternate Trust Blessing left four staples of the lineup &mdash; Cannonball Sports, Gia Bolbrook,
+          Mira Lemma, and Christian Combs &mdash; unable to play small ball. The team would go from one of the strongest
           in the ILB to one that struggled to keep up, with formerly disastrous batter Kelvin Drumsolo Infused to become
           one of the stronger batters on the roster. Former stars like Cannonball Sports were stranded on the lineup
           when they were now far more suited to pitching.
