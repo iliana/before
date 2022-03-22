@@ -23,15 +23,15 @@ export default function Page() {
       <Entry date="Season 3, Day 14" title="The First Death of Chorby Soul" time="2020-08-04T08:15:44Z">
         <p>
           To save then-captain Dominic Marijuana from incineration, Chorby Soul threw themself in front of an umpire’s
-          fire and chose to burn instead. This would be the first, but not the last, time that an umpire would
-          incinerate them. Before this, Soul had cultivated a unique fanbase among Millennials fans, who would chant
+          fire and chose to burn instead. This would be the first time, but not the last, that an umpire would
+          Incinerate them. Before this, Soul had cultivated a unique fanbase among Millennials fans, who would chant
           “Chorby Yes!” and “Chorby No!” during games based on their in-game performance.
         </p>
         <p>
           Their legacy lives on, as “Chorby-chanting” commonly rings out around Battin’ Island, as their name is invoked
           as both a blessing and a deliverance for Millennials players. Sandie Turner, Soul’s replacement, would go on
-          to become a powerhouse of the Millennials’ batting lineup for seasons to come. Chorby Soul would spend the
-          next eleven seasons in the Hall of Flame until they were Plundered by the Seattle Garages in the{" "}
+          to become a powerhouse of the Millennials’ batting lineup for seasons to come. Chorby Soul spent the
+          next eleven seasons in the Hall of Flame until they were Plundered by the <Link href="garages">Seattle Garages</Link> in the{" "}
           <Jump election={14} team="105bc3ff-1320-4e37-8ef0-8d595cb95dd0">
             Season 14 Election
           </Jump>
@@ -44,9 +44,9 @@ export default function Page() {
         time="2020-08-26T10:19:49Z"
       >
         <p>
-          At the top of the sixth inning, Beasley Gloom, pitching for the Charleston Shoe Thieves, walked Sandie Turner.
+          In the top of the 6th inning, Beasley Gloom, pitching for the <Link href="shoe-thieves">Charleston Shoe Thieves</Link>, walked Sandie Turner.
           Turner, in eyr sophomore season in the ILB, would then proceed to steal second and third bases before stealing
-          home and completing a “Millennials Home Run”, named after the Mills’ chant “F*** Capitalism, Steal Home!” For
+          home and completing a “Millennials Home Run”, named after the Mills’ chant “Fuck Capitalism, Steal Home!” For
           this achievement, ey would discover the 3-Blood Blagonball, the second of such artifacts. An early moment in
           eyr career, this cemented Turner in the hearts of Millennials fans and as a player to watch for seasons to
           come.
@@ -59,10 +59,10 @@ export default function Page() {
       >
         <p>
           The New York Millennials were poised for a strong playoff showing in Season 4. In the Good League Championship
-          Series, they would face their future Blood Donor rivals, the Chicago Firefighters. At the top of the 9th
+          Series, they would face their future Blood Donor rivals, the <Link href="firefighters">Chicago Firefighters</Link>. In the top of the 9th
           inning, Feedback was detected, and Thomas Dracaena hit a ground out to Edric Tosser. Time seemed to stop for
-          well over twenty minutes, until it resumed as if nothing had been wrong. Ren Hunter, recently feedbacked from
-          the Shoe Thieves, batted Schneider Bendie in for the scoring run, bringing the series to 2-2. It inspired an
+          well over twenty minutes, until it resumed as if nothing had been wrong. Ren Hunter, recently Feedbacked from
+          the <Link href="shoe-thieves">Shoe Thieves</Link>, batted Schneider Bendie in for the scoring run, bringing the series to 2-2. It inspired an
           early copypasta still remembered fondly by both teams.
         </p>
       </Entry>
@@ -70,17 +70,17 @@ export default function Page() {
         <p>
           The Millennials had already seen one of their own incinerated in Season 7, when Wesley Dudley was incinerated
           on <Jump time="2020-09-15T15:03:18Z">Day 24</Jump>, about a week before Ruby Tuesday. Dominic Marijuana, who
-          had stepped into the team’s captaincy after Scrap Murphy’s{" "}
-          <Jump time="2020-07-29T05:59:55Z">Season 2, Day 40</Jump> incineration, was the beloved core of the New York
+          had stepped into the team’s captaincy after Scrap Murphy’s Incineration on{" "}
+          <Jump time="2020-07-29T05:59:55Z">Season 2, Day 40</Jump>, was the beloved core of the New York
           Millennials lineup.
         </p>
         <p>
-          Squaring off against recently revived Seattle Garages pitcher Jaylen Hotdogfingers on{" "}
+          Squaring off against recently-revived <Link href="garages">Seattle Garages</Link> pitcher Jaylen Hotdogfingers on{" "}
           <Jump time="2020-09-16T23:28:53Z">Day 55</Jump>, Marijuana was hit by a rogue pitch and became Unstable. It
           would be a long week until Day 63 and unfortunately, with Solar Eclipse in the forecast, Dom wouldn’t make it.
           Less than a season after his brother’s incineration on{" "}
           <Jump time="2020-09-11T03:13:59Z">Season 6, Day 84</Jump>, Dom would join Randy, a beloved batter for both the
-          Hellmouth and Breckenridge, in the Hall of Flame.
+          <Link href="sunbeams">Hellmouth</Link> and <Link href="jazz-hands">Breckenridge</Link>, in the Hall of Flame.
         </p>
         <p>
           For Millennials fans, no player loomed quite as large, and no absence was felt more acutely. Dom was mourned
@@ -91,10 +91,10 @@ export default function Page() {
       </Entry>
       <Entry date="Season 8, Day 18" title="Red Hot!" time="2020-09-22T09:09:04Z">
         <p>
-          In the <Jump election={7}>Season 7 Election</Jump>, the New York Millennials won the Hot Sauce Packet blessing
-          with 2% of the vote, making Sandie Turner Spicy. During this game against the Baltimore Crabs, Turner got
+          In the <Jump election={7}>Season 7 Election</Jump>, the New York Millennials won the Hot Sauce Packet Blessing
+          with 2% of the vote, making Sandie Turner Spicy. During this game against the <Link href="crabs">Baltimore Crabs</Link>, Turner got
           three consecutive hits, turning em Red Hot! for the first time. The phrase “Sandie Turner is Red Hot!” is
-          immortalized as part of the Mills Cycle, a graph measuring the team’s collective hubris over the course of a
+          immortalized as part of the Mills Cycle{/* embed graph? */}, a graph measuring the team’s collective hubris over the course of a
           typical season. It marks a time in the first half of the season when the Millennials are playing well and the
           fans are confident in the team’s postseason chances, and is followed by “Sandie Turner is no longer Red Hot!”
           when the team inevitably falters.
@@ -104,9 +104,8 @@ export default function Page() {
         <p>
           Despite never being the Millennials’ strongest pitcher, Patty Fox had always been a bit of a miracle worker.
           Fox became the first pitcher with multiple confirmed immaculate innings, both of which occurred during Season
-          3: striking out Isaac Rubberman, Hotbox Sato, and Margarito Nava of the Boston Flowers on Day 47, and Bevan
-          Wise, Richardson Turquoise, and future teammate Penelope Mathews of the Yellowstone Magic on Day 77. On Season
-          5, Day 22, she famously “paid the debt”, pitching a shutout against the Charleston Shoe Thieves and buying the
+          3: striking out Isaac Rubberman, Hotbox Sato, and Margarito Nava of the <Link href="flowers">Boston Flowers</Link> on <Jump time="2020-08-05T17:14:37Z">Day 47</Jump>, and Bevan
+          Wise, Richardson Turquoise, and future teammate Penelope Mathews of the Yellowstone <Link href="magic">Magic</Link> on <Jump time="2020-08-07T02:04:34Z">Day 77</Jump>. On <Jump season={5} day={22}>Season 5, Day 22</Jump>, she famously “paid the debt”, pitching a shutout against the Charleston Shoe Thieves and buying the
           lineup enough time to work their way out of a 4-run deficit inflicted by Targeted Shame. The Millennials would
           go on to win that game 2-0.
         </p>
@@ -147,7 +146,7 @@ export default function Page() {
           Dracaena’s baserunning stat was a paltry 1.02 stars at the time of the Election, but would be boosted to 2.25
           stars as part of the compensation owed from the verdict of <i>New York Millennials v. Parker MacMillan III</i>
           , where the Coin was found guilty of wire fraud for failing to redistribute the top 1% of players’ wealth
-          after Season 10, as per Season 3’s Eat The Rich decree.
+          after Season 10, as per <Jump election={3}>Season 3’s Eat The Rich decree</Jump>.
         </p>
         <p>
           The team also won the Bird Seed blessing which, during Beta, never came into effect, as no Millennials player
@@ -157,17 +156,17 @@ export default function Page() {
       </Entry>
       <Entry date="Season 15, Day 86" title="Sandie Turner’s Red Hot! Season" time="2021-04-09T06:14:04Z">
         <p>
-          During Season 15, the Millennials were hungry for a championship ring, and they looked unstoppable. Theodore
-          Cervantes, the Mills’ star pitcher, topped the season’s pitching charts, boasting the lowest ERA, hits per 9
+          During Season 15, the Millennials were hungry for a championship ring, and they looked unstoppable. The Mills’ star pitcher Theodore
+          Cervantes topped the season’s pitching charts, boasting the lowest ERA, hits per 9
           innings, and home runs per 9 innings, and was in a seven-way tie for third place with five shutouts. Mills
           fans cheered its pursuit of TERMINAL VELOCITY with “Get Cerved!”
         </p>
         <p>
-          However, no one had a better season than Sandie Turner. Turner, Infused in the{" "}
-          <Jump election={12}>Season 12 Election</Jump>, ended this season with the highest batting average, on-base
+          However, no one had a better season than Sandie Turner. Infused in the{" "}
+          <Jump election={12}>Season 12 Election</Jump>, Turner ended this season with the highest batting average, on-base
           percentage, slugging percentage, and number of total bases. On Day 86, ey also broke the ILB’s single season
           home run record with eyr 48th, finishing the season with 53 total home runs. Turner’s record remained in place
-          until it was broken by the Tacos’ Mcdowell Mason on <Jump time="2021-05-13T04:13:18Z">Season 18, Day 60</Jump>
+          until it was broken by the <Link href="tacos">Tacos’</Link> Mcdowell Mason on <Jump time="2021-05-13T04:13:18Z">Season 18, Day 60</Jump>
           .
         </p>
         <p>
@@ -188,23 +187,23 @@ export default function Page() {
           <Jump time="2021-04-09T19:22:21Z">Theodore Cervantes</Jump>, and finally{" "}
           <Jump time="2021-04-10T01:15:45Z">Sandie Turner</Jump> eyrself. The attacks ultimately ended the Mills’
           championship dreams; they would lose the divisional series against the eventual Internet Series Champions, the
-          Canada Moist Talkers, and went into the Election determined to win it all next season.
+          <Link href="moist-talkers">Canada Moist Talkers</Link>, and went into the Election determined to win it all next season.
         </p>
       </Entry>
       <Entry date="Season 16, Day 88" title="The Second Death of Chorby Soul" time="2021-04-16T10:19:28Z">
         <p>
           The “Mills Mad” furor quickly gave way to “Mills Sad” with the firing of an unexpected Will in{" "}
           <Jump election={15}>the Season 15 Election</Jump>. Chorby Soul, a Millennial since Blaseball’s return, was
-          Plundered back to the team, this time as a pitcher, sending Penelope Mathews to the Seattle Garages. In{" "}
+          Plundered back to the team, this time as a pitcher, sending Penelope Mathews to the <Link href="garages">Seattle Garages</Link>. In{" "}
           <Jump election={14}>the previous Election</Jump>, Soul had become the fourth player to return from the Hall of
           Flame saddled with Debt. Their return was not a peaceful one. Chorby Soul’s soul was uniquely heavy, which
-          plunged their team deep into the Immateria and subjected both the team and Soul themself to constant Consumer
+          plunged their team deep into the immateria and subjected both the team and Soul themself to constant Consumer
           attacks.
         </p>
         <p>
-          In an attempt to avoid further Redactions, the Seattle Garages Reformed Soul’s Debt, unfortunately rerolling
+          In an attempt to avoid further Redactions, the Seattle Garages <Jump election={15}>Reformed Soul’s Debt</Jump>, unfortunately rerolling
           it into a permanent form of Unstable. Soul’s return to New York was bittersweet. Players and fans alike
-          celebrated the return of a Season 1 player while mourning that the team was, quite literally, sharkbait. The
+          celebrated the return of a Season 1 player while mourning that the team was sinking into Consumer-infested immateria. The
           writing was on the wall when the weather forecast predicted that Chorby Soul would pitch under a Solar Eclipse
           on Day 88. Fans spent the season celebrating Soul’s life, and many woke up early to watch on in sorrow as
           Chorby Soul burned once again. The Millennials’ tragic season would not stop there, however, as{" "}
@@ -229,7 +228,7 @@ export default function Page() {
         <p>
           In order to adhere to ILB Rules, the Millennials were given a baby. Officially named Pitching Machine, but
           dubbed “Lil Pitchy” to differentiate it from the now-Vaulted Pitching Machine, it pitched four innings by
-          mostly walking players. Beck Whitney, batting for the Hawaiʻi Fridays, advanced off Lady Matsuyama’s
+          mostly walking players. Beck Whitney, batting for the <Link href="fridays">Hawaiʻi Fridays</Link>, advanced off Lady Matsuyama’s
           sacrifice, sending Lil Pitchy <Jump time="2021-06-29T03:23:18Z">back through the Fax Machine</Jump> and
           returning Cervantes to the mound. During the game, Mills fans hosted an impromptu baby shower on behalf of its
           parents, Cervantes and the Fax Machine, and fans from all over the ILB brought gifts for the new baby, the
@@ -239,10 +238,10 @@ export default function Page() {
       <Entry title="The New York Perennial Bridesmaids" season={22} day={116}>
         <p>
           The Millennials continued their tradition of strange playoff entrances, making it into the Underbracket
-          Playoffs purely because the Canada Moist Talkers, whose qualification would knock the Mills out, received the
+          purely because the <Link href="moist-talkers">Canada Moist Talkers</Link>, whose qualification would knock the Mills out, received the
           Overbracket Wild Card. The Millennials’ Season 21 playoff birth, Munro Tumblehome, made an impression when
-          they were Voicemailed for longtime Millennial star Sandie Turner and carried the team through the Underbracket
-          into the finals against the Miami Dale.
+          they voicemailed for longtime Millennial star Sandie Turner and carried the team through the Underbracket
+          into the finals against the <Link href="dale">Miami Dale</Link>.
         </p>
         <p>
           During the finals, the Millennials took the Dale to a 2-2 series of unwon games, and it looked like the Mills
@@ -252,7 +251,7 @@ export default function Page() {
           Miami to lose the game and unwin the Underbracket Championship Series. This marked the third time the
           Millennials, perennially knocked out in the Wild Card round, made it to the Internet Series only to falter;
           their first two attempts were{" "}
-          <Jump seaosn={3} day={109}>
+          <Jump season={3} day={109}>
             Season 3
           </Jump>{" "}
           and{" "}
@@ -266,7 +265,7 @@ export default function Page() {
         <p>
           The Season 22 Election brought with it a couple of problems. For starters, Castillo Turner and Chorby Short
           had partied within Equivalent Exchange range of each other once again, promising another season of the New
-          York-Boston Exchange Program. During the <Jump election={17}>Season 17 Election</Jump>, the Millennials spent
+          York-<Link href="flowers">Boston</Link> Exchange Program. During the <Jump election={17}>Season 17 Election</Jump>, the Millennials spent
           two Wills on Short. The first reformed her Instability to Friend of Crows, and the second used her inflated
           star count to trade for Castillo Turner of the Boston Flowers, a very large and very powerful cactus. Castillo
           Turner then partied out of Equivalent Exchange range and would remain in New York until the{" "}
@@ -275,7 +274,7 @@ export default function Page() {
           with Short in Boston and Turner in New York.
         </p>
         <p>
-          The Strange Attractor blessing, which would randomly recruit a player with Attractor to the team, appearing on
+          The Strange Attractor Blessing, which would randomly recruit a player with Attractor to the team, appearing on
           the ballot complicated things. As one of only a few available Attractors, Chorby Short had a decent chance of
           not being in New York after the Election. Furthermore, the Flowers planned to attempt a yo-yo with their extra
           will: A Roster Swap to move Short to the shadows, an Equivalent Exchange to trade Short and Turner, and a Move
@@ -286,18 +285,18 @@ export default function Page() {
         <p>
           There was nothing the Millennials could do to guarantee keeping either player, so the fans looked elsewhere
           and found Beck Whitney who, thanks to a party late in the season, was now within Equivalent Exchange star
-          range of Turner. Whitney, batting for the Hawaiʻi Fridays at the time and a superstar in her own right, had
+          range of Turner. Whitney, batting for the <Link href="fridays">Hawaiʻi Fridays</Link> at the time and a superstar in her own right, had
           faxed the Mills’ new baby, Lil Pitchy, earlier this season. Another looming problem for the Millennials was
-          Under Taker, a blessing which would recruit a random player with Undertaker to the team that won it. One of
+          Under Taker, a Blessing which would recruit a random player with Undertaker to the team that won it. One of
           the few potential targets of Under Taker was Thomas Dracaena, beloved longtime Mills slugger who fans insisted
-          was a normal human man and not a vampire. The decision was made to Reform Undertaker, knowing full well it
+          was a normal human man and not a vampire. The decision was made to Reform Undertaker, fully knowing it
           could potentially roll into Unstable.
         </p>
         <p>
           Despite the anxiety, the Election fired without a hitch for the Mills: Castillo Turner was traded for Beck
           Whitney and Undertaker rerolled&hellip; into Siphon. Thomas Dracaena, who was not a vampire, could now legally
           drink blood during Blooddrain. The Flowers’ yo-yo worked, with both Chorby Short and Castillo Turner in the
-          shadows, where Turner was immediately taken at random by the Seattle Garages, winners of Gachapon. Short would
+          shadows, where Turner was immediately taken at random by the <Link href="garages">Seattle Garages</Link>, winners of Gachapon. Short would
           fax out of the shadows on <Jump time="2021-07-19T17:12:12Z">Season 23, Day 3</Jump> before stealing the Super
           Roamin’ Fifth Base on <Jump time="2021-07-19T22:20:31Z">Day 8</Jump> and Roaming off the Flowers on{" "}
           <Jump redirect="/player/a3947fbc-50ec-45a4-bca4-49ffebb77dbe" time="2021-07-19T23:30:00Z">
@@ -323,7 +322,7 @@ export default function Page() {
           nullified All You Can Eat, the Decree which inflated snack payouts the fewer Snack Slots a fan had. All You
           Can Eat was behind the economic boom seen after Season 15, where fans would regularly accrue multiple millions
           of coins in a season. With that now gone, the Millennials officially killed the economy. Perfect for a team
-          who regularly chants “F*** Capitalism, Steal Home!”
+          who regularly chants “Fuck Capitalism, Steal Home!”
         </p>
       </Entry>
       <Entry
@@ -338,7 +337,7 @@ export default function Page() {
           and being welcomed into the Hall of Flame. Getting the chance to reunite with Season 1 original Mills Winnie
           Mccall, Wesley Dudley, and Mclaughlin Scorpler was worth the trip. Once the Monitor quit, the teams near the
           Hall went Rogue. Among them, the Millennials, always committed to the bit, said “guess we’ll die” with a
-          shrug. Schneider Bendie, emboldened by their nullification of Sun 30, would inhabit Haunted Baltimore Crabs
+          shrug. Schneider Bendie, emboldened by their nullification of Sun 30, would inhabit Haunted <Link href="crabs">Baltimore Crabs</Link>
           batter Kennedy Loser while{" "}
           <Jump season={24} day={76}>
             the Mills played the Lovers

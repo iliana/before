@@ -87,7 +87,7 @@ export default function Page() {
       </Entry>
       <Entry title="Elsewhere Job" date="Season 13, Day 9" time="2021-03-09T00:29:20Z">
         <p>
-          Don Mitchell, iconic crime boss, was swept into a surge of Immateria and sent Elsewhere. Early days in the era
+          Don Mitchell, iconic crime boss, was swept into a surge of immateria and sent Elsewhere. Early days in the era
           made Elsewhere nebulous and scary, so it was a relief when Don tapped into his Reverberating modification and
           returned to hit as if nothing happened. After drawing a walk from the Core Mechanics’ bewildered Lizzy Pasta,
           Don proceeded to steal second, third, and then home, before returning Elsewhere. The Elsewhere Job is a

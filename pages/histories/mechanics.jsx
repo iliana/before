@@ -160,7 +160,7 @@ export default function Page() {
       <Entry season={21} day={104} title="Alto Leaves a Voicemail">
         <p>
           In the bottom of the 7th, Kelvin Drumsolo hit a single and then stole second base, only to be{" "}
-          <Jump time="2021-06-26T02:16:38Z">swept Elsewhere</Jump> by a surge of Immateria. The Fridays then shut out
+          <Jump time="2021-06-26T02:16:38Z">swept Elsewhere</Jump> by a surge of immateria. The Fridays then shut out
           the Mechanics and PolkaDot Patterson, the best batter in the shadows,{" "}
           <Jump time="2021-06-26T02:22:19Z">got voicemailed</Jump> for a still-Elsewhere Drumsolo, the team’s worst
           batter. “Alto” Patterson was an Alternate of an iconic pitcher from the Discipline Era, and was an easy fan

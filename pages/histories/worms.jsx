@@ -162,7 +162,7 @@ export default function Page() {
         <p>
           Season 21’s <Jump time="2021-06-24T15:40:43Z">Latesiesta</Jump> brought the Worms a fantastical four-pack of
           gifts from their friends in the ILB. Thanks to the newly-added replica of Chorby Soul, wielding Chorby’s Soul,
-          and the Worms’ Heavy-Handed modification, the team began to plummet down through the Immateria. Their safety
+          and the Worms’ Heavy-Handed modification, the team began to plummet down through the immateria. Their safety
           was ensured by the now-Yolked Uncle Plasma and Liquid Friend who, finally together, tag-team SHABOOMED any
           Consumer brave enough to charge the field. In the depths, the Worms encountered and broke through the gate
           located in{" "}
