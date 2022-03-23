@@ -176,7 +176,7 @@ export default function Page() {
         </p>
         <p>
           This result was a huge relief for Worms fans. The whole shebang was a result of gift damage control; fans knew
-          they couldn’t avoid getting a heavy Chorby and at least one Hard Boiled replica, so their best attempt at
+          they couldn’t avoid getting a heavy Chorby and at least one Hard Boiled Replica, so their best attempt at
           self-preservation was getting an extra item for their players and getting the other Hard Boiled player without
           fully knowing what they even did. And so, with Uncle Plasma and Liquid Friend protecting their players and the
           Chorby Replica alike, the Worms descended. SMASH.
