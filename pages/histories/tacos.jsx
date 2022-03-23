@@ -135,7 +135,7 @@ export default function Page() {
           Following the Snackrifice, the Tacos were graced by the ILB with a Pitching Machine, who immediately became
           both a league darling and one of the biggest money makers of the league. While Pitching Machine reeled in
           winning games and huge pendant cashouts, the streak could only last so long. On Day 47, a little over halfway
-          through the season, Sexton Wheerer became the Unshelled Snackrificed Taco and rejoined the pitching rotation.
+          through the season, Sexton Wheerer became the first Unshelled Snackrificed Taco and rejoined the pitching rotation.
           Now Pitching Machine was only playing every other game while Wheerer, an objectively bad pitcher, brought some
           humility back to the team by reminding fans that, while they now had a robot on the team, it didn’t mean they
           didn’t still suck.
