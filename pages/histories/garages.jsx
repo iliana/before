@@ -30,22 +30,22 @@ export default function Page() {
         <p>
           Season 3 lit the Garages’ roster on fire. Bennett Browning was Incinerated on{" "}
           <Jump time="2020-08-03T22:20:53Z">Day 4</Jump> during <Peanut>BLASPHEMY</Peanut>, replaced by the beloved
-          Tiana Cash, who would be Incinerated on <Jump time="2020-08-05T17:04:08Z">Day 47</Jump>. Shaquille Torres was
+          Tiana Cash, who was later Incinerated on <Jump time="2020-08-05T17:04:08Z">Day 47</Jump>. Shaquille Torres was
           Incinerated on Day 74 during the Shelled One’s post-
           <Jump team="878c1bf6-0d21-4659-bfee-916c8314d69c" season={3} day={73}>
             Grand Unslam
           </Jump>{" "}
-          monologue. The final Incineration for the Garages this season would be Derrick “Klutch” Krueger, Jaylen
-          Hotdogfingers’ replacement, tying the Garages with the Charleston Shoe Thieves for the most Incinerations this
-          season. Most importantly, however, Krueger’s death was the final push the fans needed to realize that Mike
+          monologue. The final Incineration for the Garages this season was Derrick “Klutch” Krueger, Jaylen
+          Hotdogfingers’ replacement, tying the Garages with the <Link href="shoe-thieves">Charleston Shoe Thieves</Link> for the most Incinerations this
+          season. Most importantly, Krueger’s death was the final push the fans needed to realize that Mike
           Townsend was not a disappointment, but a credit to the team.
         </p>
       </Entry>
       <Entry title="The Garages Suck, or: The Garages are Okay+" season={6} day={108}>
         <p>
           After a season spent deliberating over Jaylen Hotdogfingers’ necromancy, fans were excited for the Garages’
-          first postseason appearance, hoping that the star pitcher could be resurrected to a team with one championship
-          under their belt. Instead, the Garages were swept by the Baltimore Crabs, beginning a long history of the
+          first postseason appearance, hoping that the star pitcher could be resurrected to a team with a championship
+          under their belt. Instead, the Garages were swept by the <Link href="crabs">Baltimore Crabs</Link>, beginning a long history of the
           Garages choking in the postseason.
         </p>
         <LineScore id="34ef84d9-77f7-4b3a-a92d-6d5b9120f80b" />
@@ -54,12 +54,12 @@ export default function Page() {
           <Jump season={7} day={105}>
             their first game
           </Jump>{" "}
-          in the Mild League Champion Series against Mexico City, before the Wild Wings won the next three. The Pies
+          in the Mild League Champion Series against Mexico City before the <Link href="wild-wings">Wild Wings</Link> won the next three. The <Link href="pies">Pies</Link>
           swept the Garages in{" "}
           <Jump season={8} day={100}>
             Season 8’s Mild League Division Series
           </Jump>
-          , and the Shoe Thieves beat the Garages in 4 during{" "}
+          , and the <Link href="shoe-thieves">Shoe Thieves</Link> beat the Garages in four during{" "}
           <Jump season={9} day={108}>
             Season 9’s MLCS
           </Jump>
@@ -67,42 +67,41 @@ export default function Page() {
           <Jump season={11} day={116}>
             Internet Series
           </Jump>{" "}
-          once again, caught in Sun 2 and Black Hole’s loops before losing to the Hellmouth Sunbeams in 5 games, but
+          once again, caught in Sun 2 and Black Hole’s loops before losing to the <Link href="sunbeams">Hellmouth Sunbeams</Link> in 5 games, but
           with only 4 wins between them. In Season 12, the Garages made it to{" "}
           <Jump season={12} day={116}>
-            game 5
+            Game 5
           </Jump>{" "}
-          against the Hades Tigers before being crushed, 2-7. While the next two seasons saw the Garages in the middle
+          before the <Link href="tigers">Hades Tigers</Link> crushed them. While the next two seasons saw the Garages in the middle
           of the league, Season 15 saw the team’s record drop like a rock in a sea of immateria. Seattle hosted Party
           Time for the first time that season, finishing the season with{" "}
-          <Jump redirect="/standings" season={15} day={100}>
+          <Jump redirect="/standings" time="2021-04-09T19:35:00Z">
             a record of 25-74
           </Jump>
           .
         </p>
         <p>
-          The team’s record never went above 0.500 for the rest of the Expansion Era, even when they next entered the
-          postseason in Season 19. Due to Turntables, teams with the lowest scores in a regular season game would win
-          their games, seeing the Garages{" "}
-          <Jump redirect="/standings" season={15} day={100}>
+          The team’s record never went above .500 for the rest of the Expansion Era, even when they made Postseason 19. Due to Turntables, teams with the lowest scores in a regular season game would win
+          their games, putting the Garages{" "}
+          <Jump redirect="/standings" time="2021-05-21T19:40:00Z">
             second in the league behind the Wild Wings
           </Jump>
           . The postseason was under regular scoring, however, and the Garages made it to the Internet Series once
           again, before losing in{" "}
           <Jump season={19} day={117}>
-            game 5
+            Game 5
           </Jump>{" "}
-          to the Tokyo Lift. The Garages’ only run during this game was via the Home Field Advantage modification, and
+          to the <Link href="lift">Tokyo Lift</Link>. The Garages’ only run during this game was from the Hotdogfingers Memorical Climate Pledge Garage and Parking Facility’s Home Field Advantage, and
           Terrell Bradley, the starting pitcher, showed true dedication to the Garages’ tradition of choking and{" "}
           <Jump time="2021-05-23T00:26:49Z">gave up 10 runs</Jump>, faxing out for Nolanestophia Patterson. Patterson
-          would throw one pitch that game, to Silvaire Semiquaver, who hit it right into Alaynabella Hollywood’s glove
+          would throw one pitch that game to Silvaire Semiquaver, who hit it right into Alaynabella Hollywood’s glove
           for the third out of the top of the 9th.
         </p>
         <LineScore id="f7ad7826-ca6e-49c2-818e-190408b046fe" />
         <p>
           Seattle would host Party Time the next two seasons, which also meant appearances in the Underbracket, a
-          separate postseason tournament for the worst-performing teams, where the lowest scoring teams would win their
-          games. Even here, the Garages failed to perform; they couldn’t perform well enough in the regular season to
+          separate postseason tournament for the worst-performing teams where the lowest scoring teams would win their
+          games. Even here, the Garages failed to perform; they couldn’t play well enough in the regular season to
           make it to the Overbracket, but they were too good to lose to other teams and take the Underchampionship. The
           Garages, as fans began to say, were “okay+.”
         </p>
@@ -110,20 +109,20 @@ export default function Page() {
       <Entry date="Season 8, Day 56" title="Expand Band" time="2020-09-23T23:03:38Z">
         <p>
           When most people think of the effects Jaylen Hotdogfingers had on the league, they remember her Season 7
-          Instability Debt, her world tour, or her stint on the PODS and Hall Stars. Ask the Garages, however, and you
+          Instability Debt, her Flickering world tour, or her stint on the PODS and Hall Stars. Ask the Garages, however, and you
           might get a different answer: Season 8. After Season 7, Jaylen saw her Debt Refinanced, and her pitches marked
-          players as more likely to Feedback, instead of facing Incineration.
+          players as more likely to Feedback instead of facing Incineration.
         </p>
         <p>
-          While the Garages managed to escape Season 7 unscathed, they took a huge hit this season, with a total of 5
-          lost to the feedback. Seeing Lang Richardson, an original Garage, go to the Pies on{" "}
+          While the Garages managed to escape Season 7 unscathed, they took a huge hit this season, with a total of five
+          lost to the Feedback. Seeing Lang Richardson, an original Garage, go to the <Link href="pies">Pies</Link> on{" "}
           <Jump time="2020-09-22T12:20:32Z">Day 21</Jump> in exchange for Nolanestophia Patterson stung, and there was a
-          tragic irony in Cedric Spliff swapping for Quack Enjoyable, noted replacement of Kiki Familia, on{" "}
-          <Jump time="2020-09-23T09:14:38Z">Day 42</Jump>. It wasn’t until the feedback of fan favorite Allison Abbott
+          tragic irony in Cedric Spliff swapping for Quack Enjoyable, who replaced Kiki Familia, on{" "}
+          <Jump time="2020-09-23T09:14:38Z">Day 42</Jump>. It wasn’t until the Feedback of fan favorite Allison Abbott
           for Paula Mason on Day 56 that Garages fans reassessed and changed their tune internally.
         </p>
         <p>
-          The stance on Discord changed from the age old motto “Don’t break up the band” to “Once a Garage, always a
+          The stance on Discord changed from the age old motto “don’t break up the band” to “once a Garage, always a
           Garage” and “Expand Band,” notions that would carry them to the end of the Expansion Era to ease the pain of
           the many players they would come to lose. Season 8 wasn’t done with them yet, however, as Paula Mason swapped
           for Paula Turnip on <Jump time="2020-09-24T14:25:39Z">Day 71</Jump>, and finally Farrell Seagull for Summers
@@ -133,35 +132,34 @@ export default function Page() {
       <Entry date="Season 9, Day 7" title="Jaylen Hotdogfingers’ World Tour" time="2020-10-05T22:11:46Z">
         <p>
           Though she’s known forever as a Garage, Jaylen Hotdogfingers traveled the league extensively due to her
-          permanent Flickering modification, acquired via{" "}
+          permanent Flickering Modification, acquired via{" "}
           <Jump redirect="/leaderboard" season={8} day={100}>
             Season 8’s idol board
           </Jump>
-          . She first traveled to Philadelphia on Day 7, swapping with the Pies’ Betsy Trombone. She returned on{" "}
+          . She first traveled to Philadelphia on Day 7, swapping with the <Link href="pies">Pies’</Link> Betsy Trombone. She returned on{" "}
           <Jump time="2020-10-06T12:10:10Z">Day 21</Jump> in exchange for Henry Marshallow, before crossing the border
-          to Canada on <Jump time="2020-10-07T20:16:34Z">Day 53</Jump> to swap places with the Moist Talkers’ Ortiz
+          to Canada on <Jump time="2020-10-07T20:16:34Z">Day 53</Jump> to swap places with the <Link href="moist-talkers">Moist Talkers’</Link> Ortiz
           Morse. On{" "}
           <Jump team="eb67ae5e-c4bf-46ca-bbbc-425cd34182ff" time="2020-10-08T07:21:38Z">
             Day 64
           </Jump>
-          , she went to the Charleston Shoe Thieves, sending back Beasley Gloom. Though her Flickering became
+          , she went to the <Link href="shoe-thieves">Charleston Shoe Thieves</Link>, sending back Beasley Gloom. Though her Flickering became
           Fliickerrriiing during{" "}
           <Jump redirect="/leaderboard" season={10} day={100}>
             Season 10
           </Jump>
-          , <Jump election={10}>she landed on the San Francisco Lovers</Jump> after the disbanding of THE SHELLED ONE’S
-          PODS and played Season 11 on only one team, due to a lack of Feedback weather.
+          , <Jump election={10}>she landed on the San Francisco Lovers</Jump> after the THE SHELLED ONE’S PODS disbanded.
         </p>
         <p>
-          Season 12 saw her world tour continue, going from the Lovers to the Yellowstone Magic on{" "}
+          Season 12 saw her world tour continue, going from the <Link href="lovers">Lovers</Link> to the <Link href="magic">Yellowstone Magic</Link> on{" "}
           <Jump team="b72f3061-f573-40d7-832a-5ad475bd7909" time="2021-03-02T03:15:04Z">
             Day 12
           </Jump>{" "}
-          for Yeong-Ho Garcia, the Hawaiʻi Fridays on{" "}
+          for Yeong-Ho Garcia, the <Link href="fridays">Hawaiʻi Fridays</Link> on{" "}
           <Jump team="7966eb04-efcc-499b-8f03-d13916330531" time="2021-03-04T00:00:51Z">
             Day 56
           </Jump>{" "}
-          for James Mora, the Core Mechanics on{" "}
+          for James Mora, the <Link href="mechanics">Core Mechanics</Link> on{" "}
           <Jump team="979aee4a-6d80-4863-bf1c-ee1a78e06024" time="2021-03-09T20:12:21Z">
             Season 13, Day 28
           </Jump>{" "}
@@ -178,13 +176,13 @@ export default function Page() {
             Day 90
           </Jump>{" "}
           in exchange for Cravel Gesundheit, after Garages fans’ early-season votes to Reform her Fliickerrriiing paid
-          off, <Jump election={17}>rerolling the modification into Super Idol</Jump>.
+          off, <Jump election={17}>rerolling the Modification into Super Idol</Jump>.
         </p>
       </Entry>
       <Entry date="Season 10, Day 91" title="No Parties in Seattle" time="2020-10-16T11:15:38Z">
         <p>
           Despite Enhanced Party Time passing during the <Jump election={6}>Season 6 Election</Jump>, Garages players
-          remained wallflowers for the three following seasons as the team made it to the postseason. This streak was
+          remained wallflowers for the next three seasons as the team made it to the postseason. This streak was
           broken by Summers Pony on Season 10, Day 91, becoming the first Garage to ever party.
         </p>
         <p>
@@ -192,30 +190,30 @@ export default function Page() {
           <Jump time="2021-05-14T15:01:12Z">Season 18, Day 92</Jump>. Conversely, one Garage has partied enough for the
           team to create a tradition out of it. Arturo Huerta has a habit of partying on Day 97, having done so in{" "}
           <Jump time="2021-03-12T18:05:26Z">Season 13</Jump>, <Jump time="2021-03-19T17:11:37Z">Season 14</Jump>, and{" "}
-          <Jump time="2021-07-02T18:31:23Z">Season 22</Jump>. Due to this pattern, fans of the team decided that Day 97
-          is their birthday, and celebrate it every season.
+          <Jump time="2021-07-02T18:31:23Z">Season 22</Jump>. Fans of the team decided that Day 97
+          is their birthday and celebrate it every season.
         </p>
       </Entry>
       <Entry date="Season 11, Day 12" title="Goodwin Morin Gets Charmed" time="2020-10-20T03:00:36Z">
         <p>
-          Getting Goodwin Morin to her star status was a labor of love, seasons in the making. She was boosted in the{" "}
+          Getting Goodwin Morin to her star status was a labor of love seasons in the making. She was boosted in the{" "}
           <Jump election={9}>Season 9 Election</Jump> with the Secret Weapon Blessing, which maxed out her stats, then
           pulled out of the shadows during the <Jump election={10}>Season 10 Election</Jump> with the Dark Star
           Blessing. All eyes were on this legendary all-star to perform. So, naturally, her response to all this
           pressure was to get charmed by Kichiro Guerra, <Jump time="2020-10-20T03:05:24Z">Don Mitchell</Jump>, and{" "}
           <Jump time="2020-10-20T03:06:21Z">Alexander Horne</Jump> during her second-ever appearance on the mound,
-          losing the game to the San Francisco Lovers. This made her one of the only two pitchers in the league to get
+          losing the game to the <Link href="lovers">San Francisco Lovers</Link>. This made her one of the only two pitchers in the league to get
           charmed this many times in the season.
         </p>
         <LineScore id="cfd4f578-84f3-4078-a4f5-60103338c82a" />
       </Entry>
       <Entry date="Season 11, Day 116" title="Strategic Loops" time="2020-10-24T23:31:49Z">
         <p>
-          One of the most amusing postseason runs for the Garages was in Season 11 against the Hellmouth Sunbeams, a
+          One of the most amusing postseason runs for the Garages was in Season 11 against the <Link href="sunbeams">Hellmouth Sunbeams</Link>, a
           seasons-long rivalry that finally came to a head. It all started as pitcher Lenny Marijuana stared down home
-          plate. It was the bottom of the 10th, and the score was 6-5. All he had to do was keep it parked. Lenny,
+          plate. In the bottom of the 10th, with the Garages leading 6-5, all he had to do was keep it parked. Lenny,
           however, had something of a lead foot. As the runs ticked up, it dawned on him: If he let the Beams get 10
-          runs, the count would reset thanks to Sun 2, and they’d both win. Lenny let up exactly 5 runs, ending the game
+          runs, their score would reset thanks to Sun 2, and they’d both win. Lenny let up exactly 5 runs, ending the game
           6-0, marking Lenny’s first postseason shutout.
         </p>
         <LineScore id="4f63ec6a-094c-44d2-945d-1325b1f61ad3" />
@@ -252,31 +250,31 @@ export default function Page() {
             Day 59
           </Jump>
           . During the <Jump election={16}>Season 16 Election</Jump>, she managed to avoid getting shadowed a second
-          time, by being shadowed for Mike Townsend and <em>then</em> moved to the lineup. On Season 17, Day 21, she was{" "}
+          time, by being shadowed for Mike Townsend and then moved to the lineup. On Season 17, Day 21, she was{" "}
           <Jump time="2021-04-20T11:11:50Z">Blooddrained by Richardson Games</Jump>, and, in one of the only documented
-          demonstrations of revenge, Hollywood returned the favor and{" "}
+          demonstrations of revenge in Blaseball, Hollywood returned the favor and{" "}
           <Jump time="2021-04-20T11:24:48Z">drained Blood Hamburger</Jump>.
         </p>
         <p>
           She would go on to have <Jump time="2021-06-24T19:27:01Z">one of the highest scoring skateboard tricks</Jump>{" "}
-          in the League, and, to cap off her streak of chaos on{" "}
+          in the League, and to cap off her streak of chaos on{" "}
           <Jump time="2021-07-21T04:12:28Z">Season 23, Day 37</Jump>, Alaynabella Hollywood stole Lucy Tokkan’s
-          Underhanded Rock Helmet, which may or may not have cost the Philly Pies their chance at an evolution-inducing
+          Underhanded Rock Helmet, which may have cost the <Link href="pies">Philly Pies</Link> their last chance at an evolution-inducing
           third championship.
         </p>
       </Entry>
       <Entry date="Season 14 Latesiesta" title="Did Anyone Hear an Echo?" time="2021-03-18T15:45:00Z">
         <p>
-          In Season 14, the Garages built Psychoacoustics in the Big Garage, and it came with an unexpected surprise:
+          In Season 14, the Garages built Psychoacoustics in the Big Garage, which came with an unexpected surprise:
           Wyatt Mason X, the tenth of thirteen Echoes given to every team that built Psychoacoustics that Latesiesta.
           Guessing that plot was afoot, Garages fans braced themselves for their newest player being temporary. Despite
-          that, 45 minutes later MaX was given a unique nickname and became well-loved by fans before xe had even played
+          that, 45 minutes later MaX was given a unique nickname and was well-loved by fans before xe had even played
           a single game.
         </p>
         <p>
           As the other Wyatts began to Echo each other into Static starting on{" "}
           <Jump time="2021-03-18T21:07:27Z">Day 77</Jump>, concern grew about the likelihood of MaX’s survival. Worried
-          fans checked the schedule and plotted out which pairs would static and when, and if MaX could avoid a similar
+          fans checked the schedule and plotted out which pairs would Static and when, and if MaX could avoid a similar
           fate. As the number of Echoes dwindled, it looked likely that xe would be the last one standing and, by sheer
           luck, xe avoided a collision course with any other Wyatt.
         </p>
@@ -291,49 +289,48 @@ export default function Page() {
       </Entry>
       <Entry election={14} title="Chorby Soul Reenters the Ring">
         <p>
-          As eDensity was examined during the beginnings of the Expansion Era, Chorby Soul drew attention. Some time
+          As eDensity was investigated during the beginnings of the Expansion Era, Chorby Soul drew attention. Some time
           between their Incineration on <Jump time="2020-08-04T08:15:44Z">Season 3, Day 14</Jump> and the Expansion Era,{" "}
           <Jump redirect="/player/a1628d97-16ca-4a75-b8df-569bae02bef9" season={12} day={1}>
-            Chorby Soul’s soulscream
+            Chorby Soul’s Soulscream
           </Jump>{" "}
-          grew so long that, on certain browsers, it would say “UNDEFINED” repeatedly, while in certain mobile browsers,
-          it caused the phone to grow warmer until the page and browser were both closed.
+          grew so long that, on certain browsers, it would say “undefined” repeatedly, while in certain mobile browsers,
+          it caused the phone to grow warmer until the page and browser both closed.
         </p>
         <p>
           With a mere 200 votes, the Garages resurrected Soul during the Season 14 Election, and the team’s new pitcher
-          immediately drew the ire of Consumers. Their large soulscream made them their primary target, and each attack
+          immediately drew the ire of Consumers. Their large Soulscream made them their primary target, and each attack
           made their stats drop. Before the end of the week, on <Jump time="2021-04-05T21:11:42Z">Day 7</Jump>, Soul’s
-          stats dropped as low as they possibly could, displaying all zeroes. Their soulscream still made them a ripe
-          target, though, and the team’s fans revered Soul, as they kept other players safe from the Consumers and
+          stats dropped as low as they possibly could, displaying all zeroes. Their Soulscream still made them a ripe
+          target, though, and the team’s fans revered Soul as they kept other players safe from the Consumers and
           potential Redaction. In the <Jump election={15}>Season 15 Election</Jump>, fans Reformed Soul’s
-          Observation-causing Debt, then waved farewell as the New York Millennials Plundered the now-Unstable Soul.
+          Observation-causing Debt, then waved farewell as the <Link href="millennials">New York Millennials</Link> Plundered the now-Unstable Soul.
         </p>
       </Entry>
       <Entry date="Season 19, Day 104" title="Tables Turned" time="2021-05-22T01:20:39Z">
         <p>
           After finally succeeding in Exchanging Avila Guzman back onto the team during the{" "}
-          <Jump election={18}>Season 18 Election</Jump>, she promptly left once more, not even a full season later, on{" "}
-          <Jump time="2021-05-21T11:08:17Z">Day 91</Jump>. She feedbacked with Aldon Cashmoney IV, a replica, who would
+          <Jump election={18}>Season 18 Election</Jump>, she promptly left once more, not even a full season later on{" "}
+          <Jump time="2021-05-21T11:08:17Z">Day 91</Jump>. She Feedbacked with Aldon Cashmoney IV, a Replica, who would
           turn to dust at the end of the postseason. However, this was not the only loss the team would suffer this
-          season. On Day 104, Sparks Beans became the first player to be Incinerated on the Garages since Season 8,
+          season: on Day 104, Sparks Beans became the first player to be Incinerated on the Garages since Season 8,
           replaced by Lenjamin Zhuge. Although the Garages would go on to lose the Internet Series that season, Zhuge
           outperformed everyone’s expectations and became a beloved part of the team.
         </p>
       </Entry>
       <Entry title="We Don’t Want To Lose You" season={22} day={60}>
         <p>
-          After being marked Unstable back to back in Season 7, on Days <Jump time="2020-09-18T17:16:04Z">96</Jump> and{" "}
-          <Jump time="2020-09-19T20:20:36Z">107</Jump> respectively, Tot Clark and Malik Destiny were marked unstable
-          twice in Season 22, in that order. This first came on <Jump time="2021-06-30T01:21:07Z">Day 34</Jump>, where
+          After being marked Unstable back-to-back in Season 7, on Days <Jump time="2020-09-18T17:16:04Z">96</Jump> and{" "}
+          <Jump time="2020-09-19T20:20:36Z">107</Jump> respectively, Tot Clark and Malik Destiny were marked Unstable
+          twice in Season 22, in that same order each time. This first came on <Jump time="2021-06-30T01:21:07Z">Day 34</Jump>, where
           the week would finish without an Eclipse, and again on <Jump time="2021-07-01T01:01:05Z">Day 58</Jump>,
           followed two days later by a Solar Eclipse game. Fans from the Garages and across the league rallied in
-          Discord, swearing in defiance of the Gods and Rogue Umps so much that moderation tools in use at the time were
-          ratelimited, in an event later dubbed “Soliswearity” by the team. Tot and Malik escaped unscathed.
+          Discord, swearing in defiance of the Gods and Rogue Umps so much that moderation tools in use at the time broke in an event later dubbed “Soliswearity” by the team. Tot and Malik escaped unscathed.
         </p>
       </Entry>
       <Entry date="Season 22, Day 99" title="Mike Townsend Hits a Grand Slam!" time="2021-07-02T20:06:44Z">
         <p>
-          Mike Townsend has had a storied career, with epithets that rotated as often as he was called into and out of
+          Mike Townsend had a storied career, with epithets that rotated as often as he was called into and out of
           the shadows. Originally a disappointment against anyone but{" "}
           <Jump season={5} day={11}>
             Jessica Telephone
@@ -349,7 +346,7 @@ export default function Page() {
         </p>
         <LineScore id="3d953e88-5749-4b1b-822b-336d4e3d01b5" />
         <p>
-          Townsend went on to hit a second grand slam in <Jump time="2021-07-20T20:08:22Z">Season 23, on Day 29</Jump>.
+          Townsend went on to hit a second grand slam on <Jump time="2021-07-20T20:08:22Z">Season 23, Day 29</Jump>.
         </p>
       </Entry>
       <Entry title="The End of an Era" redirect="/depth" season={24} day={98}>
@@ -358,7 +355,7 @@ export default function Page() {
           of devastating events tore four of the Garages’ original players from the team early in the season. On{" "}
           <Jump time="2021-07-26T20:02:19Z">Day 6</Jump>, Tot Clark entered the Secret Base before being Incinerated,
           managing to steal third base from beyond the grave when he exited it. Not long after his death, Oliver Mueller
-          and Mike Townsend were both beaned by Niq Nyong’o on Day 19, Redacting them after play ended on Days{" "}
+          and Mike Townsend were both hit by Niq Nyong’o's pitches on Day 19, Redacting them after play ended on Days{" "}
           <Jump redirect="/player/8b53ce82-4b1a-48f0-999d-1774b3719202" time="2021-07-27T10:25:00Z">
             20
           </Jump>{" "}
@@ -369,17 +366,17 @@ export default function Page() {
           , respectively. The team lost yet another player on <Jump time="2021-07-27T21:31:07Z">Day 30</Jump>, when
           Lenny Marijuana was stolen by the Cookout’s Phantom Thieves’ Guild and given to the Carolina Queens.{" "}
           <Jump time="2021-07-27T22:25:26Z">A day later</Jump>, Marijuana voicemailed out from the shadows, briefly
-          becoming the star of the Queens before getting Incinerated on <Jump time="2021-07-28T01:15:09Z">Day 34</Jump>.
+          becoming the star of the Queens before being Incinerated on <Jump time="2021-07-28T01:15:09Z">Day 34</Jump>.
         </p>
         <p>
-          Among the tragedies, the Garages decided to head to the Hall of Flame when the Navigate tab appeared during
-          Earlsiesta, after an internal debate over whether or not the Hall Monitor is a god. After helping to melt the
+          Among the tragedies, the Garages decided to head to the Hall of Flame when the Map appeared during
+          Earlsiesta, after a brief internal debate over whether or not the Hall Monitor is a god. After helping melt the
           Coin on{" "}
           <Jump redirect="/depth" time="2021-07-30T02:50:00Z">
             Day 81
           </Jump>
           , fans decided to seek refuge in the Hall as the Black Hole (Black Hole) began to expand. However, they did
-          not reach their destination in time and got nullified by the Black Hole (Black Hole) on Day 98.
+          not reach their destination in time and were nullified by the Black Hole (Black Hole) on Day 98.
         </p>
       </Entry>
     </History>
