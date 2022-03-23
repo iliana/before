@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { History, Entry } from "../../components/histories";
+import { TitleBreak, History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
 import LineScore from "../../components/linescore";
 import loadLineScores from "../../lib/linescore";
@@ -184,7 +184,12 @@ export default function Page() {
       </Entry>
       <Entry
         date="Season 23, Day 65"
-        title="The (Temporary) Incineration of Pudge (and Consequences Thereof)"
+        title={
+          <>
+            The (Temporary) Incineration <TitleBreak />
+            of Pudge (and Consequences Thereof)
+          </>
+        }
         time="2021-07-22T08:08:57Z"
       >
         <p>

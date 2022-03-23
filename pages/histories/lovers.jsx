@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { History, Entry } from "../../components/histories";
+import { TitleBreak, History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
 import LineScore from "../../components/linescore";
 import loadLineScores from "../../lib/linescore";
@@ -98,7 +98,12 @@ export default function Page() {
         </p>
       </Entry>
       <Entry
-        title="Yosh Carpenter Pitches for the San Francisco Lovers and the Hawaiʻi Fridays"
+        title={
+          <>
+            Yosh Carpenter Pitches for the <TitleBreak />
+            San Francisco Lovers and the Hawaiʻi Fridays
+          </>
+        }
         date="Season 13, Day 79"
         time="2021-03-12T00:01:16Z"
       >
@@ -120,12 +125,16 @@ export default function Page() {
           game they pitch, and the misplaced “trying to pitch with a bat” Cannonball Sports. After looping with the
           Black Hole, the Lovers awarded Chorby with their first win. The riots that erupted that night after over 40
           minutes of play were heard around the league, with Mills fan EDVA coining the collective chant:
-          {/* block quote */}“Woah. We’re still playing? Haha, looks like everyone else finished their games already.
-          That’s so funny. Like, I always seem to lose track of time when I’m with you. I wonder why that is? All these
-          innings, stolen bases, drawn walks. Makes you think about where you’re gonna be in another few seasons, right?
-          Here we are, just two typical Blaseball teams, still on the field, together. I promise not to let it end if
-          you don’t, okay?”
         </p>
+        <blockquote>
+          <p>
+            Woah. We’re still playing? Haha, looks like everyone else finished their games already. That’s so funny.
+            Like, I always seem to lose track of time when I’m with you. I wonder why that is? All these innings, stolen
+            bases, drawn walks. Makes you think about where you’re gonna be in another few seasons, right? Here we are,
+            just two typical Blaseball teams, still on the field, together. I promise not to let it end if you don’t,
+            okay?
+          </p>
+        </blockquote>
       </Entry>
       <Entry title="Theo Eats His Ring" season={20} day={104}>
         <p>

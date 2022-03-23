@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { History, Entry } from "../../components/histories";
+import { TitleBreak, History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
 import LineScore from "../../components/linescore";
 import loadLineScores from "../../lib/linescore";
@@ -220,7 +220,16 @@ export default function Page() {
           beloved Season 1 batter, who would follow Soul to the Hall of Flame.
         </p>
       </Entry>
-      <Entry title="The Baby Shower Held ‘Round the League: Lil Pitchy’s ILB Debut" season={22} day={13}>
+      <Entry
+        title={
+          <>
+            The Baby Shower Held ‘Round <TitleBreak />
+            the League: Lil Pitchy’s ILB Debut
+          </>
+        }
+        season={22}
+        day={13}
+      >
         <p>
           At the end of Day 12, the Millennials’ rotation was in a tight spot. Sandie Carver and Schneider Bendie both
           escaped Elsewhere the previous season to avoid being caught in Grand Heists on Days{" "}

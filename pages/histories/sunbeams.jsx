@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Reader } from "../../components/being";
-import { History, Entry } from "../../components/histories";
+import { TitleBreak, History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
 import loadLineScores from "../../lib/linescore";
 
@@ -233,7 +233,12 @@ export default function Page() {
         </p>
       </Entry>
       <Entry
-        title="The Sunbeams Misunderstand Instructions So Heavily the Coin Dies"
+        title={
+          <>
+            The Sunbeams Misunderstand <TitleBreak />
+            Instructions So Heavily the Coin Dies
+          </>
+        }
         season={24}
         day={51}
         time="2021-07-28T19:34:01Z"

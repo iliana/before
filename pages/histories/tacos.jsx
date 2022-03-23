@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Coin } from "../../components/being";
-import { History, Entry } from "../../components/histories";
+import { TitleBreak, History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
 import LineScore from "../../components/linescore";
 import loadLineScores from "../../lib/linescore";
@@ -126,7 +126,7 @@ export default function Page() {
         date="Season 8, Day 47"
         title={
           <>
-            Sexton Wheerer, the Pitching Machine <br className="tw-hidden lg:tw-inline" />
+            Sexton Wheerer, the Pitching Machine <TitleBreak />
             (Except Not That One, It’s in a Peanut Shell Right Now)
           </>
         }
@@ -291,7 +291,12 @@ export default function Page() {
       </Entry>
       <Entry
         date="Season 17, Day 14"
-        title="The Shelling of Felix Garbage and Basilio Fig by the Scorned Alejandro Leaf"
+        title={
+          <>
+            The Shelling of Felix Garbage and <TitleBreak />
+            Basilio Fig by the Scorned Alejandro Leaf
+          </>
+        }
         time="2021-04-20T04:13:22Z"
       >
         <p>
@@ -362,7 +367,7 @@ export default function Page() {
       </Entry>
       <Entry
         date="Season 22, Day 9"
-        title="5 Runs Scored: The Incineration of Goobie Ballson"
+        title="Five Runs Scored: The Incineration of Goobie Ballson"
         time="2021-06-28T23:05:54Z"
       >
         <p>

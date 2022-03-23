@@ -80,7 +80,7 @@ function defaultDate(jump) {
 export function Entry({ date, title, children, ...jump }) {
   const theDate = date ?? defaultDate(jump);
   return (
-    <div className="tw-my-6 lg:tw-my-8">
+    <div className="tw-my-6 lg:tw-my-8 tw-mx-auto tw-max-w-prose">
       <h3 className="tw-text-center tw-font-bold tw-text-xl lg:tw-text-2xl tw-mb-1.5 lg:tw-mb-2">
         <Jump className="hover:tw-no-underline tw-group" {...jump}>
           {theDate ? (
@@ -92,7 +92,7 @@ export function Entry({ date, title, children, ...jump }) {
           <span className="group-hover:tw-underline tw-block">{title}</span>
         </Jump>
       </h3>
-      <div className="tw-before-history tw-max-w-prose tw-mx-auto tw-leading-relaxed">{children}</div>
+      <div className="tw-before-history tw-leading-relaxed">{children}</div>
     </div>
   );
 }
@@ -111,4 +111,8 @@ function WebRing({ className, team, previous }) {
       </a>
     </Link>
   );
+}
+
+export function TitleBreak() {
+  return <br className="tw-hidden lg:tw-inline" />;
 }

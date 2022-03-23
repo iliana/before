@@ -46,6 +46,10 @@
   .tw-before-history p {
     @apply tw-my-2 lg:tw-my-3;
   }
+
+  .tw-before-history blockquote {
+    @apply tw-border-gray-500 tw-border-l-4 tw-pl-4 lg:tw-pl-5;
+  }
 }
 
 @layer utilities {

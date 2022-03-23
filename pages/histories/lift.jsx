@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { History, Entry } from "../../components/histories";
+import { TitleBreak, History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
 import LineScore from "../../components/linescore";
 import loadLineScores from "../../lib/linescore";
@@ -271,7 +271,7 @@ export default function Page() {
         date="Season 24, Day 79"
         title={
           <>
-            Val Hitherto Epic Victory Royale End of the World Beefwings <br className="tw-hidden lg:tw-inline" />
+            Val Hitherto Epic Victory Royale End of the World Beefwings <TitleBreak />
             Hell Revenge Speedrun Cringe Compilation (Not Clickbait)
           </>
         }

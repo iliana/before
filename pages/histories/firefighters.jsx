@@ -105,7 +105,7 @@ export default function Page() {
         </p>
       </Entry>
       <Entry
-        title="Hendricks Richardson hit a Ground Out to Joshua Butt"
+        title="Hendricks Richardson Hit a Ground Out to Joshua Butt"
         date="Season 9, Day 100"
         time="2020-10-09T20:10:44Z"
       >
