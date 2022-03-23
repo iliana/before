@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { History, Entry } from "../../components/histories";
+import { Frac, History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
 import LineScore from "../../components/linescore";
 import Spoiler from "../../components/spoiler";
@@ -230,9 +230,10 @@ export default function Page() {
           The <Jump time="2021-07-25T01:58:06Z">ILB Semi-Centennial</Jump> was kind of a Big Deal. The Jazz Hands’ very
           own Baby Doyle played for the Rising Stars and, unlike Collins Melon, returned. However, Baby did not return
           as a batter, but as a pitcher. Doyle cannot pitch. In their first game on the mound, while Perked in Coffee
-          weather, the Magnified Baby Doyle was faxed after 5 ⅔ innings after allowing 12 runs. 10 of those runs were
-          from the rival Baby, the also-Magnified Triumphant. Doyle did not pitch again and, luckily, voicemailed back
-          onto the lineup on <Jump time="2021-07-27T04:21:23Z">Day 14</Jump>.
+          weather, the Magnified Baby Doyle was faxed after 5&#8239;
+          <Frac n={2} d={3} /> innings after allowing 12 runs. 10 of those runs were from the rival Baby, the
+          also-Magnified Triumphant. Doyle did not pitch again and, luckily, voicemailed back onto the lineup on{" "}
+          <Jump time="2021-07-27T04:21:23Z">Day 14</Jump>.
         </p>
       </Entry>
     </History>

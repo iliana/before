@@ -116,3 +116,13 @@ function WebRing({ className, team, previous }) {
 export function TitleBreak() {
   return <br className="tw-hidden lg:tw-inline" />;
 }
+
+export function Frac({ n, d }) {
+  return (
+    <>
+      <sup className="tw-tracking-[-0.15em] tw-text-[.58rem] lg:tw-text-[.67rem] tw-font-medium">{n}</sup>
+      <span className="tw-tracking-[-0.15em]">&frasl;</span>
+      <span className="tw-text-[.58rem] lg:tw-text-[.67rem] tw-font-medium">{d}</span>
+    </>
+  );
+}
