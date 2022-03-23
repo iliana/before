@@ -109,7 +109,7 @@ export default function Page() {
         </p>
         <p>
           At the end of the season, all five Tacos pitchers &mdash; Francisca Sasquatch, Alejandro Leaf, Patel Beyonce,
-          Sexton Wheerer and Wyatt Pothos &mdash; were Shelled, leaving the team wondering what would happen on Season
+          Sexton Wheerer, and Wyatt Pothos &mdash; were Shelled, leaving the team wondering what would happen on Season
           8’s opening day. This led to the birth of Pitching Machine, a tired Tacoganda Machine and leadership staff,
           and an influx of excited new fans looking to help with more hijinks.
         </p>
