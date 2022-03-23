@@ -112,7 +112,7 @@ export default function Page() {
           On Season 13, Day 86, Gonzales, a Triple Threat, and the Tacos’ Yummy Elliot were having the sort of pitching
           duel common in the era, to the point where the bottom of the 8th started{" "}
           <Jump time="2021-03-12T07:18:56Z">19 minutes past the hour</Jump>, the scores still tied at 0-0. In the bottom
-          of the 8th, <Jump time="2021-03-12T07:19:37Z">a Rogue Umpire tried to Incinerate Basilio Fig</Jump> but became Magmatic instead, guaranteeing a home run during their next at bat.
+          of the 8th, <Jump time="2021-03-12T07:19:37Z">a Rogue Umpire tried to Incinerate Basilio Fig</Jump> but became Magmatic instead, guaranteeing a home run during their next at-bat.
         </p>
         <p>
           In the top of the 9th, with 2 outs, Gonzales improbably{" "}

@@ -200,7 +200,7 @@ export default function Page() {
           being allowed to swear without moderation.
         </p>
         <p>
-          As if hearing the fans’ profanity-laden cries, Spears stepped up for one final at bat, with two outs on the
+          As if hearing the fans’ profanity-laden cries, Spears stepped up for one final at-bat, with two outs on the
           board. Strike, looking. Strike, looking.{" "}
           <Jump time="2021-07-23T15:28:14Z">
             Spears Rogers and Famous Owens swapped places in the Feedback at that moment

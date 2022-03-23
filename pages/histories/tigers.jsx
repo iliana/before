@@ -77,7 +77,7 @@ export default function Page() {
             locked at the end of Day 99
           </Jump>
           . During Day X, Violence <Jump time="2020-10-18T01:04:06Z">absorbed an Incineration attempt</Jump> and, at
-          their next at bat, hit a Magmatic home run. Once Incinerated, they now struck back. Violence, like the other
+          their next at-bat, hit a Magmatic home run. Once Incinerated, they now struck back. Violence, like the other
           Hall Stars, was{" "}
           <Jump redirect="/player/d74a2473-1f29-40fa-a41e-66fa2281dfca" time="2020-10-18T19:30:00Z">
             Released
@@ -192,7 +192,7 @@ export default function Page() {
         </p>
         <p>
           For the first time in her career, Jaylen stepped up to the plate as a batter, and on opening day, standing on
-          the pitcher’s mound opposite her, was none other than Hiroto Wilcox. Jaylen’s first at bat didn’t take place
+          the pitcher’s mound opposite her, was none other than Hiroto Wilcox. Jaylen’s first at-bat didn’t take place
           until the 3rd inning. Wilcox threw a clean strike on the first pitch, then a Fiery double strike on the
           second. In the 6th inning, Jaylen stepped up to the plate for the second time, and once again, Hiroto threw a
           strike, then a Fiery double strike to send Jaylen back to the bench. The game ended before Jaylen picked up a
@@ -236,7 +236,7 @@ export default function Page() {
           <Jump redirect="/item/554aa743-458a-40eb-bc76-4008193b7ca3" season={23} day={95}>
             Fliickerrriiing Greedy Potion of the Famine
           </Jump>
-          , making hys Feedback a nigh-certainty. Reality flickered during hys first at bat in the top of the 2nd. It was equally likely for the Feedback to target any player on the Tigers’ line up but, out of the
+          , making hys Feedback a nigh-certainty. Reality flickered during hys first at-bat in the top of the 2nd. It was equally likely for the Feedback to target any player on the Tigers’ line up but, out of the
           eight, Owens was swapped.
         </p>
         <p>

@@ -157,7 +157,7 @@ export default function Page() {
         <p>
           This wasn’t enough for Leaf as she, after allowing three more runs and seeing an opposing runner steal third, went
           on to <Jump time="2021-04-20T04:19:39Z">Shell former Tacos teammate Basilio Fig</Jump> while they were
-          simultaneously at bat and in the Secret Base. The Lift ended up losing the game 1-11, but Leaf’s act of
+          simultaneously at-bat and in the Secret Base. The Lift ended up losing the game 1-11, but Leaf’s act of
           petty vengeance tempered any disappointment over the Lift’s blowout defeat. In the aftermath, then-Tacos
           pitcher{" "}
           <Jump time="2021-04-20T11:21:17Z" team="878c1bf6-0d21-4659-bfee-916c8314d69c">
@@ -251,7 +251,7 @@ export default function Page() {
           <Jump season={23} day={100} redirect="/team/280c587b-e8f6-4a7e-a8ce-fd2fa2fa3e70">
             Rising Stars
           </Jump>
-          . As for Fenestrate, he took cover in the Secret Base after their next at bat. The Pies continued scoring
+          . As for Fenestrate, he took cover in the Secret Base after their next at-bat. The Pies continued scoring
           without reply and, when Fenestrate <Jump time="2021-06-22T02:20:12Z">finally emerged to steal fifth</Jump>, xe{" "}
           <Jump time="2021-06-22T02:20:33Z">failed to bat hirself in</Jump>. After this, the Tokyo Lift abolished the
           captaincy.

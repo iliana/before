@@ -129,7 +129,7 @@ export default function Page() {
         <p>
           Season 12’s bad luck didn’t let up. Only 18 days after losing Edric Tosser to the Feedback, fan favorite
           Joshua Butt, often seen as a parental figure to the team, was Incinerated by a Rogue Umpire and replaced by
-          Gita Sparrow. Maybe in an attempt to lighten the blow, Sparrow’s first at bat resulted in a single, and she was
+          Gita Sparrow. Maybe in an attempt to lighten the blow, Sparrow’s first at-bat resulted in a single, and she was
           later batted in to help the Firefighters win with a shutout.
         </p>
         <p>

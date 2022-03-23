@@ -72,7 +72,7 @@ export default function Page() {
           SHELLED ONE’S PODS. On Season 9, Day 103, the Crabs hosted the <Link href="sunbeams">Sunbeams</Link> in Birds weather. This was the end of
           another spectacular season for the Crabs, and their 71 wins had fans feeling good about the team’s chances at
           Ascension. They didn’t need a miracle, but got one anyway: It was only the second inning when Birds pecked
-          McDaniel free, right before the 3rd inning for <Jump time="2020-10-10T13:14:58Z">her first at bat</Jump>. The first pitch thrown to her became a
+          McDaniel free, right before the 3rd inning for <Jump time="2020-10-10T13:14:58Z">her first at-bat</Jump>. The first pitch thrown to her became a
           two-run home run. In the 4th inning, two balls preceded a <Jump time="2020-10-10T13:19:10Z">3-run home run</Jump>.
         </p>
         <p>Nagomi’s pregame ritual happened to be “cursing the sun”.</p>
