@@ -32,14 +32,16 @@ export default function Page() {
       <Entry election={15} title="Pitch Perfect">
         <p>
           Zoey Kirchner was one of the best natural pitching rolls of all time. Shirai McElroy was a talented future
-          star from <Link href="moist-talkers">Canada</Link>. Mindy Kugel was a batter from <Link href="worms">Ohio</Link> with an eye on the mound. Jolene Willowtree was a
-          1.7-star pitcher who was on their way to becoming one of the best in the league. They would become one of the
-          most consistent rotations in the ILB, an all-star cast with nowhere to go but up.
+          star from <Link href="moist-talkers">Canada</Link>. Mindy Kugel was a batter from{" "}
+          <Link href="worms">Ohio</Link> with an eye on the mound. Jolene Willowtree was a 1.7-star pitcher who was on
+          their way to becoming one of the best in the league. They would become one of the most consistent rotations in
+          the ILB, an all-star cast with nowhere to go but up.
         </p>
         <p>
           They would reign supreme for only one season. <Jump election={16}>A season later</Jump>, Kirchner was sent to
-          <Link href="steaks">Dallas</Link> and <Jump season={20}>would return</Jump> to a rotation with room for only three pitchers. A season
-          after Kirchner left, Kugel <Jump time="2021-04-19T17:17:51Z">Reverbed to the lineup</Jump> and Alternated{" "}
+          <Link href="steaks">Dallas</Link> and <Jump season={20}>would return</Jump> to a rotation with room for only
+          three pitchers. A season after Kirchner left, Kugel{" "}
+          <Jump time="2021-04-19T17:17:51Z">Reverbed to the lineup</Jump> and Alternated{" "}
           <Jump election={21}>four seasons later</Jump>. Pitch Perfect would never take the Mechanics to a championship;
           in{" "}
           <Jump redirect="/standings" time="2021-05-15T23:00:00Z">
@@ -63,10 +65,10 @@ export default function Page() {
       <Entry date="Season 17, Day 3" title="Kelvin Drumfill" time="2021-04-19T17:17:51Z">
         <p>
           The Mechanics were already in for a rocky season, having traded a 6-star pitcher for a PolkaDot Patterson who
-          could <Jump election={16}>no longer throw the ball</Jump>. Bottles Suljak was a solid batter on a team with few batters who could be
-          called good, while Mindy Kugel was a staple of the pitching rotation. The Reverb swapped them, while bringing
-          Kelvin Drumsolo back up to bat right after they stole second. This cemented the team’s sink to the bottom of
-          the league.
+          could <Jump election={16}>no longer throw the ball</Jump>. Bottles Suljak was a solid batter on a team with
+          few batters who could be called good, while Mindy Kugel was a staple of the pitching rotation. The Reverb
+          swapped them, while bringing Kelvin Drumsolo back up to bat right after they stole second. This cemented the
+          team’s sink to the bottom of the league.
         </p>
       </Entry>
       <Entry date="Season 18, Day 84" title="Kelvin Andante Caught for Fax Evasion" time="2021-05-14T05:22:08Z">
@@ -88,11 +90,13 @@ export default function Page() {
             last in the league in Season 17
           </Jump>{" "}
           and spending most of Season 18 with one-third of the rotation ignoring everyone begging them to leave, the
-          Mechanics managed to claw their way into qualifying. They swept the <Link href="pies">Philly Pies</Link>, favorites to win, due in
-          equal parts to <Jump time="2021-05-15T05:16:21Z">Nerd Pacheco’s Superallergic reaction</Jump> and the
-          Mechanics’ consistent lineup and rotation. They would go on to have tight games in the finals, with neither
-          the <Link href="flowers">Flowers’</Link> nor the Mechanics’ pitchers throwing outside the strike zone if they could help it. Jolene
-          Willowtree proved their worth on Day 116 by <Jump time="2021-05-15T22:06:03Z">giving up only one run</Jump>.
+          Mechanics managed to claw their way into qualifying. They swept the <Link href="pies">Philly Pies</Link>,
+          favorites to win, due in equal parts to{" "}
+          <Jump time="2021-05-15T05:16:21Z">Nerd Pacheco’s Superallergic reaction</Jump> and the Mechanics’ consistent
+          lineup and rotation. They would go on to have tight games in the finals, with neither the{" "}
+          <Link href="flowers">Flowers’</Link> nor the Mechanics’ pitchers throwing outside the strike zone if they
+          could help it. Jolene Willowtree proved their worth on Day 116 by{" "}
+          <Jump time="2021-05-15T22:06:03Z">giving up only one run</Jump>.
         </p>
         <LineScore id="823dfcb6-dddb-43f4-90ff-eac05827a82e" />
       </Entry>
@@ -125,15 +129,16 @@ export default function Page() {
       </Entry>
       <Entry date="Season 20, Day 107" title="Winnie Hess’ Tactical Gurgies" time="2021-06-19T04:21:29Z">
         <p>
-          Terrifyingly powerful <Link href="breath-mints">Breath Mints</Link> pitcher Winnie Hess drained some of Gia Holbrook’s defensive ability. This
-          would usually be pretty bad if it weren’t for the Mechanics’ Maintenance Mode, which gave the team the Fourth
-          Out. Hess siphoned Holbrook in the top of the 9th, giving the Mechanics only one inning with four outs.
+          Terrifyingly powerful <Link href="breath-mints">Breath Mints</Link> pitcher Winnie Hess drained some of Gia
+          Holbrook’s defensive ability. This would usually be pretty bad if it weren’t for the Mechanics’ Maintenance
+          Mode, which gave the team the Fourth Out. Hess siphoned Holbrook in the top of the 9th, giving the Mechanics
+          only one inning with four outs.
         </p>
         <p>
-          Adelaide Judochop would come in after the third out and score a run, bringing the score to 2-0. The Mints would
-          then score 1 run in the bottom of the 9th which would have, if it weren’t for the Fourth Out, tied the score.
-          While the Fourth Strike was then removed, it got the team past one of the most significant hurdles between
-          them and{" "}
+          Adelaide Judochop would come in after the third out and score a run, bringing the score to 2-0. The Mints
+          would then score 1 run in the bottom of the 9th which would have, if it weren’t for the Fourth Out, tied the
+          score. While the Fourth Strike was then removed, it got the team past one of the most significant hurdles
+          between them and{" "}
           <Jump redirect="/standings" time="2021-06-19T23:35:00Z">
             a fifth championship
           </Jump>
@@ -180,9 +185,9 @@ export default function Page() {
       <Entry date="Season 22 Latesiesta" title="Wish List" time="2021-07-01T17:45:00Z">
         <p>
           The Mechanics received several Replicas from the Gift Shop in an attempt to protect their players from another
-          Election like <Jump election={21}>Season 21’s</Jump>. This would inspire some heartbreaking lore about Replica Cote Loveless III and Adelaide Judochop. It would
-          also prove futile, as Judochop still became a Subtractor, turning her Magnification from a blessing into a
-          curse.
+          Election like <Jump election={21}>Season 21’s</Jump>. This would inspire some heartbreaking lore about Replica
+          Cote Loveless III and Adelaide Judochop. It would also prove futile, as Judochop still became a Subtractor,
+          turning her Magnification from a blessing into a curse.
         </p>
       </Entry>
       <Entry
@@ -204,9 +209,9 @@ export default function Page() {
       </Entry>
       <Entry season={24} day={24} title="Niq Nyong’o Beans the Mechs">
         <p>
-          Due to the Pillars building several Coffee&nbsp;+ renovations, the weather was Coffee 3s. Bees Taswell, an original
-          Mechanic who was one of the few strong batters left and <Jump election={22}>recently Infused</Jump>, was hit
-          by a pitch in <Jump time="2021-07-27T14:09:35Z">the bottom of the 3rd</Jump> and{" "}
+          Due to the Pillars building several Coffee&nbsp;+ renovations, the weather was Coffee 3s. Bees Taswell, an
+          original Mechanic who was one of the few strong batters left and <Jump election={22}>recently Infused</Jump>,
+          was hit by a pitch in <Jump time="2021-07-27T14:09:35Z">the bottom of the 3rd</Jump> and{" "}
           <Jump redirect="/player/2f85d731-81ed-4a07-9e01-e93f1786a366" time="2021-07-27T14:45:00Z">
             Redacted at the end of play
           </Jump>

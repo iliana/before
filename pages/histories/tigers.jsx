@@ -22,7 +22,8 @@ export default function Page() {
           the only one in an Internet Series. They were also one of the Tigers’ best players and, due to their name and
           performance, well-known across the whole league. When they died and were replaced by Paula Turnip, the entire
           league’s eyes were on them. To this day, people still use “RIV” &mdash; “Rest In Violence” &mdash; instead of
-          the more conventional “Rest In Peace.” After Violence’s death, the Tigers rallied and defeated the <Link href="millennials">New York Millennials</Link> to secure their{" "}
+          the more conventional “Rest In Peace.” After Violence’s death, the Tigers rallied and defeated the{" "}
+          <Link href="millennials">New York Millennials</Link> to secure their{" "}
           <Jump redirect="/standings" time="2020-08-24T01:00:00Z">
             first championship title
           </Jump>
@@ -39,8 +40,9 @@ export default function Page() {
         <p>
           When Scorpler became <Jump time="2020-09-15T23:17:19Z">one of the casualties</Jump> of Ruby Tuesday, it turned
           into grim irony. Without the Jacket, Scorpler was Incinerated during the game, doomed by the Headphones.
-          However, there was a wholesome coda for the <Link href="moist-talkers">Canada Moist Talkers</Link>, the other victims of Ruby Tuesday. A Season
-          7 Blessing that brought back Scorpler’s Memorial Fireproof Jacket, and the Talkers’ Jesús Koch{" "}
+          However, there was a wholesome coda for the <Link href="moist-talkers">Canada Moist Talkers</Link>, the other
+          victims of Ruby Tuesday. A Season 7 Blessing that brought back Scorpler’s Memorial Fireproof Jacket, and the
+          Talkers’ Jesús Koch{" "}
           <Jump election={7} team="eb67ae5e-c4bf-46ca-bbbc-425cd34182ff">
             won it with 3% of the vote
           </Jump>
@@ -87,10 +89,11 @@ export default function Page() {
       </Entry>
       <Entry season={11} day={115} title="Infinite Tigerbeams">
         <p>
-          In Season 11, two new weathers made up the entirety of the forecast: Black Hole and Sun 2. The <Link href="sunbeams">Sunbeams</Link> and
-          the Tigers had two of the best offenses in the league, so they kept triggering Sun 2 and Black Hole. With the
-          Wild League Champion Series tied at 3-3 after 5 games, the Sunbeams managed to get ahead in a late game rally,
-          ending the best-of-5 series with 5 wins to the Tigers’ 3. It was the longest postseason series in Beta.
+          In Season 11, two new weathers made up the entirety of the forecast: Black Hole and Sun 2. The{" "}
+          <Link href="sunbeams">Sunbeams</Link> and the Tigers had two of the best offenses in the league, so they kept
+          triggering Sun 2 and Black Hole. With the Wild League Champion Series tied at 3-3 after 5 games, the Sunbeams
+          managed to get ahead in a late game rally, ending the best-of-5 series with 5 wins to the Tigers’ 3. It was
+          the longest postseason series in Beta.
         </p>
         <LineScore id="07d98d4c-bcca-45e1-9839-219342616b45" />
         <p>
@@ -113,8 +116,8 @@ export default function Page() {
           best pitching seasons ever, and Famous Owens, who had a 4.67 ERA in the regular season, only giving up{" "}
           <Jump time="2021-03-06T22:24:53Z">1 run</Jump> in 3 playoff games. The lineup had Aldon Cashmoney’s Red Hot
           postseason performance, scoring around a quarter of the team’s total runs with a batting average of 0.400, a
-          slugging percentage of 0.983, and an OPS of 1.396{/* stat slashing, good use for glossary function */}, with Randy Castillo scoring almost as many runs as
-          Cashmoney.
+          slugging percentage of 0.983, and an OPS of 1.396{/* stat slashing, good use for glossary function */}, with
+          Randy Castillo scoring almost as many runs as Cashmoney.
         </p>
         <p>
           As a result of the Based Evolution Decree passing in the <Jump election={12}>Season 12 Election</Jump>, the
@@ -124,11 +127,13 @@ export default function Page() {
       <Entry date="Season 13, Day 1" title="Mummy Melcon Melt-ons a Rogue Umpire" time="2021-03-08T16:20:36Z">
         <p>
           In the <Jump election={10}>Season 10 Election</Jump>, the Hades Tigers won the Umpire Cream Blessing, making
-          the entire team permanently Fireproof. This first came into play in the first game of Season 13, in the 7th inning at the
-          <Link href="dale">Dale’s</Link> Worldwide Field. Trying to get umpires to target their players for Incineration, and instead get
-          destroyed themselves, was something Tigers fans would continue to call for during the Expansion Era. This was
-          the first time it happened, and it was cathartic; Mummy Melcon started playing in Season 7 as{" "}
-          <Jump time="2020-09-17T15:05:31Z">Yazmin Mason’s replacement</Jump>. It could be seen as vengeance.
+          the entire team permanently Fireproof. This first came into play in the first game of Season 13, in the 7th
+          inning at the
+          <Link href="dale">Dale’s</Link> Worldwide Field. Trying to get umpires to target their players for
+          Incineration, and instead get destroyed themselves, was something Tigers fans would continue to call for
+          during the Expansion Era. This was the first time it happened, and it was cathartic; Mummy Melcon started
+          playing in Season 7 as <Jump time="2020-09-17T15:05:31Z">Yazmin Mason’s replacement</Jump>. It could be seen
+          as vengeance.
         </p>
       </Entry>
       <Entry date="Season 14, Day 79" title="Dunlap’s Soliloquy" time="2021-03-18T23:09:16Z">
@@ -232,12 +237,14 @@ export default function Page() {
           Feedbacked away on <Jump time="2021-07-23T03:17:24Z">Season 23, Day 83</Jump>.
         </p>
         <p>
-          The only one left was Famous Owens, previously a famously inconsistent pitcher, now a fantastic batter. <Link href="jazz-hands">Jazz Hands</Link> batter Spears Rogers held the{" "}
+          The only one left was Famous Owens, previously a famously inconsistent pitcher, now a fantastic batter.{" "}
+          <Link href="jazz-hands">Jazz Hands</Link> batter Spears Rogers held the{" "}
           <Jump redirect="/item/554aa743-458a-40eb-bc76-4008193b7ca3" season={23} day={95}>
             Fliickerrriiing Greedy Potion of the Famine
           </Jump>
-          , making hys Feedback a nigh-certainty. Reality flickered during hys first at-bat in the top of the 2nd. It was equally likely for the Feedback to target any player on the Tigers’ line up but, out of the
-          eight, Owens was swapped.
+          , making hys Feedback a nigh-certainty. Reality flickered during hys first at-bat in the top of the 2nd. It
+          was equally likely for the Feedback to target any player on the Tigers’ line up but, out of the eight, Owens
+          was swapped.
         </p>
         <p>
           For the following seven innings, the Tigers were very much a Ship of Theseus. But, with 2 strikes and 2 outs,
@@ -258,7 +265,8 @@ export default function Page() {
         </p>
         <p>
           All of this solidified on Day 63, when the immaterial plane was falling apart, but, despite everything,
-          Dumpington still chugged on. In the bottom of the 8th inning, Dumpington’s Instability baited a Rogue Ump. As a Tiger, she was Fireproof, and the Rogue Ump was Incinerated instead. At that point, no one could deny that
+          Dumpington still chugged on. In the bottom of the 8th inning, Dumpington’s Instability baited a Rogue Ump. As
+          a Tiger, she was Fireproof, and the Rogue Ump was Incinerated instead. At that point, no one could deny that
           she made her place on the Hades Tigers.
         </p>
       </Entry>

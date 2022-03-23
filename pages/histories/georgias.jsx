@@ -22,11 +22,11 @@ export default function Page() {
       <Entry season={13} day={31} title="Rigby Day">
         <p>
           During the Georgias’ first season of active play, fans watched in terror as star pitcher Rigby Friedrich stood
-          toe-to-toe with the <Link href="flowers">Boston Flowers</Link> for eighteen innings <em>in a Solar Eclipse</em>.
-          Fans begged Friedrich to throw the game, worried about losing a fan favorite in their first season of play. He
-          wouldn’t listen, letting the game drag on and on until the Georgias won. While ultimately this game had no
-          casualties, it taught the Georgias a very important lesson: Rigby Friedrich would stop at absolutely nothing
-          if it meant he could win.
+          toe-to-toe with the <Link href="flowers">Boston Flowers</Link> for eighteen innings{" "}
+          <em>in a Solar Eclipse</em>. Fans begged Friedrich to throw the game, worried about losing a fan favorite in
+          their first season of play. He wouldn’t listen, letting the game drag on and on until the Georgias won. While
+          ultimately this game had no casualties, it taught the Georgias a very important lesson: Rigby Friedrich would
+          stop at absolutely nothing if it meant he could win.
         </p>
         <LineScore id="4ab7b980-e377-46ec-9815-1f6c6e7c3b28" />
       </Entry>
@@ -51,8 +51,8 @@ export default function Page() {
           Instability chain from Chorby Soul, after their Incineration on{" "}
           <Jump time="2021-04-19T15:20:54Z">Season 17, Day 1</Jump> to Luis Acevedo, who was Incineratied on{" "}
           <Jump time="2021-04-19T16:18:25Z">Day 2</Jump>. That luck wouldn’t hold out for long; on Day 54, the Georgias
-          suffered their first Incineration, star batter Hercules Alighieri. For the second season in a row,
-          tragedy struck on Day 54, cementing it as an eternally cursed day for the Georgias. Alongside Alighieri’s
+          suffered their first Incineration, star batter Hercules Alighieri. For the second season in a row, tragedy
+          struck on Day 54, cementing it as an eternally cursed day for the Georgias. Alongside Alighieri’s
           Incineration, the middle of Season 17 featured team captain Niq Nyong’o{" "}
           <Jump time="2021-04-21T18:20:18Z">getting swept Elsewhere</Jump> and star pitcher Rigby Friedrich{" "}
           <Jump time="2021-04-22T09:08:43Z">suffering an allergic reaction</Jump>, making it triply cursed.
@@ -67,9 +67,9 @@ export default function Page() {
           </Jump>
           , one of the league’s star batters with a very thematically appropriate name. In this Election, it finally
           happened: Georgias fans got to enjoy a Hot Fish Summer&hellip; until they scrolled down. The Georgias managed
-          to Exchange Summer for a brief moment, sending Montgomery Bullock to <Link href="crabs">Baltimore</Link>, before the Crabs Exchanged
-          Summer for Wyatt Mason IV, resulting in a three-way trade that was bad for every team involved. Welcome aboard,
-          Ivy!
+          to Exchange Summer for a brief moment, sending Montgomery Bullock to <Link href="crabs">Baltimore</Link>,
+          before the Crabs Exchanged Summer for Wyatt Mason IV, resulting in a three-way trade that was bad for every
+          team involved. Welcome aboard, Ivy!
         </p>
       </Entry>
       <Entry season={19} day={14} title="Undersea Polarity">
@@ -90,7 +90,9 @@ export default function Page() {
             Wyatt Mason IV
           </Jump>{" "}
           asked a very important question: What if you could just&hellip; simply decide not to? Ivy Echoed their
-          recently Unshelled teammate Flattery McKinley, copied <em>her</em> Superallergic Modification, then <Jump time="2021-05-20T14:03:24Z">Echoed Slosh Truk</Jump>. As Ivy’s Superallergy was now marked as being McKinley’s, it fell off when Ivy Echoed Truk,  leaving them with{" "}
+          recently Unshelled teammate Flattery McKinley, copied <em>her</em> Superallergic Modification, then{" "}
+          <Jump time="2021-05-20T14:03:24Z">Echoed Slosh Truk</Jump>. As Ivy’s Superallergy was now marked as being
+          McKinley’s, it fell off when Ivy Echoed Truk, leaving them with{" "}
           <Jump redirect="/player/691f9ab2-9dd4-42e8-bf95-9fd01253c801" time="2021-05-20T14:04:30Z">
             just a normal peanut allergy
           </Jump>
@@ -99,10 +101,11 @@ export default function Page() {
       </Entry>
       <Entry date="Season 20, Day 48" title="Niq Nyong’o Gets Trapped in the Sun" time="2021-06-16T15:21:58Z">
         <p>
-          Going into Season 20, the Georgias’ vibes weren’t great. After a rough <Jump election={20}>Election</Jump> with a double Will wimdy,
-          followed by <Jump time="2021-06-15T01:10:39Z">a Feedback swap</Jump> that sent away long-time favorite Jan Canberra, the last thing fans wanted to see
-          was the Incineration of another beloved original Georgia. Niq Nyong’o was a cornerstone of Georgias lore as
-          the team’s captain and reality anchor, and the simulation proved again that it doesn’t care about what fans want to see.
+          Going into Season 20, the Georgias’ vibes weren’t great. After a rough <Jump election={20}>Election</Jump>{" "}
+          with a double Will wimdy, followed by <Jump time="2021-06-15T01:10:39Z">a Feedback swap</Jump> that sent away
+          long-time favorite Jan Canberra, the last thing fans wanted to see was the Incineration of another beloved
+          original Georgia. Niq Nyong’o was a cornerstone of Georgias lore as the team’s captain and reality anchor, and
+          the simulation proved again that it doesn’t care about what fans want to see.
         </p>
       </Entry>
       <Entry date="Season 21, Day 82" title="Five for Five" time="2021-06-25T02:13:33Z">
@@ -132,10 +135,10 @@ export default function Page() {
           </Jump>{" "}
           held by Chorby Soul Replicas &mdash; the Georgias were rather interested in staying there. After all,
           Blaseball 0 was safe from Consumers and gave teams a funny little purple circle on the Depth Chart. Luckily
-          enough, <Link href="flowers">Flowers</Link> player Gloria Bugsnax stole a Chorby’s Soul from a Replica and, with the Georgias planning on
-          shadowing player Clove Ji-Eun the same season, the gambit was clear: Take Bugsnax’s Chorby’s Soul, give it to
-          Ji-Eun, and claim a place in the heavens free from sharks&hellip; <em>forever</em>. What a stroke of luck that
-          it worked!
+          enough, <Link href="flowers">Flowers</Link> player Gloria Bugsnax stole a Chorby’s Soul from a Replica and,
+          with the Georgias planning on shadowing player Clove Ji-Eun the same season, the gambit was clear: Take
+          Bugsnax’s Chorby’s Soul, give it to Ji-Eun, and claim a place in the heavens free from sharks&hellip;{" "}
+          <em>forever</em>. What a stroke of luck that it worked!
         </p>
         <p>
           Or, rather, it worked until the Phantom Thieves’ Guild was Ratified during{" "}
@@ -168,21 +171,23 @@ export default function Page() {
         <p>
           In Season 22, the Georgias had an epiphany: What if, instead of being bad, they decided to be good for a
           change? Georgias fans watched in awe as, in a surprising turn of events, the team somehow reached the top of
-          the Wild League with a <Jump time="2021-07-02T20:32:42Z">78-win record</Jump> that cemented their first-ever appearance in the Overbracket. The
-          tomfoolery commenced. In the first game of the Internet Series, the Georgias were <em>so</em> good that they
-          looped the Lift with the Black Hole, giving the <Link href="lift">Lift</Link> a 2-win lead and cementing the Georgias’ downfall. The
-          Georgias hubris cycle quickly progressed from “Georgias good!” to “same as it ever was.”
+          the Wild League with a <Jump time="2021-07-02T20:32:42Z">78-win record</Jump> that cemented their first-ever
+          appearance in the Overbracket. The tomfoolery commenced. In the first game of the Internet Series, the
+          Georgias were <em>so</em> good that they looped the Lift with the Black Hole, giving the{" "}
+          <Link href="lift">Lift</Link> a 2-win lead and cementing the Georgias’ downfall. The Georgias hubris cycle
+          quickly progressed from “Georgias good!” to “same as it ever was.”
         </p>
       </Entry>
       <Entry date="Season 23, Day 47" title="Hi Siobhan! Bye Siobhan!" time="2021-05-17T16:06:23Z">
         <p>
           Siobhan Chark had a storied history with Feedback. An original member of the Georgias, they Feedbacked with
-          Sosa Hayes of the <Link href="spies">Houston Spies</Link> on <Jump time="2021-05-17T16:06:23Z">Season 19, Day 2</Jump> and then to the
+          Sosa Hayes of the <Link href="spies">Houston Spies</Link> on{" "}
+          <Jump time="2021-05-17T16:06:23Z">Season 19, Day 2</Jump> and then to the
           <Link href="sunbeams">Hellmouth Sunbeams</Link> on{" "}
           <Jump time="2021-05-19T08:22:10Z" team="9debc64f-74b7-4ae1-a4d6-fce0144b6ea5">
             Day 41
-          </Jump>. This wasn’t enough for
-          the sim; on{" "}
+          </Jump>
+          . This wasn’t enough for the sim; on{" "}
           <Jump time="2021-06-18T10:21:01Z" team="f02aeae2-5e6a-4098-9842-02d2273f25c7">
             Season 20, Day 90
           </Jump>
@@ -195,8 +200,7 @@ export default function Page() {
           <Jump time="2021-07-21T13:23:41Z" team="9debc64f-74b7-4ae1-a4d6-fce0144b6ea5">
             Season 23, Day 46
           </Jump>{" "}
-          and proceeded to undo the <em>original</em> Feedback from Season 19 with Hayes, coming back to the
-          Georgias.
+          and proceeded to undo the <em>original</em> Feedback from Season 19 with Hayes, coming back to the Georgias.
         </p>
         <p>
           This time in Atlantis didn’t last. Chark would Feedback two more times during Season 23, on Days{" "}
@@ -212,11 +216,11 @@ export default function Page() {
           Slosh Truk. Never quite good enough to be pulled out, she sat there for a long time.
         </p>
         <p>
-          Fortunately, a wimdied Shadow Infuse in the <Jump election={19}>Season 19 Election</Jump> and the Shots
-          in the Dark Blessing in the <Jump election={20}>Season 20 Election</Jump> left McCloud first in line for
-          Voicemail. On <Jump time="2021-07-23T12:24:27Z">Season 23, Day 92</Jump>, she replaced Lachlan Shelton on the
-          lineup. On Day 97, she <em>finally</em> made her triumphant return from Elsewhere after 133 days and over ten
-          seasons, a record likely, and hopefully, to never be matched.
+          Fortunately, a wimdied Shadow Infuse in the <Jump election={19}>Season 19 Election</Jump> and the Shots in the
+          Dark Blessing in the <Jump election={20}>Season 20 Election</Jump> left McCloud first in line for Voicemail.
+          On <Jump time="2021-07-23T12:24:27Z">Season 23, Day 92</Jump>, she replaced Lachlan Shelton on the lineup. On
+          Day 97, she <em>finally</em> made her triumphant return from Elsewhere after 133 days and over ten seasons, a
+          record likely, and hopefully, to never be matched.
         </p>
       </Entry>
       <Entry
@@ -227,18 +231,21 @@ export default function Page() {
       >
         <p>
           In the <Jump election={23}>Season 23 Election</Jump>, the Georgias finally got just what they wanted: They
-          managed to bring Niq Nyong’o back from the dead, and they made it the rest of the league’s problem. Even though she ended up on the <Link href="pies">Philly Pies</Link>, Georgias fans were eager to watch her play. On Day 16, she hit Dimi Blather, a dead player on the Maryland Squirrels, with a pitch while they were <Jump time="2021-07-27T06:10:40Z">inhabiting the Haunted Kennedy Loser</Jump>. Blather was
-          then Redacted and removed from the Squirrels’ lineup upon{" "}
-          <Jump time="2021-07-27T06:11:10Z">entering the Secret Base</Jump>.
+          managed to bring Niq Nyong’o back from the dead, and they made it the rest of the league’s problem. Even
+          though she ended up on the <Link href="pies">Philly Pies</Link>, Georgias fans were eager to watch her play.
+          On Day 16, she hit Dimi Blather, a dead player on the Maryland Squirrels, with a pitch while they were{" "}
+          <Jump time="2021-07-27T06:10:40Z">inhabiting the Haunted Kennedy Loser</Jump>. Blather was then Redacted and
+          removed from the Squirrels’ lineup upon <Jump time="2021-07-27T06:11:10Z">entering the Secret Base</Jump>.
         </p>
       </Entry>
       <Entry season={24} day={28} title="Reunion Special">
         <p>
-          The Georgias got treated to one last reunion special when they got to play a game against recently-resurrected Niq Nyong’o in <Link href="pies">Philly</Link>. It
-          was like the whole gang was back together, except for Mint Shupe and Siobhan Chark and Hercules Alighieri and
-          Gita Biscuits and Erin Jesaulenko and Ankle Halifax and all the other Georgias who were lost along the way.
-          Maybe Randy Dennis <Jump time="2021-07-27T19:28:32Z">got hit with a pitch</Jump>, but they made it out of the week fine,
-          so it was okay! It was fine! Everything was fine.
+          The Georgias got treated to one last reunion special when they got to play a game against recently-resurrected
+          Niq Nyong’o in <Link href="pies">Philly</Link>. It was like the whole gang was back together, except for Mint
+          Shupe and Siobhan Chark and Hercules Alighieri and Gita Biscuits and Erin Jesaulenko and Ankle Halifax and all
+          the other Georgias who were lost along the way. Maybe Randy Dennis{" "}
+          <Jump time="2021-07-27T19:28:32Z">got hit with a pitch</Jump>, but they made it out of the week fine, so it
+          was okay! It was fine! Everything was fine.
         </p>
       </Entry>
     </History>

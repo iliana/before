@@ -11,7 +11,7 @@ export async function getStaticProps() {
       linescores: await loadLineScores([
         "f7ad7826-ca6e-49c2-818e-190408b046fe",
         "fdf28d28-0d5f-4bf2-9dc4-b70626183c15",
-        "d1b8a5ee-2b5e-4ab1-9f41-43e4cfe1f0e6"
+        "d1b8a5ee-2b5e-4ab1-9f41-43e4cfe1f0e6",
       ]),
     },
   };
@@ -23,11 +23,11 @@ export default function Page() {
       <Entry election={10} title="Lifted Up">
         <p>
           After a climactic Internet Series and an even more climactic{" "}
-          <Jump time="2020-10-18T00:33:04Z">Season 10, Day X</Jump>, the <Link href="crabs">Baltimore Crabs</Link> became the first team to earn
-          three championships and Ascend. In their place, the first new team since the Return of Blaseball was formed:
-          the Tokyo Lift. This collection of fresh names and untalented players, along with the idea of a brand new
-          team, spawned a chaotic first week of fans organizing themselves and figuring out what the new team’s identity
-          would be.
+          <Jump time="2020-10-18T00:33:04Z">Season 10, Day X</Jump>, the <Link href="crabs">Baltimore Crabs</Link>{" "}
+          became the first team to earn three championships and Ascend. In their place, the first new team since the
+          Return of Blaseball was formed: the Tokyo Lift. This collection of fresh names and untalented players, along
+          with the idea of a brand new team, spawned a chaotic first week of fans organizing themselves and figuring out
+          what the new team’s identity would be.
         </p>
       </Entry>
       <Entry
@@ -61,9 +61,9 @@ export default function Page() {
           Lift narrative.
         </p>
         <p>
-          Though Di Batterino was soon <Jump election={13}>the target of an accidental Foreshadow</Jump>, he was brought back
-          out as a pitcher in <Jump election={14}>the following Election</Jump>, where the Lift would devote much of
-          their energy and votes to allow him to recover and shine. After{" "}
+          Though Di Batterino was soon <Jump election={13}>the target of an accidental Foreshadow</Jump>, he was brought
+          back out as a pitcher in <Jump election={14}>the following Election</Jump>, where the Lift would devote much
+          of their energy and votes to allow him to recover and shine. After{" "}
           <Jump election={19} team="eb67ae5e-c4bf-46ca-bbbc-425cd34182ff">
             an unexpected Exchange
           </Jump>{" "}
@@ -78,11 +78,10 @@ export default function Page() {
       <Entry date="Season 12, Day 37" title="The Return of a Dead God" time="2021-03-03T05:12:02Z">
         <p>
           Up until this point, the only way for a player to be Shelled was the Idol Board or being extremely unlucky in
-          Peanut weather, neither of which were likely after the death of the Shelled One. On this day, fans
-          learned that Honey Roasted players such as the Lift’s Wyatt Quitter had a chance to Shell other players,
-          sending shockwaves through the league. Not only was this the first Expansion Era Shelling, but it was the
-          first of four Shellings by Lift players, making the Lift responsible for over a quarter of all Expansion Era
-          Shellings.
+          Peanut weather, neither of which were likely after the death of the Shelled One. On this day, fans learned
+          that Honey Roasted players such as the Lift’s Wyatt Quitter had a chance to Shell other players, sending
+          shockwaves through the league. Not only was this the first Expansion Era Shelling, but it was the first of
+          four Shellings by Lift players, making the Lift responsible for over a quarter of all Expansion Era Shellings.
         </p>
       </Entry>
       <Entry date="Season 14, Day 77" title="Engine’s Six-Run Home Run" time="2021-03-18T21:07:17Z">
@@ -93,8 +92,8 @@ export default function Page() {
           pick up a bat, hitting 295 triples by the end of Beta, barely trailing the greatest Season 1 players.
         </p>
         <p>
-          In this case, however, Eberhardt hit a 3-run home run into the Sixth Circle Stadium’s Big Buckets while
-          Wired. This totalled six runs, a record over the previous{" "}
+          In this case, however, Eberhardt hit a 3-run home run into the Sixth Circle Stadium’s Big Buckets while Wired.
+          This totalled six runs, a record over the previous{" "}
           <Jump team="bfd38797-8404-4b38-8b82-341da28b1f83" time="2020-10-12T22:06:18Z">
             5-run Pentaslam
           </Jump>{" "}
@@ -112,13 +111,13 @@ export default function Page() {
           into the postseason.
         </p>
         <p>
-          Unfortunately, in the bottom of the 7th, Quitter Echoed the <Link href="flowers">Flowers’s</Link> Wyatt Mason VI, reducing them both to
-          Static. The Lift won the game, but the Flowers drew the Wild Card. Their{" "}
+          Unfortunately, in the bottom of the 7th, Quitter Echoed the <Link href="flowers">Flowers’s</Link> Wyatt Mason
+          VI, reducing them both to Static. The Lift won the game, but the Flowers drew the Wild Card. Their{" "}
           <Jump season={14} day={100}>
             Day 100
           </Jump>{" "}
-          game also took place in Feedback, so even if the teams had gotten lucky the previous day, the sim would
-          have likely created disaster anyway.
+          game also took place in Feedback, so even if the teams had gotten lucky the previous day, the sim would have
+          likely created disaster anyway.
         </p>
       </Entry>
       <Entry date="Season 15, Day 99" title="Oh You Think So, Huh?" time="2021-04-09T19:04:42Z">
@@ -127,8 +126,8 @@ export default function Page() {
           confounding team strategy. She already dodged one concerted shadowing attempt,{" "}
           <Jump election={12}>letting Concrete Mandible take the fall</Jump> on a 0% wimdy. In Season 15 though, she
           virtually monopolized Party Time to become a promising batter. As the Election approached, there was genuine
-          enthusiasm for her planned Move into the lineup. In the final game of the season, she was attacked by Consumers
-          while staring directly at previously excited fans.
+          enthusiasm for her planned Move into the lineup. In the final game of the season, she was attacked by
+          Consumers while staring directly at previously excited fans.
         </p>
       </Entry>
       <Entry
@@ -145,9 +144,9 @@ export default function Page() {
       </Entry>
       <Entry date="Season 17, Day 14" title="Shell Two, Shell Another for Half Off" time="2021-04-20T04:13:22Z">
         <p>
-          Fourteen days into Season 17, Roamin’ player Alejandro Leaf pitched against her first team, the LA Unlimited Tacos.
-          After allowing six runs with little run support from her own team to balance the score, Leaf tasted the infinite
-          and Shelled Felix Garbage, a former <Link href="millennials">Mills</Link> teammate from before{" "}
+          Fourteen days into Season 17, Roamin’ player Alejandro Leaf pitched against her first team, the LA Unlimited
+          Tacos. After allowing six runs with little run support from her own team to balance the score, Leaf tasted the
+          infinite and Shelled Felix Garbage, a former <Link href="millennials">Mills</Link> teammate from before{" "}
           <Jump election={13} team="36569151-a2fb-43c1-9df7-2df512424c82">
             Leaf was Revoked
           </Jump>
@@ -155,11 +154,10 @@ export default function Page() {
           Garbage’s Shelling marked the first time a player Shelled a former teammate.
         </p>
         <p>
-          This wasn’t enough for Leaf as she, after allowing three more runs and seeing an opposing runner steal third, went
-          on to <Jump time="2021-04-20T04:19:39Z">Shell former Tacos teammate Basilio Fig</Jump> while they were
-          simultaneously at-bat and in the Secret Base. The Lift ended up losing the game 1-11, but Leaf’s act of
-          petty vengeance tempered any disappointment over the Lift’s blowout defeat. In the aftermath, then-Tacos
-          pitcher{" "}
+          This wasn’t enough for Leaf as she, after allowing three more runs and seeing an opposing runner steal third,
+          went on to <Jump time="2021-04-20T04:19:39Z">Shell former Tacos teammate Basilio Fig</Jump> while they were
+          simultaneously at-bat and in the Secret Base. The Lift ended up losing the game 1-11, but Leaf’s act of petty
+          vengeance tempered any disappointment over the Lift’s blowout defeat. In the aftermath, then-Tacos pitcher{" "}
           <Jump time="2021-04-20T11:21:17Z" team="878c1bf6-0d21-4659-bfee-916c8314d69c">
             Wyatt Mason IV Echoed Garbage’s Shelled Modification
           </Jump>
@@ -181,13 +179,13 @@ export default function Page() {
       </Entry>
       <Entry date="Season 17, Day 75" title="Capri Sunset: Foiled" time="2021-04-22T19:21:30Z">
         <p>
-          The <Link href="sunbeams">Hellmouth Sunbeams</Link> hatched the Capri Sunset plan, a long-term gambit for Party Time gains which would see
-          their strongest players strategically shadowed and 0.5-star batter Joe Voorhees promoted to the active roster.
-          Lift batter Jessica Telephone was a seasoned &mdash; specifically, Honey Roasted &mdash; veteran and would not
-          let the home team tank without a fight. In the top of the 9th, she tasted the infinite and Shelled Voorhees.
-          Shorn of his talents, the Sunbeams collapsed and the Lift took a 2-0 victory. This was Telephone’s first
-          experience Shelling another player, and the Lift’s last Shelling before the departure of their remaining Honey
-          Roasted players.
+          The <Link href="sunbeams">Hellmouth Sunbeams</Link> hatched the Capri Sunset plan, a long-term gambit for
+          Party Time gains which would see their strongest players strategically shadowed and 0.5-star batter Joe
+          Voorhees promoted to the active roster. Lift batter Jessica Telephone was a seasoned &mdash; specifically,
+          Honey Roasted &mdash; veteran and would not let the home team tank without a fight. In the top of the 9th, she
+          tasted the infinite and Shelled Voorhees. Shorn of his talents, the Sunbeams collapsed and the Lift took a 2-0
+          victory. This was Telephone’s first experience Shelling another player, and the Lift’s last Shelling before
+          the departure of their remaining Honey Roasted players.
         </p>
       </Entry>
       <Entry season={18} day={56} title="Dead Ringer">
@@ -199,47 +197,47 @@ export default function Page() {
           on <Jump time="2021-03-19T07:01:51Z">Season 14, Day 87</Jump> &mdash; Day 56 is notable for being the last
           time that the renowned Jessica Telephone saw play before her Alternate was called. O’Lantern and Pantheocide
           both returned within a few days, but Telephone remained Elsewhere through the{" "}
-          <Jump election={18}>Season 18 Election</Jump>, when she was hit by the Lift’s Alternate Trust Will. A different
-          Jessica Telephone returned on <Jump time="2021-05-17T16:14:25Z">Season 19, Day 2</Jump>.
+          <Jump election={18}>Season 18 Election</Jump>, when she was hit by the Lift’s Alternate Trust Will. A
+          different Jessica Telephone returned on <Jump time="2021-05-17T16:14:25Z">Season 19, Day 2</Jump>.
         </p>
       </Entry>
       <Entry date="Season 19, Day 117" title="The Shampionship" time="2021-05-23T00:27:04Z">
         <p>
           The shambolic, Turntable-assisted mockery of a postseason campaign came to be known as the Clown Show, at
-          least until Posteason 22 arrived on a unicycle and said “hold my oversized shoes.” The Garages,
-          aching to win the Internet Series with their fourth attempt,{" "}
+          least until Posteason 22 arrived on a unicycle and said “hold my oversized shoes.” The Garages, aching to win
+          the Internet Series with their fourth attempt,{" "}
           <Jump time="2021-05-23T00:00:01Z">started with a one-run Home Field Advantage</Jump> but could not add to it.
         </p>
         <p>
           The Lift came to flex. At one point, Yusef Fenestrate{" "}
           <Jump time="2021-05-23T00:19:42Z">hopped on the Grind Rail and landed a Soul Crusher</Jump>; this was the very
           definition of stunting on an opponent, as it set up Gerund Pantheocide to immediately slam a 3-run homer. A
-          final savage dunk on splortsmanship in general, and Terrell Bradley in particular, saw the Garages,
-          and future Lift, pitcher faxed out in the last inning of the five-game series. Coolname Galvanic shut out the Garages
-          to clinch the Lift’s first title.
+          final savage dunk on splortsmanship in general, and Terrell Bradley in particular, saw the Garages, and future
+          Lift, pitcher faxed out in the last inning of the five-game series. Coolname Galvanic shut out the Garages to
+          clinch the Lift’s first title.
         </p>
         <LineScore id="f7ad7826-ca6e-49c2-818e-190408b046fe" />
       </Entry>
       <Entry date="Season 20, Day 13" title="Steal Failed" time="2021-06-15T03:25:09Z">
         <p>
-          The <Link href="crabs">Crabs’</Link> Evolution, Carcinization, allowed them to steal the opposing team’s best hitter for the remainder
-          of the game when they triggered the Black Hole. In fan lore, Carcinized players sometimes develop crab-like
-          features like claws and shells. In the top of the 8th inning, Crabs player Avila Guzman hit a solo home run,
-          triggering the Black Hole. However, where this would normally have stolen the Lift’s best hitter, the game log
-          instead reported “Steal failed. Gerund Pantheocide was gripped by Force”. Force prevented players from leaving
-          their present position, but Pantheocide never had the Modification, nor any item with it. The apparent error
-          was lored as an increasingly powerful player simply refusing to obey in-game physics. Pantheocide remained
-          with the Lift and, in the 9th inning, hit <Jump time="2021-06-15T03:28:40Z">a defiant home run</Jump> to Shame
-          the visiting Crabs.
+          The <Link href="crabs">Crabs’</Link> Evolution, Carcinization, allowed them to steal the opposing team’s best
+          hitter for the remainder of the game when they triggered the Black Hole. In fan lore, Carcinized players
+          sometimes develop crab-like features like claws and shells. In the top of the 8th inning, Crabs player Avila
+          Guzman hit a solo home run, triggering the Black Hole. However, where this would normally have stolen the
+          Lift’s best hitter, the game log instead reported “Steal failed. Gerund Pantheocide was gripped by Force”.
+          Force prevented players from leaving their present position, but Pantheocide never had the Modification, nor
+          any item with it. The apparent error was lored as an increasingly powerful player simply refusing to obey
+          in-game physics. Pantheocide remained with the Lift and, in the 9th inning, hit{" "}
+          <Jump time="2021-06-15T03:28:40Z">a defiant home run</Jump> to Shame the visiting Crabs.
         </p>
         <LineScore id="fdf28d28-0d5f-4bf2-9dc4-b70626183c15" />
       </Entry>
       <Entry date="Season 21, Day 12" title="The Most Dangerous Job in Blaseball" time="2021-06-22T02:11:06Z">
         <p>
           It already looked like a day to forget. Despite the best efforts of co-captains Yusef Fenestrate and Gerund
-          Pantheocide, the Lift were making no headway. In the bottom of the 4th, with the Lift down 0-4,
-          Pantheocide was Incinerated by a Rogue Umpire. The Lift’s captaincy curse claimed its third victim. Gerund
-          Pantheocide was the closest the Lift had to a home-grown breakout star, and her heroics in{" "}
+          Pantheocide, the Lift were making no headway. In the bottom of the 4th, with the Lift down 0-4, Pantheocide
+          was Incinerated by a Rogue Umpire. The Lift’s captaincy curse claimed its third victim. Gerund Pantheocide was
+          the closest the Lift had to a home-grown breakout star, and her heroics in{" "}
           <Jump season={19} day={117}>
             the Shampionship
           </Jump>{" "}
@@ -259,15 +257,15 @@ export default function Page() {
       </Entry>
       <Entry date="Season 22, Day 114" title="A Pitching Peanut" time="2021-07-03T21:17:25Z">
         <p>
-          The Lift hosted the <Link href="breath-mints">Mints</Link> for the penultimate game of the Internet Series. They almost certainly didn’t
-          deserve to be there, as the team{" "}
+          The Lift hosted the <Link href="breath-mints">Mints</Link> for the penultimate game of the Internet Series.
+          They almost certainly didn’t deserve to be there, as the team{" "}
           <Jump redirect="/standings" time="2021-07-02T20:40:00Z">
             placed 23rd in the league
           </Jump>
           . They only made the Overbracket by drawing the Wild Card, and won the Wild League Champion Series through the
-          use of Black Hole and Sun(Sun). On Day 114, the Lift allowed the Kansas City Breath Mints ten runs,
-          activating their ballpark’s Fax Machine and replacing Uncle Plasma XIV with Cudi di Batterino, who
-          was Shelled on <Jump time="2021-06-29T15:17:33Z">Day 25</Jump>.
+          use of Black Hole and Sun(Sun). On Day 114, the Lift allowed the Kansas City Breath Mints ten runs, activating
+          their ballpark’s Fax Machine and replacing Uncle Plasma XIV with Cudi di Batterino, who was Shelled on{" "}
+          <Jump time="2021-06-29T15:17:33Z">Day 25</Jump>.
         </p>
       </Entry>
       <Entry
@@ -294,9 +292,10 @@ export default function Page() {
           However, <Jump election={18}>the shadowed Kit Honey received the boost instead</Jump>, with just 1% of the
           vote, and Silvaire Semiquaver was Foreshadowed to bring Honey to the lineup{" "}
           <Jump election={19}>the next season</Jump>, in the spot that rightfully belonged to Hitherto. Cut to Season
-          24, Day 79, the league’s moment of need: five minutes prior, the <Link href="pies">Philly Pies</Link> were nullified by the looming
-          Black Hole (Black Hole). Fans were silent. Suddenly, Deep Darkness took Kit Honey. The crowd gasped. Out of
-          the shadows, the Lift’s Beef-Wing MVP’nt clocked in. Was it an act of vengeance? Justice?
+          24, Day 79, the league’s moment of need: five minutes prior, the <Link href="pies">Philly Pies</Link> were
+          nullified by the looming Black Hole (Black Hole). Fans were silent. Suddenly, Deep Darkness took Kit Honey.
+          The crowd gasped. Out of the shadows, the Lift’s Beef-Wing MVP’nt clocked in. Was it an act of vengeance?
+          Justice?
         </p>
         <p>
           <Jump redirect="/depth" time="2021-07-30T03:10:00Z">
@@ -312,13 +311,13 @@ export default function Page() {
           <Jump season={19} day={117}>
             his Shampionship tormentors
           </Jump>
-          , even pulling double duty to cover for the Shelled Cudi Di Batterino. Their opponents were the <Link href="tigers">Hades Tigers</Link>,
-          familiar Wild High rivals, with former Lift Mags Banananana pitching and founding Lift member{" "}
-          <Jump time="2021-07-30T02:18:28Z">Ayanna Dumpington scoring the last run</Jump> to confirm the defeat.{" "}
-          <Jump time="2021-07-30T02:22:19Z">A ground out from Kline Greenlemon</Jump> was the Lift’s final act of the
-          Expansion Era. On the following day, the Tigers reached the Coin, Incinerating her and triggering the rapid
-          expansion of the Event Horizon. The Lift, already poised on the lip of the void, slipped into the Black Hole
-          (Black Hole) and{" "}
+          , even pulling double duty to cover for the Shelled Cudi Di Batterino. Their opponents were the{" "}
+          <Link href="tigers">Hades Tigers</Link>, familiar Wild High rivals, with former Lift Mags Banananana pitching
+          and founding Lift member <Jump time="2021-07-30T02:18:28Z">Ayanna Dumpington scoring the last run</Jump> to
+          confirm the defeat. <Jump time="2021-07-30T02:22:19Z">A ground out from Kline Greenlemon</Jump> was the Lift’s
+          final act of the Expansion Era. On the following day, the Tigers reached the Coin, Incinerating her and
+          triggering the rapid expansion of the Event Horizon. The Lift, already poised on the lip of the void, slipped
+          into the Black Hole (Black Hole) and{" "}
           <Jump redirect="/depth" time="2021-07-30T03:10:00Z">
             were Nullified
           </Jump>
