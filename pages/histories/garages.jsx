@@ -96,7 +96,7 @@ export default function Page() {
             Game 5
           </Jump>{" "}
           to the <Link href="lift">Tokyo Lift</Link>. The Garages’ only run during this game was from the Hotdogfingers
-          Memorical Climate Pledge Garage and Parking Facility’s Home Field Advantage, and Terrell Bradley, the starting
+          Memorial Climate Pledge Garage and Parking Facility’s Home Field Advantage, and Terrell Bradley, the starting
           pitcher, showed true dedication to the Garages’ tradition of choking and{" "}
           <Jump time="2021-05-23T00:26:49Z">gave up 10 runs</Jump>, faxing out for Nolanestophia Patterson. Patterson
           would throw one pitch that game to Silvaire Semiquaver, who hit it right into Alaynabella Hollywood’s glove
