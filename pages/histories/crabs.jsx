@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
@@ -107,8 +106,7 @@ export default function Page() {
           <Jump time="2021-04-14T19:09:06Z" team="b024e975-1c4a-4575-8936-a3754a08806a">
             make a reappearance
           </Jump>{" "}
-          on the <Link href="steaks">Steaks</Link>
-          for a while before having its soul{" "}
+          on the <Link href="steaks">Steaks</Link> for a while before having its soul{" "}
           <Jump time="2021-06-25T02:29:45Z" team="b024e975-1c4a-4575-8936-a3754a08806a">
             consumed by Consumers
           </Jump>

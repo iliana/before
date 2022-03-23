@@ -30,13 +30,10 @@ export default function Page() {
       <Entry title="A Rivalry Intensifies" season={3} day={57} time="2020-08-06T04:07:15Z">
         <p>
           In all of splorting history, there have been few rivalries as fierce or as storied as the one between the
-          Kansas City Breath Mints and the <Link href="shoe-thieves">Charleston Shoe Thieves</Link>
-          <span className="tw-whitespace-nowrap">
-            .
-            <sup className="tw-font-sans">
-              [<em>citation&nbsp;needed</em>]
-            </sup>
-          </span>{" "}
+          Kansas City Breath Mints and the <Link href="shoe-thieves">Charleston Shoe Thieves</Link>.
+          <sup className="tw-font-sans tw-whitespace-nowrap">
+            [<em>citation&nbsp;needed</em>]
+          </sup>{" "}
           Season 3, Day 57 was an early chapter in the rivalry, where the Mints were not doing too well up to then. The
           Shoe Thieves had star pitcher Matteo Prestige on the mound, and already had a 6-3 lead over the Mints in the
           bottom of the 2nd. It seemed like the Mints would be on the losing end of this bout when a cruel twist struck:
@@ -214,7 +211,7 @@ export default function Page() {
         </p>
         <p>
           In the 35 minutes that Uncle Plasma was in the Mints’ shadows, fans managed to cast 252,180 votes for the
-          plan, which <Jump election={15}>ended up being 45% their our Will votes</Jump> in that Election.
+          plan, which <Jump election={15}>ended up being 45% their Will votes</Jump> in that Election.
         </p>
       </Entry>
       <Entry title="The Dot-Off" season={17} day={40}>

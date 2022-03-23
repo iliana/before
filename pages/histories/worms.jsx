@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
@@ -65,7 +64,7 @@ export default function Page() {
           Throughout Wormstory, the Ohio Worms faced weather-induced roster changes fairly rarely. The only two times
           the Worms experienced Feedback swaps during the regular season was in Season 14 and Season 17. On Season 14,
           Day 67, NaN, a Worm at the time, swapped places with Rivers Rosa, and on{" "}
-          <Jump time="2021-04-20T19:14:38Z">Season 17, Day 28</Jump>, original Worm Kaz Fiasco swapped with the
+          <Jump time="2021-04-20T19:14:38Z">Season 17, Day 28</Jump>, original Worm Kaz Fiasco swapped with the{" "}
           <Link href="sunbeams">Sunbeams’</Link> Igneus Delacruz.
         </p>
         <p>
@@ -161,7 +160,7 @@ export default function Page() {
       </Entry>
       <Entry date="Season 21, Day 75" title="SHABOOM! Gatecrash." redirect="/depth" time="2021-06-24T19:00:30Z">
         <p>
-          Season 21’s <Jump time="2021-06-24T15:40:43Z">Latesiesta</Jump> brought the Worms a fantastical four-pack of
+          <Jump time="2021-06-24T15:40:43Z">Season 21’s Latesiesta</Jump> brought the Worms a fantastical four-pack of
           gifts from their friends in the ILB. Thanks to the newly-added Replica of Chorby Soul wielding{" "}
           <Jump redirect="/item/04749f19-e782-40e2-9077-e79baa6236f6" season={21} day={75}>
             Chorby’s Soul

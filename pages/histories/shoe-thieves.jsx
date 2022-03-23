@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
@@ -225,7 +224,7 @@ export default function Page() {
           Steel Chair, which, in Charleston, was given to Richardson Games. The Choux’s Light Switch prevented the Shoe
           Thieves from needing protection against Consumers. It was in the playoffs that Richardson would finally show
           off their moves, by defending the <Link href="garages">Seattle Garages</Link> from repeated Consumer attacks
-          attracted by Tot Clark’s
+          attracted by Tot Clark’s{" "}
           <Jump redirect="/item/04749f19-e782-40e2-9077-e79baa6236f6" season={23} day={103}>
             Chorby’s Soul
           </Jump>

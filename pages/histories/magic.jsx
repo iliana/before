@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
@@ -371,7 +370,7 @@ export default function Page() {
       <Entry title="Debut in Glory" season={23} day={12}>
         <p>
           In the <Jump election={22}>Season 22 Election</Jump>, the Yellowstone Magic won the Little Swap Blessing,
-          trading their most eDense player, Attractor Tiana Wheeler, for a random other team’s least eDense player, the
+          trading their most eDense player, Attractor Tiana Wheeler, for a random other team’s least eDense player, the{" "}
           <Link href="moist-talkers">Moist Talkers’</Link> Magnified Negative Ziwa Mueller. Ziwa, being the second Moist
           Talkers transplant in recent seasons, went over well with Magic fans. Magnified players were flashy and fun,
           and the Magic were one of the few teams with multiple in their lineup. This resulted in some truly absurd
@@ -392,7 +391,7 @@ export default function Page() {
         <p>
           Thanks to various reasons, including Eizabeth Elliot being a frankly terrible pitcher, Bevan Wise being worse,
           Francisco Preston Subtracting, and Logan Rodriguez Skipping, the Yellowstone Magic secured the Mild League’s
-          third seed in the Underbracket. In the Mild League Underchampion Series, the Magic unwon against the
+          third seed in the Underbracket. In the Mild League Underchampion Series, the Magic unwon against the{" "}
           <Link href="breath-mints">Kansas City Breath Mints</Link>, 3-1.
         </p>
         <p>

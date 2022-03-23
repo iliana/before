@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { Peanut } from "../../components/being";
 import { History, Entry } from "../../components/histories";
@@ -56,8 +55,7 @@ export default function Page() {
             their first game
           </Jump>{" "}
           in the Mild League Champion Series against Mexico City before the <Link href="wild-wings">Wild Wings</Link>{" "}
-          won the next three. The <Link href="pies">Pies</Link>
-          swept the Garages in{" "}
+          won the next three. The <Link href="pies">Pies</Link> swept the Garages in{" "}
           <Jump season={8} day={100}>
             Season 8’s Mild League Division Series
           </Jump>

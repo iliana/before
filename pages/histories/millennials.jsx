@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
@@ -55,7 +54,7 @@ export default function Page() {
       </Entry>
       <Entry
         date="Season 4, Day 108"
-        title={<abbr title="Thomas Dracaena hit a ground out to Edric Tosser">TDHAGOTET</abbr>}
+        title={<abbr title="Thomas Dracaena hit a ground out to Edric Tosser.">TDHAGOTET</abbr>}
         time="2020-08-29T21:22:02Z"
       >
         <p>
@@ -81,7 +80,7 @@ export default function Page() {
           on <Jump time="2020-09-16T23:28:53Z">Day 55</Jump>, Marijuana was hit by a rogue pitch and became Unstable. It
           would be a long week until Day 63 and unfortunately, with Solar Eclipse in the forecast, Dom wouldn’t make it.
           Less than a season after his brother’s incineration on{" "}
-          <Jump time="2020-09-11T03:13:59Z">Season 6, Day 84</Jump>, Dom would join Randy, a beloved batter for both the
+          <Jump time="2020-09-11T03:13:59Z">Season 6, Day 84</Jump>, Dom would join Randy, a beloved batter for both the{" "}
           <Link href="sunbeams">Hellmouth</Link> and <Link href="jazz-hands">Breckenridge</Link>, in the Hall of Flame.
         </p>
         <p>
@@ -196,9 +195,8 @@ export default function Page() {
           <Jump time="2021-04-09T19:22:21Z">Theodore Cervantes</Jump>, and finally{" "}
           <Jump time="2021-04-10T01:15:45Z">Sandie Turner</Jump> eyrself. The attacks ultimately ended the Mills’
           championship dreams; they would lose the Wild League Division Series against the eventual Internet Series
-          Champions, the
-          <Link href="moist-talkers">Canada Moist Talkers</Link>, and went into the Election determined to win it all
-          next season.
+          Champions, the <Link href="moist-talkers">Canada Moist Talkers</Link>, and went into the Election determined
+          to win it all next season.
         </p>
       </Entry>
       <Entry date="Season 16, Day 88" title="The Second Death of Chorby Soul" time="2021-04-16T10:19:28Z">
@@ -351,8 +349,7 @@ export default function Page() {
           Mccall, Wesley Dudley, and Mclaughlin Scorpler was worth the trip. Once the Monitor quit, the teams near the
           Hall went Rogue. Among them, the Millennials, always committed to the bit, said “guess we’ll die” with a
           shrug. Schneider Bendie, emboldened by their nullification of Sun 30, would inhabit Haunted{" "}
-          <Link href="crabs">Baltimore Crabs</Link>
-          batter Kennedy Loser while{" "}
+          <Link href="crabs">Baltimore Crabs</Link> batter Kennedy Loser while{" "}
           <Jump season={24} day={76}>
             the Mills played the Lovers
           </Jump>

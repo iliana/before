@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
@@ -38,7 +37,7 @@ export default function Page() {
           the ILB, an all-star cast with nowhere to go but up.
         </p>
         <p>
-          They would reign supreme for only one season. <Jump election={16}>A season later</Jump>, Kirchner was sent to
+          They would reign supreme for only one season. <Jump election={16}>A season later</Jump>, Kirchner was sent to{" "}
           <Link href="steaks">Dallas</Link> and <Jump season={20}>would return</Jump> to a rotation with room for only
           three pitchers. A season after Kirchner left, Kugel{" "}
           <Jump time="2021-04-19T17:17:51Z">Reverbed to the lineup</Jump> and Alternated{" "}

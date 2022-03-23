@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { Reader } from "../../components/being";
 import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
-import LineScore from "../../components/linescore";
 import loadLineScores from "../../lib/linescore";
 
 export async function getStaticProps() {
@@ -81,7 +79,7 @@ export default function Page() {
       </Entry>
       <Entry title="Hendricks Richardson Hit a Ground Out to Joshua Butt" season={9} day={100}>
         <p>
-          During the first game of Postseason 9, Sunbeams batter Hendricks Richardson hit a ground out to
+          During the first game of Postseason 9, Sunbeams batter Hendricks Richardson hit a ground out to{" "}
           <Link href="firefighters">Firefighter</Link> Joshua Butt, distorting time itself. In those seven minutes spent
           staring at the game log, something happened. The Hellmouth Sunbeams and Chicago Firefighters realized they had
           an unbreakable bond: They had to destroy each other&hellip; or was it something else? They still don’t know,
@@ -93,12 +91,11 @@ export default function Page() {
           On track for their worst record ever, the Sunbeams tied the <Link href="fridays">Hawaiʻi Fridays</Link> to be
           the first teams to enter Party Time in Season 10, co-hosting the party with them on the moon. They went on to
           enjoy their first-ever parties, with seven of their players partying. They were then unexpectedly drawn as
-          Wild Cards alongside the
-          <Link href="millennials">Millennials</Link>, the first instance of what would become known as the Hellennial
-          Wild Cards. After knocking the
-          <Link href="tacos">Unlimited Tacos</Link> out of their first postseason in the Wild Card Round, they were then
-          swept by future champions the <Link href="crabs">Baltimore Crabs</Link>. They returned happily to the moon
-          party just in time for it to be swallowed by the Black Hole Tot Fox opened early on{" "}
+          Wild Cards alongside the <Link href="millennials">Millennials</Link>, the first instance of what would become
+          known as the Hellennial Wild Cards. After knocking the <Link href="tacos">Unlimited Tacos</Link> out of their
+          first postseason in the Wild Card Round, they were then swept by future champions the{" "}
+          <Link href="crabs">Baltimore Crabs</Link>. They returned happily to the moon party just in time for it to be
+          swallowed by the Black Hole Tot Fox opened early on{" "}
           <Jump season={10} day={113}>
             Day 113
           </Jump>

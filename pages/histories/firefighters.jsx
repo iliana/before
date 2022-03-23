@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
@@ -33,7 +32,7 @@ export default function Page() {
           , and also help nullify Sum Sun on{" "}
           <Jump season={24} day={37}>
             Season 24, Day 37
-          </Jump>
+          </Jump>{" "}
           while playing for the <Link href="spies">Houston Spies</Link>.
         </p>
       </Entry>
@@ -69,11 +68,11 @@ export default function Page() {
         <p>
           For the first time since Season 1, the Firefighters found themselves in the Internet Series. After two tight
           series against the <Link href="millennials">Millennials</Link> and the <Link href="lovers">Lovers</Link>,
-          things were looking rough as the team remained tied with the
-          <Link href="jazz-hands">Jazz Hands</Link> at the bottom of the 9th in Game 4 and needed a win to take the
-          series to a fifth game. With two runners on base, Declan Suzanne made the move of his career when he ate a
-          peanut and immediately reached on fielder’s choice, allowing the team to score. With the help of the Targeted
-          Shame from that game, the Firefighters clinched the championship.
+          things were looking rough as the team remained tied with the <Link href="jazz-hands">Jazz Hands</Link> at the
+          bottom of the 9th in Game 4 and needed a win to take the series to a fifth game. With two runners on base,
+          Declan Suzanne made the move of his career when he ate a peanut and immediately reached on fielder’s choice,
+          allowing the team to score. With the help of the Targeted Shame from that game, the Firefighters clinched the
+          championship.
         </p>
         <LineScore id="9298a48f-c2fc-4821-9466-1ecacfd35a56" />
       </Entry>
@@ -183,7 +182,7 @@ export default function Page() {
       <Entry title="Triple Nullification" season={24} day={37}>
         <p>
           Season 24 was a mess for every team, and there was no exception for the Firefighters. However, with the Black
-          Hole (Black Hole) looming, the Firefighters had opportunities to nullify league rules. On Day 37 against the
+          Hole (Black Hole) looming, the Firefighters had opportunities to nullify league rules. On Day 37 against the{" "}
           <Link href="spies">Houston Spies</Link>, the Firefighters helped nullify not just one, but two rules. At
           first, only <Jump time="2021-07-28T04:13:52Z">Stout Schmitt’s Hot Lucky Ring was nullified</Jump> in the
           bottom of the 5th, leading many fans to believe that nothing too eventful would happen in this game. However,

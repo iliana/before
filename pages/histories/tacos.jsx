@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { Coin } from "../../components/being";
 import { History, Entry } from "../../components/histories";
@@ -182,7 +181,7 @@ export default function Page() {
           with Peanut Bong facing off against former Tacos pitcher Wyatt Owens. The Tacos’ offense was on fire,
           activating <Jump time="2020-10-21T04:18:16Z">Sun 2</Jump> <Jump time="2020-10-21T04:27:14Z">twice</Jump> and{" "}
           <Jump time="2020-10-21T04:33:58Z">ending the 9th inning</Jump> with a score of 3-3, taking the game to extra
-          innings. The Tacos scored <Jump time="2020-10-21T04:35:04Z">2</Jump>{" "}
+          innings. The Tacos scored <Jump time="2020-10-21T04:35:04Z">two</Jump>{" "}
           <Jump time="2020-10-21T04:35:26Z">runs</Jump> in the top of the 10th, and Bong{" "}
           <Jump time="2020-10-21T04:36:57Z">gave up 2 runs</Jump> in the bottom of the 10th, re-tying the game. Both
           teams <Jump time="2020-10-21T04:40:34Z">scored</Jump> <Jump time="2020-10-21T04:42:05Z">again</Jump> in the
@@ -373,7 +372,7 @@ export default function Page() {
           Tacos fans waited with nervous anticipation. And waited. And waited.
         </p>
         <p>
-          Goobie Ballson joined the Tacos in the <Jump election={21}>Season 21 Election</Jump>, Exchanged by the
+          Goobie Ballson joined the Tacos in the <Jump election={21}>Season 21 Election</Jump>, Exchanged by the{" "}
           <Link href="georgias">Georgias</Link> for Fish Summer, who had themself joined the team in a complicated 3-way
           trade a few season earlier. Ballson was a well-known and popular player, especially with the{" "}
           <Link href="firefighters">Chicago Firefighters</Link>, their original team, though there were jokes about them

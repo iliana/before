@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
@@ -40,8 +39,8 @@ export default function Page() {
         <p>
           A Blaseball fan could be forgiven for not remembering that the Wild Wings won a championship. So much of
           Season 7 was about Jaylen Hotdogfingers’ necromancy and, even in the postseason, the{" "}
-          <Link href="lovers">Lovers</Link> beating the <Link href="crabs">Crabs</Link>
-          to get to the Internet Series was the biggest story.
+          <Link href="lovers">Lovers</Link> beating the <Link href="crabs">Crabs</Link> to get to the Internet Series
+          was the biggest story.
         </p>
         <p>
           Yet, on Day 113, the Mexico City Wild Wings won the Internet Series with a tense final inning. Stephanie

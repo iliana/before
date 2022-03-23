@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
@@ -56,7 +55,7 @@ export default function Page() {
         <p>
           On Season 9, Day 6, the Tacos played their first Feedback game of the season against the Houston Spies. In the
           bottom of the 8th, NaN Feedbacked for the first time, swapping with Valentine Games. NaN would not spend long
-          on the Spies; in the following game against the <Link href="wild-wings">Mexico City Wild Wings</Link>,
+          on the Spies; in the following game against the <Link href="wild-wings">Mexico City Wild Wings</Link>,{" "}
           <Jump time="2020-10-05T22:04:40Z">NaN swapped for Sosa Hayes</Jump>. NaN was only on the Spies for a total of
           four innings.
         </p>
@@ -209,8 +208,7 @@ export default function Page() {
           unexpected addition to the Agency, but a welcome one nonetheless, and an immediate favorite for players to
           root for during games. A few more Roamings and{" "}
           <Jump time="2021-07-22T08:09:02Z">another denied Incineration</Jump> landed Pudge squarely in the{" "}
-          <Link href="pies">Philly Pies’</Link>
-          shadows, where they continued to be An Excellent Friend.
+          <Link href="pies">Philly Pies’</Link> shadows, where they continued to be An Excellent Friend.
         </p>
       </Entry>
       <Entry

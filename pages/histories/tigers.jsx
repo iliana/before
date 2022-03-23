@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
@@ -128,9 +127,8 @@ export default function Page() {
         <p>
           In the <Jump election={10}>Season 10 Election</Jump>, the Hades Tigers won the Umpire Cream Blessing, making
           the entire team permanently Fireproof. This first came into play in the first game of Season 13, in the 7th
-          inning at the
-          <Link href="dale">Dale’s</Link> Worldwide Field. Trying to get umpires to target their players for
-          Incineration, and instead get destroyed themselves, was something Tigers fans would continue to call for
+          inning at the <Link href="dale">Dale’s</Link> Worldwide Field. Trying to get umpires to target their players
+          for Incineration, and instead get destroyed themselves, was something Tigers fans would continue to call for
           during the Expansion Era. This was the first time it happened, and it was cathartic; Mummy Melcon started
           playing in Season 7 as <Jump time="2020-09-17T15:05:31Z">Yazmin Mason’s replacement</Jump>. It could be seen
           as vengeance.

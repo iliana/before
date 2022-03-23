@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Link from "next/link";
 import { History, Entry } from "../../components/histories";
 import { Jump } from "../../components/jump";
@@ -182,7 +181,7 @@ export default function Page() {
         <p>
           Siobhan Chark had a storied history with Feedback. An original member of the Georgias, they Feedbacked with
           Sosa Hayes of the <Link href="spies">Houston Spies</Link> on{" "}
-          <Jump time="2021-05-17T16:06:23Z">Season 19, Day 2</Jump> and then to the
+          <Jump time="2021-05-17T16:06:23Z">Season 19, Day 2</Jump> and then to the{" "}
           <Link href="sunbeams">Hellmouth Sunbeams</Link> on{" "}
           <Jump time="2021-05-19T08:22:10Z" team="9debc64f-74b7-4ae1-a4d6-fce0144b6ea5">
             Day 41
@@ -204,8 +203,8 @@ export default function Page() {
         </p>
         <p>
           This time in Atlantis didn’t last. Chark would Feedback two more times during Season 23, on Days{" "}
-          <Jump time="2021-07-23T03:17:24Z">83</Jump> and <Jump time="2021-07-23T15:19:21Z">95</Jump>
-          ending up on the <Link href="jazz-hands">Breckenridge Jazz Hands</Link>, where she finished the Expansion Era.
+          <Jump time="2021-07-23T03:17:24Z">83</Jump> and <Jump time="2021-07-23T15:19:21Z">95</Jump> ending up on the{" "}
+          <Link href="jazz-hands">Breckenridge Jazz Hands</Link>, where she finished the Expansion Era.
         </p>
       </Entry>
       <Entry date="Season 23, Day 97" title="Neerie McCloud Returned From Elsewhere!" time="2021-07-23T17:04:27Z">
