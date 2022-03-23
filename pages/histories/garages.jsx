@@ -272,8 +272,8 @@ export default function Page() {
       </Entry>
       <Entry date="Season 14 Latesiesta" title="Did Anyone Hear an Echo?" time="2021-03-18T15:45:00Z">
         <p>
-          In Season 14, the Garages built Psychoacoustics in the Big Garage, which came with an unexpected surprise:
-          Wyatt Mason X, the tenth of thirteen Echoes given to every team that built Psychoacoustics that Latesiesta.
+          In Season 14, the Garages built PsychoAcoustics in the Big Garage, which came with an unexpected surprise:
+          Wyatt Mason X, the tenth of thirteen Echoes given to every team that built PsychoAcoustics that Latesiesta.
           Guessing that plot was afoot, Garages fans braced themselves for their newest player being temporary. Despite
           that, 45 minutes later MaX was given a unique nickname and was well-loved by fans before xe had even played a
           single game.
