@@ -172,7 +172,7 @@ export default function Page() {
           <Jump redirect="/_before/www.blaseball2.com/" time="2021-06-24T19:10:30Z">
             Blaseball 2
           </Jump>{" "}
-          due to their eDensity, releasing pickled herring for the League’s enjoyment.
+          due to their eDensity, releasing pickled herring for the league’s enjoyment.
         </p>
         <p>
           This result was a huge relief for Worms fans. The whole shebang was a result of gift damage control; fans knew
