@@ -97,7 +97,7 @@ export default function Page() {
       </Entry>
       <Entry date="Season 7, Day 99" title="The Snackrifice" redirect="/leaderboard" time="2020-09-18T20:55:00Z">
         <p>
-          Angry at the gods for not winning any decent Blessings for several seasons, tired of cheering on games that
+          Angry at the Gods for not winning any decent Blessings for several seasons, tired of cheering on games that
           the team consistently lost, and in defiance of the Shelled One barking red text at the league, Tacos fans
           decided to strike back and attempt to break the game. Noting that players above the Idol Board’s red line{" "}
           <Jump redirect="/leaderboard" time="2020-09-11T18:55:00Z">
