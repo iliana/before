@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { useCallback, useContext } from "react";
+import { useEffect, useRef, useContext } from "react";
 import { getTeam } from "../lib/teams";
 import { LineScoreData } from "../pages/_app";
 import Image from "./image";
@@ -23,16 +23,18 @@ function overflowCheck({ target }) {
 
 export default function LineScore({ id, salmon = {} }) {
   const { season, day, away, home } = useContext(LineScoreData)[id];
+  const container = useRef(null);
+
+  useEffect(() => {
+    overflowCheck({ target: container.current });
+  }, []);
+
   return (
     <div className="tw-before-linescore-fade">
       <div
         className="tw-w-full tw-max-w-full tw-overflow-x-auto tw-my-2 lg:tw-my-3"
         onScroll={overflowCheck}
-        ref={useCallback((node) => {
-          if (node) {
-            node.dispatchEvent(new Event("scroll"));
-          }
-        }, [])}
+        ref={container}
       >
         <table className="tw-font-sans tw-whitespace-nowrap tw-text-sm lg:tw-text-base tw-mx-auto">
           <thead>
