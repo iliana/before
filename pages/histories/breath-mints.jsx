@@ -182,8 +182,8 @@ export default function Page() {
         </p>
         <LineScore id="0cab391d-f1e4-4d69-95a4-19b130b4aff5" />
         <p>
-          In fact, don’t even watch this game, because the result was so obvious, so the historical record that the
-          Mints won and Simba Davis never got a win can be trusted.
+          In fact, don’t even watch this game, because the result was so obvious that the historical record showing the
+          Mints winning and Simba Davis never getting a win can be trusted.
         </p>
       </Entry>
       <Entry title="The Plansma" season={15} day={52}>
