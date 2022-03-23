@@ -226,22 +226,18 @@ export default function Page() {
         team="23e4cbc1-e9cd-47fa-a35b-bfa06f726cb7"
       >
         <p>
-          Georgias fans didn’t help bring Niq Nyong’o back from the Hall to not watch her play on her new team, the
-          Philly Pies. With Observation Debt, Niq Nyong’o beaned Dimi Blather, a dead player on the Maryland Squirrels,
-          while they were <Jump time="2021-07-27T06:10:40Z">inhabiting the Haunted Kennedy Loser</Jump>. Blather was
+          In the <Jump election={23}>Season 23 Election</Jump>, the Georgias finally got just what they wanted: They
+          managed to bring Niq Nyong’o back from the dead, and they made it the rest of the league’s problem. Even though she ended up on the <Link href="pies">Philly Pies</Link>, Georgias fans were eager to watch her play. On Day 16, she hit Dimi Blather, a dead player on the Maryland Squirrels, with a pitch while they were <Jump time="2021-07-27T06:10:40Z">inhabiting the Haunted Kennedy Loser</Jump>. Blather was
           then Redacted and removed from the Squirrels’ lineup upon{" "}
-          <Jump time="2021-07-27T06:11:10Z">entering the Secret Base</Jump>. Sometimes, the sim stitched together a
-          highly unlikely series of events to create a truly hilarious moment.
+          <Jump time="2021-07-27T06:11:10Z">entering the Secret Base</Jump>.
         </p>
       </Entry>
       <Entry season={24} day={28} title="Reunion Special">
         <p>
-          In the <Jump election={23}>Season 23 Election</Jump>, the Georgias finally got just what they wanted: They
-          managed to bring Niq Nyong’o back from the dead, and they made it the rest of the league’s problem. The
-          Georgias got treated to one last reunion special, where they got to play a game against Nyong’o in Philly. It
+          The Georgias got treated to one last reunion special when they got to play a game against recently-resurrected Niq Nyong’o in <Link href="pies">Philly</Link>. It
           was like the whole gang was back together, except for Mint Shupe and Siobhan Chark and Hercules Alighieri and
           Gita Biscuits and Erin Jesaulenko and Ankle Halifax and all the other Georgias who were lost along the way.
-          Maybe Randy Dennis <Jump time="2021-07-27T19:28:32Z">got beaned</Jump>, but they made it out of the week fine,
+          Maybe Randy Dennis <Jump time="2021-07-27T19:28:32Z">got hit with a pitch</Jump>, but they made it out of the week fine,
           so it was okay! It was fine! Everything was fine.
         </p>
       </Entry>
