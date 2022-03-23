@@ -58,7 +58,7 @@ export default function Page() {
           It also gave the team a unique footprint on the league: with{" "}
           <Jump redirect="/player/c0177f76-67fc-4316-b650-894159dede45" season={24} day={1}>
             two
-          </Jump>
+          </Jump>{" "}
           <Jump redirect="/player/afc90398-b891-4cdf-9dea-af8a3a79d793" season={24} day={1}>
             exceptions
           </Jump>
