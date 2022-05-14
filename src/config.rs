@@ -115,8 +115,8 @@ impl Default for Config {
             stream_cache_size: None,
             matomo_base_url: None,
             matomo_site_id: None,
-
-            rocket_config: rocket::Config::default(),
+            address: std::net::Ipv4Addr::new(127, 0, 0, 1).into(),
+            port: 8000,
             client: reqwest::Client::default(),
             static_zip: None,
             css_path: None,
