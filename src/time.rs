@@ -15,7 +15,7 @@ use time::OffsetDateTime;
 /// This wrapper type is probably the most convenient way to consistently serialize/deserialize a
 /// timestamp as an RFC 3339 string.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, From, Into)]
-pub(crate) struct DateTime(OffsetDateTime);
+pub(crate) struct DateTime(pub(crate) OffsetDateTime);
 
 impl DateTime {
     pub(crate) const fn new(inner: OffsetDateTime) -> DateTime {

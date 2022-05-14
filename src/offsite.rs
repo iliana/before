@@ -8,7 +8,6 @@ use rocket::{get, request::FromParam, State};
 use std::collections::BTreeSet;
 use std::ffi::OsString;
 use std::path::{Path, PathBuf};
-use std::str::FromStr;
 use time::OffsetDateTime;
 
 #[derive(Debug, Clone, Copy)]
@@ -72,7 +71,7 @@ pub(crate) async fn offsite(
                     config,
                     Path::new("offsite")
                         .join(domain.as_str())
-                        .join(entry.to_string())
+                        .join(entry.0.unix_timestamp().to_string())
                         .join(path),
                     range,
                 )
