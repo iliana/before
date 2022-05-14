@@ -9,6 +9,7 @@ use std::collections::BTreeSet;
 use std::ffi::OsString;
 use std::path::{Path, PathBuf};
 use std::str::FromStr;
+use time::OffsetDateTime;
 
 #[derive(Debug, Clone, Copy)]
 pub(crate) enum Site {
@@ -56,7 +57,14 @@ pub(crate) async fn offsite(
 
             let time = time.context("time required for this site")?;
             let entries = read_dir_static(config, domain)
-                .filter_map(|s| ready(s.to_str().and_then(|s| DateTime::from_str(s).ok())))
+                .filter_map(|s| {
+                    ready(
+                        s.to_str()
+                            .and_then(|s| s.parse::<i64>().ok())
+                            .and_then(|s| OffsetDateTime::from_unix_timestamp(s).ok())
+                            .map(DateTime::new),
+                    )
+                })
                 .collect::<BTreeSet<_>>()
                 .await;
             if let Some(entry) = entries.range(..time.0).rev().next() {
