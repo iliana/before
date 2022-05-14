@@ -29,8 +29,8 @@ pub struct Config {
     pub matomo_base_url: Option<String>,
     pub matomo_site_id: Option<i64>,
 
-    #[serde(flatten)]
-    rocket_config: rocket::Config,
+    port: u16,
+    address: std::net::IpAddr,
 
     #[serde(skip)]
     pub(crate) client: reqwest::Client,
@@ -54,14 +54,14 @@ impl Config {
         self.client = builder.build()?;
 
         let addr = format!(
-            "{}://{}:{}",
-            if self.rocket_config.tls_enabled() {
-                "https"
-            } else {
-                "http"
-            },
-            self.rocket_config.address,
-            self.rocket_config.port,
+            "http://{}:{}",
+            // if self.rocket_config.tls_enabled() {
+            //     "https"
+            // } else {
+            //     "http"
+            // },
+            self.address,
+            self.port,
         );
         self.chronicler_base_url = self.chronicler_base_url.replace("{addr}", &addr);
         self.upnuts_base_url = self.upnuts_base_url.replace("{addr}", &addr);
